@@ -22,7 +22,10 @@ function App() {
 
             <div className="flex justify-center min-h-screen bg-green-50">
                 <div className="mt-2">
-                    <Balance/>
+
+                    <div>
+                        <Balance/>
+                    </div>
 
                     <div className="flex gap-4 mt-8">
                         <div className="w-1/2">

@@ -7,12 +7,12 @@ const LastRecords = () => {
         <div className="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow-lg sm:p-8 dark:bg-gray-800 dark:border-gray-700">
             <div className="flex items-center justify-between mb-4">
                 <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Last records</h5>
-                <Button size="sm" variant="text" className="flex gap-2">
-                    <a href="#">
+                <a href="#" className="inline-block">
+                    <Button size="sm" variant="text" className="flex gap-2">
                         View all
-                    </a>
-                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                </Button>
+                        <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                    </Button>
+                </a>
             </div>
             <hr className="my-2 border-blue-gray-50" />
             <div className="flow-root">

@@ -1,11 +1,17 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Sidebar from "./Sidebar";
 
 const Menu = ({ sidebarOpen, toggleSidebar }) => {
     const containerRef = useRef(null);
     const sidebarRef = useRef(null);
+    const [animationComplete, setAnimationComplete] = useState(false);
 
-
+    const handleToggleSidebar = () => {
+        if (!sidebarOpen) {
+            setAnimationComplete(false);
+        }
+        toggleSidebar(!sidebarOpen);
+    };
 
     React.useEffect(() => {
         if (sidebarOpen) {
@@ -17,12 +23,29 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
         }
     }, [sidebarOpen]);
 
+    React.useEffect(() => {
+        if (sidebarOpen && containerRef.current && !animationComplete) {
+            const sidebarElement = sidebarRef.current;
+            sidebarElement.style.transform = "translateX(-100%)";
+            sidebarElement.style.transition = "transform 0s";
+            requestAnimationFrame(() => {
+                sidebarElement.style.transform = "translateX(0)";
+                sidebarElement.style.transition = "transform 0.5s";
+                setAnimationComplete(true);
+            });
+        }
+    }, [sidebarOpen, animationComplete]);
+
     return (
         <>
             <div className="fixed bottom-0 left-0 w-full bg-white z-50 border-t-1 border-green-900">
                 <div className="h-[70px] flex items-center justify-between">
                     <div className="flex items-center ml-4">
-                        <div ref={containerRef} className="cursor-pointer bg-white rounded-full p-3" onClick={() => toggleSidebar(!sidebarOpen)}>
+                        <div
+                            ref={containerRef}
+                            className="cursor-pointer bg-white rounded-full p-3"
+                            onClick={handleToggleSidebar}
+                        >
                             <div className={`h-1 w-6 bg-green-700 rounded mb-1 ${sidebarOpen ? 'opacity-0' : ''}`}></div>
                             <div className={`h-1 w-6 bg-green-700 rounded mb-1 ${sidebarOpen ? 'opacity-0' : ''}`}></div>
                             <div className={`h-1 w-6 bg-green-700 rounded ${sidebarOpen ? 'opacity-0' : ''}`}></div>
