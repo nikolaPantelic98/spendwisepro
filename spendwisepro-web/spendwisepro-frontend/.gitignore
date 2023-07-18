@@ -1,0 +1,22 @@
+# Ignore Maven build output
+.mvn/
+target/
+
+# Ignore Node.js dependencies
+node_modules/
+
+# Ignore IDE-specific files
+*.iml
+.idea/
+
+# Ignore build artifacts
+*.jar
+*.war
+*.class
+
+# Ignore logs
+*.log
+
+# Ignore npm/yarn lock files
+package-lock.json
+yarn.lock
