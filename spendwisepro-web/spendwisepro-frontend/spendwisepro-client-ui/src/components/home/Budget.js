@@ -11,7 +11,7 @@ import { Progress } from "@material-tailwind/react";
 
 export default function Budget() {
     return (
-        <Card className="mt-6 w-96 shadow-lg">
+        <Card className="mt-6 w-full shadow-lg">
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                     Budgets

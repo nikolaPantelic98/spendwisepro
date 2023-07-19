@@ -23,11 +23,11 @@ function App() {
             <div className="flex justify-center min-h-screen bg-green-50">
                 <div className="mt-2">
 
-                    <div>
+                    <div className="mx-6">
                         <Balance/>
                     </div>
 
-                    <div className="flex gap-4 mt-8">
+                    <div className="flex gap-4 mt-8 mx-6">
                         <div className="w-1/2">
                             <Cash />
                         </div>
@@ -36,15 +36,15 @@ function App() {
                         </div>
                     </div>
 
-                    <div className="flex mt-8">
+                    <div className="flex mt-8 mx-6">
                         <LastRecords/>
                     </div>
 
-                    <div className="flex mt-2">
+                    <div className="flex mt-2 mx-6">
                         <Budget/>
                     </div>
 
-                    <div className="flex mt-2">
+                    <div className="flex mt-2 mx-6">
                         <Goal/>
                     </div>
                 </div>

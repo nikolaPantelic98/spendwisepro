@@ -10,7 +10,7 @@ import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 
 export default function Example() {
     return (
-        <Card className="mt-6 w-96 shadow-lg">
+        <Card className="w-full shadow-lg">
             <CardBody>
                 <CurrencyDollarIcon className="text-green-700 w-12 h-12 mb-4" />
                 <Typography variant="h5" color="blue-gray" className="mb-2">
