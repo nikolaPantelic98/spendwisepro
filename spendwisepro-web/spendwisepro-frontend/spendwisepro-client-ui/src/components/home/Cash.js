@@ -21,7 +21,7 @@ export default function Cash() {
                 </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-                <a href="#" className="inline-block">
+                <a className="inline-block">
                     <Button size="sm" variant="text" className="flex items-center gap-2">
                         Show More
                         <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />

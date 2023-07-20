@@ -24,6 +24,7 @@ import {
     ChevronDownIcon,
     CreditCardIcon
 } from "@heroicons/react/24/outline";
+import {Link} from "react-router-dom";
 
 const Sidebar = forwardRef((props, ref) => {
     const [open, setOpen] = React.useState(0);
@@ -35,12 +36,14 @@ const Sidebar = forwardRef((props, ref) => {
 
     return (
         <Card ref={ref} className="fixed top-0 left-0 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 overflow-y-auto">
+
             <div className="mb-2 flex items-center gap-4 p-4">
                 <img src="https://i.ibb.co/RCG4xZ2/Spend-Wise-Pro-circle.png" className="h-15 w-14"  alt="Logo"/>
                 <Typography variant="h5" color="blue-gray">
                     SpendWisePro
                 </Typography>
             </div>
+
             <List>
                 <Accordion
                     open={open === 1}
@@ -51,14 +54,16 @@ const Sidebar = forwardRef((props, ref) => {
                         />
                     }
                 >
-                    <ListItem>
-                            <ListItemPrefix>
-                                <HomeIcon className="h-5 w-5 text-green-900" />
-                            </ListItemPrefix>
-                            <Typography color="blue-gray" className="mr-auto font-normal">
-                                Home
-                            </Typography>
-                    </ListItem>
+                    <Link to="/home">
+                        <ListItem>
+                                <ListItemPrefix>
+                                    <HomeIcon className="h-5 w-5 text-green-900" />
+                                </ListItemPrefix>
+                                <Typography color="blue-gray" className="mr-auto font-normal">
+                                    Home
+                                </Typography>
+                        </ListItem>
+                    </Link>
 
                     <ListItem className="p-0" selected={open === 1}>
                         <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
@@ -70,6 +75,7 @@ const Sidebar = forwardRef((props, ref) => {
                             </Typography>
                         </AccordionHeader>
                     </ListItem>
+
                     <AccordionBody className="py-1">
                         <List className="p-0">
                             <ListItem>
@@ -110,7 +116,9 @@ const Sidebar = forwardRef((props, ref) => {
                             </ListItem>
                         </List>
                     </AccordionBody>
+
                 </Accordion>
+
                 <Accordion
                     open={open === 2}
                     icon={
@@ -130,6 +138,7 @@ const Sidebar = forwardRef((props, ref) => {
                             </Typography>
                         </AccordionHeader>
                     </ListItem>
+
                     <AccordionBody className="py-1">
                         <List className="p-0">
                             <ListItem>
@@ -138,35 +147,44 @@ const Sidebar = forwardRef((props, ref) => {
                                 </ListItemPrefix>
                                 View Categories
                             </ListItem>
-                            <ListItem>
-                                <ListItemPrefix>
-                                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                </ListItemPrefix>
-                                Add Category
-                            </ListItem>
+                            <Link to="/add_category">
+                                <ListItem>
+                                    <ListItemPrefix>
+                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                    </ListItemPrefix>
+                                    Add Category
+                                </ListItem>
+                            </Link>
                         </List>
                     </AccordionBody>
+
                 </Accordion>
+
                 <hr className="my-2 border-blue-gray-50" />
+
                 <ListItem>
                     <ListItemPrefix>
                         <UserCircleIcon className="h-5 w-5 text-green-900" />
                     </ListItemPrefix>
                     Profile
                 </ListItem>
+
                 <ListItem>
                     <ListItemPrefix>
                         <Cog6ToothIcon className="h-5 w-5 text-green-900" />
                     </ListItemPrefix>
                     Settings
                 </ListItem>
+
                 <ListItem>
                     <ListItemPrefix>
                         <PowerIcon className="h-5 w-5 text-red-900" />
                     </ListItemPrefix>
                     Log Out
                 </ListItem>
+
                 <hr className="my-2 border-blue-gray-50" />
+
                 <Accordion
                     open={open === 3}
                     icon={
@@ -186,23 +204,30 @@ const Sidebar = forwardRef((props, ref) => {
                             </Typography>
                         </AccordionHeader>
                     </ListItem>
+
                     <AccordionBody className="py-1">
                         <List className="p-0">
-                            <ListItem>
-                                <ListItemPrefix>
-                                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                </ListItemPrefix>
-                                LinkedIn
-                            </ListItem>
-                            <ListItem>
-                                <ListItemPrefix>
-                                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                </ListItemPrefix>
-                                GitHub
-                            </ListItem>
+                            <Link to="https://www.linkedin.com/in/nikola-pantelic-017616254">
+                                <ListItem>
+                                    <ListItemPrefix>
+                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                    </ListItemPrefix>
+                                    LinkedIn
+                                </ListItem>
+                            </Link>
+                            <Link to="https://github.com/nikolaPantelic98">
+                                <ListItem>
+                                    <ListItemPrefix>
+                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                    </ListItemPrefix>
+                                    GitHub
+                                </ListItem>
+                            </Link>
                         </List>
                     </AccordionBody>
+
                 </Accordion>
+
                 <div className="h-8"></div>
             </List>
 

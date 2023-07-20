@@ -8,7 +8,7 @@ import {
 import { CurrencyDollarIcon } from "@heroicons/react/24/solid";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 
-export default function Example() {
+export default function Balance() {
     return (
         <Card className="w-full shadow-lg">
             <CardBody>
@@ -21,7 +21,7 @@ export default function Example() {
                 </Typography>
             </CardBody>
             <CardFooter className="pt-0">
-                <a href="#" className="inline-block">
+                <a className="inline-block">
                     <Button size="sm" variant="text" className="flex items-center gap-2">
                         Show More
                         <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
