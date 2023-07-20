@@ -15,7 +15,7 @@ export default function AddCategoryForm() {
         <Card className="mt-6">
             <CardBody>
 
-                <div className="w-64 m-6">
+                <div className="m-6">
                     <Input label="Name" color="green" />
                 </div>
 

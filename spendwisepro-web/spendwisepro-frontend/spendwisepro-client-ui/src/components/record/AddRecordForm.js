@@ -28,7 +28,7 @@ export default function AddRecordForm() {
         <Card className="mt-6">
             <CardBody>
 
-                <div className="flow-root w-76">
+                <div className="flow-root">
                     <Tabs value={selectedTab} onChange={(value) => setSelectedTab(value)}>
 
                         <TabsHeader>
@@ -47,10 +47,10 @@ export default function AddRecordForm() {
                                 <TabPanel key={value} value={value}>
                                     {value === "expense" ? (
                                         <>
-                                            <div className="w-64 m-6">
+                                            <div className="m-6">
                                                 <Input label="Amount" color="green" type="number" step="0.01" pattern="[0-9]*" />
                                             </div>
-                                            <div className="w-64 m-6">
+                                            <div className="m-6">
                                                 <Select label="Category" menuProps={{ className: "h-48" }} color="green">
                                                     <Option value="Grocery">Grocery</Option>
                                                     <Option value="Fuel">Fuel</Option>
@@ -59,16 +59,16 @@ export default function AddRecordForm() {
                                                     <Option value="Tax">Tax</Option>
                                                 </Select>
                                             </div>
-                                            <div className="w-64 m-6">
+                                            <div className="m-6">
                                                 <Select label="Payment Type"  color="green">
                                                     <Option value="Cash">Cash</Option>
                                                     <Option value="Cred Card">Credit Card</Option>
                                                 </Select>
                                             </div>
-                                            <div className="w-64 m-6">
+                                            <div className="m-6">
                                                 <Input label="Date and Time" color="green" type="date" />
                                             </div>
-                                            <div className="w-64 m-6">
+                                            <div className="m-6">
                                                 <Input label="Note" color="green" />
                                             </div>
 
@@ -79,10 +79,10 @@ export default function AddRecordForm() {
                                         </>
                                     ) : (
                                         <>
-                                            <div className="w-64 m-6">
+                                            <div className="m-6">
                                                 <Input label="Amount" color="green" type="number" step="0.01" inputMode="decimal" pattern="[0-9]*" />
                                             </div>
-                                            <div className="w-64 m-6">
+                                            <div className="m-6">
                                                 <Select label="Category" menuProps={{ className: "h-48" }} color="green">
                                                     <Option value="Grocery">Grocery</Option>
                                                     <Option value="Fuel">Fuel</Option>
@@ -91,16 +91,16 @@ export default function AddRecordForm() {
                                                     <Option value="Tax">Tax</Option>
                                                 </Select>
                                             </div>
-                                            <div className="w-64 m-6">
+                                            <div className="m-6">
                                                 <Select label="Payment Type"  color="green">
                                                     <Option value="Cash">Cash</Option>
                                                     <Option value="Cred Card">Credit Card</Option>
                                                 </Select>
                                             </div>
-                                            <div className="w-64 m-6">
+                                            <div className="m-6">
                                                 <Input label="Date and Time" color="green" type="date" />
                                             </div>
-                                            <div className="w-64 m-6">
+                                            <div className="m-6">
                                                 <Input label="Note" color="green" />
                                             </div>
 

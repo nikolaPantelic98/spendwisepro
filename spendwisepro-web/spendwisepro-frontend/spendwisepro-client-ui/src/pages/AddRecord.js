@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Menu from '../components/common/Menu';
 import AddRecordHeader from "../components/record/AddRecordHeader";
 import AddRecordForm from "../components/record/AddRecordForm";
+import PageWidthLayout from "../components/common/PageWidthLayout";
 
 function AddRecord() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -23,9 +24,11 @@ function AddRecord() {
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
-                        <div>
+                        <div className="mx-6">
                             <AddRecordForm/>
                         </div>
+
+                        <div><PageWidthLayout/></div>
                     </div>
                 </div>
 

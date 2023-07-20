@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Menu from '../components/common/Menu';
 import AddCategoryForm from "../components/category/AddCategoryForm";
 import AddCategoryHeader from "../components/category/AddCategoryHeader";
+import PageWidthLayout from "../components/common/PageWidthLayout";
 
 function AddCategory() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -23,9 +24,11 @@ function AddCategory() {
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
-                        <div>
+                        <div className="mx-6">
                             <AddCategoryForm/>
                         </div>
+
+                        <div><PageWidthLayout/></div>
                     </div>
                 </div>
 

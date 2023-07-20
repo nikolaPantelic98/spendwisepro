@@ -5,7 +5,7 @@ import {
 } from "@material-tailwind/react";
 import React from "react";
 import '../../App.css';
-import {ArrowLongRightIcon, PencilSquareIcon, PlusCircleIcon} from "@heroicons/react/24/outline";
+import {PencilSquareIcon, PlusCircleIcon} from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
 
 export default function CategoryList() {
@@ -13,8 +13,7 @@ export default function CategoryList() {
         <Card className="mt-6">
             <CardBody>
 
-
-                <div className="flow-root w-76">
+                <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200">
 
                         <li className="py-3 sm:py-4 flex justify-end items-center mb-3">

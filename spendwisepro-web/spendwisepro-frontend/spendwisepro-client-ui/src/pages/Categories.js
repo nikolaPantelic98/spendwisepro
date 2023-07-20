@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Menu from '../components/common/Menu';
 import CategoriesHeader from "../components/category/CategoriesHeader";
 import CategoryList from "../components/category/CategoryList";
+import PageWidthLayout from "../components/common/PageWidthLayout";
 
 function Categories() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -23,9 +24,11 @@ function Categories() {
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
-                        <div>
+                        <div className="mx-6">
                             <CategoryList/>
                         </div>
+
+                        <div><PageWidthLayout/></div>
                     </div>
                 </div>
 
