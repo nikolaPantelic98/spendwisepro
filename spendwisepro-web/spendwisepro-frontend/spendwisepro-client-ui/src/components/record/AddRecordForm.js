@@ -48,7 +48,7 @@ export default function AddRecordForm() {
                                     {value === "expense" ? (
                                         <>
                                             <div className="w-64 m-6">
-                                                <Input label="How much?" color="green" type="number" step="0.01" />
+                                                <Input label="Amount" color="green" type="number" step="0.01" pattern="[0-9]*" />
                                             </div>
                                             <div className="w-64 m-6">
                                                 <Select label="Category" menuProps={{ className: "h-48" }} color="green">
@@ -80,7 +80,7 @@ export default function AddRecordForm() {
                                     ) : (
                                         <>
                                             <div className="w-64 m-6">
-                                                <Input label="How much?" color="green" type="number" step="0.01" />
+                                                <Input label="Amount" color="green" type="number" step="0.01" inputMode="decimal" pattern="[0-9]*" />
                                             </div>
                                             <div className="w-64 m-6">
                                                 <Select label="Category" menuProps={{ className: "h-48" }} color="green">
