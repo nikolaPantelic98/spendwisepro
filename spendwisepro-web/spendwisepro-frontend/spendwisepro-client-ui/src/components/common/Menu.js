@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import Sidebar from "./Sidebar";
+import {Link} from "react-router-dom";
 
 const Menu = ({ sidebarOpen, toggleSidebar }) => {
     const containerRef = useRef(null);
@@ -53,11 +54,13 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
                 </div>
 
                 <div className="flex items-center justify-center flex-grow">
-                    <a className="flex items-center justify-center w-10 h-10 rounded-full bg-green-500 hover:bg-green-700 focus:outline-none">
-                        <div className="text-white text-4xl font-normal">
-                            <span className="flex items-center justify-center h-full mb-1">+</span>
+                    <Link to="/add_record">
+                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-green-500 hover:bg-green-700 focus:outline-none">
+                            <div className="text-white text-4xl font-normal">
+                                <span className="flex items-center justify-center h-full mb-1">+</span>
+                            </div>
                         </div>
-                    </a>
+                    </Link>
                 </div>
 
                 <div className="flex items-center mr-4">
