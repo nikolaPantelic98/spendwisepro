@@ -3,7 +3,7 @@ import {Button, Typography} from "@material-tailwind/react";
 import {ArrowLeftIcon} from "@heroicons/react/20/solid";
 import { useNavigate } from 'react-router-dom';
 
-const AddCategoryHeader = () => {
+const CategoriesHeader = () => {
 
     const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ const AddCategoryHeader = () => {
 
             <div>
                 <Typography variant="h3" color="black" className="mb-2 mx-4">
-                    Add category
+                    Categories
                 </Typography>
             </div>
             <hr className="my-2 border-green-100" style={{ boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)" }} />
@@ -30,4 +30,4 @@ const AddCategoryHeader = () => {
     );
 };
 
-export default AddCategoryHeader;
+export default CategoriesHeader;

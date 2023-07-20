@@ -40,3 +40,8 @@
 body.sidebar-open {
   overflow: hidden;
 }
+
+.w-76 {
+  width: 19rem;
+}
+
