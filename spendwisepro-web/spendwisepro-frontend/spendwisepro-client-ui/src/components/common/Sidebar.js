@@ -84,12 +84,14 @@ const Sidebar = forwardRef((props, ref) => {
                                 </ListItemPrefix>
                                 Balance
                             </ListItem>
-                            <ListItem>
-                                <ListItemPrefix>
-                                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                </ListItemPrefix>
-                                Cash
-                            </ListItem>
+                            <Link to="/cash">
+                                <ListItem>
+                                    <ListItemPrefix>
+                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                    </ListItemPrefix>
+                                    Cash
+                                </ListItem>
+                            </Link>
                             <ListItem>
                                 <ListItemPrefix>
                                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
