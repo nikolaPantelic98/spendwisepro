@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import Menu from '../components/common/Menu';
-import Balance from '../components/home/Balance';
-import Cash from '../components/home/Cash';
-import CreditCard from '../components/home/CreditCard';
-import LastRecords from "../components/home/LastRecords";
-import Budget from "../components/home/Budget";
-import Goal from "../components/home/Goal";
+import BalanceCard from '../components/home/BalanceCard';
+import CashCard from '../components/home/CashCard';
+import CreditCardCard from '../components/home/CreditCardCard';
+import LastRecordsCard from "../components/home/LastRecordsCard";
+import BudgetCard from "../components/home/BudgetCard";
+import GoalCard from "../components/home/GoalCard";
 
-function Home() {
+function HomePage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -24,28 +24,28 @@ function Home() {
                 <div className="mt-2">
 
                     <div className="mx-6">
-                        <Balance/>
+                        <BalanceCard/>
                     </div>
 
                     <div className="flex gap-4 mt-8 mx-6">
                         <div className="w-1/2">
-                            <Cash />
+                            <CashCard />
                         </div>
                         <div className="w-1/2">
-                            <CreditCard />
+                            <CreditCardCard />
                         </div>
                     </div>
 
                     <div className="mt-8 mx-6">
-                        <LastRecords/>
+                        <LastRecordsCard/>
                     </div>
 
                     <div className="mt-8 mx-6">
-                        <Budget/>
+                        <BudgetCard/>
                     </div>
 
                     <div className="mt-8 mx-6">
-                        <Goal/>
+                        <GoalCard/>
                     </div>
                 </div>
             </div>
@@ -55,4 +55,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default HomePage;

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Menu from '../components/common/Menu';
-import AddCategoryForm from "../components/category/AddCategoryForm";
-import AddCategoryHeader from "../components/category/AddCategoryHeader";
+import AddRecordHeader from "../components/record/AddRecordHeader";
+import AddRecordForm from "../components/record/AddRecordForm";
 import PageWidthLayout from "../components/common/PageWidthLayout";
 
-function AddCategory() {
+function AddRecordPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -19,13 +19,13 @@ function AddCategory() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <AddCategoryHeader/>
+                    <AddRecordHeader/>
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <AddCategoryForm/>
+                            <AddRecordForm/>
                         </div>
 
                         <div><PageWidthLayout/></div>
@@ -39,4 +39,4 @@ function AddCategory() {
     );
 }
 
-export default AddCategory;
+export default AddRecordPage;

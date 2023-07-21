@@ -61,7 +61,7 @@ export default function AddRecordForm() {
                                             </div>
                                             <div className="m-6">
                                                 <Select label="Payment Type"  color="green">
-                                                    <Option value="Cash">Cash</Option>
+                                                    <Option value="CashCard">CashCard</Option>
                                                     <Option value="Cred Card">Credit Card</Option>
                                                 </Select>
                                             </div>
@@ -93,7 +93,7 @@ export default function AddRecordForm() {
                                             </div>
                                             <div className="m-6">
                                                 <Select label="Payment Type"  color="green">
-                                                    <Option value="Cash">Cash</Option>
+                                                    <Option value="CashCard">CashCard</Option>
                                                     <Option value="Cred Card">Credit Card</Option>
                                                 </Select>
                                             </div>

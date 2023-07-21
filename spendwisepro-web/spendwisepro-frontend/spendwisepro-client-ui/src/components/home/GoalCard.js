@@ -8,12 +8,12 @@ import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import { Progress } from "@material-tailwind/react";
 
-export default function Budget() {
+export default function GoalCard() {
     return (
         <Card className="w-full shadow-lg">
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
-                    Budgets
+                    Goals
                     <Button size="sm" variant="text" className="flex gap-2">
                         <a>
                             Show more
@@ -26,34 +26,34 @@ export default function Budget() {
 
                 <div>
                     <Typography variant="h6" className="text-gray-900">
-                        Weekly
+                        Vacation
                     </Typography>
                     <div className="flex items-center justify-between mb-2">
                         <Typography className="text-gray-900 font-medium mt-2">
                             Week
                         </Typography>
                         <Typography className="text-gray-900 font-semibold mt-2">
-                            $70,00
+                            $40,00
                         </Typography>
                     </div>
-                    <Progress value={50} size="lg" className="mt-2" color="green" />
+                    <Progress value={65} size="lg" className="mt-2" color="green" />
                 </div>
 
                 <hr className="my-2 border-blue-gray-50 mb-8 mt-8" />
 
                 <div>
                     <Typography variant="h6" className="text-gray-900">
-                        Monthly
+                        Car
                     </Typography>
                     <div className="flex items-center justify-between mb-2">
                         <Typography className="text-gray-900 font-medium mt-2">
                             Month
                         </Typography>
                         <Typography className="text-gray-900 font-semibold mt-2">
-                            $235,15
+                            $400,00
                         </Typography>
                     </div>
-                    <Progress value={80} size="lg" className="mt-2" color="green" />
+                    <Progress value={20} size="lg" className="mt-2" color="green" />
                 </div>
 
                 <div className="h-8"></div>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Menu from '../components/common/Menu';
-import CategoriesHeader from "../components/category/CategoriesHeader";
-import CategoryList from "../components/category/CategoryList";
+import AddCategoryForm from "../components/category/AddCategoryForm";
+import AddCategoryHeader from "../components/category/AddCategoryHeader";
 import PageWidthLayout from "../components/common/PageWidthLayout";
 
-function Categories() {
+function AddCategoryPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -19,13 +19,13 @@ function Categories() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <CategoriesHeader/>
+                    <AddCategoryHeader/>
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <CategoryList/>
+                            <AddCategoryForm/>
                         </div>
 
                         <div><PageWidthLayout/></div>
@@ -39,4 +39,4 @@ function Categories() {
     );
 }
 
-export default Categories;
+export default AddCategoryPage;

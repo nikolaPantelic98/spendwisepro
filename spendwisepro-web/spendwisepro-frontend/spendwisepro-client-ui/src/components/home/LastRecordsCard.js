@@ -7,7 +7,7 @@ import {
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function LastRecords() {
+export default function LastRecordsCard() {
     return (
         <Card className="w-full shadow-lg">
             <CardBody>

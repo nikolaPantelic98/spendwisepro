@@ -10,7 +10,7 @@ import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis} from "recharts";
 import React from "react";
 
-export default function Balance() {
+export default function BalanceCard() {
 
     const data = [
         {

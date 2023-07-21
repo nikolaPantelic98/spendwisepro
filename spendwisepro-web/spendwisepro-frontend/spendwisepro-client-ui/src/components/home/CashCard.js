@@ -5,18 +5,18 @@ import {
     Typography,
     Button,
 } from "@material-tailwind/react";
-import { CreditCardIcon } from "@heroicons/react/24/outline";
+import { CurrencyEuroIcon } from "@heroicons/react/24/outline";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function CreditCard() {
+export default function CashCard() {
     return (
         <Card className="w-full shadow-lg">
             <CardBody>
                 <div>
                     <Typography variant="h6" color="blue-gray" className="mb-2 flex items-center justify-between">
-                        <span className="mb-2">Credit card</span>
-                        <CreditCardIcon className="text-green-700 w-6 h-6 mb-2" />
+                        <span className="mb-2">Cash</span>
+                        <CurrencyEuroIcon className="text-green-700 w-6 h-6 mb-2" />
                     </Typography>
                 </div>
 
@@ -27,7 +27,7 @@ export default function CreditCard() {
                         TODAY
                     </p>
                     <Typography variant="h4" className="text-gray-900">
-                        $300,00
+                        $700,00
                     </Typography>
                 </div>
             </CardBody>
