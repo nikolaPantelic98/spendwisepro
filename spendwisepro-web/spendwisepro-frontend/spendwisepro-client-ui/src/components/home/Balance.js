@@ -145,7 +145,7 @@ export default function Balance() {
             <CardBody>
                 <div>
                     <Typography variant="h4" color="blue-gray" className="mb-2 flex items-center justify-between">
-                        Balance Trend
+                        <span className="mb-2">Balance Trend</span>
                         <CurrencyDollarIcon className="text-green-700 w-10 h-10 mb-4" />
                     </Typography>
                 </div>
