@@ -8,6 +8,7 @@ import {
 import { CurrencyEuroIcon } from "@heroicons/react/24/outline";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import React from "react";
+import {Link} from "react-router-dom";
 
 export default function CashCard() {
     return (
@@ -32,12 +33,14 @@ export default function CashCard() {
                 </div>
             </CardBody>
             <CardFooter className="pt-0">
-                <a className="inline-block">
-                    <Button size="sm" variant="text" className="flex items-center gap-1">
-                        Show More
-                        <ArrowLongRightIcon strokeWidth={2} className="w-3 h-3" />
-                    </Button>
-                </a>
+                <div className="inline-block">
+                    <Link to="/cash">
+                        <Button size="sm" variant="text" className="flex items-center gap-1">
+                            Show More
+                            <ArrowLongRightIcon strokeWidth={2} className="w-3 h-3" />
+                        </Button>
+                    </Link>
+                </div>
             </CardFooter>
         </Card>
     );

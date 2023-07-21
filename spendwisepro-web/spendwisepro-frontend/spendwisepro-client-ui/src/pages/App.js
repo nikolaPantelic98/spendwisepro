@@ -4,6 +4,7 @@ import HomePage from "./HomePage";
 import AddCategoryPage from "./AddCategoryPage";
 import CategoriesPage from "./CategoriesPage";
 import AddRecordPage from "./AddRecordPage";
+import CashPage from "./CashPage";
 
 function App() {
 
@@ -19,6 +20,8 @@ function App() {
                     <Route path="/categories" element={<CategoriesPage />}></Route>
 
                     <Route path="/add_record" element={<AddRecordPage />}></Route>
+
+                    <Route path="/cash" element={<CashPage />}></Route>
                 </Routes>
             </BrowserRouter>
         </>
