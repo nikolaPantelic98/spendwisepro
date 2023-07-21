@@ -10,6 +10,10 @@ import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import React from "react";
 import {Link} from "react-router-dom";
 
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
+
 export default function CashCard() {
     return (
         <Card className="w-full shadow-lg">
@@ -34,7 +38,7 @@ export default function CashCard() {
             </CardBody>
             <CardFooter className="pt-0">
                 <div className="inline-block">
-                    <Link to="/cash">
+                    <Link to="/cash" onClick={scrollToTop}>
                         <Button size="sm" variant="text" className="flex items-center gap-1">
                             Show More
                             <ArrowLongRightIcon strokeWidth={2} className="w-3 h-3" />

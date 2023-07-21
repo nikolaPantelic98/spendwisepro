@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Menu from '../components/common/Menu';
-import CashHeader from "../components/cash/CashHeader";
 import PageWidthLayout from "../components/common/PageWidthLayout";
-import CashChartCard from "../components/cash/CashChartCard";
+import CreditCardHeader from "../components/creditcard/CreditCardHeader";
+import CreditCardChartCard from "../components/creditcard/CreditCardChartCard";
 
-function CashPage() {
+function CreditCardPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -19,13 +19,13 @@ function CashPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <CashHeader/>
+                    <CreditCardHeader/>
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <CashChartCard/>
+                            <CreditCardChartCard/>
                         </div>
 
                         <div><PageWidthLayout/></div>
@@ -39,4 +39,4 @@ function CashPage() {
     );
 }
 
-export default CashPage;
+export default CreditCardPage;

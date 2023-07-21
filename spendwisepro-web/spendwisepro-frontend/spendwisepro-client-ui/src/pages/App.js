@@ -5,6 +5,7 @@ import AddCategoryPage from "./AddCategoryPage";
 import CategoriesPage from "./CategoriesPage";
 import AddRecordPage from "./AddRecordPage";
 import CashPage from "./CashPage";
+import CreditCardPage from "./CreditCardPage";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                     <Route path="/add_record" element={<AddRecordPage />}></Route>
 
                     <Route path="/cash" element={<CashPage />}></Route>
+                    <Route path="/credit_cards" element={<CreditCardPage />}></Route>
                 </Routes>
             </BrowserRouter>
         </>

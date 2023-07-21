@@ -3,6 +3,10 @@ import Sidebar from "./Sidebar";
 import {Link} from "react-router-dom";
 import {PlusCircleIcon} from "@heroicons/react/24/solid";
 
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
+
 const Menu = ({ sidebarOpen, toggleSidebar }) => {
     const containerRef = useRef(null);
     const sidebarRef = useRef(null);
@@ -55,13 +59,13 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
                 </div>
 
                 <div className="flex items-center justify-center flex-grow">
-                    <Link to="/add_record">
+                    <Link to="/add_record" onClick={scrollToTop}>
                         <PlusCircleIcon color="green" className="w-12 h-12" strokeWidth={2} />
                     </Link>
                 </div>
 
                 <div className="flex items-center mr-4">
-                    <Link to="/home">
+                    <Link to="/home" onClick={scrollToTop}>
                         <img src="https://i.ibb.co/RCG4xZ2/Spend-Wise-Pro-circle.png" alt="Logo" className="h-15 w-14" />
                     </Link>
                 </div>

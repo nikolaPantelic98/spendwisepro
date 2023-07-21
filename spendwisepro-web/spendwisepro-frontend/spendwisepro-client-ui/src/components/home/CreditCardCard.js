@@ -8,6 +8,11 @@ import {
 import { CreditCardIcon } from "@heroicons/react/24/outline";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 import React from "react";
+import {Link} from "react-router-dom";
+
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
 
 export default function CreditCardCard() {
     return (
@@ -32,12 +37,14 @@ export default function CreditCardCard() {
                 </div>
             </CardBody>
             <CardFooter className="pt-0">
-                <a className="inline-block">
-                    <Button size="sm" variant="text" className="flex items-center gap-1">
-                        Show More
-                        <ArrowLongRightIcon strokeWidth={2} className="w-3 h-3" />
-                    </Button>
-                </a>
+                <div className="inline-block">
+                    <Link to="/credit_cards" onClick={scrollToTop}>
+                        <Button size="sm" variant="text" className="flex items-center gap-1">
+                            Show More
+                            <ArrowLongRightIcon strokeWidth={2} className="w-3 h-3" />
+                        </Button>
+                    </Link>
+                </div>
             </CardFooter>
         </Card>
     );

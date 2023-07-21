@@ -26,6 +26,11 @@ import {
 } from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
 
+
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
+
 const Sidebar = forwardRef((props, ref) => {
     const [open, setOpen] = React.useState(0);
     const [openAlert, setOpenAlert] = React.useState(true);
@@ -54,7 +59,7 @@ const Sidebar = forwardRef((props, ref) => {
                         />
                     }
                 >
-                    <Link to="/home">
+                    <Link to="/home" onClick={scrollToTop}>
                         <ListItem>
                                 <ListItemPrefix>
                                     <HomeIcon className="h-5 w-5 text-green-900" />
@@ -84,7 +89,7 @@ const Sidebar = forwardRef((props, ref) => {
                                 </ListItemPrefix>
                                 Balance
                             </ListItem>
-                            <Link to="/cash">
+                            <Link to="/cash" onClick={scrollToTop}>
                                 <ListItem>
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -92,12 +97,14 @@ const Sidebar = forwardRef((props, ref) => {
                                     Cash
                                 </ListItem>
                             </Link>
-                            <ListItem>
-                                <ListItemPrefix>
-                                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                </ListItemPrefix>
-                                Credit Cards
-                            </ListItem>
+                            <Link to="/credit_cards" onClick={scrollToTop}>
+                                <ListItem>
+                                    <ListItemPrefix>
+                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                    </ListItemPrefix>
+                                    Credit Cards
+                                </ListItem>
+                            </Link>
                             <ListItem>
                                 <ListItemPrefix>
                                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -143,7 +150,7 @@ const Sidebar = forwardRef((props, ref) => {
 
                     <AccordionBody className="py-1">
                         <List className="p-0">
-                            <Link to="/categories">
+                            <Link to="/categories" onClick={scrollToTop}>
                                 <ListItem>
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -151,7 +158,7 @@ const Sidebar = forwardRef((props, ref) => {
                                     View Categories
                                 </ListItem>
                             </Link>
-                            <Link to="/add_category">
+                            <Link to="/add_category" onClick={scrollToTop}>
                                 <ListItem>
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
