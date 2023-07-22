@@ -20,7 +20,7 @@ export default function CreditCardCard() {
             <CardBody>
                 <div>
                     <Typography variant="h6" color="blue-gray" className="mb-2 flex items-center justify-between">
-                        <span className="mb-2">Credit card</span>
+                        <span className="mb-2">Card</span>
                         <CreditCardIcon className="text-green-700 w-6 h-6 mb-2" />
                     </Typography>
                 </div>

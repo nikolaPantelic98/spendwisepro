@@ -3,6 +3,7 @@ import Menu from '../components/common/Menu';
 import PageWidthLayout from "../components/common/PageWidthLayout";
 import CreditCardHeader from "../components/creditcard/CreditCardHeader";
 import CreditCardChartCard from "../components/creditcard/CreditCardChartCard";
+import CreditCardList from "../components/creditcard/CreditCardList";
 
 function CreditCardPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -26,6 +27,10 @@ function CreditCardPage() {
                     <div className="mt-2">
                         <div className="mx-6">
                             <CreditCardChartCard/>
+                        </div>
+
+                        <div className="mx-6">
+                            <CreditCardList/>
                         </div>
 
                         <div><PageWidthLayout/></div>

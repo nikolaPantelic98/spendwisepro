@@ -4,7 +4,7 @@ import {
     Typography,
     Chip, Tabs, TabsHeader, Tab, TabsBody, TabPanel,
 } from "@material-tailwind/react";
-import {ArrowTrendingUpIcon, CurrencyEuroIcon} from "@heroicons/react/24/solid";
+import {ArrowTrendingUpIcon, CreditCardIcon} from "@heroicons/react/24/solid";
 import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis} from "recharts";
 import React, {useState} from "react";
 
@@ -189,7 +189,7 @@ export default function CreditCardChartCard() {
                 <div>
                     <Typography variant="h4" color="blue-gray" className="mb-2 flex items-center justify-between">
                         <span className="mb-2">Credit Card Trend</span>
-                        <CurrencyEuroIcon className="text-green-700 w-10 h-10 mb-4" />
+                        <CreditCardIcon className="text-green-700 w-10 h-10 mb-4" />
                     </Typography>
                 </div>
 
