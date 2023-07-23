@@ -33,11 +33,11 @@ export default function BudgetCard() {
                             <Typography className="text-gray-900 font-medium mt-2">
                                 General
                             </Typography>
-                            <div className="flex gap-3">
+                            <div className="flex gap-4 items-center">
                                 <Typography className="text-gray-900 font-semibold mt-2">
                                     $70,00
                                 </Typography>
-                                <Typography className="text-gray-700 font-medium mt-2">
+                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
                                     50%
                                 </Typography>
                             </div>
@@ -50,16 +50,16 @@ export default function BudgetCard() {
                             <Typography className="text-gray-900 font-medium mt-2">
                                 Tobacco
                             </Typography>
-                            <div className="flex gap-3">
+                            <div className="flex gap-4 items-center">
                                 <Typography className="text-gray-900 font-semibold mt-2">
-                                    $25,00
+                                    -$5,00
                                 </Typography>
-                                <Typography className="text-gray-700 font-medium mt-2">
-                                    75%
+                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                    -10%
                                 </Typography>
                             </div>
                         </div>
-                        <Progress value={25} size="lg" className="mt-2" color="green" />
+                        <Progress value={100} size="lg" className="mt-2" color="red" />
                     </div>
                 </div>
 
@@ -74,16 +74,16 @@ export default function BudgetCard() {
                             <Typography className="text-gray-900 font-medium mt-2">
                                 General
                             </Typography>
-                            <div className="flex gap-3">
+                            <div className="flex gap-4 items-center">
                                 <Typography className="text-gray-900 font-semibold mt-2">
                                     $235,15
                                 </Typography>
-                                <Typography className="text-gray-700 font-medium mt-2">
-                                    20%
+                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                    10%
                                 </Typography>
                             </div>
                         </div>
-                        <Progress value={80} size="lg" className="mt-2" color="green" />
+                        <Progress value={90} size="lg" className="mt-2" color="orange" />
                     </div>
 
                     <div className="mt-2">
@@ -91,11 +91,11 @@ export default function BudgetCard() {
                             <Typography className="text-gray-900 font-medium mt-2">
                                 Car
                             </Typography>
-                            <div className="flex gap-3">
+                            <div className="flex gap-4 items-center">
                                 <Typography className="text-gray-900 font-semibold mt-2">
                                     150,00
                                 </Typography>
-                                <Typography className="text-gray-700 font-medium mt-2">
+                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
                                     35%
                                 </Typography>
                             </div>
@@ -109,13 +109,16 @@ export default function BudgetCard() {
                 <div className="container mx-auto mt-6">
                     <p className="text-xs flex items-center justify-center gap-4">
                         <span className="flex items-center">
-                            <span className="w-3 h-3 inline-block mr-1 bg-green-500"></span><span className="text-xxs">In limit</span>
+                            <span className="w-3 h-3 inline-block mr-1 bg-green-500"></span>
+                            <span className="text-xxs">In limit</span>
                         </span>
                         <span className="flex items-center">
-                            <span className="w-3 h-3 inline-block mr-1 bg-orange-500"></span><span className="text-xxs">Risk of overspent</span>
+                            <span className="w-3 h-3 inline-block mr-1 bg-orange-500"></span>
+                            <span className="text-xxs">Risk of overspent</span>
                         </span>
                         <span className="flex items-center">
-                            <span className="w-3 h-3 inline-block mr-1 bg-red-500"></span><span className="text-xxs">Overspent</span>
+                            <span className="w-3 h-3 inline-block mr-1 bg-red-500"></span>
+                            <span className="text-xxs">Overspent</span>
                         </span>
                     </p>
                 </div>
