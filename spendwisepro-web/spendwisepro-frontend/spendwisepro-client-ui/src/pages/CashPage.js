@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Menu from '../components/common/Menu';
 import CashHeader from "../components/cash/CashHeader";
 import PageWidthLayout from "../components/common/PageWidthLayout";
-import CashChartCard from "../components/cash/CashChartCard";
+import CashChart from "../components/cash/CashChart";
 
 function CashPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -25,7 +25,7 @@ function CashPage() {
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <CashChartCard/>
+                            <CashChart/>
                         </div>
 
                         <div><PageWidthLayout/></div>

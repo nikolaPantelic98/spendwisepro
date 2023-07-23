@@ -8,7 +8,7 @@ import {ArrowTrendingUpIcon, CurrencyEuroIcon} from "@heroicons/react/24/solid";
 import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis} from "recharts";
 import React, {useState} from "react";
 
-export default function CashChartCard() {
+export default function CashChart() {
 
     const dataMonth = [
         {

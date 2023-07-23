@@ -8,7 +8,7 @@ import {ArrowTrendingUpIcon, CreditCardIcon} from "@heroicons/react/24/solid";
 import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis} from "recharts";
 import React, {useState} from "react";
 
-export default function CreditCardChartCard() {
+export default function CreditCardChart() {
 
     const dataMonth = [
         {
