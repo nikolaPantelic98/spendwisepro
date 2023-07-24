@@ -37,7 +37,6 @@ function CreditCardPage() {
                     </div>
                 </div>
 
-                <div className="h-32 bg-green-50"></div>
             </div>
 
         </>
