@@ -41,8 +41,13 @@ export default function LastRecordsCard() {
                                         Fuel
                                     </p>
                                 </div>
-                                <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                    -$30,00
+                                <div className="text-right">
+                                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                        -$30,00
+                                    </div>
+                                    <div className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        21 July 2023
+                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -63,8 +68,13 @@ export default function LastRecordsCard() {
                                         Market
                                     </p>
                                 </div>
-                                <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                                    -$18,72
+                                <div className="text-right">
+                                    <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                                        -$18,72
+                                    </div>
+                                    <div className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        21 July 2023
+                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -85,8 +95,13 @@ export default function LastRecordsCard() {
                                         Phone Bill
                                     </p>
                                 </div>
-                                <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                                    -$25,50
+                                <div className="text-right">
+                                    <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                                        -$25,50
+                                    </div>
+                                    <div className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        20 July 2023
+                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -107,8 +122,13 @@ export default function LastRecordsCard() {
                                         Coffee with family
                                     </p>
                                 </div>
-                                <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                                    -$8,35
+                                <div className="text-right">
+                                    <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                                        -$8,35
+                                    </div>
+                                    <div className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        19 July 2023
+                                    </div>
                                 </div>
                             </div>
                         </li>
