@@ -123,6 +123,12 @@ const Sidebar = forwardRef((props, ref) => {
                                 </ListItemPrefix>
                                 Goals
                             </ListItem>
+                            <ListItem>
+                                <ListItemPrefix>
+                                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                </ListItemPrefix>
+                                Planned Payments
+                            </ListItem>
                         </List>
                     </AccordionBody>
 
