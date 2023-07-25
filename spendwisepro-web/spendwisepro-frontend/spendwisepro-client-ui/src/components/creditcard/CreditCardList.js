@@ -4,8 +4,13 @@ import {
     Typography,
     Button,
 } from "@material-tailwind/react";
-import {ArrowLongRightIcon, PencilSquareIcon} from "@heroicons/react/24/outline";
+import {ArrowLongRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
+import {Link} from "react-router-dom";
+
+function scrollToTop() {
+    window.scrollTo(0, 0);
+}
 
 export default function CreditCardList() {
     return (
@@ -13,12 +18,12 @@ export default function CreditCardList() {
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                     Your Credit Cards
-                    <Button size="sm" variant="text" className="flex gap-2">
-                        <a>
-                            Add
-                        </a>
-                        <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                    </Button>
+                    <Link to="/add_credit_card" onClick={scrollToTop}>
+                        <Button size="sm" variant="text" className="flex gap-2">
+                                Add
+                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                        </Button>
+                    </Link>
                 </Typography>
 
                 <hr className="my-2 border-blue-gray-50" />
