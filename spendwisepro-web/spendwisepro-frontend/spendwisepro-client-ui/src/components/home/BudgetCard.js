@@ -156,7 +156,7 @@ export default function BudgetCard() {
                     </p>
                 </div>
 
-                <div className="h-8"></div>
+                <div className="h-6"></div>
             </CardBody>
         </Card>
     );

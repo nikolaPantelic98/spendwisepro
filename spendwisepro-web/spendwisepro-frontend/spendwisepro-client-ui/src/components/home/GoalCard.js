@@ -4,9 +4,10 @@ import {
     Typography,
     Button,
 } from "@material-tailwind/react";
-import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
+import {ArrowLongRightIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 import { Progress } from "@material-tailwind/react";
+import {Link} from "react-router-dom";
 
 export default function GoalCard() {
     return (
@@ -25,83 +26,113 @@ export default function GoalCard() {
                 <hr className="my-2 border-blue-gray-50 mb-6" />
 
                 <div>
-                    <Typography variant="h6" className="text-gray-900">
+                    <Typography variant="h6" className="text-gray-900 mb-2">
                         Weekly
                     </Typography>
-                    <div className="mt-2">
-                        <div className="flex items-center justify-between mb-2">
-                            <Typography className="text-gray-900 font-medium mt-2">
-                                Laptop
-                            </Typography>
-                            <div className="flex gap-4 items-center">
-                                <Typography className="text-gray-900 font-semibold mt-2">
-                                    $20,00
-                                </Typography>
-                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                    80%
-                                </Typography>
-                            </div>
-                        </div>
-                        <Progress value={80} size="lg" className="mt-2" color="orange" />
-                    </div>
 
-                    <div className="mt-2">
-                        <div className="flex items-center justify-between mb-2">
-                            <Typography className="text-gray-900 font-medium mt-2">
-                                Aqua Park
-                            </Typography>
-                            <div className="flex gap-4 items-center">
-                                <Typography className="text-gray-900 font-semibold mt-2">
-                                    $0,00
-                                </Typography>
-                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                    100%
-                                </Typography>
+                    <Link>
+                        <div className="mb-2 flex items-center">
+                            <div className="flex-1 w-0">
+                                <div className="flex items-center justify-between mb-2">
+                                    <Typography className="text-gray-900 font-medium mt-2 truncate">
+                                        Laptop
+                                    </Typography>
+                                    <div className="flex gap-4 items-center">
+                                        <Typography className="text-gray-900 font-semibold mt-2">
+                                            $20,00
+                                        </Typography>
+                                        <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                            80%
+                                        </Typography>
+                                    </div>
+                                </div>
+                                <Progress value={80} size="lg" className="mt-2" color="orange" />
+                            </div>
+                            <div className="flex items-center">
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 ml-3 mt-2" />
                             </div>
                         </div>
-                        <Progress value={100} size="lg" className="mt-2" color="green" />
-                    </div>
+                    </Link>
+
+                    <Link>
+                        <div className="mb-2 flex items-center">
+                            <div className="flex-1 w-0">
+                                <div className="flex items-center justify-between mb-2">
+                                    <Typography className="text-gray-900 font-medium mt-2 truncate">
+                                        Aqua Park
+                                    </Typography>
+                                    <div className="flex gap-4 items-center">
+                                        <Typography className="text-gray-900 font-semibold mt-2">
+                                            $0,00
+                                        </Typography>
+                                        <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                            100%
+                                        </Typography>
+                                    </div>
+                                </div>
+                                <Progress value={100} size="lg" className="mt-2" color="green" />
+                            </div>
+                            <div className="flex items-center">
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 ml-3 mt-2" />
+                            </div>
+                        </div>
+                    </Link>
                 </div>
 
                 <hr className="my-2 border-blue-gray-50 mb-6 mt-6" />
 
                 <div>
-                    <Typography variant="h6" className="text-gray-900">
+                    <Typography variant="h6" className="text-gray-900 mb-2">
                         Monthly
                     </Typography>
-                    <div className="mt-2">
-                        <div className="flex items-center justify-between mb-2">
-                            <Typography className="text-gray-900 font-medium mt-2">
-                                Vacation
-                            </Typography>
-                            <div className="flex gap-4 items-center">
-                                <Typography className="text-gray-900 font-semibold mt-2">
-                                    $100,00
-                                </Typography>
-                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                    40%
-                                </Typography>
-                            </div>
-                        </div>
-                        <Progress value={40} size="lg" className="mt-2" color="orange" />
-                    </div>
 
-                    <div className="mt-2">
-                        <div className="flex items-center justify-between mb-2">
-                            <Typography className="text-gray-900 font-medium mt-2">
-                                House
-                            </Typography>
-                            <div className="flex gap-4 items-center">
-                                <Typography className="text-gray-900 font-semibold mt-2">
-                                    $450,00
-                                </Typography>
-                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                    10%
-                                </Typography>
+                    <Link>
+                        <div className="mb-2 flex items-center">
+                            <div className="flex-1 w-0">
+                                <div className="flex items-center justify-between mb-2">
+                                    <Typography className="text-gray-900 font-medium mt-2 truncate">
+                                        Vacation
+                                    </Typography>
+                                    <div className="flex gap-4 items-center">
+                                        <Typography className="text-gray-900 font-semibold mt-2">
+                                            $100,00
+                                        </Typography>
+                                        <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                            40%
+                                        </Typography>
+                                    </div>
+                                </div>
+                                <Progress value={40} size="lg" className="mt-2" color="orange" />
+                            </div>
+                            <div className="flex items-center">
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 ml-3 mt-2" />
                             </div>
                         </div>
-                        <Progress value={10} size="lg" className="mt-2" color="red" />
-                    </div>
+                    </Link>
+
+                    <Link>
+                        <div className="mb-2 flex items-center">
+                            <div className="flex-1 w-0">
+                                <div className="flex items-center justify-between mb-2">
+                                    <Typography className="text-gray-900 font-medium mt-2 truncate">
+                                        House
+                                    </Typography>
+                                    <div className="flex gap-4 items-center">
+                                        <Typography className="text-gray-900 font-semibold mt-2">
+                                            $450,00
+                                        </Typography>
+                                        <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                            10%
+                                        </Typography>
+                                    </div>
+                                </div>
+                                <Progress value={10} size="lg" className="mt-2" color="red" />
+                            </div>
+                            <div className="flex items-center">
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 ml-3 mt-2" />
+                            </div>
+                        </div>
+                    </Link>
                 </div>
 
                 <hr className="my-2 border-blue-gray-50 mb-6 mt-6" />
@@ -123,7 +154,7 @@ export default function GoalCard() {
                     </p>
                 </div>
 
-                <div className="h-8"></div>
+                <div className="h-6"></div>
             </CardBody>
         </Card>
     );
