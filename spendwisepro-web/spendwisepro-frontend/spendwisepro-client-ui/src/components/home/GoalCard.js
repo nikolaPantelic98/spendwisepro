@@ -31,7 +31,7 @@ export default function GoalCard() {
                     </Typography>
 
                     <Link>
-                        <div className="mb-2 flex items-center">
+                        <div className="mb-2 flex items-center space-x-4">
                             <div className="flex-1 w-0">
                                 <div className="flex items-center justify-between mb-2">
                                     <Typography className="text-gray-900 font-medium mt-2 truncate">
@@ -49,13 +49,13 @@ export default function GoalCard() {
                                 <Progress value={80} size="lg" className="mt-2" color="orange" />
                             </div>
                             <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 ml-3 mt-2" />
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2" />
                             </div>
                         </div>
                     </Link>
 
                     <Link>
-                        <div className="mb-2 flex items-center">
+                        <div className="mb-2 flex items-center space-x-4">
                             <div className="flex-1 w-0">
                                 <div className="flex items-center justify-between mb-2">
                                     <Typography className="text-gray-900 font-medium mt-2 truncate">
@@ -73,7 +73,7 @@ export default function GoalCard() {
                                 <Progress value={100} size="lg" className="mt-2" color="green" />
                             </div>
                             <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 ml-3 mt-2" />
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2" />
                             </div>
                         </div>
                     </Link>
@@ -87,7 +87,7 @@ export default function GoalCard() {
                     </Typography>
 
                     <Link>
-                        <div className="mb-2 flex items-center">
+                        <div className="mb-2 flex items-center space-x-4">
                             <div className="flex-1 w-0">
                                 <div className="flex items-center justify-between mb-2">
                                     <Typography className="text-gray-900 font-medium mt-2 truncate">
@@ -105,13 +105,13 @@ export default function GoalCard() {
                                 <Progress value={40} size="lg" className="mt-2" color="orange" />
                             </div>
                             <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 ml-3 mt-2" />
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2" />
                             </div>
                         </div>
                     </Link>
 
                     <Link>
-                        <div className="mb-2 flex items-center">
+                        <div className="mb-2 flex items-center space-x-4">
                             <div className="flex-1 w-0">
                                 <div className="flex items-center justify-between mb-2">
                                     <Typography className="text-gray-900 font-medium mt-2 truncate">
@@ -129,7 +129,7 @@ export default function GoalCard() {
                                 <Progress value={10} size="lg" className="mt-2" color="red" />
                             </div>
                             <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 ml-3 mt-2" />
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2" />
                             </div>
                         </div>
                     </Link>
