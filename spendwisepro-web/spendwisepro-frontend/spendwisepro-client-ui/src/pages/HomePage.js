@@ -6,6 +6,7 @@ import GoalCard from "../components/home/GoalCard";
 import TrendCard from "../components/home/TrendCard";
 import PageWidthLayout from "../components/common/PageWidthLayout";
 import PlannedPaymentsCard from "../components/home/PlannedPaymentsCard";
+import TopExpensesCard from "../components/home/TopExpensesCard";
 
 function HomePage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -29,6 +30,10 @@ function HomePage() {
 
                     <div className="mt-8 mx-6">
                         <LastRecordsCard/>
+                    </div>
+
+                    <div className="mt-8 mx-6">
+                        <TopExpensesCard/>
                     </div>
 
                     <div className="mt-8 mx-6">
