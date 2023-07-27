@@ -117,12 +117,14 @@ const Sidebar = forwardRef((props, ref) => {
                                 </ListItemPrefix>
                                 Expenses
                             </ListItem>
-                            <ListItem className="focus:bg-green-50 hover:bg-green-50">
-                                <ListItemPrefix>
-                                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                </ListItemPrefix>
-                                Budgets
-                            </ListItem>
+                            <Link to="/budgets" onClick={scrollToTop}>
+                                <ListItem className="focus:bg-green-50 hover:bg-green-50">
+                                    <ListItemPrefix>
+                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                    </ListItemPrefix>
+                                    Budgets
+                                </ListItem>
+                            </Link>
                             <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                 <ListItemPrefix>
                                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />

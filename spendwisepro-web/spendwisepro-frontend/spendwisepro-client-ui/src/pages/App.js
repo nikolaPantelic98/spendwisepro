@@ -7,6 +7,7 @@ import AddRecordPage from "./AddRecordPage";
 import CashPage from "./CashPage";
 import CreditCardPage from "./CreditCardPage";
 import AddCreditCardPage from "./AddCreditCardPage";
+import BudgetPage from "./BudgetPage";
 
 function App() {
 
@@ -26,6 +27,8 @@ function App() {
                     <Route path="/cash" element={<CashPage />}></Route>
                     <Route path="/credit_cards" element={<CreditCardPage />}></Route>
                     <Route path="/add_credit_card" element={<AddCreditCardPage />}></Route>
+
+                    <Route path="/budgets" element={<BudgetPage />}></Route>
                 </Routes>
             </BrowserRouter>
         </>

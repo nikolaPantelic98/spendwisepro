@@ -10,17 +10,22 @@ import { Progress } from "@material-tailwind/react";
 import {Link} from "react-router-dom";
 
 export default function BudgetCard() {
+
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+
     return (
         <Card className="w-full shadow-lg">
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                     Budgets
-                    <Button size="sm" variant="text" className="flex gap-2">
-                        <a>
-                            Show more
-                        </a>
-                        <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                    </Button>
+                    <Link to="/budgets" onClick={scrollToTop}>
+                        <Button size="sm" variant="text" className="flex gap-2">
+                                Show more
+                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                        </Button>
+                    </Link>
                 </Typography>
 
                 <hr className="my-2 border-blue-gray-50 mb-6" />
