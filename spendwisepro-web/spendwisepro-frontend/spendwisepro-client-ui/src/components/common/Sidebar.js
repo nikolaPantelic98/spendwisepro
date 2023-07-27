@@ -60,7 +60,7 @@ const Sidebar = forwardRef((props, ref) => {
                     }
                 >
                     <Link to="/home" onClick={scrollToTop}>
-                        <ListItem>
+                        <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                 <ListItemPrefix>
                                     <HomeIcon className="h-5 w-5 text-green-900" />
                                 </ListItemPrefix>
@@ -70,7 +70,7 @@ const Sidebar = forwardRef((props, ref) => {
                         </ListItem>
                     </Link>
 
-                    <ListItem className="p-0" selected={open === 1}>
+                    <ListItem className="p-0 focus:bg-green-50 hover:bg-green-50" selected={open === 1}>
                         <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
                             <ListItemPrefix>
                                 <PresentationChartBarIcon className="h-5 w-5 text-green-900" />
@@ -83,14 +83,14 @@ const Sidebar = forwardRef((props, ref) => {
 
                     <AccordionBody className="py-1">
                         <List className="p-0">
-                            <ListItem>
+                            <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                 <ListItemPrefix>
                                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                 </ListItemPrefix>
                                 Balance
                             </ListItem>
                             <Link to="/cash" onClick={scrollToTop}>
-                                <ListItem>
+                                <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                     </ListItemPrefix>
@@ -98,38 +98,38 @@ const Sidebar = forwardRef((props, ref) => {
                                 </ListItem>
                             </Link>
                             <Link to="/credit_cards" onClick={scrollToTop}>
-                                <ListItem>
+                                <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                     </ListItemPrefix>
                                     Credit Cards
                                 </ListItem>
                             </Link>
-                            <ListItem>
+                            <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                 <ListItemPrefix>
                                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                 </ListItemPrefix>
                                 Last Records
                             </ListItem>
-                            <ListItem>
+                            <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                 <ListItemPrefix>
                                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                 </ListItemPrefix>
                                 Expenses
                             </ListItem>
-                            <ListItem>
+                            <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                 <ListItemPrefix>
                                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                 </ListItemPrefix>
                                 Budgets
                             </ListItem>
-                            <ListItem>
+                            <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                 <ListItemPrefix>
                                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                 </ListItemPrefix>
                                 Goals
                             </ListItem>
-                            <ListItem>
+                            <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                 <ListItemPrefix>
                                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                 </ListItemPrefix>
@@ -149,7 +149,7 @@ const Sidebar = forwardRef((props, ref) => {
                         />
                     }
                 >
-                    <ListItem className="p-0" selected={open === 2}>
+                    <ListItem className="p-0 focus:bg-green-50 hover:bg-green-50" selected={open === 2}>
                         <AccordionHeader onClick={() => handleOpen(2)} className="border-b-0 p-3">
                             <ListItemPrefix>
                                 <TagIcon className="h-5 w-5 text-green-900" />
@@ -163,7 +163,7 @@ const Sidebar = forwardRef((props, ref) => {
                     <AccordionBody className="py-1">
                         <List className="p-0">
                             <Link to="/categories" onClick={scrollToTop}>
-                                <ListItem>
+                                <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                     </ListItemPrefix>
@@ -171,7 +171,7 @@ const Sidebar = forwardRef((props, ref) => {
                                 </ListItem>
                             </Link>
                             <Link to="/add_category" onClick={scrollToTop}>
-                                <ListItem>
+                                <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                     </ListItemPrefix>
@@ -185,21 +185,21 @@ const Sidebar = forwardRef((props, ref) => {
 
                 <hr className="my-2 border-blue-gray-50" />
 
-                <ListItem>
+                <ListItem className="focus:bg-green-50 hover:bg-green-50">
                     <ListItemPrefix>
                         <UserCircleIcon className="h-5 w-5 text-green-900" />
                     </ListItemPrefix>
                     Profile
                 </ListItem>
 
-                <ListItem>
+                <ListItem className="focus:bg-green-50 hover:bg-green-50">
                     <ListItemPrefix>
                         <Cog6ToothIcon className="h-5 w-5 text-green-900" />
                     </ListItemPrefix>
                     Settings
                 </ListItem>
 
-                <ListItem>
+                <ListItem className="focus:bg-red-50 hover:bg-red-50">
                     <ListItemPrefix>
                         <PowerIcon className="h-5 w-5 text-red-900" />
                     </ListItemPrefix>
@@ -217,7 +217,7 @@ const Sidebar = forwardRef((props, ref) => {
                         />
                     }
                 >
-                    <ListItem className="p-0" selected={open === 3}>
+                    <ListItem className="p-0 focus:bg-green-50 hover:bg-green-50" selected={open === 3}>
                         <AccordionHeader onClick={() => handleOpen(3)} className="border-b-0 p-3">
                             <ListItemPrefix>
                                 <EyeIcon className="h-5 w-5 text-green-900" />
@@ -231,7 +231,7 @@ const Sidebar = forwardRef((props, ref) => {
                     <AccordionBody className="py-1">
                         <List className="p-0">
                             <Link to="https://www.linkedin.com/in/nikola-pantelic-017616254">
-                                <ListItem>
+                                <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                     </ListItemPrefix>
@@ -239,7 +239,7 @@ const Sidebar = forwardRef((props, ref) => {
                                 </ListItem>
                             </Link>
                             <Link to="https://github.com/nikolaPantelic98">
-                                <ListItem>
+                                <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
                                     </ListItemPrefix>
