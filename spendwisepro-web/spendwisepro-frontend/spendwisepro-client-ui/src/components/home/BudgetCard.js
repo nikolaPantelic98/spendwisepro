@@ -2,7 +2,7 @@ import {
     Card,
     CardBody,
     Typography,
-    Button,
+    Button, ListItem,
 } from "@material-tailwind/react";
 import {ArrowLongRightIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
@@ -31,7 +31,7 @@ export default function BudgetCard() {
                     </Typography>
 
                     <Link>
-                        <div className="mb-2 flex items-center space-x-4">
+                        <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                             <div className="flex-1 w-0">
                                 <div className="flex items-center justify-between mb-2">
                                     <Typography className="text-gray-900 font-medium mt-2 truncate">
@@ -46,16 +46,16 @@ export default function BudgetCard() {
                                         </Typography>
                                     </div>
                                 </div>
-                                <Progress value={50} size="lg" className="mt-2" color="green" />
+                                <Progress value={50} size="lg" className="mt-2 mb-2" color="green" />
                             </div>
                             <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2" />
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
                             </div>
-                        </div>
+                        </ListItem>
                     </Link>
 
                     <Link>
-                        <div className="mb-2 flex items-center space-x-4">
+                        <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                             <div className="flex-1 w-0">
                                 <div className="flex items-center justify-between mb-2">
                                     <Typography className="text-gray-900 font-medium mt-2 truncate">
@@ -70,12 +70,12 @@ export default function BudgetCard() {
                                         </Typography>
                                     </div>
                                 </div>
-                                <Progress value={100} size="lg" className="mt-2" color="red" />
+                                <Progress value={100} size="lg" className="mt-2 mb-2" color="red" />
                             </div>
                             <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2" />
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
                             </div>
-                        </div>
+                        </ListItem>
                     </Link>
                 </div>
 
@@ -87,7 +87,7 @@ export default function BudgetCard() {
                     </Typography>
 
                     <Link>
-                        <div className="mb-2 flex items-center space-x-4">
+                        <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                             <div className="flex-1 w-0">
                                 <div className="flex items-center justify-between mb-2">
                                     <Typography className="text-gray-900 font-medium mt-2 truncate">
@@ -102,16 +102,16 @@ export default function BudgetCard() {
                                         </Typography>
                                     </div>
                                 </div>
-                                <Progress value={90} size="lg" className="mt-2" color="orange" />
+                                <Progress value={90} size="lg" className="mt-2 mb-2" color="orange" />
                             </div>
                             <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2" />
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
                             </div>
-                        </div>
+                        </ListItem>
                     </Link>
 
                     <Link>
-                        <div className="mb-2 flex items-center space-x-4">
+                        <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                             <div className="flex-1 w-0">
                                 <div className="flex items-center justify-between mb-2">
                                     <Typography className="text-gray-900 font-medium mt-2 truncate">
@@ -126,12 +126,12 @@ export default function BudgetCard() {
                                         </Typography>
                                     </div>
                                 </div>
-                                <Progress value={65} size="lg" className="mt-2" color="green" />
+                                <Progress value={65} size="lg" className="mt-2 mb-2" color="green" />
                             </div>
                             <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2" />
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
                             </div>
-                        </div>
+                        </ListItem>
                     </Link>
                 </div>
 

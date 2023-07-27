@@ -2,7 +2,7 @@ import {
     Card,
     CardBody,
     Typography,
-    Button,
+    Button, ListItem,
 } from "@material-tailwind/react";
 import {ArrowLongRightIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
@@ -28,7 +28,7 @@ export default function LastRecordsCard() {
 
                         <li className="py-3 sm:py-4">
                             <Link>
-                                <div className="flex items-center space-x-4">
+                                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                     <div className="flex-shrink-0">
                                         <img className="w-8 h-8 rounded-full" src="https://www.iconbunny.com/icons/media/catalog/product/1/2/1248.9-petrol-pump-icon-iconbunny.jpg" alt="Fuel" />
                                     </div>
@@ -54,13 +54,13 @@ export default function LastRecordsCard() {
                                     <div className="ml-2">
                                         <ChevronRightIcon className="h-5 w-5 text-green-800" />
                                     </div>
-                                </div>
+                                </ListItem>
                             </Link>
                         </li>
 
                         <li className="py-3 sm:py-4">
                             <Link>
-                                <div className="flex items-center space-x-4">
+                                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                     <div className="flex-shrink-0">
                                         <img className="w-8 h-8 rounded-full" src="https://icon-library.com/images/grocery-icon-png/grocery-icon-png-14.jpg" alt="Groceries" />
                                     </div>
@@ -86,13 +86,13 @@ export default function LastRecordsCard() {
                                     <div className="ml-2">
                                         <ChevronRightIcon className="h-5 w-5 text-green-800" />
                                     </div>
-                                </div>
+                                </ListItem>
                             </Link>
                         </li>
 
                         <li className="py-3 sm:py-4">
                             <Link>
-                                <div className="flex items-center space-x-4">
+                                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                     <div className="flex-shrink-0">
                                         <img className="w-8 h-8 rounded-full" src="https://cdn.icon-icons.com/icons2/70/PNG/512/phone_14179.png" alt="Phone" />
                                     </div>
@@ -118,13 +118,13 @@ export default function LastRecordsCard() {
                                     <div className="ml-2">
                                         <ChevronRightIcon className="h-5 w-5 text-green-800" />
                                     </div>
-                                </div>
+                                </ListItem>
                             </Link>
                         </li>
 
                         <li className="py-3 sm:py-4">
                             <Link>
-                                <div className="flex items-center space-x-4">
+                                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                     <div className="flex-shrink-0">
                                         <img className="w-8 h-8 rounded-full" src="https://w7.pngwing.com/pngs/50/319/png-transparent-coffee-icon100-computer-icons-android-pub-orange-logo-coffee-thumbnail.png" alt="Cafe" />
                                     </div>
@@ -150,7 +150,7 @@ export default function LastRecordsCard() {
                                     <div className="ml-2">
                                         <ChevronRightIcon className="h-5 w-5 text-green-800" />
                                     </div>
-                                </div>
+                                </ListItem>
                             </Link>
                         </li>
 
