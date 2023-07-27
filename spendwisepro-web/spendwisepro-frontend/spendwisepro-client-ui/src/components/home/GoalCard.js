@@ -10,17 +10,22 @@ import { Progress } from "@material-tailwind/react";
 import {Link} from "react-router-dom";
 
 export default function GoalCard() {
+
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+
     return (
         <Card className="w-full shadow-lg">
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                     Goals
-                    <Button size="sm" variant="text" className="flex gap-2">
-                        <a>
-                            Show more
-                        </a>
-                        <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                    </Button>
+                    <Link to="/goals" onClick={scrollToTop}>
+                        <Button size="sm" variant="text" className="flex gap-2">
+                                Show more
+                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                        </Button>
+                    </Link>
                 </Typography>
 
                 <hr className="my-2 border-blue-gray-50 mb-6" />
@@ -95,7 +100,7 @@ export default function GoalCard() {
                                     </Typography>
                                     <div className="flex gap-4 items-center">
                                         <Typography className="text-gray-900 font-semibold mt-2">
-                                            $100,00
+                                            $90,00
                                         </Typography>
                                         <Typography className="text-gray-700 font-medium mt-2 text-sm">
                                             40%

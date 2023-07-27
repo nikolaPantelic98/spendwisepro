@@ -100,7 +100,7 @@ export default function BudgetCard() {
                                     </Typography>
                                     <div className="flex gap-4 items-center">
                                         <Typography className="text-gray-900 font-semibold mt-2">
-                                            $235,15
+                                            $200,00
                                         </Typography>
                                         <Typography className="text-gray-700 font-medium mt-2 text-sm">
                                             10%
@@ -124,7 +124,7 @@ export default function BudgetCard() {
                                     </Typography>
                                     <div className="flex gap-4 items-center">
                                         <Typography className="text-gray-900 font-semibold mt-2">
-                                            $150,00
+                                            $140,00
                                         </Typography>
                                         <Typography className="text-gray-700 font-medium mt-2 text-sm">
                                             35%
@@ -132,6 +132,30 @@ export default function BudgetCard() {
                                     </div>
                                 </div>
                                 <Progress value={65} size="lg" className="mt-2 mb-2" color="green" />
+                            </div>
+                            <div className="flex items-center">
+                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
+                            </div>
+                        </ListItem>
+                    </Link>
+
+                    <Link>
+                        <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+                            <div className="flex-1 w-0">
+                                <div className="flex items-center justify-between mb-2">
+                                    <Typography className="text-gray-900 font-medium mt-2 truncate">
+                                        House
+                                    </Typography>
+                                    <div className="flex gap-4 items-center">
+                                        <Typography className="text-gray-900 font-semibold mt-2">
+                                            $250,00
+                                        </Typography>
+                                        <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                            50%
+                                        </Typography>
+                                    </div>
+                                </div>
+                                <Progress value={50} size="lg" className="mt-2 mb-2" color="green" />
                             </div>
                             <div className="flex items-center">
                                 <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />

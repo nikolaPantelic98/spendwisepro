@@ -9,7 +9,7 @@ import React from "react";
 import { Progress } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
-export default function BudgetList() {
+export default function GoalsList() {
 
     return (
         <>
@@ -19,7 +19,7 @@ export default function BudgetList() {
                         Weekly
                         <Link>
                             <Button size="sm" variant="text" className="flex gap-2">
-                                Add budget
+                                Add goal
                                 <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
                             </Button>
                         </Link>
@@ -35,22 +35,22 @@ export default function BudgetList() {
                                         <div className="flex-1 w-0">
                                             <div className="flex items-center justify-between mb-2">
                                                 <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                                    General
+                                                    Laptop
                                                 </Typography>
                                                 <div className="flex gap-4 items-center">
                                                     <Typography className="text-gray-900 font-semibold mt-2">
-                                                        $140,00
+                                                        $100,00
                                                     </Typography>
                                                 </div>
                                             </div>
-                                            <Progress value={50} size="lg" className="mt-2 mb-2" color="green" />
+                                            <Progress value={80} size="lg" className="mt-2 mb-2" color="orange" />
                                             <div className="flex justify-between">
-                                                <Typography className="text-sm font-semibold text-gray-800">$70,00</Typography>
-                                                <Typography className="text-sm font-semibold text-green-800">$70,00</Typography>
+                                                <Typography className="text-sm font-semibold text-green-800">$80,00</Typography>
+                                                <Typography className="text-sm font-semibold text-gray-800">$20,00</Typography>
                                             </div>
                                             <div className="flex justify-between">
-                                                <Typography className="text-xs font-medium text-gray-600">Spent</Typography>
-                                                <Typography className="text-xs font-medium text-gray-600">Remains</Typography>
+                                                <Typography className="text-xs font-medium text-gray-600">Saved</Typography>
+                                                <Typography className="text-xs font-medium text-gray-600">To save</Typography>
                                             </div>
                                         </div>
                                         <div className="flex items-center">
@@ -66,22 +66,22 @@ export default function BudgetList() {
                                         <div className="flex-1 w-0">
                                             <div className="flex items-center justify-between mb-2">
                                                 <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                                    Tobacco
+                                                    Aqua Park
                                                 </Typography>
                                                 <div className="flex gap-4 items-center">
                                                     <Typography className="text-gray-900 font-semibold mt-2">
-                                                        $50,00
+                                                        $20,00
                                                     </Typography>
                                                 </div>
                                             </div>
-                                            <Progress value={100} size="lg" className="mt-2 mb-2" color="red" />
+                                            <Progress value={100} size="lg" className="mt-2 mb-2" color="green" />
                                             <div className="flex justify-between">
-                                                <Typography className="text-sm font-semibold text-gray-800">$55,00</Typography>
-                                                <Typography className="text-sm font-semibold text-red-800">$5,00</Typography>
+                                                <Typography className="text-sm font-semibold text-green-800">$20,00</Typography>
+                                                <Typography className="text-sm font-semibold text-gray-800">$0,00</Typography>
                                             </div>
                                             <div className="flex justify-between">
-                                                <Typography className="text-xs font-medium text-gray-600">Spent</Typography>
-                                                <Typography className="text-xs font-medium text-gray-600">Overspent</Typography>
+                                                <Typography className="text-xs font-medium text-gray-600">Saved</Typography>
+                                                <Typography className="text-xs font-medium text-gray-600">To save</Typography>
                                             </div>
                                         </div>
                                         <div className="flex items-center">
@@ -102,7 +102,7 @@ export default function BudgetList() {
                         Monthly
                         <Link>
                             <Button size="sm" variant="text" className="flex gap-2">
-                                Add budget
+                                Add goal
                                 <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
                             </Button>
                         </Link>
@@ -118,53 +118,22 @@ export default function BudgetList() {
                                         <div className="flex-1 w-0">
                                             <div className="flex items-center justify-between mb-2">
                                                 <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                                    General
+                                                    Vacation
                                                 </Typography>
                                                 <div className="flex gap-4 items-center">
                                                     <Typography className="text-gray-900 font-semibold mt-2">
-                                                        $2.000,00
+                                                        $150,00
                                                     </Typography>
                                                 </div>
                                             </div>
-                                            <Progress value={90} size="lg" className="mt-2 mb-2" color="orange" />
+                                            <Progress value={40} size="lg" className="mt-2 mb-2" color="orange" />
                                             <div className="flex justify-between">
-                                                <Typography className="text-sm font-semibold text-gray-800">$1.800,00</Typography>
-                                                <Typography className="text-sm font-semibold text-green-800">$200,00</Typography>
+                                                <Typography className="text-sm font-semibold text-green-800">$60,00</Typography>
+                                                <Typography className="text-sm font-semibold text-gray-800">$90,00</Typography>
                                             </div>
                                             <div className="flex justify-between">
-                                                <Typography className="text-xs font-medium text-gray-600">Spent</Typography>
-                                                <Typography className="text-xs font-medium text-gray-600">Remains</Typography>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center">
-                                            <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
-                                        </div>
-                                    </ListItem>
-                                </Link>
-                            </li>
-
-                            <li className="py-3 sm:py-4">
-                                <Link>
-                                    <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                                        <div className="flex-1 w-0">
-                                            <div className="flex items-center justify-between mb-2">
-                                                <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                                    Car
-                                                </Typography>
-                                                <div className="flex gap-4 items-center">
-                                                    <Typography className="text-gray-900 font-semibold mt-2">
-                                                        $400,00
-                                                    </Typography>
-                                                </div>
-                                            </div>
-                                            <Progress value={65} size="lg" className="mt-2 mb-2" color="green" />
-                                            <div className="flex justify-between">
-                                                <Typography className="text-sm font-semibold text-gray-800">$260,00</Typography>
-                                                <Typography className="text-sm font-semibold text-green-800">$140,00</Typography>
-                                            </div>
-                                            <div className="flex justify-between">
-                                                <Typography className="text-xs font-medium text-gray-600">Spent</Typography>
-                                                <Typography className="text-xs font-medium text-gray-600">Remains</Typography>
+                                                <Typography className="text-xs font-medium text-gray-600">Saved</Typography>
+                                                <Typography className="text-xs font-medium text-gray-600">To save</Typography>
                                             </div>
                                         </div>
                                         <div className="flex items-center">
@@ -188,14 +157,14 @@ export default function BudgetList() {
                                                     </Typography>
                                                 </div>
                                             </div>
-                                            <Progress value={50} size="lg" className="mt-2 mb-2" color="green" />
+                                            <Progress value={10} size="lg" className="mt-2 mb-2" color="red" />
                                             <div className="flex justify-between">
-                                                <Typography className="text-sm font-semibold text-gray-800">$250,00</Typography>
-                                                <Typography className="text-sm font-semibold text-green-800">$250,00</Typography>
+                                                <Typography className="text-sm font-semibold text-green-800">$50,00</Typography>
+                                                <Typography className="text-sm font-semibold text-gray-800">$450,00</Typography>
                                             </div>
                                             <div className="flex justify-between">
-                                                <Typography className="text-xs font-medium text-gray-600">Spent</Typography>
-                                                <Typography className="text-xs font-medium text-gray-600">Remains</Typography>
+                                                <Typography className="text-xs font-medium text-gray-600">Saved</Typography>
+                                                <Typography className="text-xs font-medium text-gray-600">To save</Typography>
                                             </div>
                                         </div>
                                         <div className="flex items-center">
