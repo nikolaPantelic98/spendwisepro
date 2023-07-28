@@ -17,38 +17,40 @@ function HomePage() {
 
     return (
         <>
-            <Menu sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+            <div className="overflow-hidden">
+                <Menu sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
 
-            <div className="h-6 bg-green-50"></div>
+                <div className="h-6 bg-green-50"></div>
 
-            <div className="flex justify-center min-h-screen bg-green-50">
-                <div className="mt-2">
+                <div className="flex justify-center min-h-screen bg-green-50">
+                    <div className="mt-2">
 
-                    <div className="mx-6">
-                        <TrendCard/>
+                        <div className="mx-6">
+                            <TrendCard/>
+                        </div>
+
+                        <div className="mt-8 mx-6">
+                            <LastRecordsCard/>
+                        </div>
+
+                        <div className="mt-8 mx-6">
+                            <TopExpensesCard/>
+                        </div>
+
+                        <div className="mt-8 mx-6">
+                            <BudgetCard/>
+                        </div>
+
+                        <div className="mt-8 mx-6">
+                            <GoalCard/>
+                        </div>
+
+                        <div className="mt-8 mx-6">
+                            <PlannedPaymentsCard/>
+                        </div>
+
+                        <div><PageWidthLayout/></div>
                     </div>
-
-                    <div className="mt-8 mx-6">
-                        <LastRecordsCard/>
-                    </div>
-
-                    <div className="mt-8 mx-6">
-                        <TopExpensesCard/>
-                    </div>
-
-                    <div className="mt-8 mx-6">
-                        <BudgetCard/>
-                    </div>
-
-                    <div className="mt-8 mx-6">
-                        <GoalCard/>
-                    </div>
-
-                    <div className="mt-8 mx-6">
-                        <PlannedPaymentsCard/>
-                    </div>
-
-                    <div><PageWidthLayout/></div>
                 </div>
             </div>
 
