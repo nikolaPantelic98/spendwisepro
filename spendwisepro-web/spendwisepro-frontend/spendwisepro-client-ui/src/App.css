@@ -45,3 +45,10 @@ body.sidebar-open {
   width: 19rem;
 }
 
+.bg-blue-chart {
+  background-color: #8884d8;
+}
+
+.bg-green-chart {
+  background-color: #82ca9d;
+}

@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import BudgetWeeklyHeader from "../../components/budget/budget-weekly/BudgetWeeklyHeader";
-import BudgetWeekly from "../../components/budget/budget-weekly/BudgetWeekly";
+import BudgetWeeklyOverview from "../../components/budget/budget-weekly/BudgetWeeklyOverview";
+import BudgetWeeklyChart from "../../components/budget/budget-weekly/BudgetWeeklyChart";
+import BudgetWeeklyLastPeriods from "../../components/budget/budget-weekly/BudgetWeeklyLastPeriods";
 
 function BudgetPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -25,7 +27,15 @@ function BudgetPage() {
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <BudgetWeekly/>
+                            <BudgetWeeklyOverview/>
+                        </div>
+
+                        <div className="mx-6">
+                            <BudgetWeeklyChart/>
+                        </div>
+
+                        <div className="mx-6">
+                            <BudgetWeeklyLastPeriods/>
                         </div>
 
                         <div><PageWidthLayout/></div>
