@@ -5,6 +5,7 @@ import BudgetWeeklyHeader from "../../components/budget/budget-weekly/BudgetWeek
 import BudgetWeeklyOverview from "../../components/budget/budget-weekly/BudgetWeeklyOverview";
 import BudgetWeeklyChart from "../../components/budget/budget-weekly/BudgetWeeklyChart";
 import BudgetWeeklyLastPeriods from "../../components/budget/budget-weekly/BudgetWeeklyLastPeriods";
+import BudgetWeeklyCategories from "../../components/budget/budget-weekly/BudgetWeeklyCategories";
 
 function BudgetPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -36,6 +37,10 @@ function BudgetPage() {
 
                         <div className="mx-6">
                             <BudgetWeeklyLastPeriods/>
+                        </div>
+
+                        <div className="mx-6">
+                            <BudgetWeeklyCategories/>
                         </div>
 
                         <div><PageWidthLayout/></div>
