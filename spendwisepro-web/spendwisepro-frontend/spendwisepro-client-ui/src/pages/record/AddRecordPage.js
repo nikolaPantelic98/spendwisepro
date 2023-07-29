@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Menu from '../components/common/Menu';
-import PageWidthLayout from "../components/common/PageWidthLayout";
-import BudgetHeader from "../components/budget/BudgetHeader";
-import BudgetList from "../components/budget/BudgetList";
+import Menu from '../../components/common/Menu';
+import AddRecordHeader from "../../components/record/AddRecordHeader";
+import AddRecordForm from "../../components/record/AddRecordForm";
+import PageWidthLayout from "../../components/common/PageWidthLayout";
 
-function BudgetPage() {
+function AddRecordPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -19,13 +19,13 @@ function BudgetPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <BudgetHeader/>
+                    <AddRecordHeader/>
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <BudgetList/>
+                            <AddRecordForm/>
                         </div>
 
                         <div><PageWidthLayout/></div>
@@ -38,4 +38,4 @@ function BudgetPage() {
     );
 }
 
-export default BudgetPage;
+export default AddRecordPage;

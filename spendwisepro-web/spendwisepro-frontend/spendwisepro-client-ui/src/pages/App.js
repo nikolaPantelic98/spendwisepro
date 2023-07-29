@@ -1,15 +1,15 @@
 import React from 'react';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HomePage from "./HomePage";
-import AddCategoryPage from "./AddCategoryPage";
-import CategoriesPage from "./CategoriesPage";
-import AddRecordPage from "./AddRecordPage";
-import CashPage from "./CashPage";
-import CreditCardPage from "./CreditCardPage";
-import AddCreditCardPage from "./AddCreditCardPage";
-import BudgetPage from "./BudgetPage";
-import GoalsPage from "./GoalsPage";
-import BudgetWeeklyPage from "./BudgetWeeklyPage";
+import AddCategoryPage from "./category/AddCategoryPage";
+import CategoriesPage from "./category/CategoriesPage";
+import AddRecordPage from "./record/AddRecordPage";
+import CashPage from "./cash/CashPage";
+import CreditCardPage from "./credit-card/CreditCardPage";
+import AddCreditCardPage from "./credit-card/AddCreditCardPage";
+import BudgetPage from "./budget/BudgetPage";
+import GoalsPage from "./goal/GoalsPage";
+import BudgetWeeklyPage from "./budget/BudgetWeeklyPage";
 
 function App() {
 

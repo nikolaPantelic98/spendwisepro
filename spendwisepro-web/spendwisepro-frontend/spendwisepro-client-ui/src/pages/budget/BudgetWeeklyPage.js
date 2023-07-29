@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Menu from '../components/common/Menu';
-import CategoriesHeader from "../components/category/CategoriesHeader";
-import CategoryList from "../components/category/CategoryList";
-import PageWidthLayout from "../components/common/PageWidthLayout";
+import Menu from '../../components/common/Menu';
+import PageWidthLayout from "../../components/common/PageWidthLayout";
+import BudgetWeeklyHeader from "../../components/budget/budget-weekly/BudgetWeeklyHeader";
+import BudgetWeekly from "../../components/budget/budget-weekly/BudgetWeekly";
 
-function CategoriesPage() {
+function BudgetPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -19,13 +19,13 @@ function CategoriesPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <CategoriesHeader/>
+                    <BudgetWeeklyHeader/>
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <CategoryList/>
+                            <BudgetWeekly/>
                         </div>
 
                         <div><PageWidthLayout/></div>
@@ -38,4 +38,4 @@ function CategoriesPage() {
     );
 }
 
-export default CategoriesPage;
+export default BudgetPage;

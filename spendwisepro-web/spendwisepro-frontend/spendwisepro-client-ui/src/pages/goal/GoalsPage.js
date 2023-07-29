@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Menu from '../components/common/Menu';
-import AddCategoryForm from "../components/category/AddCategoryForm";
-import AddCategoryHeader from "../components/category/AddCategoryHeader";
-import PageWidthLayout from "../components/common/PageWidthLayout";
+import Menu from '../../components/common/Menu';
+import PageWidthLayout from "../../components/common/PageWidthLayout";
+import GoalsHeader from "../../components/goal/GoalsHeader";
+import GoalsList from "../../components/goal/GoalsList";
 
-function AddCategoryPage() {
+function BudgetPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -19,13 +19,13 @@ function AddCategoryPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <AddCategoryHeader/>
+                    <GoalsHeader/>
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <AddCategoryForm/>
+                            <GoalsList/>
                         </div>
 
                         <div><PageWidthLayout/></div>
@@ -38,4 +38,4 @@ function AddCategoryPage() {
     );
 }
 
-export default AddCategoryPage;
+export default BudgetPage;

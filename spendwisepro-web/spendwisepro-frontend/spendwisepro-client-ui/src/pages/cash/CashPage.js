@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Menu from '../components/common/Menu';
-import AddRecordHeader from "../components/record/AddRecordHeader";
-import AddRecordForm from "../components/record/AddRecordForm";
-import PageWidthLayout from "../components/common/PageWidthLayout";
+import Menu from '../../components/common/Menu';
+import CashHeader from "../../components/cash/CashHeader";
+import PageWidthLayout from "../../components/common/PageWidthLayout";
+import CashChart from "../../components/cash/CashChart";
 
-function AddRecordPage() {
+function CashPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -19,13 +19,13 @@ function AddRecordPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <AddRecordHeader/>
+                    <CashHeader/>
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <AddRecordForm/>
+                            <CashChart/>
                         </div>
 
                         <div><PageWidthLayout/></div>
@@ -38,4 +38,4 @@ function AddRecordPage() {
     );
 }
 
-export default AddRecordPage;
+export default CashPage;

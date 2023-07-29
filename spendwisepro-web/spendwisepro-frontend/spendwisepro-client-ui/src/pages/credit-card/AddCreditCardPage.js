@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Menu from '../components/common/Menu';
-import PageWidthLayout from "../components/common/PageWidthLayout";
-import GoalsHeader from "../components/goal/GoalsHeader";
-import GoalsList from "../components/goal/GoalsList";
+import Menu from '../../components/common/Menu';
+import PageWidthLayout from "../../components/common/PageWidthLayout";
+import AddCreditCardHeader from "../../components/creditcard/AddCreditCardHeader";
+import AddCreditCardForm from "../../components/creditcard/AddCreditCardForm";
 
-function BudgetPage() {
+function AddCreditCardPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -19,13 +19,13 @@ function BudgetPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <GoalsHeader/>
+                    <AddCreditCardHeader/>
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <GoalsList/>
+                            <AddCreditCardForm/>
                         </div>
 
                         <div><PageWidthLayout/></div>
@@ -38,4 +38,4 @@ function BudgetPage() {
     );
 }
 
-export default BudgetPage;
+export default AddCreditCardPage;

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Menu from '../components/common/Menu';
-import CashHeader from "../components/cash/CashHeader";
-import PageWidthLayout from "../components/common/PageWidthLayout";
-import CashChart from "../components/cash/CashChart";
+import Menu from '../../components/common/Menu';
+import AddCategoryForm from "../../components/category/AddCategoryForm";
+import AddCategoryHeader from "../../components/category/AddCategoryHeader";
+import PageWidthLayout from "../../components/common/PageWidthLayout";
 
-function CashPage() {
+function AddCategoryPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -19,13 +19,13 @@ function CashPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <CashHeader/>
+                    <AddCategoryHeader/>
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <CashChart/>
+                            <AddCategoryForm/>
                         </div>
 
                         <div><PageWidthLayout/></div>
@@ -38,4 +38,4 @@ function CashPage() {
     );
 }
 
-export default CashPage;
+export default AddCategoryPage;
