@@ -7,12 +7,12 @@ import {
 import React from "react";
 import { Progress } from "@material-tailwind/react";
 
-export default function BudgetWeeklyCategories() {
+export default function BudgetWeeklyTopExpenses() {
     return (
         <Card className="w-full shadow-lg mt-8">
             <CardBody>
-                <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
-                    Categories
+                <Typography variant="h4" color="blue-gray" className="mb-4 flex items-center justify-between">
+                    Top expenses
                 </Typography>
 
                 <hr className="my-2 border-blue-gray-50 mb-6" />

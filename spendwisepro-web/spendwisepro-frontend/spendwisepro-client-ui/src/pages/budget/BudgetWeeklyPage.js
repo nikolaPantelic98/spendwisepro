@@ -5,7 +5,11 @@ import BudgetWeeklyHeader from "../../components/budget/budget-weekly/BudgetWeek
 import BudgetWeeklyOverview from "../../components/budget/budget-weekly/BudgetWeeklyOverview";
 import BudgetWeeklyChart from "../../components/budget/budget-weekly/BudgetWeeklyChart";
 import BudgetWeeklyLastPeriods from "../../components/budget/budget-weekly/BudgetWeeklyLastPeriods";
-import BudgetWeeklyCategories from "../../components/budget/budget-weekly/BudgetWeeklyCategories";
+import BudgetWeeklyTopExpenses from "../../components/budget/budget-weekly/BudgetWeeklyTopExpenses";
+import {ArrowTrendingUpIcon} from "@heroicons/react/24/solid";
+import {Tab, TabPanel, Tabs, TabsBody, TabsHeader} from "@material-tailwind/react";
+import BudgetWeeklyRecords from "../../components/budget/budget-weekly/BudgetWeeklyRecords";
+import {Bars3BottomLeftIcon, ClipboardDocumentIcon} from "@heroicons/react/24/outline";
 
 function BudgetPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -13,6 +17,21 @@ function BudgetPage() {
     const toggleSidebar = (isOpen) => {
         setSidebarOpen(isOpen);
     };
+
+    const type = [
+        {
+            label: "Overview",
+            value: "overview",
+            icon: Bars3BottomLeftIcon
+        },
+        {
+            label: "Records",
+            value: "records",
+            icon: ClipboardDocumentIcon
+        },
+    ];
+
+    const [selectedTab, setSelectedTab] = useState("overview");
 
     return (
         <>
@@ -25,30 +44,66 @@ function BudgetPage() {
                     <BudgetWeeklyHeader/>
                 </div>
 
-                <div className="flex justify-center min-h-screen bg-green-50">
-                    <div className="mt-2">
-                        <div className="mx-6">
-                            <BudgetWeeklyOverview/>
-                        </div>
+                <div className=" flex justify-center min-h-screen bg-green-50">
 
-                        <div className="mx-6">
-                            <BudgetWeeklyChart/>
-                        </div>
+                    <Tabs className="mt-4" value={selectedTab} onChange={(value) => setSelectedTab(value)}>
 
-                        <div className="mx-6">
-                            <BudgetWeeklyLastPeriods/>
-                        </div>
+                        <TabsHeader className="bg-green-100 ml-3 mr-3">
+                            {type.map(({ label, value, icon }) => (
+                                <Tab key={value} value={value}>
+                                    <div className="flex items-center gap-2">
+                                        {React.createElement(icon, { className: "w-5 h-5" })}
+                                        {label}
+                                    </div>
+                                </Tab>
+                            ))}
+                        </TabsHeader>
 
-                        <div className="mx-6">
-                            <BudgetWeeklyCategories/>
-                        </div>
+                        <TabsBody animate={{ initial: { y: 250 }, mount: { y: 0 }, unmount: { y: 250 } }}>
+                            {type.map(({ value }) => (
+                                <TabPanel key={value} value={value} className="p-0">
+                                    {value === "overview" ? (
+                                        // Content for "overview" tab
+                                        <>
+                                            <div className="mt-2">
+                                                <div className="mx-6">
+                                                    <BudgetWeeklyOverview/>
+                                                </div>
 
-                        <div><PageWidthLayout/></div>
-                    </div>
+                                                <div className="mx-6">
+                                                    <BudgetWeeklyChart/>
+                                                </div>
+
+                                                <div className="mx-6">
+                                                    <BudgetWeeklyLastPeriods/>
+                                                </div>
+
+                                                <div className="mx-6">
+                                                    <BudgetWeeklyTopExpenses/>
+                                                </div>
+
+                                                <div><PageWidthLayout/></div>
+                                            </div>
+                                        </>
+                                    ) : value === "records" ? (
+                                        // Content for "records" tab
+                                        <>
+                                            <div className="mt-2">
+
+                                                <div className="mx-6">
+                                                    <BudgetWeeklyRecords />
+                                                </div>
+
+                                                <div><PageWidthLayout/></div>
+                                            </div>
+                                        </>
+                                    ) : null}
+                                </TabPanel>
+                            ))}
+                        </TabsBody>
+                    </Tabs>
                 </div>
-
             </div>
-
         </>
     );
 }
