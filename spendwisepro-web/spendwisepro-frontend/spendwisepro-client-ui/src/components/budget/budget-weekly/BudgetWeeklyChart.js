@@ -77,6 +77,31 @@ export default function BudgetWeeklyChart() {
     const dailyRecommendedAmount = daysWithoutAmount > 0 ? (budgetAmount - spentAmount) / daysWithoutAmount : 0;
     const formattedDailyRecommendedAmount = dailyRecommendedAmount.toFixed(2);
 
+    const CustomTooltipContent = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            const dataSpent = payload[0];
+            if (dataSpent.payload.amount !== undefined) {
+                return (
+                    <div className="p-1">
+                        <p className="text-center text-gray-900 border-b-2">{`${dataSpent.payload.date}`}</p>
+                        <p className="font-semibold text-right text-green-chart mt-1 mb-1">{`Spent: $${dataSpent.payload.amount}`}</p>
+                        <p className="font-semibold text-right text-gray-900 mt-1 border-t-2">{`$${budgetAmount - dataSpent.payload.amount} left`}</p>
+                    </div>
+                );
+            } else if (dataSpent.payload.prediction !== undefined) {
+                return (
+                    <div className="p-1">
+                        <p className="text-center text-gray-900 border-b-2">{`${dataSpent.payload.date}`}</p>
+                        <p className="font-semibold text-right text-blue-chart mt-1 mb-1">{`Prediction: $${dataSpent.payload.prediction}`}</p>
+                        <p className="font-semibold text-right text-gray-900 mt-1 border-t-2">{`$${budgetAmount - dataSpent.payload.prediction} may left`}</p>
+                    </div>
+                );
+            }
+        }
+
+        return null;
+    };
+
     function scrollToTop() {
         window.scrollTo(0, 0);
     }
@@ -106,7 +131,11 @@ export default function BudgetWeeklyChart() {
                                 <XAxis dataKey="date" fontSize="small" />
                                 <YAxis fontSize="small" />
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <Tooltip />
+                                <Tooltip cursor={{fill: '#E8F5E9'}}
+                                         payloadArray={dataSpent}
+                                         content={<CustomTooltipContent />}
+                                         wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
+                                         offset={25}/>
                                 <ReferenceLine y={budgetAmount} label={{ position: 'top', value: 'Budget' }} stroke="red" strokeDasharray="3 3" isFront={true} alwaysShow={true} />
                                 <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />
                                 <Area type="monotone" dataKey="prediction" stroke="#8884d8" fillOpacity={1} fill="transparent" />

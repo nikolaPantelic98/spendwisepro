@@ -49,8 +49,8 @@ export default function BudgetWeeklyLastPeriods() {
             return (
                 <div className="p-1">
                     <p className="text-center text-gray-900 border-b-2">{`${data.payload.startDate} - ${data.payload.endDate}`}</p>
-                    <p className="font-semibold text-right text-red-800 mt-1">{`Budget: $${budgetAmount}`}</p>
-                    <p className="font-semibold text-right text-green-800 mt-1 mb-1">{`Spent: $${data.payload.spent}`}</p>
+                    <p className="font-semibold text-right text-red-400 mt-1">{`Budget: $${budgetAmount}`}</p>
+                    <p className="font-semibold text-right text-green-chart mt-1 mb-1">{`Spent: $${data.payload.spent}`}</p>
                     <p className="font-semibold text-right text-gray-900 mt-1 border-t-2">{`Total: $${(budgetAmount) - (data.payload.spent)}`}</p>
                 </div>
             );
