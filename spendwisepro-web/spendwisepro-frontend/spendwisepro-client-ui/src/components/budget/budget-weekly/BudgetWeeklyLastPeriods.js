@@ -19,29 +19,45 @@ export default function BudgetWeeklyLastPeriods() {
         {
             "startDate": "17.6",
             "endDate": "24.6",
-            "Spent": 120,
+            "spent": 120,
         },
         {
             "startDate": "24.6",
             "endDate": "1.7",
-            "Spent": 165,
+            "spent": 165,
         },
         {
             "startDate": "1.7",
             "endDate": "8.7",
-            "Spent": 80,
+            "spent": 80,
         },
         {
             "startDate": "8.7",
             "endDate": "15.7",
-            "Spent": 180,
+            "spent": 180,
         },
         {
             "startDate": "15.7",
             "endDate": "22.7",
-            "Spent": 70,
+            "spent": 70,
         },
     ];
+
+    const CustomTooltipContent = ({ active, payload}) => {
+        if (active && payload && payload.length) {
+            const data = payload[0];
+            return (
+                <div className="p-1">
+                    <p className="text-center text-gray-900 border-b-2">{`${data.payload.startDate} - ${data.payload.endDate}`}</p>
+                    <p className="font-semibold text-right text-red-800 mt-1">{`Budget: $${budgetAmount}`}</p>
+                    <p className="font-semibold text-right text-green-800 mt-1 mb-1">{`Spent: $${data.payload.spent}`}</p>
+                    <p className="font-semibold text-right text-gray-900 mt-1 border-t-2">{`Total: $${(budgetAmount) - (data.payload.spent)}`}</p>
+                </div>
+            );
+        }
+
+        return null;
+    };
 
 
     const budgetAmount = 140;
@@ -95,8 +111,12 @@ export default function BudgetWeeklyLastPeriods() {
                                     )}
                                 />
                                 <YAxis />
-                                <Tooltip />
-                                <Bar dataKey="Spent" fill="#82ca9d" />
+                                <Tooltip cursor={{fill: '#E8F5E9'}}
+                                         payloadArray={data}
+                                         content={<CustomTooltipContent />}
+                                         wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
+                                         offset={25}/>
+                                <Bar dataKey="spent" fill="#82ca9d" />
                                 <ReferenceLine y={budgetAmount} stroke="red" strokeDasharray="3 3" isFront={true} alwaysShow={true} />
                             </BarChart>
                         </ResponsiveContainer>
