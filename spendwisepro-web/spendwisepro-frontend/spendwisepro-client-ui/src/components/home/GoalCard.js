@@ -131,7 +131,7 @@ export default function GoalCard() {
                                         </Typography>
                                     </div>
                                 </div>
-                                <Progress value={10} size="lg" className="mt-2 mb-2" color="red" />
+                                <Progress value={10} size="lg" className="mt-2 mb-2" color="orange" />
                             </div>
                             <div className="flex items-center">
                                 <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
@@ -146,15 +146,11 @@ export default function GoalCard() {
                     <p className="text-xs flex items-center justify-center gap-4">
                         <span className="flex items-center">
                             <span className="w-3 h-3 inline-block mr-1 bg-green-500"></span>
-                            <span className="text-xxs">Complete</span>
+                            <span className="text-xxs">Completed</span>
                         </span>
                         <span className="flex items-center">
                             <span className="w-3 h-3 inline-block mr-1 bg-orange-500"></span>
                             <span className="text-xxs">In progress</span>
-                        </span>
-                        <span className="flex items-center">
-                            <span className="w-3 h-3 inline-block mr-1 bg-red-500"></span>
-                            <span className="text-xxs">Not started</span>
                         </span>
                     </p>
                 </div>

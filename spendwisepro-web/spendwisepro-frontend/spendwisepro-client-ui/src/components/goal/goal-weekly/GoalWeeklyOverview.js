@@ -25,9 +25,6 @@ export default function GoalWeeklyOverview() {
                                     <Typography variant="h4" className="text-gray-900 font-bold mt-2 truncate">
                                         $100,00
                                     </Typography>
-                                    <Button size="sm" variant="text" className="mt-1">
-                                        <PencilSquareIcon strokeWidth={2} className="w-6 h-6" />
-                                    </Button>
                                 </div>
                                 <div className="flex gap-4 items-center">
                                     <Chip size="md" value="80%" variant="ghost" className="bg-gray-200 text-gray-900 font-semibold mt-2 text-sm" />

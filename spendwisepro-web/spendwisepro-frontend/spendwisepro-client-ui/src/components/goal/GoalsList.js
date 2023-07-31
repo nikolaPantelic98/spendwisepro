@@ -157,7 +157,7 @@ export default function GoalsList() {
                                                     </Typography>
                                                 </div>
                                             </div>
-                                            <Progress value={10} size="lg" className="mt-2 mb-2" color="red" />
+                                            <Progress value={10} size="lg" className="mt-2 mb-2" color="orange" />
                                             <div className="flex justify-between">
                                                 <Typography className="text-sm font-semibold text-green-800">$50,00</Typography>
                                                 <Typography className="text-sm font-semibold text-gray-800">$450,00</Typography>
