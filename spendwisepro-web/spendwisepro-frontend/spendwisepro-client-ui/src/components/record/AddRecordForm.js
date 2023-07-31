@@ -10,16 +10,8 @@ import {ArrowTrendingDownIcon, ArrowTrendingUpIcon} from "@heroicons/react/24/so
 export default function AddRecordForm() {
 
     const data = [
-        {
-            label: "Expense",
-            value: "expense",
-            icon: ArrowTrendingDownIcon
-        },
-        {
-            label: "Income",
-            value: "income",
-            icon: ArrowTrendingUpIcon
-        },
+        {label: "Expense", value: "expense", icon: ArrowTrendingDownIcon},
+        {label: "Income", value: "income", icon: ArrowTrendingUpIcon}
     ];
 
     const [selectedTab, setSelectedTab] = useState("expense");

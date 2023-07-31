@@ -11,174 +11,52 @@ import React, {useState} from "react";
 export default function CreditCardChart() {
 
     const dataMonth = [
-        {
-            "date": "21.6",
-            "amount": 80,
-        },
-        {
-            "date": "22.6",
-            "amount": 60,
-        },
-        {
-            "date": "23.6",
-            "amount": 50,
-        },
-        {
-            "date": "24.6",
-            "amount": 50,
-        },
-        {
-            "date": "25.6",
-            "amount": 130,
-        },
-        {
-            "date": "26.6",
-            "amount": 120,
-        },
-        {
-            "date": "27.6",
-            "amount": 120,
-        },
-        {
-            "date": "28.6",
-            "amount": 120,
-        },
-        {
-            "date": "29.6",
-            "amount": 120,
-        },
-        {
-            "date": "30.6",
-            "amount": 120,
-        },
-        {
-            "date": "1.7",
-            "amount": 70,
-        },
-        {
-            "date": "2.7",
-            "amount": 70,
-        },
-        {
-            "date": "3.7",
-            "amount": 70,
-        },
-        {
-            "date": "4.7",
-            "amount": 250,
-        },
-        {
-            "date": "5.7",
-            "amount": 240,
-        },
-        {
-            "date": "6.7",
-            "amount": 240,
-        },
-        {
-            "date": "7.7",
-            "amount": 260,
-        },
-        {
-            "date": "8.7",
-            "amount": 250,
-        },
-        {
-            "date": "9.7",
-            "amount": 150,
-        },
-        {
-            "date": "10.7",
-            "amount": 150,
-        },
-        {
-            "date": "11.7",
-            "amount": 150,
-        },
-        {
-            "date": "12.7",
-            "amount": 150,
-        },
-        {
-            "date": "13.7",
-            "amount": 160,
-        },
-        {
-            "date": "14.7",
-            "amount": 160,
-        },
-        {
-            "date": "15.7",
-            "amount": 160,
-        },
-        {
-            "date": "16.7",
-            "amount": 200,
-        },
-        {
-            "date": "17.7",
-            "amount": 200,
-        },
-        {
-            "date": "18.7",
-            "amount": 200,
-        },
-        {
-            "date": "19.7",
-            "amount": 250,
-        },
-        {
-            "date": "20.7",
-            "amount": 250,
-        },
-        {
-            "date": "21.7.",
-            "amount": 300,
-        },
+        {"date": "21.6", "amount": 80},
+        {"date": "22.6", "amount": 60},
+        {"date": "23.6", "amount": 50},
+        {"date": "24.6", "amount": 50},
+        {"date": "25.6", "amount": 130},
+        {"date": "26.6", "amount": 120},
+        {"date": "27.6", "amount": 120},
+        {"date": "28.6", "amount": 120},
+        {"date": "29.6", "amount": 120},
+        {"date": "30.6", "amount": 120},
+        {"date": "1.7", "amount": 70},
+        {"date": "2.7", "amount": 70},
+        {"date": "3.7", "amount": 70},
+        {"date": "4.7", "amount": 250},
+        {"date": "5.7", "amount": 240},
+        {"date": "6.7", "amount": 240},
+        {"date": "7.7", "amount": 260},
+        {"date": "8.7", "amount": 250},
+        {"date": "9.7", "amount": 150},
+        {"date": "10.7", "amount": 150},
+        {"date": "11.7", "amount": 150},
+        {"date": "12.7", "amount": 150},
+        {"date": "13.7", "amount": 160},
+        {"date": "14.7", "amount": 160},
+        {"date": "15.7", "amount": 160},
+        {"date": "16.7", "amount": 200},
+        {"date": "17.7", "amount": 200},
+        {"date": "18.7", "amount": 200},
+        {"date": "19.7", "amount": 250},
+        {"date": "20.7", "amount": 250},
+        {"date": "21.7.", "amount": 300}
     ];
 
     const dataWeek = [
-        {
-            "date": "15.7",
-            "amount": 160,
-        },
-        {
-            "date": "16.7",
-            "amount": 200,
-        },
-        {
-            "date": "17.7",
-            "amount": 200,
-        },
-        {
-            "date": "18.7",
-            "amount": 200,
-        },
-        {
-            "date": "19.7",
-            "amount": 250,
-        },
-        {
-            "date": "20.7",
-            "amount": 250,
-        },
-        {
-            "date": "21.7.",
-            "amount": 300,
-        },
+        {"date": "15.7", "amount": 160},
+        {"date": "16.7", "amount": 200},
+        {"date": "17.7", "amount": 200},
+        {"date": "18.7", "amount": 200},
+        {"date": "19.7", "amount": 250},
+        {"date": "20.7", "amount": 250},
+        {"date": "21.7.", "amount": 300}
     ];
 
     const dataTime = [
-        {
-            label: "7 Days",
-            value: "7days",
-            icon: ArrowTrendingUpIcon
-        },
-        {
-            label: "30 Days",
-            value: "30days",
-            icon: ArrowTrendingUpIcon
-        },
+        {label: "7 Days", value: "7days", icon: ArrowTrendingUpIcon},
+        {label: "30 Days", value: "30days", icon: ArrowTrendingUpIcon}
     ];
 
     const [selectedTab, setSelectedTab] = useState("30days");

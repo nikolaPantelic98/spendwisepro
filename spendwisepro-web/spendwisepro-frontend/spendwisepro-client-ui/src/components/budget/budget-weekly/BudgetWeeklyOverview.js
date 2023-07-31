@@ -2,7 +2,7 @@ import {
     Card,
     CardBody,
     Typography,
-    ListItem, Chip, Button,
+    Chip, Button,
 } from "@material-tailwind/react";
 import React from "react";
 import { Progress } from "@material-tailwind/react";

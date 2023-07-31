@@ -19,32 +19,13 @@ import {
 export default function BudgetWeeklyChart() {
 
     const dataSpent = [
-        {
-            "date": "15.7",
-            "amount": 10,
-        },
-        {
-            "date": "16.7",
-            "amount": 30,
-        },
-        {
-            "date": "17.7",
-            "amount": 30,
-        },
-        {
-            "date": "18.7",
-            "amount": 60,
-        },
-        {
-            "date": "19.7",
-            "amount": 70,
-        },
-        {
-            "date": "20.7",
-        },
-        {
-            "date": "21.7.",
-        },
+        {"date": "15.7", "amount": 10},
+        {"date": "16.7", "amount": 30},
+        {"date": "17.7", "amount": 30},
+        {"date": "18.7", "amount": 60},
+        {"date": "19.7", "amount": 70},
+        {"date": "20.7"},
+        {"date": "21.7."}
     ];
 
     let daysWithAmount = 0;

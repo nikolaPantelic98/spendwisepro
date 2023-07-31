@@ -14,403 +14,111 @@ import {Link} from "react-router-dom";
 export default function TrendCard() {
 
     const dataBalance = [
-        {
-            "date": "21.6",
-            "amount": 180,
-        },
-        {
-            "date": "22.6",
-            "amount": 160,
-        },
-        {
-            "date": "23.6",
-            "amount": 150,
-        },
-        {
-            "date": "24.6",
-            "amount": 130,
-        },
-        {
-            "date": "25.6",
-            "amount": 550,
-        },
-        {
-            "date": "26.6",
-            "amount": 540,
-        },
-        {
-            "date": "27.6",
-            "amount": 540,
-        },
-        {
-            "date": "28.6",
-            "amount": 540,
-        },
-        {
-            "date": "29.6",
-            "amount": 540,
-        },
-        {
-            "date": "30.6",
-            "amount": 530,
-        },
-        {
-            "date": "1.7",
-            "amount": 370,
-        },
-        {
-            "date": "2.7",
-            "amount": 370,
-        },
-        {
-            "date": "3.7",
-            "amount": 350,
-        },
-        {
-            "date": "4.7",
-            "amount": 950,
-        },
-        {
-            "date": "5.7",
-            "amount": 920,
-        },
-        {
-            "date": "6.7",
-            "amount": 920,
-        },
-        {
-            "date": "7.7",
-            "amount": 910,
-        },
-        {
-            "date": "8.7",
-            "amount": 900,
-        },
-        {
-            "date": "9.7",
-            "amount": 1200,
-        },
-        {
-            "date": "10.7",
-            "amount": 1200,
-        },
-        {
-            "date": "11.7",
-            "amount": 1160,
-        },
-        {
-            "date": "12.7",
-            "amount": 1160,
-        },
-        {
-            "date": "13.7",
-            "amount": 1135,
-        },
-        {
-            "date": "14.7",
-            "amount": 1130,
-        },
-        {
-            "date": "15.7",
-            "amount": 1130,
-        },
-        {
-            "date": "16.7",
-            "amount": 1050,
-        },
-        {
-            "date": "17.7",
-            "amount": 1030,
-        },
-        {
-            "date": "18.7",
-            "amount": 1030,
-        },
-        {
-            "date": "19.7",
-            "amount": 1000,
-        },
-        {
-            "date": "20.7",
-            "amount": 1000,
-        },
-        {
-            "date": "21.7.",
-            "amount": 1000,
-        },
-
+        {"date": "21.6", "amount": 180},
+        {"date": "22.6", "amount": 160},
+        {"date": "23.6", "amount": 150},
+        {"date": "24.6", "amount": 130},
+        {"date": "25.6", "amount": 550},
+        {"date": "26.6", "amount": 540},
+        {"date": "27.6", "amount": 540},
+        {"date": "28.6", "amount": 540},
+        {"date": "29.6", "amount": 540},
+        {"date": "30.6", "amount": 530},
+        {"date": "1.7", "amount": 370},
+        {"date": "2.7", "amount": 370},
+        {"date": "3.7", "amount": 350},
+        {"date": "4.7", "amount": 950},
+        {"date": "5.7", "amount": 920},
+        {"date": "6.7", "amount": 920},
+        {"date": "7.7", "amount": 910},
+        {"date": "8.7", "amount": 900},
+        {"date": "9.7", "amount": 1200},
+        {"date": "10.7", "amount": 1200},
+        {"date": "11.7", "amount": 1160},
+        {"date": "12.7", "amount": 1160},
+        {"date": "13.7", "amount": 1135},
+        {"date": "14.7", "amount": 1130},
+        {"date": "15.7", "amount": 1130},
+        {"date": "16.7", "amount": 1050},
+        {"date": "17.7", "amount": 1030},
+        {"date": "18.7", "amount": 1030},
+        {"date": "19.7", "amount": 1000},
+        {"date": "20.7", "amount": 1000},
+        {"date": "21.7.", "amount": 1000}
     ]
 
     const dataCash = [
-        {
-            "date": "21.6",
-            "amount": 100,
-        },
-        {
-            "date": "22.6",
-            "amount": 100,
-        },
-        {
-            "date": "23.6",
-            "amount": 100,
-        },
-        {
-            "date": "24.6",
-            "amount": 80,
-        },
-        {
-            "date": "25.6",
-            "amount": 420,
-        },
-        {
-            "date": "26.6",
-            "amount": 420,
-        },
-        {
-            "date": "27.6",
-            "amount": 420,
-        },
-        {
-            "date": "28.6",
-            "amount": 420,
-        },
-        {
-            "date": "29.6",
-            "amount": 420,
-        },
-        {
-            "date": "30.6",
-            "amount": 410,
-        },
-        {
-            "date": "1.7",
-            "amount": 300,
-        },
-        {
-            "date": "2.7",
-            "amount": 300,
-        },
-        {
-            "date": "3.7",
-            "amount": 280,
-        },
-        {
-            "date": "4.7",
-            "amount": 700,
-        },
-        {
-            "date": "5.7",
-            "amount": 680,
-        },
-        {
-            "date": "6.7",
-            "amount": 680,
-        },
-        {
-            "date": "7.7",
-            "amount": 670,
-        },
-        {
-            "date": "8.7",
-            "amount": 650,
-        },
-        {
-            "date": "9.7",
-            "amount": 1050,
-        },
-        {
-            "date": "10.7",
-            "amount": 1050,
-        },
-        {
-            "date": "11.7",
-            "amount": 1010,
-        },
-        {
-            "date": "12.7",
-            "amount": 1010,
-        },
-        {
-            "date": "13.7",
-            "amount": 975,
-        },
-        {
-            "date": "14.7",
-            "amount": 970,
-        },
-        {
-            "date": "15.7",
-            "amount": 970,
-        },
-        {
-            "date": "16.7",
-            "amount": 850,
-        },
-        {
-            "date": "17.7",
-            "amount": 830,
-        },
-        {
-            "date": "18.7",
-            "amount": 830,
-        },
-        {
-            "date": "19.7",
-            "amount": 750,
-        },
-        {
-            "date": "20.7",
-            "amount": 750,
-        },
-        {
-            "date": "21.7.",
-            "amount": 700,
-        },
+        {"date": "21.6", "amount": 100},
+        {"date": "22.6", "amount": 100},
+        {"date": "23.6", "amount": 100},
+        {"date": "24.6", "amount": 80},
+        {"date": "25.6", "amount": 420},
+        {"date": "26.6", "amount": 420},
+        {"date": "27.6", "amount": 420},
+        {"date": "28.6", "amount": 420},
+        {"date": "29.6", "amount": 420},
+        {"date": "30.6", "amount": 410},
+        {"date": "1.7", "amount": 300},
+        {"date": "2.7", "amount": 300},
+        {"date": "3.7", "amount": 280},
+        {"date": "4.7", "amount": 700},
+        {"date": "5.7", "amount": 680},
+        {"date": "6.7", "amount": 680},
+        {"date": "7.7", "amount": 670},
+        {"date": "8.7", "amount": 650},
+        {"date": "9.7", "amount": 1050},
+        {"date": "10.7", "amount": 1050},
+        {"date": "11.7", "amount": 1010},
+        {"date": "12.7", "amount": 1010},
+        {"date": "13.7", "amount": 975},
+        {"date": "14.7", "amount": 970},
+        {"date": "15.7", "amount": 970},
+        {"date": "16.7", "amount": 850},
+        {"date": "17.7", "amount": 830},
+        {"date": "18.7", "amount": 830},
+        {"date": "19.7", "amount": 750},
+        {"date": "20.7", "amount": 750},
+        {"date": "21.7.", "amount": 700}
     ];
 
     const dataCredit = [
-        {
-            "date": "21.6",
-            "amount": 80,
-        },
-        {
-            "date": "22.6",
-            "amount": 60,
-        },
-        {
-            "date": "23.6",
-            "amount": 50,
-        },
-        {
-            "date": "24.6",
-            "amount": 50,
-        },
-        {
-            "date": "25.6",
-            "amount": 130,
-        },
-        {
-            "date": "26.6",
-            "amount": 120,
-        },
-        {
-            "date": "27.6",
-            "amount": 120,
-        },
-        {
-            "date": "28.6",
-            "amount": 120,
-        },
-        {
-            "date": "29.6",
-            "amount": 120,
-        },
-        {
-            "date": "30.6",
-            "amount": 120,
-        },
-        {
-            "date": "1.7",
-            "amount": 70,
-        },
-        {
-            "date": "2.7",
-            "amount": 70,
-        },
-        {
-            "date": "3.7",
-            "amount": 70,
-        },
-        {
-            "date": "4.7",
-            "amount": 250,
-        },
-        {
-            "date": "5.7",
-            "amount": 240,
-        },
-        {
-            "date": "6.7",
-            "amount": 240,
-        },
-        {
-            "date": "7.7",
-            "amount": 260,
-        },
-        {
-            "date": "8.7",
-            "amount": 250,
-        },
-        {
-            "date": "9.7",
-            "amount": 150,
-        },
-        {
-            "date": "10.7",
-            "amount": 150,
-        },
-        {
-            "date": "11.7",
-            "amount": 150,
-        },
-        {
-            "date": "12.7",
-            "amount": 150,
-        },
-        {
-            "date": "13.7",
-            "amount": 160,
-        },
-        {
-            "date": "14.7",
-            "amount": 160,
-        },
-        {
-            "date": "15.7",
-            "amount": 160,
-        },
-        {
-            "date": "16.7",
-            "amount": 200,
-        },
-        {
-            "date": "17.7",
-            "amount": 200,
-        },
-        {
-            "date": "18.7",
-            "amount": 200,
-        },
-        {
-            "date": "19.7",
-            "amount": 250,
-        },
-        {
-            "date": "20.7",
-            "amount": 250,
-        },
-        {
-            "date": "21.7.",
-            "amount": 300,
-        },
+        {"date": "21.6", "amount": 80},
+        {"date": "22.6", "amount": 60},
+        {"date": "23.6", "amount": 50},
+        {"date": "24.6", "amount": 50},
+        {"date": "25.6", "amount": 130},
+        {"date": "26.6", "amount": 120},
+        {"date": "27.6", "amount": 120},
+        {"date": "28.6", "amount": 120},
+        {"date": "29.6", "amount": 120},
+        {"date": "30.6", "amount": 120},
+        {"date": "1.7", "amount": 70},
+        {"date": "2.7", "amount": 70},
+        {"date": "3.7", "amount": 70},
+        {"date": "4.7", "amount": 250},
+        {"date": "5.7", "amount": 240},
+        {"date": "6.7", "amount": 240},
+        {"date": "7.7", "amount": 260},
+        {"date": "8.7", "amount": 250},
+        {"date": "9.7", "amount": 150},
+        {"date": "10.7", "amount": 150},
+        {"date": "11.7", "amount": 150},
+        {"date": "12.7", "amount": 150},
+        {"date": "13.7", "amount": 160},
+        {"date": "14.7", "amount": 160},
+        {"date": "15.7", "amount": 160},
+        {"date": "16.7", "amount": 200},
+        {"date": "17.7", "amount": 200},
+        {"date": "18.7", "amount": 200},
+        {"date": "19.7", "amount": 250},
+        {"date": "20.7", "amount": 250},
+        {"date": "21.7", "amount": 300},
     ];
 
     const type = [
-        {
-            label: "Balance",
-            value: "balance",
-            icon: ArrowTrendingUpIcon
-        },
-        {
-            label: "Cash",
-            value: "cash",
-            icon: ArrowTrendingUpIcon
-        },
-        {
-            label: "Credit",
-            value: "credit",
-            icon: ArrowTrendingUpIcon
-        },
+        {label: "Balance", value: "balance", icon: ArrowTrendingUpIcon},
+        {label: "Cash", value: "cash", icon: ArrowTrendingUpIcon},
+        {label: "Credit", value: "credit", icon: ArrowTrendingUpIcon}
     ];
 
     const [selectedTab, setSelectedTab] = useState("balance");

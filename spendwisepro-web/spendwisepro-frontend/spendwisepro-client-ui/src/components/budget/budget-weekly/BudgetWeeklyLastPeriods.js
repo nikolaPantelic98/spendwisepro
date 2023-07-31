@@ -16,31 +16,11 @@ import {
 export default function BudgetWeeklyLastPeriods() {
 
     const data = [
-        {
-            "startDate": "17.6",
-            "endDate": "24.6",
-            "spent": 120,
-        },
-        {
-            "startDate": "24.6",
-            "endDate": "1.7",
-            "spent": 165,
-        },
-        {
-            "startDate": "1.7",
-            "endDate": "8.7",
-            "spent": 80,
-        },
-        {
-            "startDate": "8.7",
-            "endDate": "15.7",
-            "spent": 180,
-        },
-        {
-            "startDate": "15.7",
-            "endDate": "22.7",
-            "spent": 70,
-        },
+        {"startDate": "17.6", "endDate": "24.6", "spent": 120},
+        {"startDate": "24.6", "endDate": "1.7", "spent": 165},
+        {"startDate": "1.7", "endDate": "8.7", "spent": 80},
+        {"startDate": "8.7", "endDate": "15.7", "spent": 180},
+        {"startDate": "15.7", "endDate": "22.7", "spent": 70}
     ];
 
     const CustomTooltipContent = ({ active, payload}) => {
