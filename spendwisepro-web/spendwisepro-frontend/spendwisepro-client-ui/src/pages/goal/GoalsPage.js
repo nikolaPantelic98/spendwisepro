@@ -4,7 +4,7 @@ import PageWidthLayout from "../../components/common/PageWidthLayout";
 import GoalsHeader from "../../components/goal/GoalsHeader";
 import GoalsList from "../../components/goal/GoalsList";
 
-function BudgetPage() {
+function GoalsPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -38,4 +38,4 @@ function BudgetPage() {
     );
 }
 
-export default BudgetPage;
+export default GoalsPage;
