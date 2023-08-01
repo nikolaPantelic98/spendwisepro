@@ -4,59 +4,59 @@ import {
     Typography,
     Chip, Tabs, TabsHeader, Tab, TabsBody, TabPanel,
 } from "@material-tailwind/react";
-import {ArrowTrendingUpIcon, CurrencyEuroIcon} from "@heroicons/react/24/solid";
+import {ArrowTrendingUpIcon, CurrencyDollarIcon, CurrencyEuroIcon} from "@heroicons/react/24/solid";
 import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis} from "recharts";
 import React, {useState} from "react";
 
-export default function CashChart() {
+export default function BalanceChart() {
 
     const dataMonth = [
-        {"date": "21.6", "amount": 100},
-        {"date": "22.6", "amount": 100},
-        {"date": "23.6", "amount": 100},
-        {"date": "24.6", "amount": 80},
-        {"date": "25.6", "amount": 420},
-        {"date": "26.6", "amount": 420},
-        {"date": "27.6", "amount": 420},
-        {"date": "28.6", "amount": 420},
-        {"date": "29.6", "amount": 420},
-        {"date": "30.6", "amount": 410},
-        {"date": "1.7", "amount": 300},
-        {"date": "2.7", "amount": 300},
-        {"date": "3.7", "amount": 280},
-        {"date": "4.7", "amount": 700},
-        {"date": "5.7", "amount": 680},
-        {"date": "6.7", "amount": 680},
-        {"date": "7.7", "amount": 670},
-        {"date": "8.7", "amount": 650},
-        {"date": "9.7", "amount": 1050},
-        {"date": "10.7", "amount": 1050},
-        {"date": "11.7", "amount": 1010},
-        {"date": "12.7", "amount": 1010},
-        {"date": "13.7", "amount": 975},
-        {"date": "14.7", "amount": 970},
-        {"date": "15.7", "amount": 970},
-        {"date": "16.7", "amount": 850},
-        {"date": "17.7", "amount": 830},
-        {"date": "18.7", "amount": 830},
-        {"date": "19.7", "amount": 750},
-        {"date": "20.7", "amount": 750},
-        {"date": "21.7.", "amount": 700}
+        {"date": "21.6", "amount": 180},
+        {"date": "22.6", "amount": 160},
+        {"date": "23.6", "amount": 150},
+        {"date": "24.6", "amount": 130},
+        {"date": "25.6", "amount": 550},
+        {"date": "26.6", "amount": 540},
+        {"date": "27.6", "amount": 540},
+        {"date": "28.6", "amount": 540},
+        {"date": "29.6", "amount": 540},
+        {"date": "30.6", "amount": 530},
+        {"date": "1.7", "amount": 370},
+        {"date": "2.7", "amount": 370},
+        {"date": "3.7", "amount": 350},
+        {"date": "4.7", "amount": 950},
+        {"date": "5.7", "amount": 920},
+        {"date": "6.7", "amount": 920},
+        {"date": "7.7", "amount": 910},
+        {"date": "8.7", "amount": 900},
+        {"date": "9.7", "amount": 1200},
+        {"date": "10.7", "amount": 1200},
+        {"date": "11.7", "amount": 1160},
+        {"date": "12.7", "amount": 1160},
+        {"date": "13.7", "amount": 1135},
+        {"date": "14.7", "amount": 1130},
+        {"date": "15.7", "amount": 1130},
+        {"date": "16.7", "amount": 1050},
+        {"date": "17.7", "amount": 1030},
+        {"date": "18.7", "amount": 1030},
+        {"date": "19.7", "amount": 1000},
+        {"date": "20.7", "amount": 1000},
+        {"date": "21.7.", "amount": 1000}
     ];
 
     const dataWeek = [
-        {"date": "15.7", "amount": 970},
-        {"date": "16.7", "amount": 850},
-        {"date": "17.7", "amount": 830},
-        {"date": "18.7", "amount": 830},
-        {"date": "19.7", "amount": 750},
-        {"date": "20.7", "amount": 750},
-        {"date": "21.7.", "amount": 700}
+        {"date": "15.7", "amount": 1130},
+        {"date": "16.7", "amount": 1050},
+        {"date": "17.7", "amount": 1030},
+        {"date": "18.7", "amount": 1030},
+        {"date": "19.7", "amount": 1000},
+        {"date": "20.7", "amount": 1000},
+        {"date": "21.7.", "amount": 1000}
     ];
 
     const dataTime = [
         {label: "7 Days", value: "7days", icon: ArrowTrendingUpIcon},
-        {label: "30 Days", value: "30days", icon: ArrowTrendingUpIcon}
+        {label: "30 Days", value: "30days", icon: ArrowTrendingUpIcon},
     ];
 
     const [selectedTab, setSelectedTab] = useState("30days");
@@ -66,8 +66,8 @@ export default function CashChart() {
             <CardBody>
                 <div>
                     <Typography variant="h4" color="blue-gray" className="mb-2 flex items-center justify-between">
-                        <span className="mb-2">Cash Trend</span>
-                        <CurrencyEuroIcon className="text-green-700 w-10 h-10 mb-4" />
+                        <span className="mb-2">Balance Trend</span>
+                        <CurrencyDollarIcon className="text-green-700 w-10 h-10 mb-4" />
                     </Typography>
                 </div>
 
@@ -105,9 +105,9 @@ export default function CashChart() {
                                                         </div>
                                                         <div className="flex items-center justify-between">
                                                             <Typography variant="h2" className="text-gray-900 mb-4">
-                                                                $700,00
+                                                                $1000,00
                                                             </Typography>
-                                                            <Chip size="md" value="+ 600%" className="bg-green-700 mb-4 text-sm" />
+                                                            <Chip size="md" value="+ 555%" className="bg-green-700 mb-4 text-sm" />
                                                         </div>
                                                     </div>
 
@@ -147,9 +147,9 @@ export default function CashChart() {
                                                         </div>
                                                         <div className="flex items-center justify-between">
                                                             <Typography variant="h2" className="text-gray-900 mb-4">
-                                                                $700,00
+                                                                $1000,00
                                                             </Typography>
-                                                            <Chip size="md" value="- 28%" className="bg-red-700 mb-4 text-sm" />
+                                                            <Chip size="md" value="- 13%" className="bg-red-700 mb-4 text-sm" />
                                                         </div>
                                                     </div>
 

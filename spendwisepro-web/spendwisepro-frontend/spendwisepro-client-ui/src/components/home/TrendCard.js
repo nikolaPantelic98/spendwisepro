@@ -192,12 +192,12 @@ export default function TrendCard() {
                                                     </div>
 
                                                     <CardFooter className="p-0 mt-8">
-                                                        <a className="inline-block">
+                                                        <Link to="/balance" onClick={scrollToTop}>
                                                             <Button size="sm" variant="text" className="flex items-center gap-2">
                                                                 Show More
                                                                 <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
                                                             </Button>
-                                                        </a>
+                                                        </Link>
                                                     </CardFooter>
                                                 </div>
                                             </>
@@ -236,14 +236,13 @@ export default function TrendCard() {
                                                     </div>
 
                                                     <CardFooter className="p-0 mt-8">
-                                                        <a className="inline-block">
-                                                            <Link to="/cash" onClick={scrollToTop}>
-                                                                <Button size="sm" variant="text" className="flex items-center gap-2">
-                                                                    Show More
-                                                                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                                                                </Button>
-                                                            </Link>
-                                                        </a>
+
+                                                        <Link to="/cash" onClick={scrollToTop}>
+                                                            <Button size="sm" variant="text" className="flex items-center gap-2">
+                                                                Show More
+                                                                <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                                                            </Button>
+                                                        </Link>
                                                     </CardFooter>
                                                 </div>
                                             </>
@@ -282,14 +281,12 @@ export default function TrendCard() {
                                                     </div>
 
                                                     <CardFooter className="p-0 mt-8">
-                                                        <a className="inline-block">
-                                                            <Link to="/credit_cards" onClick={scrollToTop}>
-                                                                <Button size="sm" variant="text" className="flex items-center gap-2">
-                                                                    Show More
-                                                                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                                                                </Button>
-                                                            </Link>
-                                                        </a>
+                                                        <Link to="/credit_cards" onClick={scrollToTop}>
+                                                            <Button size="sm" variant="text" className="flex items-center gap-2">
+                                                                Show More
+                                                                <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                                                            </Button>
+                                                        </Link>
                                                     </CardFooter>
                                                 </div>
                                             </>
