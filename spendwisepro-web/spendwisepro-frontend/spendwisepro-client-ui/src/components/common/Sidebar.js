@@ -83,7 +83,7 @@ const Sidebar = forwardRef((props, ref) => {
 
                     <AccordionBody className="py-1">
                         <List className="p-0">
-                            <Link to="/balance">
+                            <Link to="/balance" onClick={scrollToTop}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -127,7 +127,7 @@ const Sidebar = forwardRef((props, ref) => {
                                     Budgets
                                 </ListItem>
                             </Link>
-                            <Link to="/goals">
+                            <Link to="/goals" onClick={scrollToTop}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
