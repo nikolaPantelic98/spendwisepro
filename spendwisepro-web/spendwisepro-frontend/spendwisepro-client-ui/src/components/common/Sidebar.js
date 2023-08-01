@@ -83,12 +83,14 @@ const Sidebar = forwardRef((props, ref) => {
 
                     <AccordionBody className="py-1">
                         <List className="p-0">
-                            <ListItem className="focus:bg-green-50 hover:bg-green-50">
-                                <ListItemPrefix>
-                                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                </ListItemPrefix>
-                                Balance
-                            </ListItem>
+                            <Link to="/balance">
+                                <ListItem className="focus:bg-green-50 hover:bg-green-50">
+                                    <ListItemPrefix>
+                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                    </ListItemPrefix>
+                                    Balance
+                                </ListItem>
+                            </Link>
                             <Link to="/cash" onClick={scrollToTop}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
@@ -125,12 +127,14 @@ const Sidebar = forwardRef((props, ref) => {
                                     Budgets
                                 </ListItem>
                             </Link>
-                            <ListItem className="focus:bg-green-50 hover:bg-green-50">
-                                <ListItemPrefix>
-                                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                </ListItemPrefix>
-                                Goals
-                            </ListItem>
+                            <Link to="/goals">
+                                <ListItem className="focus:bg-green-50 hover:bg-green-50">
+                                    <ListItemPrefix>
+                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                    </ListItemPrefix>
+                                    Goals
+                                </ListItem>
+                            </Link>
                             <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                 <ListItemPrefix>
                                     <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
