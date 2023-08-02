@@ -61,6 +61,38 @@ export default function CreditCardChart() {
 
     const [selectedTab, setSelectedTab] = useState("30days");
 
+    const TooltipContentMonth = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            const dataMonth = payload[0];
+            if (dataMonth.payload.amount !== undefined) {
+                return (
+                    <div className="p-1 pl-2 pr-2">
+                        <p className="text-gray-900 border-b-2">{`${dataMonth.payload.date}`}</p>
+                        <p className="font-semibold text-right text-green-chart mt-1 mb-1">{`Amount: $${dataMonth.payload.amount}`}</p>
+                    </div>
+                );
+            }
+        }
+
+        return null;
+    };
+
+    const TooltipContentWeek = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            const dataWeek = payload[0];
+            if (dataWeek.payload.amount !== undefined) {
+                return (
+                    <div className="p-1 pl-2 pr-2">
+                        <p className="text-gray-900 border-b-2">{`${dataWeek.payload.date}`}</p>
+                        <p className="font-semibold text-right text-green-chart mt-1 mb-1">{`Amount: $${dataWeek.payload.amount}`}</p>
+                    </div>
+                );
+            }
+        }
+
+        return null;
+    };
+
     return (
         <Card className="w-full shadow-lg mt-6">
             <CardBody>
@@ -127,7 +159,11 @@ export default function CreditCardChart() {
                                                             <XAxis dataKey="date" fontSize="small" />
                                                             <YAxis fontSize="small"/>
                                                             <CartesianGrid strokeDasharray="3 3" />
-                                                            <Tooltip />
+                                                            <Tooltip cursor={{fill: '#E8F5E9'}}
+                                                                     payloadArray={dataMonth}
+                                                                     content={<TooltipContentMonth />}
+                                                                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
+                                                                     offset={25}/>
                                                             <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
                                                         </AreaChart>
                                                     </div>
@@ -169,7 +205,11 @@ export default function CreditCardChart() {
                                                             <XAxis dataKey="date" fontSize="small" />
                                                             <YAxis fontSize="small"/>
                                                             <CartesianGrid strokeDasharray="3 3" />
-                                                            <Tooltip />
+                                                            <Tooltip cursor={{fill: '#E8F5E9'}}
+                                                                     payloadArray={dataWeek}
+                                                                     content={<TooltipContentWeek />}
+                                                                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
+                                                                     offset={25}/>
                                                             <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
                                                         </AreaChart>
                                                     </div>

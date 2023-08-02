@@ -66,8 +66,8 @@ export default function CashChart() {
             const dataMonth = payload[0];
             if (dataMonth.payload.amount !== undefined) {
                 return (
-                    <div className="p-1">
-                        <p className="text-center text-gray-900 border-b-2">{`${dataMonth.payload.date}`}</p>
+                    <div className="p-1 pl-2 pr-2">
+                        <p className="text-gray-900 border-b-2">{`${dataMonth.payload.date}`}</p>
                         <p className="font-semibold text-right text-green-chart mt-1 mb-1">{`Amount: $${dataMonth.payload.amount}`}</p>
                     </div>
                 );
@@ -82,8 +82,8 @@ export default function CashChart() {
             const dataWeek = payload[0];
             if (dataWeek.payload.amount !== undefined) {
                 return (
-                    <div className="p-1">
-                        <p className="text-center text-gray-900 border-b-2">{`${dataWeek.payload.date}`}</p>
+                    <div className="p-1 pl-2 pr-2">
+                        <p className="text-gray-900 border-b-2">{`${dataWeek.payload.date}`}</p>
                         <p className="font-semibold text-right text-green-chart mt-1 mb-1">{`Amount: $${dataWeek.payload.amount}`}</p>
                     </div>
                 );
