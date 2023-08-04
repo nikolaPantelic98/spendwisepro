@@ -15,6 +15,7 @@ import BalancePage from "./balance/BalancePage";
 import RecordsPage from "./record/RecordsPage";
 import ExpensesPage from "./expenses/ExpensesPage";
 import ExpensesRecordsMonthlyPage from "./expenses/ExpensesRecordsMonthlyPage";
+import PlannedPaymentsPage from "./planned-payments/PlannedPaymentsPage";
 
 function App() {
 
@@ -45,6 +46,8 @@ function App() {
 
                     <Route path="/expenses" element={<ExpensesPage />}></Route>
                     <Route path="/expenses/month/bills" element={<ExpensesRecordsMonthlyPage />}></Route>
+
+                    <Route path="/planned_payments" element={<PlannedPaymentsPage />}></Route>
                 </Routes>
             </BrowserRouter>
         </>

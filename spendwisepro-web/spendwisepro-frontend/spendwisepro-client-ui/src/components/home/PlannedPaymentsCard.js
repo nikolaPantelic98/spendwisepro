@@ -9,17 +9,22 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 export default function PlannedPaymentsCard() {
+
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+
     return (
         <Card className="w-full shadow-lg">
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                     Planned Payments
-                    <Button size="sm" variant="text" className="flex gap-2">
-                        <a>
+                    <Link to="/planned_payments" onClick={scrollToTop}>
+                        <Button size="sm" variant="text" className="flex gap-2">
                             View All
-                        </a>
-                        <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                    </Button>
+                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                        </Button>
+                    </Link>
                 </Typography>
                 <hr className="my-2 border-blue-gray-50" />
 
