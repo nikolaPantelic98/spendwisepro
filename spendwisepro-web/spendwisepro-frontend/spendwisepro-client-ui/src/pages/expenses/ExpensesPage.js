@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
-import PageWidthLayout from "../../components/common/PageWidthLayout";
 import ExpensesHeader from "../../components/expenses/ExpensesHeader";
+import ExpensesTabs from "../../components/expenses/ExpensesTabs";
 
-function BudgetPage() {
+function ExpensesPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -21,14 +21,8 @@ function BudgetPage() {
                     <ExpensesHeader/>
                 </div>
 
-                <div className="flex justify-center min-h-screen bg-green-50">
-                    <div className="mt-2">
-                        <div className="mx-6">
-                            {/*content*/}
-                        </div>
-
-                        <div><PageWidthLayout/></div>
-                    </div>
+                <div className=" flex justify-center min-h-screen bg-green-50">
+                    <ExpensesTabs/>
                 </div>
 
             </div>
@@ -37,4 +31,4 @@ function BudgetPage() {
     );
 }
 
-export default BudgetPage;
+export default ExpensesPage;

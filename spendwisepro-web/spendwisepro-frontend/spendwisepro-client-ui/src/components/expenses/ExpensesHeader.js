@@ -8,7 +8,7 @@ const ExpensesHeader = () => {
     const navigate = useNavigate();
 
     const handleGoBack = () => {
-        navigate(-1); // Redirects the user back to the previous page they came from
+        navigate(-1);
     };
 
     return (
