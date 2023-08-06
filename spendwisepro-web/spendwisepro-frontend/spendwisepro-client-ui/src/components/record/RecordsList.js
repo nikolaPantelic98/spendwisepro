@@ -16,7 +16,7 @@ export default function RecordsList() {
 
     return (
         <>
-            <Card className="w-full shadow-lg mt-8 rounded-md">
+            <Card className="w-full shadow-lg mt-8">
                 <CardBody>
                     <Typography variant="h6" className="mb-4 flex items-center justify-between text-gray-600">
                         21 JULY 2023
@@ -95,7 +95,7 @@ export default function RecordsList() {
                 </CardBody>
             </Card>
 
-            <Card className="w-full shadow-lg mt-4 rounded-md">
+            <Card className="w-full shadow-lg mt-8">
                 <CardBody>
                     <Typography variant="h6" className="mb-4 flex items-center justify-between text-gray-600">
                         20 JULY 2023
@@ -142,7 +142,7 @@ export default function RecordsList() {
                 </CardBody>
             </Card>
 
-            <Card className="w-full shadow-lg mt-4 rounded-md">
+            <Card className="w-full shadow-lg mt-8">
                 <CardBody>
                     <Typography variant="h6" className="mb-4 flex items-center justify-between text-gray-600">
                         19 JULY 2023
@@ -189,7 +189,7 @@ export default function RecordsList() {
                 </CardBody>
             </Card>
 
-            <Card className="w-full shadow-lg mt-4 rounded-md">
+            <Card className="w-full shadow-lg mt-8">
                 <CardBody>
                     <Typography variant="h6" className="mb-4 flex items-center justify-between text-gray-600">
                         17 JULY 2023
@@ -268,7 +268,7 @@ export default function RecordsList() {
                 </CardBody>
             </Card>
 
-            <Card className="w-full shadow-lg mt-4 rounded-md">
+            <Card className="w-full shadow-lg mt-8">
                 <CardBody>
                     <Typography variant="h6" className="mb-4 flex items-center justify-between text-gray-600">
                         10 JULY 2023

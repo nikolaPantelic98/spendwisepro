@@ -24,7 +24,7 @@ function RecordsPage() {
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
-                        <div>
+                        <div className="mx-6">
                             <RecordsList />
                         </div>
 
