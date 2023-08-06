@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
-import BudgetHeader from "../../components/budget/BudgetHeader";
 import BudgetList from "../../components/budget/BudgetList";
+import PageHeader from "../../components/common/PageHeader";
 
 function BudgetPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -19,7 +19,7 @@ function BudgetPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <BudgetHeader/>
+                    <PageHeader title="Budgets" />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
-import CashHeader from "../../components/cash/CashHeader";
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import CashChart from "../../components/cash/CashChart";
+import PageHeader from "../../components/common/PageHeader";
 
 function CashPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -19,7 +19,7 @@ function CashPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <CashHeader/>
+                    <PageHeader title="Cash" />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">

@@ -119,7 +119,7 @@ const Sidebar = forwardRef((props, ref) => {
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
-                                    </ListItemPrefix>A
+                                    </ListItemPrefix>
                                     Expenses
                                 </ListItem>
                             </Link>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
-import CategoriesHeader from "../../components/category/CategoriesHeader";
 import CategoryList from "../../components/category/CategoryList";
 import PageWidthLayout from "../../components/common/PageWidthLayout";
+import PageHeader from "../../components/common/PageHeader";
 
 function CategoriesPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -19,7 +19,7 @@ function CategoriesPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <CategoriesHeader/>
+                    <PageHeader title="Categories" />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">

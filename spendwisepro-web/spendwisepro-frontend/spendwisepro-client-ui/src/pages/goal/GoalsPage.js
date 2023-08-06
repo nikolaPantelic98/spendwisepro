@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
-import GoalsHeader from "../../components/goal/GoalsHeader";
 import GoalsList from "../../components/goal/GoalsList";
+import PageHeader from "../../components/common/PageHeader";
 
 function GoalsPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -19,7 +19,7 @@ function GoalsPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <GoalsHeader/>
+                    <PageHeader title="Goals" />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">

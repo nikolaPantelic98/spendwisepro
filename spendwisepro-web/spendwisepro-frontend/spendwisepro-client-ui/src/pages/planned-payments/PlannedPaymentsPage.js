@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
-import PlannedPaymentsHeader from "../../components/planned-payments/PlannedPaymentsHeader";
 import PlannedPaymentsList from "../../components/planned-payments/PlannedPaymentsList";
+import PageHeader from "../../components/common/PageHeader";
 
 function PlannedPaymentsPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -19,7 +19,7 @@ function PlannedPaymentsPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <PlannedPaymentsHeader />
+                    <PageHeader title="Planned payments" />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">

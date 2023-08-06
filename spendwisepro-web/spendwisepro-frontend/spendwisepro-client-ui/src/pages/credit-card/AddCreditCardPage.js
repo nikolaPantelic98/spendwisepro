@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
-import AddCreditCardHeader from "../../components/creditcard/AddCreditCardHeader";
 import AddCreditCardForm from "../../components/creditcard/AddCreditCardForm";
+import PageHeader from "../../components/common/PageHeader";
 
 function AddCreditCardPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -19,7 +19,7 @@ function AddCreditCardPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <AddCreditCardHeader/>
+                    <PageHeader title="Add credit card" />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">

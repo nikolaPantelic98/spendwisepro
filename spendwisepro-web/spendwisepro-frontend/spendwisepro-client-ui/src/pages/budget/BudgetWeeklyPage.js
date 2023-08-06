@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
-import BudgetWeeklyHeader from "../../components/budget/budget-weekly/BudgetWeeklyHeader";
 import BudgetWeeklyTabs from "../../components/budget/BudgetWeeklyTabs";
+import PageHeader from "../../components/common/PageHeader";
 
 function BudgetPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -19,7 +19,7 @@ function BudgetPage() {
             <div className="h-6 bg-green-50"></div>
 
             <div>
-                <BudgetWeeklyHeader/>
+                <PageHeader title="General" />
             </div>
 
             <div className=" flex justify-center min-h-screen bg-green-50">
