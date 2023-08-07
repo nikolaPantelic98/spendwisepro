@@ -60,7 +60,7 @@ export default function PlannedPaymentsCard() {
                                         </div>
                                     </div>
                                     <div className="ml-2">
-                                        <ChevronRightIcon className="h-5 w-5 text-gray-900" />
+                                        <ChevronRightIcon className="h-5 w-5 text-green-800" />
                                     </div>
                                 </ListItem>
                             </Link>
@@ -95,7 +95,7 @@ export default function PlannedPaymentsCard() {
                                         </div>
                                     </div>
                                     <div className="ml-2">
-                                        <ChevronRightIcon className="h-5 w-5 text-gray-900" />
+                                        <ChevronRightIcon className="h-5 w-5 text-green-800" />
                                     </div>
                                 </ListItem>
                             </Link>
@@ -130,7 +130,7 @@ export default function PlannedPaymentsCard() {
                                         </div>
                                     </div>
                                     <div className="ml-2">
-                                        <ChevronRightIcon className="h-5 w-5 text-gray-900" />
+                                        <ChevronRightIcon className="h-5 w-5 text-green-800" />
                                     </div>
                                 </ListItem>
                             </Link>
