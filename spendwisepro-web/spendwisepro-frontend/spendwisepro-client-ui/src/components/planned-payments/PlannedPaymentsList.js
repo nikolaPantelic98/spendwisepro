@@ -175,7 +175,7 @@ export default function PlannedPaymentsList() {
                             <Link>
                                 <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                     <div className="flex-shrink-0">
-                                        <img className="w-8 h-8 rounded-full" src="https://img.freepik.com/premium-vector/white-car-circle-with-modern-gradient-shadow-vector-illustration_515038-8894.jpg?w=2000" alt="Car" />
+                                        <img className="w-8 h-8 rounded-full" src="https://www.iconbunny.com/icons/media/catalog/product/1/2/1258.9-car-icon-iconbunny.jpg" alt="Car" />
                                     </div>
                                     <div className="flex-1 min-w-0">
                                         <p className="text-sm font-medium text-green-600 truncate dark:text-white">
