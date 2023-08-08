@@ -11,8 +11,6 @@ import React from "react";
 
 export default function AddRecordPaymentType({ onChange }) {
 
-    // amount
-
     const [openPaymentType, setOpenPaymentType] = React.useState(false);
     const [selectedPaymentType, setSelectedPaymentType] = React.useState("");
     const [tempSelectedPaymentType, setTempSelectedPaymentType] = React.useState("");

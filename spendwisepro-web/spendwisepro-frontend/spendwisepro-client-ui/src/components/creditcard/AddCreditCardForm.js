@@ -1,47 +1,35 @@
 import {
     Card,
     CardBody,
-    Select,
-    Option,
     Button,
 } from "@material-tailwind/react";
-import { Input } from "@material-tailwind/react";
 import React from "react";
+import AddCreditCardAmount from "./add-credit-card-elements/AddCreditCardAmount";
+import AddCreditCardType from "./add-credit-card-elements/AddCreditCardType";
+import AddCreditCardBank from "./add-credit-card-elements/AddCreditCardBank";
+import AddCreditCardNote from "./add-credit-card-elements/AddCreditCardNote";
 
 export default function AddCreditCardForm() {
     return (
-        <Card className="mt-6">
+        <Card className="w-full shadow-lg mt-8">
             <CardBody>
+                <div className="flow-root">
+                    <ul role="list" className="divide-y divide-gray-200">
+                        <AddCreditCardAmount />
 
-                <div className="m-6">
-                    <Input label="Amount" color="green" type="number" step="0.01" pattern="[0-9]*" />
+                        <AddCreditCardType />
+
+                        <AddCreditCardBank />
+
+                        <AddCreditCardNote />
+                    </ul>
+                    <hr className="my-2 border-blue-gray-50" />
+                    <div className="flex justify-center items-center">
+                        <Button className="mt-2 w-full" variant="gradient" color="green">
+                            <span>Add</span>
+                        </Button>
+                    </div>
                 </div>
-
-                <div className="m-6">
-                    <Select label="Type" menuProps={{ className: "h-48" }} color="green">
-                        <Option value="Visa">Visa</Option>
-                        <Option value="MasterCard">MasterCard</Option>
-                        <Option value="American Express">American Express</Option>
-                        <Option value="Chase">Chase</Option>
-                        <Option value="Capital One">Capital One</Option>
-                        <Option value="Synchrony">Synchrony</Option>
-                        <Option value="Citibank">Citibank</Option>
-                        <Option value="Discover">Discover</Option>
-                    </Select>
-                </div>
-
-                <div className="m-6">
-                    <Input label="Bank" color="green" />
-                </div>
-
-                <div className="m-6">
-                    <Input label="Note" color="green" />
-                </div>
-
-                <div className="m-6 mt-8">
-                    <Button size="md" color="green" className="bg-green-700 hover:bg-green-800">Add</Button>
-                </div>
-
             </CardBody>
         </Card>
     );

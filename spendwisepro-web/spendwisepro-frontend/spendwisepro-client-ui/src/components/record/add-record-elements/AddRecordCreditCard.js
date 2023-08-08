@@ -11,8 +11,6 @@ import React from "react";
 
 export default function AddRecordCreditCard() {
 
-    // amount
-
     const [openCreditCard, setOpenCreditCard] = React.useState(false);
     const [selectedCreditCard, setSelectedCreditCard] = React.useState("");
     const [tempSelectedCreditCard, setTempSelectedCreditCard] = React.useState("");

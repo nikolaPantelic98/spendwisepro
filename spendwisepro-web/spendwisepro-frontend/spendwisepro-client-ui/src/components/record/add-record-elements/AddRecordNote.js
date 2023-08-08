@@ -12,8 +12,6 @@ import React from "react";
 
 export default function AddRecordNote() {
 
-    // amount
-
     const [openNote, setOpenNote] = React.useState(false);
     const [contentNote, setContentNote] = React.useState("");
     const [isNoteTyped, setIsNoteTyped] = React.useState(false);
@@ -45,7 +43,7 @@ export default function AddRecordNote() {
             <div onClick={handleOpenNote}>
                 <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                     <div className="flex-shrink-0">
-                        <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/190/190703.png" alt="Phone bills" />
+                        <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/190/190703.png" alt="Note" />
                     </div>
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-green-700 truncate dark:text-white">

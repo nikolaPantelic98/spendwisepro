@@ -11,8 +11,6 @@ import React from "react";
 
 export default function AddRecordCategory() {
 
-    // amount
-
     const [openCategory, setOpenCategory] = React.useState(false);
     const [selectedCategory, setSelectedCategory] = React.useState("");
     const [tempSelectedCategory, setTempSelectedCategory] = React.useState("");

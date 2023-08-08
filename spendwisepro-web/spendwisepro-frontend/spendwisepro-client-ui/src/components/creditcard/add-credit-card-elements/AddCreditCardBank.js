@@ -10,50 +10,50 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddRecordAmount() {
+export default function AddCreditCardBank() {
 
-    const [openAmount, setOpenAmount] = React.useState(false);
-    const [amountValue, setAmountValue] = React.useState("");
-    const [isAmountTyped, setIsAmountTyped] = React.useState(false);
-    const [tempAmountValue, setTempAmountValue] = React.useState("");
-    const handleOpenAmount = () => {
-        setTempAmountValue(amountValue);
-        setOpenAmount(true);
+    const [openBank, setOpenBank] = React.useState(false);
+    const [typedBank, setTypedBank] = React.useState("");
+    const [isBankTyped, setIsBankTyped] = React.useState(false);
+    const [tempTypedBank, setTempANoteContent] = React.useState("");
+    const handleOpenNote = () => {
+        setTempANoteContent(typedBank);
+        setOpenBank(true);
     };
-    const handleCloseAmount = () => {
-        if (isAmountTyped) {
-            setAmountValue(tempAmountValue);
+    const handleCloseNote = () => {
+        if (isBankTyped) {
+            setTypedBank(tempTypedBank);
         }
-        setOpenAmount(false);
+        setOpenBank(false);
     };
-    const handleConfirmAmount = () => {
-        if (!isAmountTyped) {
-            setTempAmountValue("");
-            setIsAmountTyped(false);
+    const handleConfirmNote = () => {
+        if (!isBankTyped) {
+            setTempANoteContent("");
+            setIsBankTyped(false);
         }
-        setOpenAmount(false);
+        setOpenBank(false);
     };
-    const handleAmountChange = (event) => {
-        setAmountValue(event.target.value);
-        setIsAmountTyped(event.target.value !== "");
+    const handleNoteChange = (event) => {
+        setTypedBank(event.target.value);
+        setIsBankTyped(event.target.value !== "");
     }
 
     return (
         <li className="py-3 sm:py-4">
-            <div onClick={handleOpenAmount}>
+            <div onClick={handleOpenNote}>
                 <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                     <div className="flex-shrink-0">
-                        <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/189/189715.png" alt="Amount" />
+                        <img className="w-8 h-8 rounded-full" src="https://www.iconbunny.com/icons/media/catalog/product/9/4/948.9-local-banks-icon-iconbunny.jpg" alt="Bank" />
                     </div>
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-green-700 truncate dark:text-white">
-                            Amount
+                            Bank
                         </p>
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isAmountTyped ? 'font-bold text-gray-900' : ''}`}>
-                            {amountValue ? `$${parseFloat(amountValue).toFixed(2)}` : "Type"}
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isBankTyped ? 'font-bold text-gray-500 truncate' : ''}`}>
+                            {typedBank ? typedBank : "Type"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -63,27 +63,27 @@ export default function AddRecordAmount() {
                 </ListItem>
             </div>
             <Dialog
-                open={openAmount}
-                handler={handleOpenAmount}
+                open={openBank}
+                handler={handleOpenNote}
                 animate={{
                     mount: { scale: 1, y: 0 },
                     unmount: { scale: 0.9, y: -100 },
                 }}
             >
-                <DialogHeader>Amount</DialogHeader>
+                <DialogHeader>Bank</DialogHeader>
                 <DialogBody>
-                    <Input label="Amount" color="green" type="number" step="0.01" inputMode="decimal" pattern="[0-9]*" value={amountValue} onChange={handleAmountChange} />
+                    <Input label="Bank" color="green" value={typedBank} onChange={handleNoteChange} />
                 </DialogBody>
                 <DialogFooter>
                     <Button
                         variant="text"
                         color="red"
-                        onClick={handleCloseAmount}
+                        onClick={handleCloseNote}
                         className="mr-1"
                     >
                         <span>Cancel</span>
                     </Button>
-                    <Button variant="gradient" color="green" onClick={handleConfirmAmount}>
+                    <Button variant="gradient" color="green" onClick={handleConfirmNote}>
                         <span>Confirm</span>
                     </Button>
                 </DialogFooter>

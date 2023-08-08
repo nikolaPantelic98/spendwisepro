@@ -12,8 +12,6 @@ import React from "react";
 
 export default function AddRecordDateAndTime() {
 
-    // amount
-
     const [openDateTime, setOpenDateTime] = React.useState(false);
     const [selectedDateTime, setSelectedDateTime] = React.useState("");
     const [tempSelectedDateTime, setTempSelectedDateTime] = React.useState("");
@@ -58,7 +56,7 @@ export default function AddRecordDateAndTime() {
             <div onClick={handleOpenDateTime}>
                 <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                     <div className="flex-shrink-0">
-                        <img className="w-8 h-8 rounded-full" src="https://cdn1.iconfinder.com/data/icons/ui-5/502/calendar-512.png" alt="Phone bills" />
+                        <img className="w-8 h-8 rounded-full" src="https://cdn1.iconfinder.com/data/icons/ui-5/502/calendar-512.png" alt="Date and time" />
                     </div>
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-green-700 truncate dark:text-white">
