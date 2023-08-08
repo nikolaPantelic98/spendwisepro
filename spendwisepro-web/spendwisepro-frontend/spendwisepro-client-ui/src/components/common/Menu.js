@@ -72,8 +72,8 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
             </div>
             {sidebarOpen && (
                 <>
-                    <div className="fixed top-0 left-0 right-0 bottom-0 z-0 bg-gray-700 opacity-50" onClick={() => toggleSidebar(false)}></div>
-                    <div ref={sidebarRef} className="fixed top-0 left-0 bottom-0 z-10 w-full max-w-[20rem] p-4 bg-white shadow-xl shadow-blue-gray-900/5">
+                    <div className="fixed top-0 left-0 right-0 bottom-0 z-0 bg-black bg-opacity-50 backdrop-blur-sm" onClick={() => toggleSidebar(false)}></div>
+                    <div ref={sidebarRef} className="fixed top-0 left-0 bottom-0 z-10 w-[78%] md:max-w-[20rem] p-4 bg-white shadow-xl shadow-blue-gray-900/5 border-r-1 border-green-800">
                         <Sidebar />
                     </div>
                 </>

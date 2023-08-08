@@ -441,7 +441,7 @@ export default function AddRecordExpense() {
                     </ul>
                     <hr className="my-2 border-blue-gray-50" />
                     <div className="flex justify-center items-center">
-                        <Button className="mt-6 w-full" variant="gradient" color="green" onClick={handleConfirmNote}>
+                        <Button className="mt-2 w-full" variant="gradient" color="green" onClick={handleConfirmNote}>
                             <span>Save</span>
                         </Button>
                     </div>
