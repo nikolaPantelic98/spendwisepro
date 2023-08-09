@@ -63,8 +63,8 @@ export default function CategoryList() {
                             <AccordionBody className="py-1">
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://www.iconbunny.com/icons/media/catalog/product/1/2/1248.9-petrol-pump-icon-iconbunny.jpg" alt="Fuel" />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -86,8 +86,8 @@ export default function CategoryList() {
 
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://www.iconbunny.com/icons/media/catalog/product/1/2/1228.9-parking-sign-icon-iconbunny.jpg" alt="Parking" />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -140,8 +140,8 @@ export default function CategoryList() {
                             <AccordionBody className="py-1">
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://icon-library.com/images/grocery-icon-png/grocery-icon-png-14.jpg" alt="Groceries" />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -163,8 +163,8 @@ export default function CategoryList() {
 
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/227/227326.png" alt="Restaurant" />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -186,8 +186,8 @@ export default function CategoryList() {
 
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://www.iconbunny.com/icons/media/catalog/product/cache/2/thumbnail/600x/1b89f2fc96fc819c2a7e15c7e545e8a9/5/2/524.9-fries-icon-iconbunny.jpg" alt="Snacks" />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -209,8 +209,8 @@ export default function CategoryList() {
 
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://w7.pngwing.com/pngs/50/319/png-transparent-coffee-icon100-computer-icons-android-pub-orange-logo-coffee-thumbnail.png" alt="Bar and cafe" />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -263,8 +263,8 @@ export default function CategoryList() {
                             <AccordionBody className="py-1">
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://cdn.icon-icons.com/icons2/70/PNG/512/phone_14179.png" alt="Phone" />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -286,8 +286,8 @@ export default function CategoryList() {
 
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://www.iconbunny.com/icons/media/catalog/product/1/9/195.9-wifi-icon-iconbunny.jpg" alt="Internet" />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -309,8 +309,8 @@ export default function CategoryList() {
 
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://cdn3.iconfinder.com/data/icons/flat-rounded-5/50/482-512.png" alt="PC and laptop" />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -363,8 +363,8 @@ export default function CategoryList() {
                             <AccordionBody className="py-1">
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/189/189569.png" alt="Clothes and shoes" />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -386,8 +386,8 @@ export default function CategoryList() {
 
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://www.shareicon.net/data/2016/08/18/809300_diamond_512x512.png" alt="Jewels and accessories" />
                                             </div>
                                             <div className="flex-1 min-w-0">
@@ -409,8 +409,8 @@ export default function CategoryList() {
 
                                 <li className="py-2 sm:py-3">
                                     <Link>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-8 pr-2">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
+                                            <div className="pl-5 border-l-2 border-green-500">
                                                 <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/3693/3693434.png" alt="Home and garden" />
                                             </div>
                                             <div className="flex-1 min-w-0">
