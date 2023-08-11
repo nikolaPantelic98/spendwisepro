@@ -10,10 +10,6 @@ import {Link} from "react-router-dom";
 
 export default function RecordsList() {
 
-    function scrollToTop() {
-        window.scrollTo(0, 0);
-    }
-
     return (
         <>
             <Card className="w-full shadow-lg mt-8">

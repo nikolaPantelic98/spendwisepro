@@ -68,7 +68,7 @@ export default function AddCategoryIcon() {
                         </p>
                     </div>
                     <div className="text-right">
-                        <div className="h-4"></div>
+                        <div className="h-3"></div>
                         <div
                             className={`text-sm truncate dark:text-gray-400 ${
                                 selectedIcon
@@ -86,7 +86,7 @@ export default function AddCategoryIcon() {
                                 "Select"
                             )}
                         </div>
-                        <div className="h-4"></div>
+                        <div className="h-3"></div>
                     </div>
                     <div className="ml-2">
                         <ChevronRightIcon className="h-5 w-5 text-green-800" />
