@@ -21,7 +21,7 @@ export default function BudgetList() {
                 <CardBody>
                     <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                         Weekly
-                        <Link>
+                        <Link to="/add_budget" onClick={scrollToTop}>
                             <Button size="sm" variant="text" className="flex gap-2">
                                 Add budget
                                 <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
@@ -104,7 +104,7 @@ export default function BudgetList() {
                 <CardBody>
                     <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                         Monthly
-                        <Link>
+                        <Link to="/add_budget" onClick={scrollToTop}>
                             <Button size="sm" variant="text" className="flex gap-2">
                                 Add budget
                                 <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
