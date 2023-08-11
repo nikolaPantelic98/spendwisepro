@@ -42,10 +42,6 @@ export default function BudgetWeeklyLastPeriods() {
 
     const budgetAmount = 140;
 
-    function scrollToTop() {
-        window.scrollTo(0, 0);
-    }
-
     return (
         <Card className="w-full shadow-lg mt-8">
             <CardBody>

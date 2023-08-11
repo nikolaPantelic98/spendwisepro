@@ -1,8 +1,7 @@
 import {
     Card,
     CardBody,
-    Typography,
-    Button,
+    Typography
 } from "@material-tailwind/react";
 import React from "react";
 import { Progress } from "@material-tailwind/react";

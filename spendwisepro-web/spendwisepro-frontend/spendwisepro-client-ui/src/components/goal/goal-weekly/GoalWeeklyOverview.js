@@ -2,17 +2,12 @@ import {
     Card,
     CardBody,
     Typography,
-    Chip, Button,
+    Chip
 } from "@material-tailwind/react";
 import React from "react";
 import { Progress } from "@material-tailwind/react";
-import {PencilSquareIcon} from "@heroicons/react/24/outline";
 
 export default function GoalWeeklyOverview() {
-
-    function scrollToTop() {
-        window.scrollTo(0, 0);
-    }
 
     return (
         <Card className="w-full shadow-lg mt-8">

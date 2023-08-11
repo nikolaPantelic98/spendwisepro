@@ -11,6 +11,10 @@ import { Link } from "react-router-dom";
 
 export default function GoalsList() {
 
+    function storeScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+    }
+
     return (
         <>
             <Card className="w-full shadow-lg mt-8">
@@ -30,7 +34,7 @@ export default function GoalsList() {
                         <ul role="list" className="divide-y divide-gray-200">
 
                             <li className="py-3 sm:py-4">
-                                <Link to="/goals/weekly/laptop">
+                                <Link to="/goals/weekly/laptop" onClick={storeScrollPosition}>
                                     <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                         <div className="flex-1 w-0">
                                             <div className="flex items-center justify-between mb-2">

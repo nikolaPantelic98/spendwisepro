@@ -17,10 +17,6 @@ export default function GoalWeeklyTabs() {
 
     const [selectedTab, setSelectedTab] = useState("overview");
 
-    function scrollToTop() {
-        window.scrollTo(0, 0);
-    }
-
     return (
         <Tabs className="mt-4" value={selectedTab} onChange={(value) => setSelectedTab(value)}>
 

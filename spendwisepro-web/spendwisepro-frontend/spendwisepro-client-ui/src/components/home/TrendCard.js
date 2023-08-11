@@ -123,8 +123,8 @@ export default function TrendCard() {
 
     const [selectedTab, setSelectedTab] = useState("balance");
 
-    function scrollToTop() {
-        window.scrollTo(0, 0);
+    function storeScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
 
     return (
@@ -192,7 +192,7 @@ export default function TrendCard() {
                                                     </div>
 
                                                     <CardFooter className="p-0 mt-8">
-                                                        <Link to="/balance" onClick={scrollToTop}>
+                                                        <Link to="/balance" onClick={storeScrollPosition}>
                                                             <Button size="sm" variant="text" className="flex items-center gap-2">
                                                                 Show More
                                                                 <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
@@ -237,7 +237,7 @@ export default function TrendCard() {
 
                                                     <CardFooter className="p-0 mt-8">
 
-                                                        <Link to="/cash" onClick={scrollToTop}>
+                                                        <Link to="/cash" onClick={storeScrollPosition}>
                                                             <Button size="sm" variant="text" className="flex items-center gap-2">
                                                                 Show More
                                                                 <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
@@ -281,7 +281,7 @@ export default function TrendCard() {
                                                     </div>
 
                                                     <CardFooter className="p-0 mt-8">
-                                                        <Link to="/credit_cards" onClick={scrollToTop}>
+                                                        <Link to="/credit_cards" onClick={storeScrollPosition}>
                                                             <Button size="sm" variant="text" className="flex items-center gap-2">
                                                                 Show More
                                                                 <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />

@@ -11,8 +11,8 @@ import {Link} from "react-router-dom";
 
 export default function ExpensesListMonth() {
 
-    function scrollToTop() {
-        window.scrollTo(0, 0);
+    function storeScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
 
     return (
@@ -25,7 +25,7 @@ export default function ExpensesListMonth() {
                 <hr className="my-2 border-blue-gray-50 mb-6" />
 
                 <div>
-                    <Link to="/expenses/month/bills" onClick={scrollToTop}>
+                    <Link to="/expenses/month/bills" onClick={storeScrollPosition}>
                         <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                             <div className="flex-1 w-0">
                                 <div className="flex items-center justify-between mb-2">

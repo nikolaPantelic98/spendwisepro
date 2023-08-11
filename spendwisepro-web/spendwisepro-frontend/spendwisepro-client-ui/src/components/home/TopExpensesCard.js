@@ -11,8 +11,8 @@ import {Link} from "react-router-dom";
 
 export default function TopExpensesCard() {
 
-    function scrollToTop() {
-        window.scrollTo(0, 0);
+    function storeScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
 
     return (
@@ -20,7 +20,7 @@ export default function TopExpensesCard() {
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                     Top expenses
-                    <Link to="/expenses" onClick={scrollToTop}>
+                    <Link to="/expenses" onClick={storeScrollPosition}>
                         <Button size="sm" variant="text" className="flex gap-2">
                             View all
                             <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
@@ -35,7 +35,7 @@ export default function TopExpensesCard() {
                         This month
                     </Typography>
 
-                    <Link to="/expenses/month/bills" onClick={scrollToTop}>
+                    <Link to="/expenses/month/bills" onClick={storeScrollPosition}>
                         <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                             <div className="flex-1 w-0">
                                 <div className="flex items-center justify-between mb-2">

@@ -27,8 +27,8 @@ import {
 import {Link} from "react-router-dom";
 
 
-function scrollToTop() {
-    window.scrollTo(0, 0);
+function storeScrollPosition() {
+    sessionStorage.setItem('scrollPosition', window.scrollY.toString());
 }
 
 const Sidebar = forwardRef((props, ref) => {
@@ -59,7 +59,7 @@ const Sidebar = forwardRef((props, ref) => {
                         />
                     }
                 >
-                    <Link to="/home" onClick={scrollToTop}>
+                    <Link to="/home" onClick={storeScrollPosition}>
                         <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                 <ListItemPrefix>
                                     <HomeIcon className="h-5 w-5 text-green-900" />
@@ -83,7 +83,7 @@ const Sidebar = forwardRef((props, ref) => {
 
                     <AccordionBody className="py-1">
                         <List className="p-0">
-                            <Link to="/balance" onClick={scrollToTop}>
+                            <Link to="/balance" onClick={storeScrollPosition}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -91,7 +91,7 @@ const Sidebar = forwardRef((props, ref) => {
                                     Balance
                                 </ListItem>
                             </Link>
-                            <Link to="/cash" onClick={scrollToTop}>
+                            <Link to="/cash" onClick={storeScrollPosition}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -99,7 +99,7 @@ const Sidebar = forwardRef((props, ref) => {
                                     Cash
                                 </ListItem>
                             </Link>
-                            <Link to="/credit_cards" onClick={scrollToTop}>
+                            <Link to="/credit_cards" onClick={storeScrollPosition}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -107,7 +107,7 @@ const Sidebar = forwardRef((props, ref) => {
                                     Credit Cards
                                 </ListItem>
                             </Link>
-                            <Link to="/records" onClick={scrollToTop}>
+                            <Link to="/records" onClick={storeScrollPosition}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -115,7 +115,7 @@ const Sidebar = forwardRef((props, ref) => {
                                     Records
                                 </ListItem>
                             </Link>
-                            <Link to="/expenses" onClick={scrollToTop}>
+                            <Link to="/expenses" onClick={storeScrollPosition}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -123,7 +123,7 @@ const Sidebar = forwardRef((props, ref) => {
                                     Expenses
                                 </ListItem>
                             </Link>
-                            <Link to="/budgets" onClick={scrollToTop}>
+                            <Link to="/budgets" onClick={storeScrollPosition}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -131,7 +131,7 @@ const Sidebar = forwardRef((props, ref) => {
                                     Budgets
                                 </ListItem>
                             </Link>
-                            <Link to="/goals" onClick={scrollToTop}>
+                            <Link to="/goals" onClick={storeScrollPosition}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -139,7 +139,7 @@ const Sidebar = forwardRef((props, ref) => {
                                     Goals
                                 </ListItem>
                             </Link>
-                            <Link to="/planned_payments" onClick={scrollToTop}>
+                            <Link to="/planned_payments" onClick={storeScrollPosition}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -174,7 +174,7 @@ const Sidebar = forwardRef((props, ref) => {
 
                     <AccordionBody className="py-1">
                         <List className="p-0">
-                            <Link to="/categories" onClick={scrollToTop}>
+                            <Link to="/categories" onClick={storeScrollPosition}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -182,7 +182,7 @@ const Sidebar = forwardRef((props, ref) => {
                                     View Categories
                                 </ListItem>
                             </Link>
-                            <Link to="/add_category" onClick={scrollToTop}>
+                            <Link to="/add_category" onClick={storeScrollPosition}>
                                 <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                     <ListItemPrefix>
                                         <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />

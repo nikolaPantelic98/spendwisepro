@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Button, Typography } from "@material-tailwind/react";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,16 @@ const PageHeader = ({ title }) => {
     const handleGoBack = () => {
         navigate(-1); // Redirects the user back to the previous page they came from
     };
+
+    useEffect(() => {
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition));
+            sessionStorage.removeItem('scrollPosition');
+        } else {
+            window.scrollTo(0, 0);
+        }
+    }, []);
 
     return (
         <div className="h-24 flex flex-col">

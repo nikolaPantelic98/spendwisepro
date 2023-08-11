@@ -10,8 +10,8 @@ import {Link} from "react-router-dom";
 
 export default function PlannedPaymentsCard() {
 
-    function scrollToTop() {
-        window.scrollTo(0, 0);
+    function storeScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
 
     return (
@@ -19,7 +19,7 @@ export default function PlannedPaymentsCard() {
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                     Planned Payments
-                    <Link to="/planned_payments" onClick={scrollToTop}>
+                    <Link to="/planned_payments" onClick={storeScrollPosition}>
                         <Button size="sm" variant="text" className="flex gap-2">
                             View All
                             <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />

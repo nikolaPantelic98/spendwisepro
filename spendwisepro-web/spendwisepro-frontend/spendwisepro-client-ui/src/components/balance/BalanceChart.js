@@ -4,7 +4,7 @@ import {
     Typography,
     Chip, Tabs, TabsHeader, Tab, TabsBody, TabPanel,
 } from "@material-tailwind/react";
-import {ArrowTrendingUpIcon, CurrencyDollarIcon, CurrencyEuroIcon} from "@heroicons/react/24/solid";
+import {ArrowTrendingUpIcon, CurrencyDollarIcon} from "@heroicons/react/24/solid";
 import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis} from "recharts";
 import React, {useState} from "react";
 

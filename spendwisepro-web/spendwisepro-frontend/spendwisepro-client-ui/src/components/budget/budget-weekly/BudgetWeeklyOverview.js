@@ -10,10 +10,6 @@ import {PencilSquareIcon} from "@heroicons/react/24/outline";
 
 export default function BudgetWeeklyOverview() {
 
-    function scrollToTop() {
-        window.scrollTo(0, 0);
-    }
-
     return (
         <Card className="w-full shadow-lg mt-8">
             <CardBody>

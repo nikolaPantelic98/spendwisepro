@@ -10,8 +10,8 @@ import {Link} from "react-router-dom";
 
 export default function LastRecordsCard() {
 
-    function scrollToTop() {
-        window.scrollTo(0, 0);
+    function storeScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
 
     return (
@@ -19,7 +19,7 @@ export default function LastRecordsCard() {
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                     Last Records
-                    <Link to="/records" onClick={scrollToTop}>
+                    <Link to="/records" onClick={storeScrollPosition}>
                         <Button size="sm" variant="text" className="flex gap-2">
                             View All
                             <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />

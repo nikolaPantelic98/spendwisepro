@@ -16,10 +16,6 @@ export default function AddRecordTabs() {
 
     const [selectedTab, setSelectedTab] = useState("expense");
 
-    function scrollToTop() {
-        window.scrollTo(0, 0);
-    }
-
     return (
         <Tabs className="mt-4" value={selectedTab} onChange={(value) => setSelectedTab(value)}>
 
