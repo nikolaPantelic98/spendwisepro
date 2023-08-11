@@ -10,12 +10,16 @@ import {Link} from "react-router-dom";
 
 export default function PlannedPaymentsList() {
 
+    function storeScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+    }
+
     return (
         <Card className="w-full shadow-lg mt-8">
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                     Upcoming
-                    <Link>
+                    <Link to="/add_planned_payment" onClick={storeScrollPosition}>
                         <Button size="sm" variant="text" className="flex gap-2">
                             Add
                             <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
