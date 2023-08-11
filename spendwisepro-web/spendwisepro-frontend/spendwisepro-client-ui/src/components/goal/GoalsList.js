@@ -21,7 +21,7 @@ export default function GoalsList() {
                 <CardBody>
                     <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                         Weekly
-                        <Link>
+                        <Link to="/add_goal" onClick={storeScrollPosition}>
                             <Button size="sm" variant="text" className="flex gap-2">
                                 Add goal
                                 <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
@@ -104,7 +104,7 @@ export default function GoalsList() {
                 <CardBody>
                     <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                         Monthly
-                        <Link>
+                        <Link to="/add_goal" onClick={storeScrollPosition}>
                             <Button size="sm" variant="text" className="flex gap-2">
                                 Add goal
                                 <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
