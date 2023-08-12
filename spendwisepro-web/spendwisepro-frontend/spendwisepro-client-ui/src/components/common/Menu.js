@@ -2,8 +2,8 @@ import React, { useRef, useState } from 'react';
 import Sidebar from "./Sidebar";
 import {Link} from "react-router-dom";
 import {PlusCircleIcon} from "@heroicons/react/24/solid";
-import AddRecordTabs from "../record/AddRecordTabs";
 import {Drawer} from "@material-tailwind/react";
+import AddRecordDrawer from "../record/AddRecordDrawer";
 
 function scrollToTop() {
     window.scrollTo(0, 0);
@@ -42,7 +42,7 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
 
     const handleTouchMove = (e) => {
         const deltaY = e.touches[0].clientY;
-        if (deltaY < screenHeight * 0.20) {
+        if (deltaY < screenHeight * 0.18) {
             closeDrawer();
         }
     };
@@ -129,14 +129,14 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
                 open={isDrawerOpen}
                 onClose={() => closeDrawer()}
                 size={window.innerHeight * 0.9}
-                transition={{ type: "tween", duration: 0.6 }}
+                transition={{ type: "tween", duration: 0.55 }}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
-                className="pt-2 bg-green-50 border-t-1 border-green-900 rounded-t-[10px]"
+                className="pt-2 bg-green-50 border-t-1 border-green-200 rounded-t-[10px]"
             >
                 <div className=" h-full overflow-y-auto">
                     <div className="flex items-center justify-between">
-                        <AddRecordTabs closeDrawer={closeDrawer} />
+                        <AddRecordDrawer closeDrawer={closeDrawer} />
                     </div>
                 </div>
             </Drawer>

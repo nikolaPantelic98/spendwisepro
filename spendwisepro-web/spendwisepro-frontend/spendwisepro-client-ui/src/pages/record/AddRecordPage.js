@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageHeader from "../../components/common/PageHeader";
-import AddRecordTabs from "../../components/record/AddRecordTabs";
+import AddRecordDrawer from "../../components/record/AddRecordDrawer";
 
 function AddRecordPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -22,7 +22,7 @@ function AddRecordPage() {
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
-                    <AddRecordTabs/>
+                    <AddRecordDrawer/>
                 </div>
 
             </div>
