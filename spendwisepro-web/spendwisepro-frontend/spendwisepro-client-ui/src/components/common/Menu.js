@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 import Sidebar from "./Sidebar";
 import {Link} from "react-router-dom";
 import {PlusCircleIcon} from "@heroicons/react/24/solid";
+import AddRecordTabs from "../record/AddRecordTabs";
+import {Drawer} from "@material-tailwind/react";
 
 function scrollToTop() {
     window.scrollTo(0, 0);
@@ -11,6 +13,14 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
     const containerRef = useRef(null);
     const sidebarRef = useRef(null);
     const [animationComplete, setAnimationComplete] = useState(false);
+    const [open, setOpen] = React.useState(false);
+
+    const openDrawer = () => {
+        setOpen(true);
+    };
+    const closeDrawer = () => {
+        setOpen(false);
+    };
 
     const handleToggleSidebar = () => {
         if (!sidebarOpen) {
@@ -28,6 +38,14 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
             document.body.style.overflow = "auto";
         }
     }, [sidebarOpen]);
+
+    React.useEffect(() => {
+        if (open) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "auto";
+        }
+    }, [open]);
 
     React.useEffect(() => {
         if (sidebarOpen && containerRef.current && !animationComplete) {
@@ -59,7 +77,7 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
                 </div>
 
                 <div className="flex items-center justify-center flex-grow">
-                    <Link to="/add_record" onClick={scrollToTop}>
+                    <Link onClick={openDrawer}>
                         <PlusCircleIcon color="green" className="w-12 h-12" strokeWidth={2} />
                     </Link>
                 </div>
@@ -78,6 +96,28 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
                     </div>
                 </>
             )}
+            {open && (
+                <div
+                    className="fixed top-0 left-0 right-0 bottom-0 z-0 bg-black bg-opacity-50 backdrop-blur-sm"
+                    onClick={() => {
+                        closeDrawer();
+                    }}
+                ></div>
+            )}
+            <Drawer
+                placement="bottom"
+                open={open}
+                onClose={() => closeDrawer()}
+                size={window.innerHeight * 0.9}
+                transition={{ type: "tween", duration: 0.6 }}
+                className="pt-2 bg-green-50 border-t-1 border-green-900 rounded-t-[10px]"
+            >
+                <div className=" h-full overflow-y-auto">
+                    <div className="flex items-center justify-between">
+                        <AddRecordTabs closeDrawer={closeDrawer} />
+                    </div>
+                </div>
+            </Drawer>
         </div>
     );
 }
