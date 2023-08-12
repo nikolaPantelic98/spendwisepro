@@ -10,46 +10,66 @@ function scrollToTop() {
 }
 
 const Menu = ({ sidebarOpen, toggleSidebar }) => {
-    const containerRef = useRef(null);
-    const sidebarRef = useRef(null);
+
+    const screenHeight = window.innerHeight;
+
+    // sidebar const
+    const sidebarContainerRef = useRef(null);
+    const sidebarElementRef = useRef(null);
     const [animationComplete, setAnimationComplete] = useState(false);
-    const [open, setOpen] = React.useState(false);
 
-    const openDrawer = () => {
-        setOpen(true);
-    };
-    const closeDrawer = () => {
-        setOpen(false);
-    };
-
-    const handleToggleSidebar = () => {
+    const toggleSidebarState = () => {
         if (!sidebarOpen) {
             setAnimationComplete(false);
         }
         toggleSidebar(!sidebarOpen);
     };
 
+    // drawer const
+    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+    const [startTouchY, setStartTouchY] = useState(0);
+
+    const openDrawer = () => {
+        setIsDrawerOpen(true);
+    };
+    const closeDrawer = () => {
+        setIsDrawerOpen(false);
+    };
+
+    const handleTouchStart = (e) => {
+        setStartTouchY(e.touches[0].clientY);
+    };
+
+    const handleTouchMove = (e) => {
+        const deltaY = e.touches[0].clientY;
+        if (deltaY < screenHeight * 0.20) {
+            closeDrawer();
+        }
+    };
+
+    // effects
+
     React.useEffect(() => {
         if (sidebarOpen) {
-            document.body.classList.add("sidebar-open");
+            document.body.classList.add("sidebar-isDrawerOpen");
             document.body.style.overflow = "hidden";
         } else {
-            document.body.classList.remove("sidebar-open");
+            document.body.classList.remove("sidebar-isDrawerOpen");
             document.body.style.overflow = "auto";
         }
     }, [sidebarOpen]);
 
     React.useEffect(() => {
-        if (open) {
+        if (isDrawerOpen) {
             document.body.style.overflow = "hidden";
         } else {
             document.body.style.overflow = "auto";
         }
-    }, [open]);
+    }, [isDrawerOpen]);
 
     React.useEffect(() => {
-        if (sidebarOpen && containerRef.current && !animationComplete) {
-            const sidebarElement = sidebarRef.current;
+        if (sidebarOpen && sidebarContainerRef.current && !animationComplete) {
+            const sidebarElement = sidebarElementRef.current;
             sidebarElement.style.transform = "translateX(-100%)";
             sidebarElement.style.transition = "transform 0s";
             requestAnimationFrame(() => {
@@ -66,9 +86,9 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
 
                 <div className="flex items-center ml-4">
                     <div
-                        ref={containerRef}
+                        ref={sidebarContainerRef}
                         className="cursor-pointer p-3"
-                        onClick={handleToggleSidebar}
+                        onClick={toggleSidebarState}
                     >
                         <div className={`h-1 w-6 bg-green-700 rounded mb-1 ${sidebarOpen ? 'opacity-0' : ''}`}></div>
                         <div className={`h-1 w-6 bg-green-700 rounded mb-1 ${sidebarOpen ? 'opacity-0' : ''}`}></div>
@@ -91,12 +111,12 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
             {sidebarOpen && (
                 <>
                     <div className="fixed top-0 left-0 right-0 bottom-0 z-0 bg-black bg-opacity-50 backdrop-blur-sm" onClick={() => toggleSidebar(false)}></div>
-                    <div ref={sidebarRef} className="fixed top-0 left-0 bottom-0 z-10 w-[78%] md:max-w-[20rem] p-4 bg-white shadow-xl shadow-blue-gray-900/5 border-r-1 border-green-800">
+                    <div ref={sidebarElementRef} className="fixed top-0 left-0 bottom-0 z-10 w-[78%] md:max-w-[20rem] p-4 bg-white shadow-xl shadow-blue-gray-900/5 border-r-1 border-green-800">
                         <Sidebar />
                     </div>
                 </>
             )}
-            {open && (
+            {isDrawerOpen && (
                 <div
                     className="fixed top-0 left-0 right-0 bottom-0 z-0 bg-black bg-opacity-50 backdrop-blur-sm"
                     onClick={() => {
@@ -106,10 +126,12 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
             )}
             <Drawer
                 placement="bottom"
-                open={open}
+                open={isDrawerOpen}
                 onClose={() => closeDrawer()}
                 size={window.innerHeight * 0.9}
                 transition={{ type: "tween", duration: 0.6 }}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
                 className="pt-2 bg-green-50 border-t-1 border-green-900 rounded-t-[10px]"
             >
                 <div className=" h-full overflow-y-auto">
