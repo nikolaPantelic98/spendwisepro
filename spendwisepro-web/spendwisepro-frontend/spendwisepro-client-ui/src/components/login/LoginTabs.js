@@ -36,7 +36,7 @@ export default function LoginTabs() {
                 className="m-0 grid place-items-center rounded-b-none py-8 px-4 bg-contain bg-center  text-center"
             >
                 <div className="mt-4 mb-4 rounded-full border border-white/10 bg-white/10 p-3 text-white">
-                    <img src="https://i.ibb.co/RCG4xZ2/Spend-Wise-Pro-circle.png" alt="Logo" className="h-20 w-20" />
+                    <img src="https://i.ibb.co/3Mzndmy/Spend-Wise-Pro-full.png" alt="Logo" className="h-20 w-20" />
                 </div>
                 <Typography variant="h4" color="white">
                     SpendWisePro

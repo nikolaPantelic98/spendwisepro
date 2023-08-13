@@ -102,7 +102,7 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
 
                 <div className="flex items-center mr-4">
                     <Link to="/home" onClick={scrollToTop}>
-                        <img src="https://i.ibb.co/RCG4xZ2/Spend-Wise-Pro-circle.png" alt="Logo" className="h-15 w-14" />
+                        <img src="https://i.ibb.co/3Mzndmy/Spend-Wise-Pro-full.png" alt="Logo" className="h-15 w-14" />
                     </Link>
                 </div>
             </div>

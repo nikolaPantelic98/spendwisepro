@@ -43,7 +43,7 @@ const Sidebar = forwardRef((props, ref) => {
         <Card ref={ref} className="fixed top-0 left-0 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 overflow-y-auto">
 
             <div className="mb-2 flex items-center gap-4 p-4">
-                <img src="https://i.ibb.co/RCG4xZ2/Spend-Wise-Pro-circle.png" className="h-15 w-14"  alt="Logo"/>
+                <img src="https://i.ibb.co/3Mzndmy/Spend-Wise-Pro-full.png" className="h-15 w-14"  alt="Logo"/>
                 <Typography variant="h5" color="blue-gray">
                     SpendWisePro
                 </Typography>
