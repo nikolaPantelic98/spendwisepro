@@ -1,4 +1,5 @@
 import React from 'react';
+import PageWidthLayout from "../components/common/PageWidthLayout";
 
 function HomePage() {
 
@@ -14,6 +15,8 @@ function HomePage() {
                         <div className="mx-6">
 
                         </div>
+
+                        <div><PageWidthLayout/></div>
                     </div>
                 </div>
             </div>
