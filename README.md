@@ -1,4 +1,4 @@
-#SpendWisePro
+# SpendWisePro
 
 Welcome to the Budget Management App! This application helps you manage your expenses, track your financial goals, and gain better control over your finances. Whether you want to monitor your spending, set budgets, or plan for future expenses, this app has you covered.
 
