@@ -18,6 +18,7 @@ import PlannedPaymentsPage from "./planned-payments/PlannedPaymentsPage";
 import AddBudgetPage from "./budget/AddBudgetPage";
 import AddGoalPage from "./goal/AddGoalPage";
 import AddPlannedPaymentPage from "./planned-payments/AddPlannedPaymentPage";
+import LoginPage from "./login/LoginPage";
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
                     <Route index element={<HomePage />} />
                     <Route path="/" element={<HomePage />}></Route>
                     <Route path="/home" element={<HomePage />}></Route>
+                    <Route path="/login" element={<LoginPage />}></Route>
 
                     <Route path="/add_category" element={<AddCategoryPage />}></Route>
                     <Route path="/categories" element={<CategoriesPage />}></Route>
