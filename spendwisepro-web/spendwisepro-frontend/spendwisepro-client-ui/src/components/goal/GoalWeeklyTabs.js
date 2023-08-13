@@ -7,6 +7,7 @@ import {Bars3BottomLeftIcon, ChartBarIcon} from "@heroicons/react/24/outline";
 import GoalWeeklyOverview from "./goal-weekly/GoalWeeklyOverview";
 import GoalWeeklyChart from "./goal-weekly/GoalWeeklyChart";
 import GoalWeeklyFullProcess from "./goal-weekly/GoalWeeklyFullProcess";
+import GoalWeeklyLastPeriods from "./goal-weekly/GoalWeeklyLastPeriods";
 
 export default function GoalWeeklyTabs() {
 
@@ -56,6 +57,10 @@ export default function GoalWeeklyTabs() {
 
                                     <div className="mx-6">
                                         <GoalWeeklyFullProcess />
+                                    </div>
+
+                                    <div className="mx-6">
+                                        <GoalWeeklyLastPeriods />
                                     </div>
 
                                     <div><PageWidthLayout/></div>

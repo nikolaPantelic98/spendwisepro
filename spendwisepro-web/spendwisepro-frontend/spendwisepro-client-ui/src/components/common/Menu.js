@@ -51,10 +51,8 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
 
     React.useEffect(() => {
         if (sidebarOpen) {
-            document.body.classList.add("sidebar-isDrawerOpen");
             document.body.style.overflow = "hidden";
         } else {
-            document.body.classList.remove("sidebar-isDrawerOpen");
             document.body.style.overflow = "auto";
         }
     }, [sidebarOpen]);
@@ -109,12 +107,14 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
                 </div>
             </div>
             {sidebarOpen && (
-                <>
-                    <div className="fixed top-0 left-0 right-0 bottom-0 z-0 bg-black bg-opacity-50 backdrop-blur-sm" onClick={() => toggleSidebar(false)}></div>
+                <div>
+                    <div className="fixed top-0 left-0 right-0 bottom-0 z-0 bg-black bg-opacity-50 backdrop-blur-sm"
+                         onClick={() => toggleSidebar(false)}>
+                    </div>
                     <div ref={sidebarElementRef} className="fixed top-0 left-0 bottom-0 z-10 w-[78%] md:max-w-[20rem] p-4 bg-white shadow-xl shadow-blue-gray-900/5 border-r-1 border-green-800">
                         <Sidebar />
                     </div>
-                </>
+                </div>
             )}
             {isDrawerOpen && (
                 <div
