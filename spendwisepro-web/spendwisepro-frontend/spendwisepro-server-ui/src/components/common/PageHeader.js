@@ -24,7 +24,7 @@ const PageHeader = ({ title }) => {
     return (
         <div className="h-24 flex flex-col">
             <div>
-                <Button variant="text" className="flex gap-2" onClick={handleGoBack}>
+                <Button variant="text" color="blue" className="flex gap-2" onClick={handleGoBack}>
                     <ArrowLeftIcon strokeWidth={2} className="w-4 h-4" />
                     Back
                 </Button>

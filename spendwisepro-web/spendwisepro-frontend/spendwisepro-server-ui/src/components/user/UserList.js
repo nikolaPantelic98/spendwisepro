@@ -2,29 +2,48 @@ import {
     Card,
     CardBody,
     Typography,
-    Button, ListItem, Avatar,
+    ListItem, Avatar, IconButton, Button, Input,
 } from "@material-tailwind/react";
-import {ArrowLongRightIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
+import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 import {Link} from "react-router-dom";
+import {ArrowLeftIcon, ArrowRightIcon} from "@heroicons/react/20/solid";
 
-export default function UsersCard() {
+export default function UserList() {
+
+    const [currentPage, setCurrentPage] = React.useState(1);
+
+    const [searchEmail, setSearchEmail] = React.useState("");
+    const handleEmailChange = ({ target }) => setSearchEmail(target.value);
+
+    const goToNextPage = () => {
+        if (currentPage === 10) return;
+
+        setCurrentPage(currentPage + 1);
+    };
+
+    const goToPreviousPage = () => {
+        if (currentPage === 1) return;
+
+        setCurrentPage(currentPage - 1);
+    };
 
     function storeScrollPosition() {
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
 
     return (
-        <Card className="w-full shadow-lg">
+        <Card className="w-full shadow-lg mt-8">
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
-                    Last Users
-                    <Link to="/users" onClick={storeScrollPosition}>
-                        <Button size="sm" variant="text" className="flex gap-2" color="blue">
-                            View All
-                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                        </Button>
-                    </Link>
+                    <Input type="email" label="Email or username" value={searchEmail} onChange={handleEmailChange}/>
+                    <Button size="sm"
+                            color={searchEmail ? "green" : "light-green"}
+                            disabled={!searchEmail}
+                            className="!absolute right-7 top-7 rounded"
+                    >
+                        Search
+                    </Button>
                 </Typography>
                 <hr className="my-2 border-blue-gray-50" />
 
@@ -136,6 +155,23 @@ export default function UsersCard() {
                         </li>
 
                     </ul>
+
+                    <hr className="my-2 border-blue-gray-50" />
+
+                    <div className="flex items-center justify-center gap-8 mt-8">
+                        <IconButton size="sm" variant="outlined" onClick={goToPreviousPage} disabled={currentPage === 1}>
+                            <ArrowLeftIcon strokeWidth={2} className="h-4 w-4" />
+                        </IconButton>
+
+                        <Typography color="gray" className="font-normal">
+                            Page <strong className="text-gray-900">{currentPage}</strong> of{" "}
+                            <strong className="text-gray-900">10</strong>
+                        </Typography>
+
+                        <IconButton size="sm" variant="outlined" onClick={goToNextPage} disabled={currentPage === 10}>
+                            <ArrowRightIcon strokeWidth={2} className="h-4 w-4" />
+                        </IconButton>
+                    </div>
                 </div>
             </CardBody>
         </Card>
