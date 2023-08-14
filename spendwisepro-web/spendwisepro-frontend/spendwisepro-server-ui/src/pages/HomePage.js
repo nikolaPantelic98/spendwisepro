@@ -1,5 +1,6 @@
 import React from 'react';
 import PageWidthLayout from "../components/common/PageWidthLayout";
+import UsersCard from "../components/home/UsersCard";
 
 function HomePage() {
 
@@ -13,7 +14,7 @@ function HomePage() {
                     <div className="mt-2">
 
                         <div className="mx-6">
-
+                            <UsersCard />
                         </div>
 
                         <div><PageWidthLayout/></div>
