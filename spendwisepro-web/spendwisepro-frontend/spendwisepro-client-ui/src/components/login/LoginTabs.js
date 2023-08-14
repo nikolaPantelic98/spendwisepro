@@ -73,10 +73,19 @@ export default function LoginTabs() {
                                                     <Typography variant="h4" color="blue-gray">
                                                         Sign In
                                                     </Typography>
+                                                    <Button
+                                                        variant="outlined"
+                                                        color="blue-gray"
+                                                        className="flex items-center justify-center gap-3 mt-4 mb-6"
+                                                        fullWidth
+                                                    >
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/720/720255.png" alt="google" className="h-5 w-5" />
+                                                        Continue with Google
+                                                    </Button>
                                                     <Typography color="gray" className="mt-1 font-normal">
-                                                        Enter your details to login.
+                                                        or enter your details to login
                                                     </Typography>
-                                                    <form className="mt-8 mb-2">
+                                                    <form className="mt-6 mb-2">
                                                         <div className="mb-4 flex flex-col gap-6">
                                                             <Input color="green" size="lg" label="Username or email" />
                                                             <Input color="green" type="password" size="lg" label="Password" />
@@ -112,10 +121,10 @@ export default function LoginTabs() {
                                                     <Typography variant="h4" color="blue-gray">
                                                         Sign Up
                                                     </Typography>
-                                                    <Typography color="gray" className="mt-1 font-normal">
+                                                    <Typography color="gray" className="mt-1 font-normal mt-4">
                                                         Enter your details to register.
                                                     </Typography>
-                                                    <form className="mt-8 mb-2">
+                                                    <form className="mt-6 mb-2">
                                                         <div className="mb-4 flex flex-col gap-6">
                                                             <Input color="green" size="lg" label="Username" />
                                                             <Input color="green" size="lg" label="Email" />
