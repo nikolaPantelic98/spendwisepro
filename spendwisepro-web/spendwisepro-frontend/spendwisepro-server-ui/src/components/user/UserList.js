@@ -9,7 +9,7 @@ import React from "react";
 import {ArrowLeftIcon, ArrowRightIcon, CheckCircleIcon, PencilSquareIcon, TrashIcon} from "@heroicons/react/20/solid";
 
 export default function UserList() {
-    
+
     const [searchEmail, setSearchEmail] = React.useState("");
     const handleEmailChange = ({ target }) => setSearchEmail(target.value);
 

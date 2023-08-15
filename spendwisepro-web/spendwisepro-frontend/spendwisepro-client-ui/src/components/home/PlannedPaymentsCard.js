@@ -10,6 +10,46 @@ import {Link} from "react-router-dom";
 
 export default function PlannedPaymentsCard() {
 
+    const plannedPayments = [
+        {
+            id: 1,
+            name: "Electricity bills",
+            categoryName: "Tax",
+            paymentType: "Credit Card",
+            amount: 85.00,
+            paymentTime: 10,
+            categoryIcon: "https://i.ibb.co/Y04MgVW/tax-icon-15117.png"
+        },
+        {
+            id: 2,
+            name: "Chips",
+            categoryName: "Snacks",
+            paymentType: "Cash",
+            amount: 2.50,
+            paymentTime: 1,
+            categoryIcon: "https://cdn-icons-png.flaticon.com/512/1617/1617569.png"
+        },
+        {
+            id: 3,
+            name: "Phone bills",
+            categoryName: "Phone",
+            paymentType: "Credit Card",
+            amount: 35.00,
+            paymentTime: 6,
+            categoryIcon: "https://cdn.icon-icons.com/icons2/70/PNG/512/phone_14179.png"
+        }
+    ]
+
+    // sorting by payment time asc
+    plannedPayments.sort((a, b) => a.paymentTime - b.paymentTime);
+
+    // shows only 3 planned payments
+    const limitedPlannedPayments = plannedPayments.slice(0, 3);
+
+    function generatePath(categoryName, name) {
+        return categoryName.toLowerCase().replace(/\s+/g, '_') + "/" + name.toLowerCase().replace(/\s+/g, '_');
+    }
+
     function storeScrollPosition() {
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
@@ -31,111 +71,51 @@ export default function PlannedPaymentsCard() {
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200">
 
-                        <li className="py-3 sm:py-4">
-                            <Link>
-                                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                                    <div className="flex-shrink-0">
-                                        <img className="w-8 h-8 rounded-full" src="https://i.ibb.co/Y04MgVW/tax-icon-15117.png" alt="Electricity bills" />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-green-600 truncate dark:text-white">
-                                            Electricity bills
-                                        </p>
-                                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            Tax
-                                        </p>
-                                        <p className="text-sm text-gray-500 truncate">
-                                            Credit Card
-                                        </p>
-                                    </div>
-                                    <div className="text-right">
-                                        <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                            -$85,00
+                        {limitedPlannedPayments.map((plannedPayment) => (
+                            <li key={plannedPayment.id} className="py-3 sm:py-4">
+                                <Link to={`/planned_payments/${generatePath(plannedPayment.categoryName, plannedPayment.name)}`}>
+                                    <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+                                        <div className="flex-shrink-0">
+                                            <img className="w-8 h-8 rounded-full" src={plannedPayment.categoryIcon} alt={plannedPayment.name} />
                                         </div>
-                                        <div className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            in 3 days
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-medium text-green-600 truncate dark:text-white">
+                                                {plannedPayment.name}
+                                            </p>
+                                            <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                                {plannedPayment.categoryName}
+                                            </p>
+                                            <p className="text-sm text-gray-500 truncate">
+                                                {plannedPayment.paymentType}
+                                            </p>
                                         </div>
-                                        <div>
-                                            <Chip variant="ghost" color="amber" value="Planned" className="mt-1 capitalize" />
+                                        <div className="text-right">
+                                            <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                                -{plannedPayment.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                            </div>
+                                            <div className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                in {plannedPayment.paymentTime} {plannedPayment.paymentTime === 1 ? 'day' : 'days'}
+                                            </div>
+                                            <div>
+                                                <Chip variant="ghost" color="amber" value="Planned" className="mt-1 capitalize" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="ml-2">
-                                        <ChevronRightIcon className="h-5 w-5 text-green-800" />
-                                    </div>
-                                </ListItem>
-                            </Link>
-                        </li>
+                                        <div className="ml-2">
+                                            <ChevronRightIcon className="h-5 w-5 text-green-800" />
+                                        </div>
+                                    </ListItem>
+                                </Link>
+                            </li>
+                        ))}
 
-                        <li className="py-3 sm:py-4">
-                            <Link>
-                                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                                    <div className="flex-shrink-0">
-                                        <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/1617/1617569.png" alt="Chips" />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-green-600 truncate dark:text-white">
-                                            Chips
-                                        </p>
-                                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            Snacks
-                                        </p>
-                                        <p className="text-sm text-gray-500 truncate">
-                                            Cash
-                                        </p>
-                                    </div>
-                                    <div className="text-right">
-                                        <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                                            -$2,50
-                                        </div>
-                                        <div className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            in 7 days
-                                        </div>
-                                        <div>
-                                            <Chip variant="ghost" color="amber" value="Planned" className="mt-1 capitalize" />
-                                        </div>
-                                    </div>
-                                    <div className="ml-2">
-                                        <ChevronRightIcon className="h-5 w-5 text-green-800" />
-                                    </div>
-                                </ListItem>
+                        {plannedPayments.length === 0 && (
+                            <Link to="/add_planned_payment" onClick={storeScrollPosition}>
+                                <Button size="sm" variant="text" className="flex gap-2 mt-6 p-0">
+                                    Add planned payment
+                                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                                </Button>
                             </Link>
-                        </li>
-
-                        <li className="py-3 sm:py-4">
-                            <Link>
-                                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                                    <div className="flex-shrink-0">
-                                        <img className="w-8 h-8 rounded-full" src="https://cdn.icon-icons.com/icons2/70/PNG/512/phone_14179.png" alt="Phone bills" />
-                                    </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-green-600 truncate dark:text-white">
-                                            Phone bills
-                                        </p>
-                                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                            Phone
-                                        </p>
-                                        <p className="text-sm text-gray-500 truncate">
-                                            Credit Card
-                                        </p>
-                                    </div>
-                                    <div className="text-right">
-                                        <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                                            -$35,00
-                                        </div>
-                                        <div className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                            in 10 days
-                                        </div>
-                                        <div>
-                                            <Chip variant="ghost" color="amber" value="Planned" className="mt-1 capitalize" />
-                                        </div>
-                                    </div>
-                                    <div className="ml-2">
-                                        <ChevronRightIcon className="h-5 w-5 text-green-800" />
-                                    </div>
-                                </ListItem>
-                            </Link>
-                        </li>
-
+                        )}
                     </ul>
                 </div>
             </CardBody>
