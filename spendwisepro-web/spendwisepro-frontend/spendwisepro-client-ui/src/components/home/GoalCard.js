@@ -52,7 +52,8 @@ export default function GoalCard() {
         }
     ]
 
-    function calculatePeriod(currentDate, endDate, period) {
+    // calculates total intervals in weeks or months, based on the goal's period (weekly, monthly)
+    function calculateIntervals(currentDate, endDate, period) {
         const dateCurrent = new Date(currentDate);
         const dateEnd = new Date(endDate);
 
@@ -70,37 +71,33 @@ export default function GoalCard() {
         }
     }
 
-    function calculateAmountToBeSavedThisPeriod(endDate, currentDate, period, totalAmount, totalSaved) {
-        const numberOfRemainingIntervals = calculatePeriod(currentDate, endDate, period);
+    function calculateAmountToBeSaved(endDate, currentDate, period, totalAmount, totalSaved) {
+        const remainingIntervals = calculateIntervals(currentDate, endDate, period);
 
-        return (totalAmount - totalSaved) / numberOfRemainingIntervals;
+        return ((totalAmount - totalSaved) / remainingIntervals).toFixed(2);
     }
 
-    function calculateRemainingAmountToBeSaved(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod) {
-        const amountToBeSaved = calculateAmountToBeSavedThisPeriod(endDate, currentDate, period, totalAmount, totalSaved);
+    function calculateRemainingAmount(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod) {
+        const amountToSave = calculateAmountToBeSaved(endDate, currentDate, period, totalAmount, totalSaved);
 
-        let result = amountToBeSaved - amountSavedThisPeriod;
+        const remainingAmount = amountToSave - amountSavedThisPeriod;
 
-        if (result < 0) result = 0;
-
-        return result;
+        return remainingAmount < 0 ? 0 : remainingAmount;
     }
 
-    function generatePercentage(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod) {
-        const amountToBeSaved = calculateAmountToBeSavedThisPeriod(endDate, currentDate, period, totalAmount, totalSaved);
-        const amountToSave = calculateRemainingAmountToBeSaved(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod);
+    function calculateSavedPercentage(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod) {
+        const amountToSave = calculateAmountToBeSaved(endDate, currentDate, period, totalAmount, totalSaved);
+        const savedAmount = amountToSave - calculateRemainingAmount(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod);
 
-        const savedAmount = amountToBeSaved - amountToSave;
-
-        return ((savedAmount / amountToBeSaved) * 100).toFixed(0);
+        return ((savedAmount / amountToSave) * 100).toFixed(0);
     }
 
     function generateProgressColor(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod) {
-        const percentage = generatePercentage(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod);
+        const savedPercentage = calculateSavedPercentage(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod);
 
-        if (percentage >= 100) {
+        if (savedPercentage >= 100) {
             return "green";
-        } else if (percentage < 100) {
+        } else {
             return "orange";
         }
     }
@@ -145,14 +142,14 @@ export default function GoalCard() {
                                             </Typography>
                                             <div className="flex gap-4 items-center">
                                                 <Typography className="text-gray-900 font-semibold mt-2">
-                                                    {calculateRemainingAmountToBeSaved(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                    {calculateRemainingAmount(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                 </Typography>
                                                 <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                                    {generatePercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)}%
+                                                    {calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)}%
                                                 </Typography>
                                             </div>
                                         </div>
-                                        <Progress value={generatePercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} />
+                                        <Progress value={calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} />
                                     </div>
                                     <div className="flex items-center">
                                         <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
@@ -182,14 +179,14 @@ export default function GoalCard() {
                                                 </Typography>
                                                 <div className="flex gap-4 items-center">
                                                     <Typography className="text-gray-900 font-semibold mt-2">
-                                                        {calculateRemainingAmountToBeSaved(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                        {calculateRemainingAmount(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                     </Typography>
                                                     <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                                        {generatePercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)}%
+                                                        {calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)}%
                                                     </Typography>
                                                 </div>
                                             </div>
-                                            <Progress value={generatePercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} />
+                                            <Progress value={calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} />
                                         </div>
                                         <div className="flex items-center">
                                             <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
