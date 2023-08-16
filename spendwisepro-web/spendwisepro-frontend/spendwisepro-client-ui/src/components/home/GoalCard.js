@@ -1,15 +1,113 @@
-import {
-    Card,
-    CardBody,
-    Typography,
-    Button, ListItem,
-} from "@material-tailwind/react";
+import {Button, Card, CardBody, ListItem, Progress, Typography,} from "@material-tailwind/react";
 import {ArrowLongRightIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
-import { Progress } from "@material-tailwind/react";
 import {Link} from "react-router-dom";
 
 export default function GoalCard() {
+
+    const goals = [
+        {
+            id: 1,
+            period: "weekly",
+            name: "Laptop",
+            totalAmount: 1700.00,
+            totalSaved: 600.00,
+            amountSavedThisPeriod: 80.00,
+            startDate: new Date("2023-06-05"),
+            endDate: new Date("2023-10-02"),
+            currentDate: new Date("2023-07-21")
+        },
+        {
+            id: 2,
+            period: "weekly",
+            name: "Aqua Park",
+            totalAmount: 260.00,
+            totalSaved: 60.00,
+            amountSavedThisPeriod: 20.00,
+            startDate: new Date("2023-07-03"),
+            endDate: new Date("2023-10-02"),
+            currentDate: new Date("2023-07-21")
+        },
+        {
+            id: 3,
+            period: "monthly",
+            name: "Vacation",
+            totalAmount: 1200.00,
+            totalSaved: 600.00,
+            amountSavedThisPeriod: 100.00,
+            startDate: new Date("2023-04-01"),
+            endDate: new Date("2023-10-01"),
+            currentDate: new Date("2023-07-21")
+        },
+        {
+            id: 4,
+            period: "monthly",
+            name: "House",
+            totalAmount: 3500.00,
+            totalSaved: 2000.00,
+            amountSavedThisPeriod: 150.00,
+            startDate: new Date("2023-03-01"),
+            endDate: new Date("2023-10-01"),
+            currentDate: new Date("2023-07-21")
+        }
+    ]
+
+    function calculatePeriod(currentDate, endDate, period) {
+        const dateCurrent = new Date(currentDate);
+        const dateEnd = new Date(endDate);
+
+        if (period === "weekly") {
+            const timeDiff = dateEnd - dateCurrent;
+            const weeks = Math.ceil(timeDiff / (7 * 24 * 60 * 60 * 1000));
+
+            return Math.ceil(weeks);
+
+        } else if (period === "monthly") {
+            const timeDiff = dateEnd - dateCurrent;
+            const months = Math.ceil(timeDiff / (30 * 24 * 60 * 60 * 1000));
+
+            return Math.ceil(months);
+        }
+    }
+
+    function calculateAmountToBeSavedThisPeriod(endDate, currentDate, period, totalAmount, totalSaved) {
+        const numberOfRemainingIntervals = calculatePeriod(currentDate, endDate, period);
+
+        return (totalAmount - totalSaved) / numberOfRemainingIntervals;
+    }
+
+    function calculateRemainingAmountToBeSaved(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod) {
+        const amountToBeSaved = calculateAmountToBeSavedThisPeriod(endDate, currentDate, period, totalAmount, totalSaved);
+
+        let result = amountToBeSaved - amountSavedThisPeriod;
+
+        if (result < 0) result = 0;
+
+        return result;
+    }
+
+    function generatePercentage(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod) {
+        const amountToBeSaved = calculateAmountToBeSavedThisPeriod(endDate, currentDate, period, totalAmount, totalSaved);
+        const amountToSave = calculateRemainingAmountToBeSaved(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod);
+
+        const savedAmount = amountToBeSaved - amountToSave;
+
+        return ((savedAmount / amountToBeSaved) * 100).toFixed(0);
+    }
+
+    function generateProgressColor(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod) {
+        const percentage = generatePercentage(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod);
+
+        if (percentage >= 100) {
+            return "green";
+        } else if (percentage < 100) {
+            return "orange";
+        }
+    }
+
+    function generatePath(name) {
+        return name.toLowerCase().replace(/\s+/g, '_');
+    }
 
     function storeScrollPosition() {
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
@@ -35,53 +133,34 @@ export default function GoalCard() {
                         Weekly
                     </Typography>
 
-                    <Link to="/goals/weekly/laptop" onClick={storeScrollPosition}>
-                        <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                            <div className="flex-1 w-0">
-                                <div className="flex items-center justify-between mb-2">
-                                    <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                        Laptop
-                                    </Typography>
-                                    <div className="flex gap-4 items-center">
-                                        <Typography className="text-gray-900 font-semibold mt-2">
-                                            $20,00
-                                        </Typography>
-                                        <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                            80%
-                                        </Typography>
+                    {goals
+                        .filter(goal => goal.period === "weekly")
+                        .map((goal) => (
+                            <Link to={`/goals/weekly/${generatePath(goal.name)}`} onClick={storeScrollPosition}>
+                                <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+                                    <div className="flex-1 w-0">
+                                        <div className="flex items-center justify-between mb-2">
+                                            <Typography className="text-gray-900 font-medium mt-2 truncate">
+                                                {goal.name}
+                                            </Typography>
+                                            <div className="flex gap-4 items-center">
+                                                <Typography className="text-gray-900 font-semibold mt-2">
+                                                    {calculateRemainingAmountToBeSaved(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                </Typography>
+                                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                                    {generatePercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)}%
+                                                </Typography>
+                                            </div>
+                                        </div>
+                                        <Progress value={generatePercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} />
                                     </div>
-                                </div>
-                                <Progress value={80} size="lg" className="mt-2 mb-2" color="orange" />
-                            </div>
-                            <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
-                            </div>
-                        </ListItem>
-                    </Link>
-
-                    <Link>
-                        <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                            <div className="flex-1 w-0">
-                                <div className="flex items-center justify-between mb-2">
-                                    <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                        Aqua Park
-                                    </Typography>
-                                    <div className="flex gap-4 items-center">
-                                        <Typography className="text-gray-900 font-semibold mt-2">
-                                            $0,00
-                                        </Typography>
-                                        <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                            100%
-                                        </Typography>
+                                    <div className="flex items-center">
+                                        <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
                                     </div>
-                                </div>
-                                <Progress value={100} size="lg" className="mt-2 mb-2" color="green" />
-                            </div>
-                            <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
-                            </div>
-                        </ListItem>
-                    </Link>
+                                </ListItem>
+                            </Link>
+                        )
+                    )}
                 </div>
 
                 <hr className="my-2 border-blue-gray-50 mb-6 mt-6" />
@@ -91,53 +170,34 @@ export default function GoalCard() {
                         Monthly
                     </Typography>
 
-                    <Link>
-                        <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                            <div className="flex-1 w-0">
-                                <div className="flex items-center justify-between mb-2">
-                                    <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                        Vacation
-                                    </Typography>
-                                    <div className="flex gap-4 items-center">
-                                        <Typography className="text-gray-900 font-semibold mt-2">
-                                            $90,00
-                                        </Typography>
-                                        <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                            40%
-                                        </Typography>
-                                    </div>
-                                </div>
-                                <Progress value={40} size="lg" className="mt-2 mb-2" color="orange" />
-                            </div>
-                            <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
-                            </div>
-                        </ListItem>
-                    </Link>
-
-                    <Link>
-                        <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                            <div className="flex-1 w-0">
-                                <div className="flex items-center justify-between mb-2">
-                                    <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                        House
-                                    </Typography>
-                                    <div className="flex gap-4 items-center">
-                                        <Typography className="text-gray-900 font-semibold mt-2">
-                                            $450,00
-                                        </Typography>
-                                        <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                            10%
-                                        </Typography>
-                                    </div>
-                                </div>
-                                <Progress value={10} size="lg" className="mt-2 mb-2" color="orange" />
-                            </div>
-                            <div className="flex items-center">
-                                <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
-                            </div>
-                        </ListItem>
-                    </Link>
+                    {goals
+                        .filter(goal => goal.period === "monthly")
+                        .map((goal) => (
+                                <Link to={`/goals/monthly/${generatePath(goal.name)}`} onClick={storeScrollPosition}>
+                                    <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+                                        <div className="flex-1 w-0">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <Typography className="text-gray-900 font-medium mt-2 truncate">
+                                                    {goal.name}
+                                                </Typography>
+                                                <div className="flex gap-4 items-center">
+                                                    <Typography className="text-gray-900 font-semibold mt-2">
+                                                        {calculateRemainingAmountToBeSaved(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                    </Typography>
+                                                    <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                                        {generatePercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)}%
+                                                    </Typography>
+                                                </div>
+                                            </div>
+                                            <Progress value={generatePercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} />
+                                        </div>
+                                        <div className="flex items-center">
+                                            <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
+                                        </div>
+                                    </ListItem>
+                                </Link>
+                            )
+                        )}
                 </div>
 
                 <hr className="my-2 border-blue-gray-50 mb-6 mt-6" />
