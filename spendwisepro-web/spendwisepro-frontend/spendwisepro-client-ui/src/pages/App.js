@@ -50,7 +50,7 @@ function App() {
                     <Route path="/add_goal" element={<AddGoalPage />}></Route>
 
                     <Route path="/expenses" element={<ExpensesPage />}></Route>
-                    <Route path="/expenses/month/bills" element={<ExpensesRecordsMonthlyPage />}></Route>
+                    <Route path="/expenses/month/*" element={<ExpensesRecordsMonthlyPage />}></Route>
 
                     <Route path="/planned_payments" element={<PlannedPaymentsPage />}></Route>
                     <Route path="/add_planned_payment" element={<AddPlannedPaymentPage />}></Route>
