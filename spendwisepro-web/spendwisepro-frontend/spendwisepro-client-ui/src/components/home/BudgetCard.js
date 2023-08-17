@@ -109,29 +109,31 @@ export default function BudgetCard() {
                     {budgets
                         .filter(budget => budget.period === "weekly")
                         .map((budget) => (
-                            <Link to={`/budgets/weekly/${generatePath(budget.name)}`} onClick={storeScrollPosition}>
-                                <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                                    <div className="flex-1 w-0">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                                {budget.name}
-                                            </Typography>
-                                            <div className="flex gap-4 items-center">
-                                                <Typography className="text-gray-900 font-semibold mt-2">
-                                                    {generateAmountLeft(budget.amount, budget.spent).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            <div key={budget.id}>
+                                <Link to={`/budgets/weekly/${generatePath(budget.name)}`} onClick={storeScrollPosition}>
+                                    <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+                                        <div className="flex-1 w-0">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <Typography className="text-gray-900 font-medium mt-2 truncate">
+                                                    {budget.name}
                                                 </Typography>
-                                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                                    {generatePercentageLeft(budget.amount, budget.spent)}%
-                                                </Typography>
+                                                <div className="flex gap-4 items-center">
+                                                    <Typography className="text-gray-900 font-semibold mt-2">
+                                                        {generateAmountLeft(budget.amount, budget.spent).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                    </Typography>
+                                                    <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                                        {generatePercentageLeft(budget.amount, budget.spent)}%
+                                                    </Typography>
+                                                </div>
                                             </div>
+                                            <Progress value={generateProgressValue(budget.amount, budget.spent)} size="lg" className="mt-2 mb-2" color={generateProgressColor(budget.amount, budget.spent)} />
                                         </div>
-                                        <Progress value={generateProgressValue(budget.amount, budget.spent)} size="lg" className="mt-2 mb-2" color={generateProgressColor(budget.amount, budget.spent)} />
-                                    </div>
-                                    <div className="flex items-center">
-                                        <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
-                                    </div>
-                                </ListItem>
-                            </Link>
+                                        <div className="flex items-center">
+                                            <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
+                                        </div>
+                                    </ListItem>
+                                </Link>
+                            </div>
                         )
                     )}
 
@@ -155,29 +157,31 @@ export default function BudgetCard() {
                     {budgets
                         .filter(budget => budget.period === "monthly")
                         .map((budget) => (
-                            <Link to={`/budgets/monthly/${generatePath(budget.name)}`} onClick={storeScrollPosition}>
-                                <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                                    <div className="flex-1 w-0">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                                {budget.name}
-                                            </Typography>
-                                            <div className="flex gap-4 items-center">
-                                                <Typography className="text-gray-900 font-semibold mt-2">
-                                                    {generateAmountLeft(budget.amount, budget.spent).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            <div key={budget.id}>
+                                <Link to={`/budgets/monthly/${generatePath(budget.name)}`} onClick={storeScrollPosition}>
+                                    <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+                                        <div className="flex-1 w-0">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <Typography className="text-gray-900 font-medium mt-2 truncate">
+                                                    {budget.name}
                                                 </Typography>
-                                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                                    {generatePercentageLeft(budget.amount, budget.spent)}%
-                                                </Typography>
+                                                <div className="flex gap-4 items-center">
+                                                    <Typography className="text-gray-900 font-semibold mt-2">
+                                                        {generateAmountLeft(budget.amount, budget.spent).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                    </Typography>
+                                                    <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                                        {generatePercentageLeft(budget.amount, budget.spent)}%
+                                                    </Typography>
+                                                </div>
                                             </div>
+                                            <Progress value={generateProgressValue(budget.amount, budget.spent)} size="lg" className="mt-2 mb-2" color={generateProgressColor(budget.amount, budget.spent)} />
                                         </div>
-                                        <Progress value={generateProgressValue(budget.amount, budget.spent)} size="lg" className="mt-2 mb-2" color={generateProgressColor(budget.amount, budget.spent)} />
-                                    </div>
-                                    <div className="flex items-center">
-                                        <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
-                                    </div>
-                                </ListItem>
-                            </Link>
+                                        <div className="flex items-center">
+                                            <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
+                                        </div>
+                                    </ListItem>
+                                </Link>
+                            </div>
                         )
                     )}
 

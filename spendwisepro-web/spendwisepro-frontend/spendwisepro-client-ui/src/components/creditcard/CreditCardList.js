@@ -10,6 +10,33 @@ import {Link} from "react-router-dom";
 
 export default function CreditCardList() {
 
+    const creditCards = [
+        {
+            id: 1,
+            type: "Visa",
+            amount: 120.00,
+            bank: "Banka Intesa",
+            note: "Some Note1",
+            icon: "https://cdn3.iconfinder.com/data/icons/popular-services-brands-vol-2/512/visa-512.png"
+        },
+        {
+            id: 2,
+            type: "MasterCard",
+            amount: 50.00,
+            bank: "OTP Bank",
+            note: "Some Note2",
+            icon: "https://cdn3.iconfinder.com/data/icons/circle-payment-methods-4/512/Mastercard-512.png"
+        },
+        {
+            id: 3,
+            type: "American Express",
+            amount: 130.00,
+            bank: "U.S. Bank",
+            note: "Some Note3",
+            icon: "https://cdn3.iconfinder.com/data/icons/popular-services-brands-vol-2/512/american-express-512.png"
+        }
+    ]
+
     function storeScrollPosition() {
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
@@ -32,78 +59,31 @@ export default function CreditCardList() {
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200">
 
-                        <li className="py-3 sm:py-4">
-                            <div className="flex items-center space-x-4">
-                                <div className="flex-shrink-0">
-                                    <img className="w-8 h-8 rounded-full" src="https://cdn3.iconfinder.com/data/icons/popular-services-brands-vol-2/512/visa-512.png"  alt="Visa"/>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-md font-medium text-gray-900 truncate dark:text-white">
-                                        Visa
-                                    </p>
-                                    <p className="text-sm text-gray-500 truncate">
-                                        Banka Intesa
-                                    </p>
-                                    <p className="text-sm text-gray-500 truncate">
-                                        Some Note1
-                                    </p>
-                                </div>
-                                <div className="text-right">
-                                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                        $120,00
+                        {creditCards.map((creditCard) => (
+                            <li key={creditCard.id} className="py-3 sm:py-4">
+                                <div className="flex items-center space-x-4">
+                                    <div className="flex-shrink-0">
+                                        <img className="w-8 h-8 rounded-full" src={creditCard.icon}  alt={creditCard.type}/>
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-md font-medium text-gray-900 truncate dark:text-white">
+                                            {creditCard.type}
+                                        </p>
+                                        <p className="text-sm text-gray-500 truncate">
+                                            {creditCard.bank}
+                                        </p>
+                                        <p className="text-sm text-gray-500 truncate">
+                                            {creditCard.note}
+                                        </p>
+                                    </div>
+                                    <div className="text-right">
+                                        <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                            {creditCard.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-
-                        <li className="py-3 sm:py-4">
-                            <div className="flex items-center space-x-4">
-                                <div className="flex-shrink-0">
-                                    <img className="w-8 h-8 rounded-full" src="https://cdn3.iconfinder.com/data/icons/circle-payment-methods-4/512/Mastercard-512.png"  alt="MasterCard"/>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-md font-medium text-gray-900 truncate">
-                                        MasterCard
-                                    </p>
-                                    <p className="text-sm text-gray-500 truncate">
-                                        OTP Bank
-                                    </p>
-                                    <p className="text-sm text-gray-500 truncate">
-                                        Some Note2
-                                    </p>
-                                </div>
-                                <div className="text-right">
-                                    <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                                        $50,00
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li className="py-3 sm:py-4">
-                            <div className="flex items-center space-x-4">
-                                <div className="flex-shrink-0">
-                                    <img className="w-8 h-8 rounded-full" src="https://cdn3.iconfinder.com/data/icons/popular-services-brands-vol-2/512/american-express-512.png"  alt="American Express"/>
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-md font-medium text-gray-900 truncate">
-                                        American Express
-                                    </p>
-                                    <p className="text-sm text-gray-500 truncate">
-                                        U.S. Bank
-                                    </p>
-                                    <p className="text-sm text-gray-500 truncate">
-                                        Some Note3
-                                    </p>
-                                </div>
-                                <div className="text-right">
-                                    <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                                        $130,00
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-
+                            </li>
+                        ))}
                     </ul>
                 </div>
 

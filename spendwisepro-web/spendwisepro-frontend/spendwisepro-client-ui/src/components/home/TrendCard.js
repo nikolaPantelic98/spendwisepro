@@ -140,162 +140,160 @@ export default function TrendCard() {
                 <hr className="my-2 border-blue-gray-50 mb-4" />
 
                 <div className="flow-root">
-                    <div className="flow-root">
-                        <Tabs value={selectedTab} onChange={(value) => setSelectedTab(value)}>
+                    <Tabs value={selectedTab} onChange={(value) => setSelectedTab(value)}>
 
-                            <TabsHeader>
-                                {type.map(({ label, value, icon }) => (
-                                    <Tab key={value} value={value}>
-                                        <div className="flex items-center gap-2">
-                                            {React.createElement(icon, { className: "w-5 h-5" })}
-                                            {label}
-                                        </div>
-                                    </Tab>
-                                ))}
-                            </TabsHeader>
+                        <TabsHeader>
+                            {type.map(({ label, value, icon }) => (
+                                <Tab key={value} value={value}>
+                                    <div className="flex items-center gap-2">
+                                        {React.createElement(icon, { className: "w-5 h-5" })}
+                                        {label}
+                                    </div>
+                                </Tab>
+                            ))}
+                        </TabsHeader>
 
-                            <TabsBody animate={{ initial: { y: 250 }, mount: { y: 0 }, unmount: { y: 250 } }}>
-                                {type.map(({ value }) => (
-                                    <TabPanel key={value} value={value}>
-                                        {value === "balance" ? (
-                                            // Content for "balance" tab
-                                            <>
-                                                <div>
-                                                    <div className="flex-1">
-                                                        <p className="text-sm font-medium text-gray-900 truncate">
-                                                            TODAY
-                                                        </p>
-                                                        <Typography variant="h2" className="text-gray-900 mb-4">
-                                                            $1.000,00
-                                                        </Typography>
-                                                    </div>
-
-                                                    <div>
-                                                        <AreaChart width={250} height={210} data={dataBalance}
-                                                                   margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
-                                                            <defs>
-                                                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                                                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                                                                </linearGradient>
-                                                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                                                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                                                                </linearGradient>
-                                                            </defs>
-                                                            <XAxis dataKey="date" fontSize="small" />
-                                                            <YAxis fontSize="small" />
-                                                            <CartesianGrid strokeDasharray="3 3" />
-                                                            <Tooltip />
-                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-                                                        </AreaChart>
-                                                    </div>
-
-                                                    <CardFooter className="p-0 mt-8">
-                                                        <Link to="/balance" onClick={storeScrollPosition}>
-                                                            <Button size="sm" variant="text" className="flex items-center gap-2">
-                                                                Show More
-                                                                <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                                                            </Button>
-                                                        </Link>
-                                                    </CardFooter>
+                        <TabsBody animate={{ initial: { y: 250 }, mount: { y: 0 }, unmount: { y: 250 } }}>
+                            {type.map(({ value }) => (
+                                <TabPanel key={value} value={value}>
+                                    {value === "balance" ? (
+                                        // Content for "balance" tab
+                                        <>
+                                            <div>
+                                                <div className="flex-1">
+                                                    <p className="text-sm font-medium text-gray-900 truncate">
+                                                        TODAY
+                                                    </p>
+                                                    <Typography variant="h2" className="text-gray-900 mb-4">
+                                                        $1.000,00
+                                                    </Typography>
                                                 </div>
-                                            </>
-                                        ) : value === "cash" ? (
-                                            // Content for "cash" tab
-                                            <>
+
                                                 <div>
-                                                    <div className="flex-1">
-                                                        <p className="text-sm font-medium text-gray-900 truncate">
-                                                            TODAY
-                                                        </p>
-                                                        <Typography variant="h2" className="text-gray-900 mb-4">
-                                                            $700,00
-                                                        </Typography>
-                                                    </div>
-
-                                                    <div>
-                                                        <AreaChart width={250} height={210} data={dataCash}
-                                                                   margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
-                                                            <defs>
-                                                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                                                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                                                                </linearGradient>
-                                                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                                                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                                                                </linearGradient>
-                                                            </defs>
-                                                            <XAxis dataKey="date" fontSize="small" />
-                                                            <YAxis fontSize="small" />
-                                                            <CartesianGrid strokeDasharray="3 3" />
-                                                            <Tooltip />
-                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-                                                        </AreaChart>
-                                                    </div>
-
-                                                    <CardFooter className="p-0 mt-8">
-
-                                                        <Link to="/cash" onClick={storeScrollPosition}>
-                                                            <Button size="sm" variant="text" className="flex items-center gap-2">
-                                                                Show More
-                                                                <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                                                            </Button>
-                                                        </Link>
-                                                    </CardFooter>
+                                                    <AreaChart width={250} height={210} data={dataBalance}
+                                                               margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+                                                        <defs>
+                                                            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                                                                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                                                                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                                                            </linearGradient>
+                                                            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                                                                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                                                                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                                                            </linearGradient>
+                                                        </defs>
+                                                        <XAxis dataKey="date" fontSize="small" />
+                                                        <YAxis fontSize="small" />
+                                                        <CartesianGrid strokeDasharray="3 3" />
+                                                        <Tooltip />
+                                                        <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                                                    </AreaChart>
                                                 </div>
-                                            </>
-                                        ) : value === "credit" ? (
-                                            // Content for "credit" tab
-                                            <>
+
+                                                <CardFooter className="p-0 mt-8">
+                                                    <Link to="/balance" onClick={storeScrollPosition}>
+                                                        <Button size="sm" variant="text" className="flex items-center gap-2">
+                                                            Show More
+                                                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                                                        </Button>
+                                                    </Link>
+                                                </CardFooter>
+                                            </div>
+                                        </>
+                                    ) : value === "cash" ? (
+                                        // Content for "cash" tab
+                                        <>
+                                            <div>
+                                                <div className="flex-1">
+                                                    <p className="text-sm font-medium text-gray-900 truncate">
+                                                        TODAY
+                                                    </p>
+                                                    <Typography variant="h2" className="text-gray-900 mb-4">
+                                                        $700,00
+                                                    </Typography>
+                                                </div>
+
                                                 <div>
-                                                    <div className="flex-1">
-                                                        <p className="text-sm font-medium text-gray-900 truncate">
-                                                            TODAY
-                                                        </p>
-                                                        <Typography variant="h2" className="text-gray-900 mb-4">
-                                                            $300,00
-                                                        </Typography>
-                                                    </div>
-
-                                                    <div>
-                                                        <AreaChart width={250} height={210} data={dataCredit}
-                                                                   margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
-                                                            <defs>
-                                                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                                                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                                                                </linearGradient>
-                                                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                                                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                                                                </linearGradient>
-                                                            </defs>
-                                                            <XAxis dataKey="date" fontSize="small" />
-                                                            <YAxis fontSize="small" />
-                                                            <CartesianGrid strokeDasharray="3 3" />
-                                                            <Tooltip />
-                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-                                                        </AreaChart>
-                                                    </div>
-
-                                                    <CardFooter className="p-0 mt-8">
-                                                        <Link to="/credit_cards" onClick={storeScrollPosition}>
-                                                            <Button size="sm" variant="text" className="flex items-center gap-2">
-                                                                Show More
-                                                                <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                                                            </Button>
-                                                        </Link>
-                                                    </CardFooter>
+                                                    <AreaChart width={250} height={210} data={dataCash}
+                                                               margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+                                                        <defs>
+                                                            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                                                                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                                                                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                                                            </linearGradient>
+                                                            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                                                                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                                                                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                                                            </linearGradient>
+                                                        </defs>
+                                                        <XAxis dataKey="date" fontSize="small" />
+                                                        <YAxis fontSize="small" />
+                                                        <CartesianGrid strokeDasharray="3 3" />
+                                                        <Tooltip />
+                                                        <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                                                    </AreaChart>
                                                 </div>
-                                            </>
-                                        ) : null}
-                                    </TabPanel>
-                                ))}
-                            </TabsBody>
-                        </Tabs>
-                    </div>
+
+                                                <CardFooter className="p-0 mt-8">
+
+                                                    <Link to="/cash" onClick={storeScrollPosition}>
+                                                        <Button size="sm" variant="text" className="flex items-center gap-2">
+                                                            Show More
+                                                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                                                        </Button>
+                                                    </Link>
+                                                </CardFooter>
+                                            </div>
+                                        </>
+                                    ) : value === "credit" ? (
+                                        // Content for "credit" tab
+                                        <>
+                                            <div>
+                                                <div className="flex-1">
+                                                    <p className="text-sm font-medium text-gray-900 truncate">
+                                                        TODAY
+                                                    </p>
+                                                    <Typography variant="h2" className="text-gray-900 mb-4">
+                                                        $300,00
+                                                    </Typography>
+                                                </div>
+
+                                                <div>
+                                                    <AreaChart width={250} height={210} data={dataCredit}
+                                                               margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
+                                                        <defs>
+                                                            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                                                                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                                                                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                                                            </linearGradient>
+                                                            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                                                                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                                                                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                                                            </linearGradient>
+                                                        </defs>
+                                                        <XAxis dataKey="date" fontSize="small" />
+                                                        <YAxis fontSize="small" />
+                                                        <CartesianGrid strokeDasharray="3 3" />
+                                                        <Tooltip />
+                                                        <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                                                    </AreaChart>
+                                                </div>
+
+                                                <CardFooter className="p-0 mt-8">
+                                                    <Link to="/credit_cards" onClick={storeScrollPosition}>
+                                                        <Button size="sm" variant="text" className="flex items-center gap-2">
+                                                            Show More
+                                                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                                                        </Button>
+                                                    </Link>
+                                                </CardFooter>
+                                            </div>
+                                        </>
+                                    ) : null}
+                                </TabPanel>
+                            ))}
+                        </TabsBody>
+                    </Tabs>
                 </div>
             </CardBody>
         </Card>

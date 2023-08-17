@@ -6,7 +6,6 @@ import PageWidthLayout from "../common/PageWidthLayout";
 import {ArrowTrendingDownIcon, ArrowTrendingUpIcon} from "@heroicons/react/24/solid";
 import AddRecordExpense from "./AddRecordExpense";
 import AddRecordIncome from "./AddRecordIncome";
-import {ArrowLeftIcon} from "@heroicons/react/20/solid";
 
 export default function AddRecordDrawer({ closeDrawer }) {
 

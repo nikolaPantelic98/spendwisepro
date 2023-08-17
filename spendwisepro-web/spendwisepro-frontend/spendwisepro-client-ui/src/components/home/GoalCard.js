@@ -133,29 +133,31 @@ export default function GoalCard() {
                     {goals
                         .filter(goal => goal.period === "weekly")
                         .map((goal) => (
-                            <Link to={`/goals/weekly/${generatePath(goal.name)}`} onClick={storeScrollPosition}>
-                                <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                                    <div className="flex-1 w-0">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                                {goal.name}
-                                            </Typography>
-                                            <div className="flex gap-4 items-center">
-                                                <Typography className="text-gray-900 font-semibold mt-2">
-                                                    {calculateRemainingAmount(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                            <div key={goal.id}>
+                                <Link to={`/goals/weekly/${generatePath(goal.name)}`} onClick={storeScrollPosition}>
+                                    <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+                                        <div className="flex-1 w-0">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <Typography className="text-gray-900 font-medium mt-2 truncate">
+                                                    {goal.name}
                                                 </Typography>
-                                                <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                                    {calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)}%
-                                                </Typography>
+                                                <div className="flex gap-4 items-center">
+                                                    <Typography className="text-gray-900 font-semibold mt-2">
+                                                        {calculateRemainingAmount(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                    </Typography>
+                                                    <Typography className="text-gray-700 font-medium mt-2 text-sm">
+                                                        {calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)}%
+                                                    </Typography>
+                                                </div>
                                             </div>
+                                            <Progress value={calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} />
                                         </div>
-                                        <Progress value={calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} />
-                                    </div>
-                                    <div className="flex items-center">
-                                        <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
-                                    </div>
-                                </ListItem>
-                            </Link>
+                                        <div className="flex items-center">
+                                            <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
+                                        </div>
+                                    </ListItem>
+                                </Link>
+                            </div>
                         )
                     )}
                 </div>
@@ -170,6 +172,7 @@ export default function GoalCard() {
                     {goals
                         .filter(goal => goal.period === "monthly")
                         .map((goal) => (
+                            <div key={goal.id}>
                                 <Link to={`/goals/monthly/${generatePath(goal.name)}`} onClick={storeScrollPosition}>
                                     <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                         <div className="flex-1 w-0">
@@ -193,8 +196,9 @@ export default function GoalCard() {
                                         </div>
                                     </ListItem>
                                 </Link>
-                            )
-                        )}
+                            </div>
+                        )
+                    )}
                 </div>
 
                 <hr className="my-2 border-blue-gray-50 mb-6 mt-6" />
