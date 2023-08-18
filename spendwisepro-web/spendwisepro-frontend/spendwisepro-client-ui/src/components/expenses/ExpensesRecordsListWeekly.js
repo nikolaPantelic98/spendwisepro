@@ -19,7 +19,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 1,
             amount: 70.00,
             type: "expense",
-            date: new Date("2023-07-28T08:57"),
+            date: new Date("2023-08-11T08:57"),
             name: "Gas bill",
             paymentType: "Credit Card",
             category: [
@@ -30,7 +30,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 2,
             amount: 25.00,
             type: "expense",
-            date: new Date("2023-07-28T12:30"),
+            date: new Date("2023-08-12T12:30"),
             name: "Phone bill",
             paymentType: "Cash",
             category: [
@@ -41,7 +41,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 3,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-25T12:30"),
+            date: new Date("2023-08-15T12:30"),
             name: "Electricity bill",
             paymentType: "Credit Card",
             category: [
@@ -63,7 +63,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 5,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-07-29T12:30"),
+            date: new Date("2023-08-18T12:30"),
             name: "Market",
             paymentType: "Credit Card",
             category: [
@@ -74,7 +74,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 6,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-29T12:30"),
+            date: new Date("2023-08-18T12:30"),
             name: "Tomato",
             paymentType: "Credit Card",
             category: [
@@ -85,7 +85,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 7,
             amount: 100.00,
             type: "expense",
-            date: new Date("2023-08-10T08:57"),
+            date: new Date("2023-08-11T08:57"),
             name: "Fuel",
             paymentType: "Cash",
             category: [
@@ -96,7 +96,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 8,
             amount: 112.00,
             type: "expense",
-            date: new Date("2023-08-10T12:30"),
+            date: new Date("2023-08-15T12:30"),
             name: "Fuel",
             paymentType: "Credit Card",
             category: [
@@ -107,7 +107,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 9,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-10T12:30"),
+            date: new Date("2023-08-18T12:30"),
             name: "Fuel",
             paymentType: "Credit Card",
             category: [
@@ -118,7 +118,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 10,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-07-22T08:57"),
+            date: new Date("2023-08-12T08:57"),
             name: "Cigarette",
             paymentType: "Cash",
             category: [
@@ -129,7 +129,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 11,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-07-21T12:30"),
+            date: new Date("2023-08-11T12:30"),
             name: "Tobacco",
             paymentType: "Credit Card",
             category: [
@@ -151,7 +151,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 13,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-07-29T08:57"),
+            date: new Date("2023-08-12T08:57"),
             name: "Chips",
             paymentType: "Cash",
             category: [
@@ -162,7 +162,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 14,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-07-25T12:30"),
+            date: new Date("2023-08-15T12:30"),
             time: "12:30",
             name: "Chips",
             paymentType: "Credit Card",
@@ -174,7 +174,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 15,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-25T12:30"),
+            date: new Date("2023-08-16T12:30"),
             name: "Tortillas",
             paymentType: "Credit Card",
             category: [
@@ -185,7 +185,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 16,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-07-21T08:57"),
+            date: new Date("2023-08-17T08:57"),
             name: "Doctor",
             paymentType: "Cash",
             category: [
@@ -196,7 +196,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 17,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-07-21T12:30"),
+            date: new Date("2023-08-12T12:30"),
             name: "Dentist",
             paymentType: "Credit Card",
             category: [
@@ -207,7 +207,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 18,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-18T12:30"),
+            date: new Date("2023-08-12T12:30"),
             name: "Drug",
             paymentType: "Credit Card",
             category: [
@@ -218,7 +218,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 19,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-07-21T08:57"),
+            date: new Date("2023-08-15T08:57"),
             name: "Card",
             paymentType: "Cash",
             category: [
@@ -229,7 +229,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 20,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-07-21T12:30"),
+            date: new Date("2023-08-15T12:30"),
             name: "Cinema chips",
             paymentType: "Credit Card",
             category: [
@@ -240,7 +240,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 21,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-16T12:30"),
+            date: new Date("2023-08-15T12:30"),
             name: "Coca cola",
             paymentType: "Credit Card",
             category: [
@@ -276,15 +276,15 @@ export default function ExpensesRecordsListMonthly() {
 
     // Generates data for a graph representing expenses over the last 30 days
     function generateDataForGraph(expense) {
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+        const sevenDaysAgo = new Date();
+        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
         const dateToAmountMap = new Map();
 
         // Calculate total expenses for each date within the last 30 days
         expense.forEach(record => {
             const recordDate = record.date.toDateString();
-            if (record.date >= thirtyDaysAgo) {
+            if (record.date >= sevenDaysAgo) {
                 if (!dateToAmountMap.has(recordDate)) {
                     dateToAmountMap.set(recordDate, record.amount);
                 } else {
@@ -296,7 +296,7 @@ export default function ExpensesRecordsListMonthly() {
         const dataForGraph = [];
 
         // Creates data for the graph, including dates with zero expenses
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 7; i++) {
             const currentDate = new Date();
             currentDate.setDate(currentDate.getDate() - i);
             const dateString = currentDate.toDateString();
@@ -333,12 +333,12 @@ export default function ExpensesRecordsListMonthly() {
         return null;
     };
 
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
     // Calculate the total amount spent on expenses within the last 30 days.
-    const totalAmountLast30Days = currentExpense
-        .filter(r => r.date >= thirtyDaysAgo)
+    const totalAmountLastSevenDays = currentExpense
+        .filter(r => r.date >= sevenDaysAgo)
         .reduce((total, r) => total + r.amount, 0);
 
     return (
@@ -356,12 +356,12 @@ export default function ExpensesRecordsListMonthly() {
                         <div className="flex-1">
                             <div className="flex items-center justify-between">
                                 <p className="text-xs font-medium text-gray-900 truncate">
-                                    LAST 30 DAYS
+                                    LAST 7 DAYS
                                 </p>
                             </div>
                             <div className="flex items-center justify-between">
                                 <Typography variant="h2" className="text-gray-900 mb-4">
-                                    {totalAmountLast30Days.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                    {totalAmountLastSevenDays.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                 </Typography>
                                 <Chip size="md" value="Total" className="bg-gray-200 normal-case text-gray-900 font-semibold mb-4 text-sm" />
                             </div>
@@ -395,7 +395,7 @@ export default function ExpensesRecordsListMonthly() {
 
             {sortedUniqueRecordDates.map((recordDate) => {
                 const date = new Date(recordDate);
-                if (date >= thirtyDaysAgo) {
+                if (date >= sevenDaysAgo) {
                     const recordsForDate = currentExpense.filter(record =>
                         new Date(record.date).setHours(0, 0, 0, 0) === recordDate
                     );
