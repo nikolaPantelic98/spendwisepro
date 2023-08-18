@@ -249,7 +249,7 @@ export default function ExpensesRecordsListMonthly() {
         }
     ];
 
-    // Filter expenses/records for the selected category and type "expense"
+    // Filter expenses/records for the selected category and expense type
     const currentExpense = records.filter(record =>
         record.category[0].categoryName.toLowerCase().replace(/\s+/g, '_') === category &&
         record.type === "expense"
