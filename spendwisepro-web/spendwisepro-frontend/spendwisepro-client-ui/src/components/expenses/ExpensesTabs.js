@@ -16,10 +16,22 @@ export default function ExpensesTabs() {
         {label: "30 Days", value: "30days", icon: CalendarDaysIcon}
     ];
 
-    const [selectedTab, setSelectedTab] = useState("30days");
+    const storedTab = sessionStorage.getItem('selectedTab');
+    const [selectedTab, setSelectedTab] = useState(storedTab || "30days");
+
+    const handleTabChange = (value) => {
+        setSelectedTab(value);
+        sessionStorage.setItem('selectedTab', value);
+    };
+
+    React.useEffect(() => {
+        if (storedTab) {
+            setSelectedTab(storedTab);
+        }
+    }, [storedTab]);
 
     return (
-        <Tabs className="mt-4" value={selectedTab} onChange={(value) => setSelectedTab(value)}>
+        <Tabs className="mt-4" value={selectedTab} onChange={handleTabChange}>
 
             <TabsHeader className="bg-green-100 ml-3 mr-3">
                 {type.map(({ label, value, icon }) => (

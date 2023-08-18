@@ -10,6 +10,10 @@ function ExpensesPage() {
         setSidebarOpen(isOpen);
     };
 
+    React.useEffect(() => {
+        sessionStorage.removeItem('selectedTab');
+    }, []);
+
     return (
         <>
             <div className="overflow-hidden">

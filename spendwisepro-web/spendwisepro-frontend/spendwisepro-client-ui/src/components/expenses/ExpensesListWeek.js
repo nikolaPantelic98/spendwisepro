@@ -56,7 +56,9 @@ export default function ExpensesListWeek() {
         return (amount / maxAmount) * 100;
     }
 
-    function storeScrollPosition() {
+    function storeScrollPositionAndTab() {
+        const tab = "7days";
+        sessionStorage.setItem('selectedTab', tab);
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
 
@@ -72,7 +74,7 @@ export default function ExpensesListWeek() {
                 <div>
                     {expenses.map((expense) => (
                         <div key={expense.id}>
-                            <Link to={`/expenses/week/${generatePath(expense.categoryName)}`} onClick={storeScrollPosition}>
+                            <Link to={`/expenses/week/${generatePath(expense.categoryName)}`} onClick={storeScrollPositionAndTab}>
                                 <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                     <div className="flex-1 w-0">
                                         <div className="flex items-center justify-between mb-2">
