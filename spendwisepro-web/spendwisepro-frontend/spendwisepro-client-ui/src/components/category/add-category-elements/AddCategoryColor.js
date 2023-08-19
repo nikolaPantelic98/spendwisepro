@@ -4,10 +4,11 @@ import {
     DialogBody,
     DialogFooter,
     DialogHeader,
-    ListItem, Option, Select
+    ListItem, Option, Select, Typography
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
+import {InformationCircleIcon} from "@heroicons/react/20/solid";
 
 const colorOptions = [
     "https://i.ibb.co/KxFFbSz/blue-gray.png",
@@ -58,15 +59,11 @@ export default function AddCategoryColor() {
             <div onClick={handleOpenColor}>
                 <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                     <div className="flex-shrink-0">
-                        <img
-                            className="w-8 h-8 rounded-full"
-                            src="https://www.seekpng.com/png/detail/764-7640973_choose-icon-touch-circle.png"
-                            alt="Icon"
-                        />
+                        <img className="w-8 h-8 rounded-full" src="https://i.ibb.co/mFCpZXC/paint-palette.png" alt="Color"/>
                     </div>
                     <div className="flex-1 min-w-0">
                         <p className="text-sm font-semibold text-green-700 truncate dark:text-white">
-                            Icon
+                            Color
                         </p>
                     </div>
                     <div className="text-right">
@@ -82,7 +79,7 @@ export default function AddCategoryColor() {
                                 <img
                                     className="w-8 h-8 inline-block"
                                     src={selectedColor}
-                                    alt="Selected Icon"
+                                    alt="Selected Color"
                                 />
                             ) : (
                                 "Select"
@@ -125,6 +122,13 @@ export default function AddCategoryColor() {
                             </Option>
                         ))}
                     </Select>
+                    <Typography variant="small" color="gray" className="flex items-center gap-1 font-normal mt-2 ml-1">
+                        <InformationCircleIcon className="w-4 h-4 -mt-px" />
+                        Use colors to group subcategories
+                    </Typography>
+                    <Typography variant="small" color="gray" className="flex items-center gap-1 font-normal ml-6">
+                        under the same parent category.
+                    </Typography>
                 </DialogBody>
                 <DialogFooter>
                     <Button

@@ -21,6 +21,10 @@ export default function AddRecordDrawer({ closeDrawer }) {
         <div className="relative">
 
             <div className="h-24 flex flex-col bg-white">
+                <div
+                    className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-1.5 bg-gray-500 rounded-xl"
+                    style={{ top: 0, width: "22%" }}
+                ></div>
                 <div>
                     <div variant="text" className="flex gap-2">
                         <Button variant="text" className="flex gap-2 text-transparent" disabled={true}>
