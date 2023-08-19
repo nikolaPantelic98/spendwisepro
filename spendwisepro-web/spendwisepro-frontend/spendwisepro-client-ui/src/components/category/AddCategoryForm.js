@@ -7,6 +7,7 @@ import React from "react";
 import AddCategoryName from "./add-category-elements/AddCategoryName";
 import AddCategoryParentCategory from "./add-category-elements/AddCategoryParentCategory";
 import AddCategoryIcon from "./add-category-elements/AddCategoryIcon";
+import AddCategoryColor from "./add-category-elements/AddCategoryColor";
 
 export default function AddCategoryForm() {
     return (
@@ -20,6 +21,8 @@ export default function AddCategoryForm() {
                         <AddCategoryParentCategory />
 
                         <AddCategoryIcon />
+
+                        <AddCategoryColor />
                     </ul>
                     <hr className="my-2 border-blue-gray-50" />
                     <div className="flex justify-center items-center">
