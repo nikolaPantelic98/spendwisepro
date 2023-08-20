@@ -223,11 +223,23 @@ export default function BudgetMonthlyOverview( {name} ) {
 
     const currentDate = new Date();
 
-    // Filter records that occurred in the last 30 days
-    const filteredRecords30Days = records.filter(record => {
-        const daysDifference = Math.floor((currentDate - record.date) / (1000 * 60 * 60 * 24));
-        return daysDifference < 30;
-    });
+    // Filter records that occurred in the current month
+    const recordsThisMonth = (() => {
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth();
+
+        // Calculate the first day of the current month
+        const startOfMonth = new Date(currentYear, currentMonth, 1);
+        startOfMonth.setHours(0, 0, 0, 0);
+
+        // Calculate the last day of the current month
+        const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
+        endOfMonth.setHours(23, 59, 59, 999);
+
+        return records.filter(record => {
+            return record.date >= startOfMonth && record.date <= endOfMonth;
+        });
+    })();
 
     // Create a new object of weekly budgets based on the budget period and budget name
     const budget = (() => {
@@ -239,11 +251,11 @@ export default function BudgetMonthlyOverview( {name} ) {
         let matchingRecords;
 
         if (foundBudget.category.some(cat => cat.categoryName === "All categories")) {
-            // If budget's category is "All categories", include all expense records in the last 7 days
-            matchingRecords = filteredRecords30Days.filter(record => record.type === "expense");
+            // If budget's category is "All categories", include all expense records in the current month
+            matchingRecords = recordsThisMonth.filter(record => record.type === "expense");
         } else {
-            // Otherwise, find expense records in the last 7 days with matching category
-            matchingRecords = filteredRecords30Days.filter(record =>
+            // Otherwise, find expense records in the current month with matching category
+            matchingRecords = recordsThisMonth.filter(record =>
                 record.category.some(category =>
                     foundBudget.category.some(budgetCategory => budgetCategory.categoryName === category.categoryName)
                 ) && record.type === "expense"

@@ -224,30 +224,54 @@ export default function BudgetList() {
 
     const currentDate = new Date();
 
-    // Filter records that occurred in the last 7 days
-    const filteredRecords7Days = records.filter(record => {
-        const daysDifference = Math.floor((currentDate - record.date) / (1000 * 60 * 60 * 24));
-        return daysDifference < 7;
-    });
+    // Filter records that occurred in the current week
+    const recordsThisWeek = (() => {
 
-    // Filter records that occurred in the last 30 days
-    const filteredRecords30Days = records.filter(record => {
-        const daysDifference = Math.floor((currentDate - record.date) / (1000 * 60 * 60 * 24));
-        return daysDifference < 30;
-    });
+        // Find the first day of the week (Monday) for the current date
+        const startOfWeek = new Date(currentDate);
+        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
+        startOfWeek.setHours(0, 0, 0, 0);
+
+        // Find the last day of the week (Sunday) for the current date
+        const endOfWeek = new Date(currentDate);
+        endOfWeek.setDate(currentDate.getDate() + (6 - currentDate.getDay()));
+        endOfWeek.setHours(23, 59, 59, 999);
+
+        return records.filter(record => {
+            return record.date >= startOfWeek && record.date <= endOfWeek;
+        });
+    })();
+
+    // Filter records that occurred in the current month
+    const recordsThisMonth = (() => {
+        const currentYear = currentDate.getFullYear();
+        const currentMonth = currentDate.getMonth();
+
+        // Calculate the first day of the current month
+        const startOfMonth = new Date(currentYear, currentMonth, 1);
+        startOfMonth.setHours(0, 0, 0, 0);
+
+        // Calculate the last day of the current month
+        const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
+        endOfMonth.setHours(23, 59, 59, 999);
+
+        return records.filter(record => {
+            return record.date >= startOfMonth && record.date <= endOfMonth;
+        });
+    })();
 
     // Create a new array of weekly budgets based on the provided budgets and expense records
     const weeklyBudgets = budgets
         .filter(budget => budget.period === "weekly") // Filter budgets with "weekly" period
         .map(budget => {
-            let matchingRecords = [];
+            let matchingRecords;
 
             if (budget.category.some(cat => cat.categoryName === "All categories")) {
-                // If budget's category is "All categories", include all expense records in the last 7 days
-                matchingRecords = filteredRecords7Days.filter(record => record.type === "expense");
+                // If budget's category is "All categories", include all expense records in the current week
+                matchingRecords = recordsThisWeek.filter(record => record.type === "expense");
             } else {
-                // Otherwise, find expense records in the last 7 days with matching category
-                matchingRecords = filteredRecords7Days.filter(record =>
+                // Otherwise, find expense records in the current week with matching category
+                matchingRecords = recordsThisWeek.filter(record =>
                     record.category.some(category => budget.category.some(budgetCategory => budgetCategory.categoryName === category.categoryName))
                     && record.type === "expense"
                 );
@@ -269,14 +293,14 @@ export default function BudgetList() {
     const monthlyBudgets = budgets
         .filter(budget => budget.period === "monthly") // Filter budgets with "monthly" period
         .map(budget => {
-            let matchingRecords = [];
+            let matchingRecords;
 
             if (budget.category.some(cat => cat.categoryName === "All categories")) {
-                // If budget's category is "All categories", include all expense records in the last 30 days
-                matchingRecords = filteredRecords30Days.filter(record => record.type === "expense");
+                // If budget's category is "All categories", include all expense records in the current month
+                matchingRecords = recordsThisMonth.filter(record => record.type === "expense");
             } else {
-                // Otherwise, find expense records in the last 30 days with matching category
-                matchingRecords = filteredRecords30Days.filter(record =>
+                // Otherwise, find expense records in the current month with matching category
+                matchingRecords = recordsThisMonth.filter(record =>
                     record.category.some(category => budget.category.some(budgetCategory => budgetCategory.categoryName === category.categoryName))
                     && record.type === "expense"
                 );

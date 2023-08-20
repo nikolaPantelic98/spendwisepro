@@ -223,11 +223,23 @@ export default function BudgetWeeklyOverview( {name} ) {
 
     const currentDate = new Date();
 
-    // Filter records that occurred in the last 7 days
-    const filteredRecords7Days = records.filter(record => {
-        const daysDifference = Math.floor((currentDate - record.date) / (1000 * 60 * 60 * 24));
-        return daysDifference < 7;
-    });
+    // Filter records that occurred in the current week
+    const recordsThisWeek = (() => {
+
+        // Find the first day of the week (Monday) for the current date
+        const startOfWeek = new Date(currentDate);
+        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
+        startOfWeek.setHours(0, 0, 0, 0);
+
+        // Find the last day of the week (Sunday) for the current date
+        const endOfWeek = new Date(currentDate);
+        endOfWeek.setDate(currentDate.getDate() + (6 - currentDate.getDay()));
+        endOfWeek.setHours(23, 59, 59, 999);
+
+        return records.filter(record => {
+            return record.date >= startOfWeek && record.date <= endOfWeek;
+        });
+    })();
 
     // Create a new object of weekly budgets based on the budget period and budget name
     const budget = (() => {
@@ -239,11 +251,11 @@ export default function BudgetWeeklyOverview( {name} ) {
         let matchingRecords;
 
         if (foundBudget.category.some(cat => cat.categoryName === "All categories")) {
-            // If budget's category is "All categories", include all expense records in the last 7 days
-            matchingRecords = filteredRecords7Days.filter(record => record.type === "expense");
+            // If budget's category is "All categories", include all expense records in the current week
+            matchingRecords = recordsThisWeek.filter(record => record.type === "expense");
         } else {
-            // Otherwise, find expense records in the last 7 days with matching category
-            matchingRecords = filteredRecords7Days.filter(record =>
+            // Otherwise, find expense records in the current week with matching category
+            matchingRecords = recordsThisWeek.filter(record =>
                 record.category.some(category =>
                     foundBudget.category.some(budgetCategory => budgetCategory.categoryName === category.categoryName)
                 ) && record.type === "expense"
