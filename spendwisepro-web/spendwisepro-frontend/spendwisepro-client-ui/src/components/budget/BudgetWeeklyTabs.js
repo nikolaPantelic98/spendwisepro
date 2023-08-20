@@ -9,8 +9,11 @@ import BudgetWeeklyTopExpenses from "./budget-weekly/BudgetWeeklyTopExpenses";
 import PageWidthLayout from "../common/PageWidthLayout";
 import BudgetWeeklyRecords from "./budget-weekly/BudgetWeeklyRecords";
 import {Bars3BottomLeftIcon, ClipboardDocumentIcon} from "@heroicons/react/24/outline";
+import {useParams} from "react-router-dom";
 
 export default function BudgetWeeklyTabs() {
+
+    const { '*': name } = useParams();
 
     const type = [
         {label: "Overview", value: "overview", icon: Bars3BottomLeftIcon},
@@ -41,7 +44,7 @@ export default function BudgetWeeklyTabs() {
                             <>
                                 <div className="mt-2">
                                     <div className="mx-6">
-                                        <BudgetWeeklyOverview/>
+                                        <BudgetWeeklyOverview name={name} />
                                     </div>
 
                                     <div className="mx-6">

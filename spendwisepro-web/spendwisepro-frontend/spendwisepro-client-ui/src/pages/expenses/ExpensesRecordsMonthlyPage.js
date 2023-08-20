@@ -3,10 +3,8 @@ import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import ExpensesRecordsListMonthly from "../../components/expenses/ExpensesRecordsListMonthly";
 import PageHeader from "../../components/common/PageHeader";
-import {useParams} from "react-router-dom";
 
 function ExpensesRecordsMonthlyPage() {
-    const { '*': category } = useParams();
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {

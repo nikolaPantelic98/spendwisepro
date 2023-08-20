@@ -407,7 +407,7 @@ export default function BudgetList() {
                             {monthlyBudgets
                                 .map((budget) => (
                                     <li key={budget.id} className="py-3 sm:py-4">
-                                        <Link to={`/budgets/weekly/${generatePath(budget.name)}`} onClick={storeScrollPosition}>
+                                        <Link to={`/budgets/monthly/${generatePath(budget.name)}`} onClick={storeScrollPosition}>
                                             <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                                 <div className="flex-1 w-0">
                                                     <div className="flex items-center justify-between mb-2">

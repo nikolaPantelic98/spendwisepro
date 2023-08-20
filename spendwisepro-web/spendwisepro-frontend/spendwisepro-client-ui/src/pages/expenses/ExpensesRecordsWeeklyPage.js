@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import PageHeader from "../../components/common/PageHeader";
-import {useParams} from "react-router-dom";
 import ExpensesRecordsListWeekly from "../../components/expenses/ExpensesRecordsListWeekly";
 
 function ExpensesRecordsWeeklyPage() {
-    const { '*': category } = useParams();
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
