@@ -20,6 +20,7 @@ import AddGoalPage from "./goal/AddGoalPage";
 import AddPlannedPaymentPage from "./planned-payments/AddPlannedPaymentPage";
 import LoginPage from "./login/LoginPage";
 import ExpensesRecordsWeeklyPage from "./expenses/ExpensesRecordsWeeklyPage";
+import BudgetMonthlyPage from "./budget/BudgetMonthlyPage";
 
 function App() {
 
@@ -44,6 +45,7 @@ function App() {
 
                     <Route path="/budgets" element={<BudgetPage />}></Route>
                     <Route path="/budgets/weekly/*" element={<BudgetWeeklyPage />}></Route>
+                    <Route path="/budgets/monthly/*" element={<BudgetMonthlyPage />}></Route>
                     <Route path="/add_budget" element={<AddBudgetPage />}></Route>
 
                     <Route path="/goals" element={<GoalsPage />}></Route>

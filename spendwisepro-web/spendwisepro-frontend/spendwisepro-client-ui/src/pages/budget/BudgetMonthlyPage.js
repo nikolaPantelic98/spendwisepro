@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
-import BudgetWeeklyTabs from "../../components/budget/BudgetWeeklyTabs";
 import PageHeader from "../../components/common/PageHeader";
+import BudgetMonthlyTabs from "../../components/budget/BudgetMonthlyTabs";
 
-function BudgetWeeklyPage() {
+function BudgetMonthlyPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -23,10 +23,10 @@ function BudgetWeeklyPage() {
             </div>
 
             <div className=" flex justify-center min-h-screen bg-green-50">
-                <BudgetWeeklyTabs/>
+                <BudgetMonthlyTabs/>
             </div>
         </div>
     );
 }
 
-export default BudgetWeeklyPage;
+export default BudgetMonthlyPage;
