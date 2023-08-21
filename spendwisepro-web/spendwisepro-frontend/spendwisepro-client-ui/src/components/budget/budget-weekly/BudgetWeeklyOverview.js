@@ -79,7 +79,7 @@ export default function BudgetWeeklyOverview( {name} ) {
             id: 2,
             amount: 25.00,
             type: "expense",
-            date: new Date("2023-08-03T12:30"),
+            date: new Date("2023-08-20T12:30"),
             note: "New door",
             paymentType: "Cash",
             category: [

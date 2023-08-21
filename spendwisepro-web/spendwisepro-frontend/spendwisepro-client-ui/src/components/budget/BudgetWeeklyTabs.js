@@ -48,7 +48,7 @@ export default function BudgetWeeklyTabs() {
                                     </div>
 
                                     <div className="mx-6">
-                                        <BudgetWeeklyChart/>
+                                        <BudgetWeeklyChart name={name}/>
                                     </div>
 
                                     <div className="mx-6">
