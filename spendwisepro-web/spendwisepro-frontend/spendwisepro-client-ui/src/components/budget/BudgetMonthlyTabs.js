@@ -6,6 +6,7 @@ import PageWidthLayout from "../common/PageWidthLayout";
 import {Bars3BottomLeftIcon, ClipboardDocumentIcon} from "@heroicons/react/24/outline";
 import {useParams} from "react-router-dom";
 import BudgetMonthlyOverview from "./budget-monthly/BudgetMonthlyOverview";
+import BudgetMonthlyChart from "./budget-monthly/BudgetMonthlyChart";
 
 export default function BudgetMonthlyTabs() {
 
@@ -44,7 +45,7 @@ export default function BudgetMonthlyTabs() {
                                     </div>
 
                                     <div className="mx-6">
-                                        {/*<BudgetMonthlyChart/>*/}
+                                        <BudgetMonthlyChart name={name}/>
                                     </div>
 
                                     <div className="mx-6">
