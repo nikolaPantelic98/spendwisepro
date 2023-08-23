@@ -337,7 +337,7 @@ export default function BudgetWeeklyChart( {name} ) {
 
     // prediction for the future, based on the records amount until the current day
     for (let i = daysWithAmount - 1; i < budgetGraph.spendingPerDay.length; i++) {
-        budgetGraph.spendingPerDay[i].prediction = spentAmount + dailyAverage * (i - daysWithAmount + 1);
+        budgetGraph.spendingPerDay[i].prediction = (spentAmount + dailyAverage * (i - daysWithAmount + 1)).toFixed(2);
     }
 
     let daysWithoutAmount = budgetGraph.spendingPerDay.filter(day => day.spent === undefined).length;
@@ -359,7 +359,7 @@ export default function BudgetWeeklyChart( {name} ) {
                     <div className="p-1">
                         <p className=" text-gray-900 border-b-2">{formattedDate}</p>
                         <p className="font-semibold text-green-chart mt-1 mb-1">{`Spent: $${data.payload.spent}`}</p>
-                        <p className="font-semibold text-green-700 mt-1 border-t-2">{`$${budgetGraph.amount - data.payload.spent} left`}</p>
+                        <p className="font-semibold text-green-700 mt-1 border-t-2">{`$${(budgetGraph.amount - data.payload.spent).toFixed(2)} left`}</p>
                     </div>
                 );
             } else if (data.payload.spent !== undefined && (budgetGraph.amount - data.payload.spent) < 0) {
@@ -367,7 +367,7 @@ export default function BudgetWeeklyChart( {name} ) {
                     <div className="p-1">
                         <p className=" text-gray-900 border-b-2">{formattedDate}</p>
                         <p className="font-semibold text-green-chart mt-1 mb-1">{`Spent: $${data.payload.spent}`}</p>
-                        <p className="font-semibold text-red-700 mt-1 border-t-2">{`$${Math.abs(budgetGraph.amount - data.payload.spent)} overspent`}</p>
+                        <p className="font-semibold text-red-700 mt-1 border-t-2">{`$${Math.abs(budgetGraph.amount - data.payload.spent).toFixed(2)} overspent`}</p>
                     </div>
                 );
             } else if (data.payload.prediction !== undefined && (budgetGraph.amount - data.payload.prediction) >= 0) {
@@ -375,7 +375,7 @@ export default function BudgetWeeklyChart( {name} ) {
                     <div className="p-1">
                         <p className=" text-gray-900 border-b-2">{formattedDate}</p>
                         <p className="font-semibold text-blue-chart mt-1 mb-1">{`Prediction: $${data.payload.prediction}`}</p>
-                        <p className="font-semibold text-green-700 mt-1 border-t-2">{`$${Math.abs(budgetGraph.amount - data.payload.prediction)} may left`}</p>
+                        <p className="font-semibold text-green-700 mt-1 border-t-2">{`$${Math.abs(budgetGraph.amount - data.payload.prediction).toFixed(2)} may left`}</p>
                     </div>
                 );
             } else if (data.payload.prediction !== undefined && (budgetGraph.amount - data.payload.prediction) < 0) {
@@ -383,7 +383,7 @@ export default function BudgetWeeklyChart( {name} ) {
                     <div className="p-1">
                         <p className=" text-gray-900 border-b-2">{formattedDate}</p>
                         <p className="font-semibold text-blue-chart mt-1 mb-1">{`Prediction: $${data.payload.prediction}`}</p>
-                        <p className="font-semibold text-red-700 mt-1 border-t-2">{`$${Math.abs(budgetGraph.amount - data.payload.prediction)} may be overspent`}</p>
+                        <p className="font-semibold text-red-700 mt-1 border-t-2">{`$${Math.abs(budgetGraph.amount - data.payload.prediction).toFixed(2)} may be overspent`}</p>
                     </div>
                 );
             }
@@ -413,15 +413,14 @@ export default function BudgetWeeklyChart( {name} ) {
                                     </linearGradient>
                                 </defs>
                                 <XAxis dataKey="date"
-                                       tick={{fontSize: 12}} tickFormatter={(tick) => {
+                                       tick={{fontSize: 12, dy: 8}} tickFormatter={(tick) => {
                                     const date = new Date(tick);
                                     const day = date.getDate().toString().padStart(2, '0');
                                     const month = (date.getMonth() + 1).toString().padStart(2, '0');
                                     return `${day}.${month}.`;}}
                                 />
                                 <YAxis />
-                                <YAxis fontSize="small" />
-                                <CartesianGrid strokeDasharray="3 3" />
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                 <Tooltip cursor={{fill: '#E8F5E9'}}
                                          payloadArray={budgetGraph.spendingPerDay}
                                          content={<TooltipContent />}

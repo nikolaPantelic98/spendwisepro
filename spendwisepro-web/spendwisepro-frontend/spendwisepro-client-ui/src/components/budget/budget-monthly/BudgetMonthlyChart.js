@@ -328,7 +328,7 @@ export default function BudgetMonthlyChart( {name} ) {
             spendingPerDay: spendingPerDay
         };
     })();
-    
+
     let daysWithAmount = budgetGraph.spendingPerDay.filter(day => day.spent !== undefined).length;
 
     let spentAmount = budgetGraph.spendingPerDay.reduce((maxSpent, day) => {
