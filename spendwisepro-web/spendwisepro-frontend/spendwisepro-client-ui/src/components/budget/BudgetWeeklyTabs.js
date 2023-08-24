@@ -68,7 +68,7 @@ export default function BudgetWeeklyTabs() {
                                 <div className="mt-2">
 
                                     <div className="mx-6">
-                                        <BudgetWeeklyRecords />
+                                        <BudgetWeeklyRecords name={name} />
                                     </div>
 
                                     <div><PageWidthLayout/></div>

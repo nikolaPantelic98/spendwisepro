@@ -21,6 +21,7 @@ export default function BudgetWeeklyLastPeriods( {name} ) {
             period: "weekly",
             name: "General",
             amount: 140.00,
+            spent: 70.00,
             category: [
                 { id: 1, categoryName: "All categories" }
             ]
@@ -30,6 +31,7 @@ export default function BudgetWeeklyLastPeriods( {name} ) {
             period: "weekly",
             name: "Tobacco",
             amount: 50.00,
+            spent: 55.00,
             category: [
                 { id: 2, categoryName: "Tobacco" }
             ]
@@ -39,6 +41,7 @@ export default function BudgetWeeklyLastPeriods( {name} ) {
             period: "monthly",
             name: "General",
             amount: 2000.00,
+            spent: 1800.00,
             category: [
                 { id: 1, categoryName: "All categories" }
             ]
@@ -48,6 +51,7 @@ export default function BudgetWeeklyLastPeriods( {name} ) {
             period: "monthly",
             name: "Car",
             amount: 400.00,
+            spent: 260.00,
             category: [
                 { id: 1, categoryName: "Car" }
             ]
@@ -57,7 +61,8 @@ export default function BudgetWeeklyLastPeriods( {name} ) {
             period: "monthly",
             name: "House",
             amount: 500.00,
-                category: [
+            spent: 250.00,
+            category: [
                 { id: 1, categoryName: "House and garden" }
             ]
         }

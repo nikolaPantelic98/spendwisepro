@@ -79,7 +79,7 @@ export default function BudgetWeeklyOverview( {name} ) {
             id: 2,
             amount: 25.00,
             type: "expense",
-            date: new Date("2023-08-20T12:30"),
+            date: new Date("2023-08-03T12:30"),
             note: "New door",
             paymentType: "Cash",
             category: [
@@ -123,7 +123,7 @@ export default function BudgetWeeklyOverview( {name} ) {
             id: 6,
             amount: 112.00,
             type: "expense",
-            date: new Date("2023-08-08T12:30"),
+            date: new Date("2023-08-21T12:30"),
             note: "Broken window repair",
             paymentType: "Credit Card",
             category: [
@@ -145,7 +145,7 @@ export default function BudgetWeeklyOverview( {name} ) {
             id: 8,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-08-19T08:57"),
+            date: new Date("2023-08-21T08:57"),
             note: "Cigarette",
             paymentType: "Cash",
             category: [
@@ -156,7 +156,7 @@ export default function BudgetWeeklyOverview( {name} ) {
             id: 91,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-08-18T12:30"),
+            date: new Date("2023-08-01T12:30"),
             note: "Tobacco",
             paymentType: "Credit Card",
             category: [
@@ -167,7 +167,7 @@ export default function BudgetWeeklyOverview( {name} ) {
             id: 10,
             amount: 22.00,
             type: "expense",
-            date: new Date("2023-08-17T12:30"),
+            date: new Date("2023-08-05T12:30"),
             note: "Pack",
             paymentType: "Credit Card",
             category: [
@@ -190,7 +190,7 @@ export default function BudgetWeeklyOverview( {name} ) {
             id: 12,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-07-27T08:57"),
+            date: new Date("2023-08-22T08:57"),
             note: "Doctor",
             paymentType: "Cash",
             category: [
