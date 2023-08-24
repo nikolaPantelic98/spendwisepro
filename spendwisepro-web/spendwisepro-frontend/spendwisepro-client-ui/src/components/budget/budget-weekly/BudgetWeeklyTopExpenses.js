@@ -1,12 +1,292 @@
-import {
-    Card,
-    CardBody,
-    Typography
-} from "@material-tailwind/react";
+import {Card, CardBody, Progress, Typography} from "@material-tailwind/react";
 import React from "react";
-import { Progress } from "@material-tailwind/react";
 
-export default function BudgetWeeklyTopExpenses() {
+export default function BudgetWeeklyTopExpenses( {name} ) {
+
+    const budgets = [
+        {
+            id: 1,
+            period: "weekly",
+            name: "General",
+            amount: 140.00,
+            category: [
+                { id: 1, categoryName: "All categories" }
+            ]
+        },
+        {
+            id: 2,
+            period: "weekly",
+            name: "Tobacco",
+            amount: 50.00,
+            category: [
+                { id: 2, categoryName: "Tobacco" }
+            ]
+        },
+        {
+            id: 3,
+            period: "monthly",
+            name: "General",
+            amount: 2000.00,
+            category: [
+                { id: 1, categoryName: "All categories" }
+            ]
+        },
+        {
+            id: 4,
+            period: "monthly",
+            name: "Car",
+            amount: 400.00,
+            category: [
+                { id: 1, categoryName: "Car" }
+            ]
+        },
+        {
+            id: 5,
+            period: "monthly",
+            name: "House",
+            amount: 500.00,
+            category: [
+                { id: 1, categoryName: "House and garden" }
+            ]
+        }
+    ]
+
+    const records = [
+        {
+            id: 1,
+            amount: 30.00,
+            type: "expense",
+            date: new Date("2023-08-16T08:57"),
+            note: "Window repair",
+            paymentType: "Credit Card",
+            category: [
+                { id: 1, categoryName: "House and garden", color: "cyan" }
+            ]
+        },
+        {
+            id: 2,
+            amount: 25.00,
+            type: "expense",
+            date: new Date("2023-08-03T12:30"),
+            note: "New door",
+            paymentType: "Cash",
+            category: [
+                { id: 1, categoryName: "House and garden", color: "cyan" }
+            ]
+        },
+        {
+            id: 3,
+            amount: 45.00,
+            type: "expense",
+            date: new Date("2023-07-29T12:30"),
+            note: "Garden maintenance",
+            paymentType: "Credit Card",
+            category: [
+                { id: 1, categoryName: "House and garden", color: "cyan" }
+            ]
+        },
+        {
+            id: 4,
+            amount: 45.00,
+            type: "expense",
+            date: new Date("2023-07-30T12:30"),
+            note: "Tomato",
+            paymentType: "Credit Card",
+            category: [
+                { id: 2, categoryName: "Groceries", color: "yellow" }
+            ]
+        },
+        {
+            id: 5,
+            amount: 100.00,
+            type: "expense",
+            date: new Date("2023-08-10T08:57"),
+            note: "Car maintenance",
+            paymentType: "Cash",
+            category: [
+                { id: 3, categoryName: "Car", color: "indigo" }
+            ]
+        },
+        {
+            id: 6,
+            amount: 112.00,
+            type: "expense",
+            date: new Date("2023-08-21T12:30"),
+            note: "Broken window repair",
+            paymentType: "Credit Card",
+            category: [
+                { id: 3, categoryName: "Car", color: "indigo" }
+            ]
+        },
+        {
+            id: 7,
+            amount: 45.00,
+            type: "expense",
+            date: new Date("2023-08-01T12:30"),
+            note: "Fuel",
+            paymentType: "Credit Card",
+            category: [
+                { id: 3, categoryName: "Car", color: "indigo" }
+            ]
+        },
+        {
+            id: 8,
+            amount: 15.00,
+            type: "expense",
+            date: new Date("2023-08-21T08:57"),
+            note: "Cigarette",
+            paymentType: "Cash",
+            category: [
+                { id: 4, categoryName: "Tobacco", color: "blue-gray" }
+            ]
+        },
+        {
+            id: 91,
+            amount: 27.00,
+            type: "expense",
+            date: new Date("2023-08-01T12:30"),
+            note: "Tobacco",
+            paymentType: "Credit Card",
+            category: [
+                { id: 4, categoryName: "Tobacco", color: "blue-gray" }
+            ]
+        },
+        {
+            id: 10,
+            amount: 22.00,
+            type: "expense",
+            date: new Date("2023-08-05T12:30"),
+            note: "Pack",
+            paymentType: "Credit Card",
+            category: [
+                { id: 4, categoryName: "Tobacco", color: "blue-gray" }
+            ]
+        },
+        {
+            id: 11,
+            amount: 27.00,
+            type: "expense",
+            date: new Date("2023-08-14T12:30"),
+            time: "12:30",
+            note: "Chips",
+            paymentType: "Credit Card",
+            category: [
+                { id: 5, categoryName: "Snacks", color: "light-green" }
+            ]
+        },
+        {
+            id: 12,
+            amount: 15.00,
+            type: "expense",
+            date: new Date("2023-08-22T08:57"),
+            note: "Doctor",
+            paymentType: "Cash",
+            category: [
+                { id: 6, categoryName: "Health care", color: "green" }
+            ]
+        },
+        {
+            id: 13,
+            amount: 15.00,
+            type: "expense",
+            date: new Date("2023-08-01T08:57"),
+            note: "Card",
+            paymentType: "Cash",
+            category: [
+                { id: 7, categoryName: "Cinema", color: "deep-orange" }
+            ]
+        },
+        {
+            id: 14,
+            amount: 27.00,
+            type: "expense",
+            date: new Date("2023-07-23T12:30"),
+            note: "Cinema chips",
+            paymentType: "Credit Card",
+            category: [
+                { id: 7, categoryName: "Cinema", color: "deep-orange" }
+            ]
+        }
+    ];
+
+    const currentDate = new Date();
+
+    // Filter records that occurred in the current week
+    const recordsThisWeek = (() => {
+
+        // Find the first day of the week (Monday) for the current date
+        const startOfWeek = new Date(currentDate);
+        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
+        startOfWeek.setHours(0, 0, 0, 0);
+
+        // Find the last day of the week (Sunday) for the current date
+        const endOfWeek = new Date(currentDate);
+        endOfWeek.setDate(currentDate.getDate() + (6 - currentDate.getDay()));
+        endOfWeek.setHours(23, 59, 59, 999);
+
+        return records.filter(record => {
+            return record.date >= startOfWeek && record.date <= endOfWeek;
+        });
+    })();
+
+    // Create an array of top expenses within the weekly budget
+    const budgetExpenses = (() => {
+
+        const foundBudget = budgets.find(budget =>
+            budget.period === "weekly" && budget.name.toLowerCase().replace(/\s+/g, '_') === name
+        );
+
+        let matchingRecords;
+
+        if (foundBudget.category.some(cat => cat.categoryName === "All categories")) {
+            // If budget's category is "All categories", include all expense records in the current week
+            matchingRecords = recordsThisWeek.filter(record => record.type === "expense");
+        } else {
+            // Otherwise, find expense records in the current week with matching category
+            matchingRecords = recordsThisWeek.filter(record =>
+                record.category.some(category =>
+                    foundBudget.category.some(budgetCategory => budgetCategory.categoryName === category.categoryName)
+                ) && record.type === "expense"
+            );
+        }
+
+        // Create a map to store categories and their accumulated amounts
+        const categoryMap = new Map();
+
+        // Iterate through matching records to calculate accumulated amounts
+        matchingRecords.forEach(record => {
+            record.category.forEach(category => {
+                const categoryId = category.id;
+                const categoryName = category.categoryName;
+                const amount = record.amount;
+
+                if (categoryMap.has(categoryId)) {
+                    categoryMap.set(categoryId, {
+                        ...categoryMap.get(categoryId),
+                        amount: categoryMap.get(categoryId).amount + amount
+                    });
+                } else {
+                    categoryMap.set(categoryId, {
+                        id: categoryId,
+                        name: categoryName,
+                        amount: amount,
+                        color: category.color
+                    });
+                }
+            });
+        });
+
+        // Convert the map values to an array of objects
+        return Array.from(categoryMap.values());
+    })();
+
+    budgetExpenses.sort((a, b) => b.amount - a.amount);
+
+    function generateProgressValue(amount) {
+        const maxAmount = Math.max(...budgetExpenses.map(expense => expense.amount));
+        return (amount / maxAmount) * 100;
+    }
+
     return (
         <Card className="w-full shadow-lg mt-8">
             <CardBody>
@@ -17,88 +297,24 @@ export default function BudgetWeeklyTopExpenses() {
                 <hr className="my-2 border-blue-gray-50 mb-6" />
 
                 <div>
-                    <div className="mt-2">
-                        <div className="flex items-center justify-between mb-2">
-                            <Typography className="text-gray-900 font-medium mt-2">
-                                Groceries
-                            </Typography>
-                            <div className="flex gap-4 items-center">
-                                <Typography className="text-gray-900 font-semibold mt-2">
-                                    $30,00
+                    {budgetExpenses.map(expense => (
+                        <div className="mt-2" key={expense.id}>
+                            <div className="flex items-center justify-between mb-2">
+                                <Typography className="text-gray-900 font-medium mt-2">
+                                    {expense.name}
                                 </Typography>
+                                <div className="flex gap-4 items-center">
+                                    <Typography className="text-gray-900 font-semibold mt-2">
+                                        ${expense.amount.toFixed(2)}
+                                    </Typography>
+                                </div>
                             </div>
+                            <Progress value={generateProgressValue(expense.amount)} size="lg" className="mt-2" color={expense.color}/>
                         </div>
-                        <Progress value={100} size="lg" className="mt-2" color="yellow" />
-                    </div>
-
-                    <div className="mt-2">
-                        <div className="flex items-center justify-between mb-2">
-                            <Typography className="text-gray-900 font-medium mt-2">
-                                Fuel
-                            </Typography>
-                            <div className="flex gap-4 items-center">
-                                <Typography className="text-gray-900 font-semibold mt-2">
-                                    $20,00
-                                </Typography>
-                            </div>
-                        </div>
-                        <Progress value={66} size="lg" className="mt-2" color="indigo" />
-                    </div>
-
-                    <div className="mt-2">
-                        <div className="flex items-center justify-between mb-2">
-                            <Typography className="text-gray-900 font-medium mt-2">
-                                Tobacco
-                            </Typography>
-                            <div className="flex gap-4 items-center">
-                                <Typography className="text-gray-900 font-semibold mt-2">
-                                    $15,00
-                                </Typography>
-                            </div>
-                        </div>
-                        <Progress value={50} size="lg" className="mt-2" color="blue-gray" />
-                    </div>
+                    ))}
                 </div>
 
-                <div className="mt-2">
-                    <div className="flex items-center justify-between mb-2">
-                        <Typography className="text-gray-900 font-medium mt-2">
-                            Snacks
-                        </Typography>
-                        <div className="flex gap-4 items-center">
-                            <Typography className="text-gray-900 font-semibold mt-2">
-                                $5,00
-                            </Typography>
-                        </div>
-                    </div>
-                    <Progress value={17} size="lg" className="mt-2" color="light-green" />
-                </div>
-
-                <hr className="my-2 border-blue-gray-50 mb-6 mt-6" />
-
-                <div className="container mx-auto mt-6">
-                    <Typography
-                        variant="small"
-                        color="gray"
-                        className="mt-2 flex items-center gap-4 font-normal"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            className="-mt-px h-6 w-6"
-                        >
-                            <path
-                                fillRule="evenodd"
-                                d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
-                                clipRule="evenodd"
-                            />
-                        </svg>
-                        The color of the progress bar is the color of the category.
-                    </Typography>
-                </div>
-
-                <div className="h-3"></div>
+                <div className="h-4"></div>
             </CardBody>
         </Card>
     );
