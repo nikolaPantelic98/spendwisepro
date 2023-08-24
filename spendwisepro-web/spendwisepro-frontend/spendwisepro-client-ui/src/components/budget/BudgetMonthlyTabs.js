@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import BudgetMonthlyOverview from "./budget-monthly/BudgetMonthlyOverview";
 import BudgetMonthlyChart from "./budget-monthly/BudgetMonthlyChart";
 import BudgetMonthlyLastPeriods from "./budget-monthly/BudgetMonthlyLastPeriods";
+import BudgetMonthlyTopExpenses from "./budget-monthly/BudgetMonthlyTopExpenses";
 
 export default function BudgetMonthlyTabs() {
 
@@ -54,7 +55,7 @@ export default function BudgetMonthlyTabs() {
                                     </div>
 
                                     <div className="mx-6">
-                                        {/*<BudgeMonthlyTopExpenses/>*/}
+                                        <BudgetMonthlyTopExpenses name={name}/>
                                     </div>
 
                                     <div><PageWidthLayout/></div>
