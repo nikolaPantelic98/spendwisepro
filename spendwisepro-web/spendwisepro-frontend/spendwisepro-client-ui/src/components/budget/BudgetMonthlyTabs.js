@@ -9,6 +9,7 @@ import BudgetMonthlyOverview from "./budget-monthly/BudgetMonthlyOverview";
 import BudgetMonthlyChart from "./budget-monthly/BudgetMonthlyChart";
 import BudgetMonthlyLastPeriods from "./budget-monthly/BudgetMonthlyLastPeriods";
 import BudgetMonthlyTopExpenses from "./budget-monthly/BudgetMonthlyTopExpenses";
+import BudgetMonthlyRecords from "./budget-monthly/BudgetMonthlyRecords";
 
 export default function BudgetMonthlyTabs() {
 
@@ -67,7 +68,7 @@ export default function BudgetMonthlyTabs() {
                                 <div className="mt-2">
 
                                     <div className="mx-6">
-                                        {/*<BudgetMonthlyRecords />*/}
+                                        <BudgetMonthlyRecords name={name}/>
                                     </div>
 
                                     <div><PageWidthLayout/></div>

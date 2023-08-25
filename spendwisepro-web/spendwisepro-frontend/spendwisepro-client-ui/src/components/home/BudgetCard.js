@@ -73,18 +73,18 @@ export default function BudgetCard() {
             note: "Window repair",
             paymentType: "Credit Card",
             category: [
-                { id: 1, categoryName: "House and garden" }
+                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
             ]
         },
         {
             id: 2,
             amount: 25.00,
             type: "expense",
-            date: new Date("2023-08-03T12:30"),
+            date: new Date("2023-08-20T12:30"),
             note: "New door",
             paymentType: "Cash",
             category: [
-                { id: 1, categoryName: "House and garden" }
+                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
             ]
         },
         {
@@ -95,7 +95,7 @@ export default function BudgetCard() {
             note: "Garden maintenance",
             paymentType: "Credit Card",
             category: [
-                { id: 1, categoryName: "House and garden" }
+                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
             ]
         },
         {
@@ -106,7 +106,7 @@ export default function BudgetCard() {
             note: "Tomato",
             paymentType: "Credit Card",
             category: [
-                { id: 2, categoryName: "Groceries" }
+                { id: 2, categoryName: "Groceries", icon: "https://icon-library.com/images/grocery-icon-png/grocery-icon-png-14.jpg" }
             ]
         },
         {
@@ -117,18 +117,18 @@ export default function BudgetCard() {
             note: "Car maintenance",
             paymentType: "Cash",
             category: [
-                { id: 3, categoryName: "Car" }
+                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
             ]
         },
         {
             id: 6,
             amount: 112.00,
             type: "expense",
-            date: new Date("2023-08-08T12:30"),
+            date: new Date("2023-08-21T12:30"),
             note: "Broken window repair",
             paymentType: "Credit Card",
             category: [
-                { id: 3, categoryName: "Car" }
+                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
             ]
         },
         {
@@ -139,18 +139,18 @@ export default function BudgetCard() {
             note: "Fuel",
             paymentType: "Credit Card",
             category: [
-                { id: 3, categoryName: "Car" }
+                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
             ]
         },
         {
             id: 8,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-08-19T08:57"),
+            date: new Date("2023-08-21T08:57"),
             note: "Cigarette",
             paymentType: "Cash",
             category: [
-                { id: 4, categoryName: "Tobacco" }
+                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
             ]
         },
         {
@@ -161,7 +161,7 @@ export default function BudgetCard() {
             note: "Tobacco",
             paymentType: "Credit Card",
             category: [
-                { id: 4, categoryName: "Tobacco" }
+                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
             ]
         },
         {
@@ -172,7 +172,7 @@ export default function BudgetCard() {
             note: "Pack",
             paymentType: "Credit Card",
             category: [
-                { id: 4, categoryName: "Tobacco" }
+                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
             ]
         },
         {
@@ -184,18 +184,18 @@ export default function BudgetCard() {
             note: "Chips",
             paymentType: "Credit Card",
             category: [
-                { id: 5, categoryName: "Snacks" }
+                { id: 5, categoryName: "Snacks", icon: "https://www.iconbunny.com/icons/media/catalog/product/cache/2/thumbnail/600x/1b89f2fc96fc819c2a7e15c7e545e8a9/5/2/524.9-fries-icon-iconbunny.jpg" }
             ]
         },
         {
             id: 12,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-07-27T08:57"),
+            date: new Date("2023-08-22T08:57"),
             note: "Doctor",
             paymentType: "Cash",
             category: [
-                { id: 6, categoryName: "Health care" }
+                { id: 6, categoryName: "Health care", icon: "https://i.ibb.co/k362Qsn/healthcare.png" }
             ]
         },
         {
@@ -206,7 +206,7 @@ export default function BudgetCard() {
             note: "Card",
             paymentType: "Cash",
             category: [
-                { id: 7, categoryName: "Cinema" }
+                { id: 7, categoryName: "Cinema", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
             ]
         },
         {
@@ -217,7 +217,7 @@ export default function BudgetCard() {
             note: "Cinema chips",
             paymentType: "Credit Card",
             category: [
-                { id: 7, categoryName: "Cinema" }
+                { id: 7, categoryName: "Cinema", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
             ]
         }
     ];

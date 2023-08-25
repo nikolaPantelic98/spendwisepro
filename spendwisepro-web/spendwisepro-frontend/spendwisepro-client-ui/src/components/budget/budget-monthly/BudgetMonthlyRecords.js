@@ -2,13 +2,13 @@ import {
     Card,
     CardBody,
     Typography,
-    Chip, Button,
+    ListItem,
 } from "@material-tailwind/react";
+import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
-import { Progress } from "@material-tailwind/react";
-import {PencilSquareIcon} from "@heroicons/react/24/outline";
+import {Link} from "react-router-dom";
 
-export default function BudgetMonthlyOverview( {name} ) {
+export default function BudgetMonthlyRecords( {name} ) {
 
     const budgets = [
         {
@@ -241,108 +241,114 @@ export default function BudgetMonthlyOverview( {name} ) {
         });
     })();
 
-    // Create a new object of weekly budgets based on the budget period and budget name
-    const budget = (() => {
+    const foundBudget = budgets.find(budget =>
+        budget.period === "monthly" && budget.name.toLowerCase().replace(/\s+/g, '_') === name
+    );
 
-        const foundBudget = budgets.find(budget =>
-            budget.period === "monthly" && budget.name.toLowerCase().replace(/\s+/g, '_') === name
-        );
-
-        let matchingRecords;
-
+    const matchingRecords = (() => {
         if (foundBudget.category.some(cat => cat.categoryName === "All categories")) {
-            // If budget's category is "All categories", include all expense records in the current month
-            matchingRecords = recordsThisMonth.filter(record => record.type === "expense");
+            // If budget's category is "All categories", include all expense records in the current week
+            return recordsThisMonth.filter(record => record.type === "expense");
         } else {
-            // Otherwise, find expense records in the current month with matching category
-            matchingRecords = recordsThisMonth.filter(record =>
+            // Otherwise, find expense records in the current week with matching category
+            return recordsThisMonth.filter(record =>
                 record.category.some(category =>
                     foundBudget.category.some(budgetCategory => budgetCategory.categoryName === category.categoryName)
                 ) && record.type === "expense"
             );
         }
-
-        const sumSpent = matchingRecords.reduce((total, record) => total + record.amount, 0);
-
-        return {
-            id: foundBudget.id,
-            period: foundBudget.period,
-            name: foundBudget.name,
-            category: foundBudget.category,
-            amount: foundBudget.amount,
-            spent: sumSpent
-        };
     })();
 
-    function generatePercentageLeft(amount, spent) {
-        let percentage = ((amount - spent) / amount * 100).toFixed(0);
+    matchingRecords.sort((a, b) => b.date - a.date)
 
-        if (percentage < -999) percentage = `-999` + "+";
+    // Extracts dates without hours and minutes
+    const datesWithoutTime = matchingRecords.map(record => {
+        const dateWithoutTime = new Date(record.date);
+        dateWithoutTime.setHours(0, 0, 0, 0);
+        return dateWithoutTime;
+    });
 
-        return percentage;
-    }
+    // Extracts unique dates records with the specific category
+    const uniqueRecordDates = [...new Set(datesWithoutTime.flatMap(date => date.getTime()))];
 
-    function generateAmountLeft(amount, spent) {
-        return amount - spent;
-    }
+    // Sorts unique dates in descending order
+    const sortedUniqueRecordDates = uniqueRecordDates.sort((a, b) => b - a);
 
-    function generateProgressColor(amount, spent) {
-        if (spent / amount < 0.75) {
-            return "green";
-        } else if (spent / amount < 1) {
-            return "orange";
-        } else if (spent / amount >= 1) {
-            return "red";
-        }
-    }
-
-    function generateProgressValue(amount, spent) {
-        let progressValue = spent / amount * 100;
-        if (progressValue > 100) progressValue = 100;
-
-        return progressValue;
+    // Formats a given date to a readable string
+    function formatDate(date) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return date.toLocaleDateString(undefined, options).toUpperCase();
     }
 
     return (
-        <Card className="w-full shadow-lg mt-8">
-            <CardBody>
-                <div className="mt-2">
-                    <div className="flex items-center justify-between mb-2">
-                        <div className="flex-1 w-0">
-                            <div className="flex items-center justify-between mb-2">
-                                <div className="flex items-center">
-                                    <Typography variant="h4" className="text-gray-900 font-bold mt-2 truncate">
-                                        {budget.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                    </Typography>
-                                    <Button size="sm" variant="text" className="mt-1">
-                                        <PencilSquareIcon strokeWidth={2} className="w-6 h-6" />
-                                    </Button>
-                                </div>
-                                <div className="flex gap-4 items-center">
-                                    <Chip size="md" value={`${generatePercentageLeft(budget.amount, budget.spent)}%`} variant="ghost" className="bg-gray-200 text-gray-900 font-semibold mt-2 text-sm" />
-                                </div>
+        <>
+            <div className="h-2"></div>
+            {sortedUniqueRecordDates.map((recordDate) => {
+                const recordsForDate = matchingRecords.filter(record =>
+                    new Date(record.date).setHours(0, 0, 0, 0) === recordDate
+                );
+                return (
+                    <Card key={recordDate} className="w-full shadow-lg mt-4">
+                        <CardBody>
+                            <Typography variant="h6" className="mb-4 flex items-center justify-between text-gray-600">
+                                {formatDate(new Date(recordDate))}
+                            </Typography>
+                            <hr className="my-2 border-blue-gray-50" />
+
+                            <div className="flow-root">
+                                <ul role="list" className="divide-y divide-gray-200">
+
+                                    {recordsForDate.map((recordForSpecificDate) => (
+                                        <li key={recordForSpecificDate.id} className="py-3 sm:py-4">
+                                            <Link>
+                                                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+                                                    <div className="flex-shrink-0">
+                                                        <img className="w-8 h-8 rounded-full" src={recordForSpecificDate.category[0].icon} alt={recordForSpecificDate.category[0].categoryName} />
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <p className="text-sm font-medium text-gray-900 truncate">
+                                                            {recordForSpecificDate.category[0].categoryName}
+                                                        </p>
+                                                        <p className="text-sm text-gray-500 truncate">
+                                                            {recordForSpecificDate.paymentType}
+                                                        </p>
+                                                        <p className="text-sm text-gray-500 truncate">
+                                                            {recordForSpecificDate.note}
+                                                        </p>
+                                                    </div>
+                                                    <div className="text-right">
+                                                        <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                                                            -{recordForSpecificDate.amount.toLocaleString('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                                                        </div>
+                                                        <div className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                            {recordForSpecificDate.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+                                                        </div>
+                                                    </div>
+                                                    <div className="ml-2">
+                                                        <ChevronRightIcon className="h-5 w-5 text-green-800" />
+                                                    </div>
+                                                </ListItem>
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
                             </div>
-                            <Progress value={generateProgressValue(budget.amount, budget.spent)} size="lg" className="mt-2 mb-2" color={generateProgressColor(budget.amount, budget.spent)} />
-                            <div className="flex justify-between">
-                                <Typography className="font-semibold text-gray-800">
-                                    {budget.spent.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                </Typography>
-                                <Typography className={`font-semibold ${generateAmountLeft(budget.amount, budget.spent) < 0 ? 'text-red-800' : 'text-green-800'}`}>
-                                    {Math.abs(generateAmountLeft(budget.amount, budget.spent)).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                </Typography>
-                            </div>
-                            <div className="flex justify-between">
-                                <Typography className="text-sm font-medium text-gray-600">
-                                    Spent
-                                </Typography>
-                                <Typography className="text-sm font-medium text-gray-600">
-                                    {generateAmountLeft(budget.amount, budget.spent) < 0 ? 'Overspent' : 'Remains'}
-                                </Typography>
-                            </div>
+                        </CardBody>
+                    </Card>
+                );
+            })}
+
+            {sortedUniqueRecordDates.length === 0 && (
+                <Card className="w-full shadow-lg mt-4">
+                    <CardBody>
+                        <div>
+                            <Typography variant="h4" color="blue-gray" className="mb-2 flex items-center justify-between">
+                                <span className="mb-2 mt-2 text-gray-500">No data to display</span>
+                            </Typography>
                         </div>
-                    </div>
-                </div>
-            </CardBody>
-        </Card>
+                    </CardBody>
+                </Card>
+            )}
+        </>
     );
 }
