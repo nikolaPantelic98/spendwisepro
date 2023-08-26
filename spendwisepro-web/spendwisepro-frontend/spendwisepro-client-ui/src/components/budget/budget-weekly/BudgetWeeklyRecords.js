@@ -342,7 +342,7 @@ export default function BudgetWeeklyRecords( {name} ) {
                 <Card className="w-full shadow-lg mt-4">
                     <CardBody>
                         <div>
-                            <Typography variant="h4" color="blue-gray" className="mb-2 flex items-center justify-between">
+                            <Typography variant="h4" color="blue-gray" className="mb-2 mt-2 flex items-center justify-between">
                                 <span className="mb-2 mt-2 text-gray-500">No data to display</span>
                             </Typography>
                         </div>

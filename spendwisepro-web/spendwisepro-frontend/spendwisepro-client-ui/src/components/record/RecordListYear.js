@@ -8,60 +8,7 @@ import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 import {Link} from "react-router-dom";
 
-export default function BudgetMonthlyRecords( {name} ) {
-
-    const budgets = [
-        {
-            id: 1,
-            period: "weekly",
-            name: "General",
-            amount: 140.00,
-            spent: 70.00,
-            category: [
-                { id: 1, categoryName: "All categories" }
-            ]
-        },
-        {
-            id: 2,
-            period: "weekly",
-            name: "Tobacco",
-            amount: 50.00,
-            spent: 55.00,
-            category: [
-                { id: 2, categoryName: "Tobacco" }
-            ]
-        },
-        {
-            id: 3,
-            period: "monthly",
-            name: "General",
-            amount: 2000.00,
-            spent: 1800.00,
-            category: [
-                { id: 1, categoryName: "All categories" }
-            ]
-        },
-        {
-            id: 4,
-            period: "monthly",
-            name: "Car",
-            amount: 400.00,
-            spent: 260.00,
-            category: [
-                { id: 1, categoryName: "Car" }
-            ]
-        },
-        {
-            id: 5,
-            period: "monthly",
-            name: "House",
-            amount: 500.00,
-            spent: 250.00,
-            category: [
-                { id: 1, categoryName: "House and garden" }
-            ]
-        }
-    ]
+export default function RecordListYear() {
 
     const records = [
         {
@@ -223,52 +170,22 @@ export default function BudgetMonthlyRecords( {name} ) {
 
     const currentDate = new Date();
 
-    // Filter records that occurred in the current month
-    const recordsThisMonth = (() => {
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth();
+    // Filter records that occurred in the last 365 days
+    const recordsLastYear = records.filter(record => {
+        const daysDifference = Math.floor((currentDate - record.date) / (1000 * 60 * 60 * 24));
+        return daysDifference < 365;
+    });
 
-        // Calculate the first day of the current month
-        const startOfMonth = new Date(currentYear, currentMonth, 1);
-        startOfMonth.setHours(0, 0, 0, 0);
-
-        // Calculate the last day of the current month
-        const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
-        endOfMonth.setHours(23, 59, 59, 999);
-
-        return records.filter(record => {
-            return record.date >= startOfMonth && record.date <= endOfMonth;
-        });
-    })();
-
-    const foundBudget = budgets.find(budget =>
-        budget.period === "monthly" && budget.name.toLowerCase().replace(/\s+/g, '_') === name
-    );
-
-    const matchingRecords = (() => {
-        if (foundBudget.category.some(cat => cat.categoryName === "All categories")) {
-            // If budget's category is "All categories", include all expense records in the current week
-            return recordsThisMonth.filter(record => record.type === "expense");
-        } else {
-            // Otherwise, find expense records in the current week with matching category
-            return recordsThisMonth.filter(record =>
-                record.category.some(category =>
-                    foundBudget.category.some(budgetCategory => budgetCategory.categoryName === category.categoryName)
-                ) && record.type === "expense"
-            );
-        }
-    })();
-
-    matchingRecords.sort((a, b) => b.date - a.date)
+    recordsLastYear.sort((a, b) => b.date - a.date);
 
     // Extracts dates without hours and minutes
-    const datesWithoutTime = matchingRecords.map(record => {
+    const datesWithoutTime = recordsLastYear.map(record => {
         const dateWithoutTime = new Date(record.date);
         dateWithoutTime.setHours(0, 0, 0, 0);
         return dateWithoutTime;
     });
 
-    // Extracts unique dates records with the specific category
+    // Extracts unique dates from the records
     const uniqueRecordDates = [...new Set(datesWithoutTime.flatMap(date => date.getTime()))];
 
     // Sorts unique dates in descending order
@@ -284,7 +201,7 @@ export default function BudgetMonthlyRecords( {name} ) {
         <>
             <div className="h-2"></div>
             {sortedUniqueRecordDates.map((recordDate) => {
-                const recordsForDate = matchingRecords.filter(record =>
+                const recordsForDate = recordsLastYear.filter(record =>
                     new Date(record.date).setHours(0, 0, 0, 0) === recordDate
                 );
                 return (
