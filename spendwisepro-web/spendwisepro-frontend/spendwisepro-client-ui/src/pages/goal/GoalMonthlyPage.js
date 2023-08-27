@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
-import GoalWeeklyTabs from "../../components/goal/GoalWeeklyTabs";
 import PageHeader from "../../components/common/PageHeader";
 import {useParams} from "react-router-dom";
+import GoalMonthlyTabs from "../../components/goal/GoalMonthlyTabs";
 
-function GoalWeeklyPage() {
+function GoalMonthlyPage() {
     const { '*': name } = useParams();
 
     // formatting the name of the goal from the path
@@ -41,10 +41,10 @@ function GoalWeeklyPage() {
             </div>
 
             <div className=" flex justify-center min-h-screen bg-green-50">
-                <GoalWeeklyTabs />
+                <GoalMonthlyTabs />
             </div>
         </div>
     );
 }
 
-export default GoalWeeklyPage;
+export default GoalMonthlyPage;

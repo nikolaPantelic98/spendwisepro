@@ -334,7 +334,7 @@ export default function GoalCard() {
                                                         {goal.remainingAmountToBeSaved.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                     </Typography>
                                                     <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                                        {calculateSavedPercentage(goal.amount, goal.savedAmount)}%
+                                                        {calculateSavedPercentage(goal.amount, goal.savedAmount).toFixed(0)}%
                                                     </Typography>
                                                 </div>
                                             </div>
