@@ -2,6 +2,7 @@ import {Button, Card, CardBody, ListItem, Progress, Typography,} from "@material
 import {ArrowLongRightIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 import {Link} from "react-router-dom";
+import moment from 'moment-timezone';
 
 export default function GoalCard() {
 
@@ -10,90 +11,240 @@ export default function GoalCard() {
             id: 1,
             period: "weekly",
             name: "Laptop",
-            totalAmount: 1700.00,
-            totalSaved: 600.00,
-            amountSavedThisPeriod: 80.00,
+            amount: 1700.00,
             startDate: new Date("2023-06-05"),
-            endDate: new Date("2023-10-02"),
-            currentDate: new Date("2023-07-21")
+            endDate: new Date("2023-12-10")
         },
         {
             id: 2,
             period: "weekly",
             name: "Aqua Park",
-            totalAmount: 260.00,
-            totalSaved: 60.00,
-            amountSavedThisPeriod: 20.00,
+            amount: 260.00,
             startDate: new Date("2023-07-03"),
-            endDate: new Date("2023-10-02"),
-            currentDate: new Date("2023-07-21")
+            endDate: new Date("2023-09-10")
         },
         {
             id: 3,
             period: "monthly",
             name: "Vacation",
-            totalAmount: 1200.00,
-            totalSaved: 600.00,
-            amountSavedThisPeriod: 100.00,
+            amount: 1200.00,
             startDate: new Date("2023-04-01"),
-            endDate: new Date("2023-10-01"),
-            currentDate: new Date("2023-07-21")
+            endDate: new Date("2023-12-29")
         },
         {
             id: 4,
             period: "monthly",
             name: "House",
-            totalAmount: 3500.00,
-            totalSaved: 2000.00,
-            amountSavedThisPeriod: 150.00,
+            amount: 3500.00,
             startDate: new Date("2023-03-01"),
-            endDate: new Date("2023-10-01"),
-            currentDate: new Date("2023-07-21")
+            endDate: new Date("2023-10-18")
         }
     ]
 
-    // calculates total intervals in weeks or months, based on the goal's period (weekly, monthly)
-    function calculateIntervals(currentDate, endDate, period) {
-        const dateCurrent = new Date(currentDate);
-        const dateEnd = new Date(endDate);
+    const goalRecords = [
+        {
+            id: 1,
+            amount: 10.00,
+            date: new Date("2023-08-15"),
+            goal: [
+                { id: 1, period: "weekly", name: "Laptop"}
+            ]
+        },
+        {
+            id: 2,
+            amount: 20.00,
+            date: new Date("2023-08-19"),
+            goal: [
+                { id: 1, period: "weekly", name: "Laptop"}
+            ]
+        },
+        {
+            id: 3,
+            amount: 5.00,
+            date: new Date("2023-08-26"),
+            goal: [
+                { id: 1, period: "weekly", name: "Laptop"}
+            ]
+        },
+        {
+            id: 4,
+            amount: 8.00,
+            date: new Date("2023-08-26"),
+            goal: [
+                { id: 1, period: "weekly", name: "Laptop"}
+            ]
+        },
+        {
+            id: 5,
+            amount: 15.00,
+            date: new Date("2023-08-20"),
+            goal: [
+                { id: 2, period: "weekly", name: "Aqua Park"}
+            ]
+        },
+        {
+            id: 6,
+            amount: 30.00,
+            date: new Date("2023-08-22"),
+            goal: [
+                { id: 3, period: "monthly", name: "Vacation"}
+            ]
+        },
+        {
+            id: 7,
+            amount: 55.00,
+            date: new Date("2023-08-23"),
+            goal: [
+                { id: 3, period: "monthly", name: "Vacation"}
+            ]
+        },
+        {
+            id: 8,
+            amount: 20.00,
+            date: new Date("2023-08-25"),
+            goal: [
+                { id: 3, period: "monthly", name: "Vacation"}
+            ]
+        },
+        {
+            id: 9,
+            amount: 100.00,
+            date: new Date("2023-08-13"),
+            goal: [
+                { id: 4, period: "monthly", name: "House"}
+            ]
+        },
+        {
+            id: 10,
+            amount: 250.00,
+            date: new Date("2023-08-26"),
+            goal: [
+                { id: 4, period: "monthly", name: "House"}
+            ]
+        },
+    ]
 
-        if (period === "weekly") {
-            const timeDiff = dateEnd - dateCurrent;
-            const weeks = Math.ceil(timeDiff / (7 * 24 * 60 * 60 * 1000));
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
 
-            return Math.ceil(weeks);
+    // Find the first day of the week (Monday) for the current date
+    const startOfWeek = new Date(currentDate);
+    startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
+    startOfWeek.setHours(0, 0, 0, 0);
 
-        } else if (period === "monthly") {
-            const timeDiff = dateEnd - dateCurrent;
-            const months = Math.ceil(timeDiff / (30 * 24 * 60 * 60 * 1000));
+    // Find the last day of the week (Sunday) for the current date
+    const endOfWeek = new Date(currentDate);
+    if (currentDate.getDay() !== 0) {
+        endOfWeek.setDate(currentDate.getDate() + (7 - currentDate.getDay()));
+    }
+    endOfWeek.setHours(23, 59, 59, 999);
 
-            return Math.ceil(months);
-        }
+    // Calculate the first day of the current month
+    const startOfMonth = new Date(currentYear, currentMonth, 1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    // Calculate the last day of the current month
+    const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
+    endOfMonth.setHours(23, 59, 59, 999);
+
+    const goalRecordsThisWeek = (() => {
+        return goalRecords.filter(record => {
+            return record.date >= startOfWeek && record.date <= endOfWeek && record.goal[0].period === "weekly";
+        });
+    })();
+
+    const goalRecordsThisMonth = (() => {
+        return goalRecords.filter(record => {
+            return record.date >= startOfMonth && record.date <= endOfMonth && record.goal[0].period === "monthly";
+        });
+    })();
+
+    const goalRecordsBeforeThisWeek = goalRecords.filter((record) => record.date < startOfWeek && record.goal[0].period === "weekly");
+    const goalRecordsBeforeThisMonth = goalRecords.filter((record) => record.date < startOfMonth && record.goal[0].period === "monthly");
+
+    const weeklyGoals = goals
+        .filter((goal) => goal.period === "weekly")
+        .map((goal) => {
+
+            const matchingGoalRecordsBeforeThisWeek = goalRecordsBeforeThisWeek.filter((goalRecord) => goalRecord.goal.some((record) => record.id === goal.id));
+
+            const matchingGoalRecordsCurrentWeek = goalRecordsThisWeek.filter((goalRecord) => goalRecord.goal.some((record) => record.id === goal.id));
+
+            const totalSavedAmountBeforeThisWeek = matchingGoalRecordsBeforeThisWeek.reduce((sum, record) => sum + record.amount, 0);
+
+            const remainingWeeksForGoal = (() => {
+                const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+                const goalEndTimeOfDay = moment.tz(goal.endDate, userTimezone).endOf('day');
+
+                const startOfWeekStartOfDay = moment.tz(startOfWeek, userTimezone).startOf('day');
+
+                const timeDifferenceInHours = goalEndTimeOfDay.diff(startOfWeekStartOfDay, 'hours');
+
+                const hoursPerWeek = 24 * 7;
+
+                return Math.ceil(timeDifferenceInHours / hoursPerWeek);
+            })();
+
+            const amountToBeSavedCurrentWeek = (goal.amount - totalSavedAmountBeforeThisWeek) / remainingWeeksForGoal;
+
+            const savedAmountCurrentWeek = matchingGoalRecordsCurrentWeek.reduce((total, record) => total + record.amount, 0);
+
+            const remainingAmountToBeSaved = amountToBeSavedCurrentWeek - savedAmountCurrentWeek;
+
+            return {
+                id: goal.id,
+                name: goal.name,
+                amount: amountToBeSavedCurrentWeek,
+                savedAmount: savedAmountCurrentWeek,
+                remainingAmountToBeSaved: remainingAmountToBeSaved
+            };
+        });
+
+    const monthlyGoals = goals
+        .filter((goal) => goal.period === "monthly")
+        .map((goal) => {
+
+            const matchingGoalRecordsBeforeThisMonth = goalRecordsBeforeThisMonth.filter((goalRecord) => goalRecord.goal.some((record) => record.id === goal.id));
+
+            const matchingGoalRecordsCurrentMonth = goalRecordsThisMonth.filter((goalRecord) => goalRecord.goal.some((record) => record.id === goal.id));
+
+            const totalSavedAmountBeforeThisMonth = matchingGoalRecordsBeforeThisMonth.reduce((sum, record) => sum + record.amount, 0);
+
+            const remainingMonthsForGoal = (() => {
+                const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+                const goalEndTimeOfDay = moment.tz(goal.endDate, userTimezone).endOf('day');
+
+                const startOfMonthStartOfDay = moment.tz(startOfMonth, userTimezone).startOf('day');
+
+                const timeDifferenceInMonths = goalEndTimeOfDay.diff(startOfMonthStartOfDay, 'months') + 1;
+
+                return Math.ceil(timeDifferenceInMonths);
+            })();
+
+            const amountToBeSavedCurrentMonth = (goal.amount - totalSavedAmountBeforeThisMonth) / remainingMonthsForGoal;
+
+            const savedAmountCurrentMonth = matchingGoalRecordsCurrentMonth.reduce((total, record) => total + record.amount, 0);
+
+            const remainingAmountToBeSaved = amountToBeSavedCurrentMonth - savedAmountCurrentMonth;
+
+            return {
+                id: goal.id,
+                name: goal.name,
+                amount: amountToBeSavedCurrentMonth,
+                savedAmount: savedAmountCurrentMonth,
+                remainingAmountToBeSaved: remainingAmountToBeSaved
+            };
+        });
+
+    function calculateSavedPercentage(amountToBeSaved, savedAmount) {
+        return ((savedAmount / amountToBeSaved) * 100).toFixed(0);
     }
 
-    function calculateAmountToBeSaved(endDate, currentDate, period, totalAmount, totalSaved) {
-        const remainingIntervals = calculateIntervals(currentDate, endDate, period);
-
-        return ((totalAmount - totalSaved) / remainingIntervals).toFixed(2);
-    }
-
-    function calculateRemainingAmount(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod) {
-        const amountToSave = calculateAmountToBeSaved(endDate, currentDate, period, totalAmount, totalSaved);
-
-        const remainingAmount = amountToSave - amountSavedThisPeriod;
-
-        return remainingAmount < 0 ? 0 : remainingAmount;
-    }
-
-    function calculateSavedPercentage(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod) {
-        const amountToSave = calculateAmountToBeSaved(endDate, currentDate, period, totalAmount, totalSaved);
-        const savedAmount = amountToSave - calculateRemainingAmount(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod);
-
-        return ((savedAmount / amountToSave) * 100).toFixed(0);
-    }
-
-    function generateProgressColor(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod) {
-        const savedPercentage = calculateSavedPercentage(endDate, currentDate, period, totalAmount, totalSaved, amountSavedThisPeriod);
+    function generateProgressColor(amountToBeSaved, savedAmount) {
+        const savedPercentage = calculateSavedPercentage(amountToBeSaved, savedAmount);
 
         if (savedPercentage >= 100) {
             return "green";
@@ -130,8 +281,7 @@ export default function GoalCard() {
                         Weekly
                     </Typography>
 
-                    {goals
-                        .filter(goal => goal.period === "weekly")
+                    {weeklyGoals
                         .map((goal) => (
                             <div key={goal.id}>
                                 <Link to={`/goals/weekly/${generatePath(goal.name)}`} onClick={storeScrollPosition}>
@@ -143,14 +293,14 @@ export default function GoalCard() {
                                                 </Typography>
                                                 <div className="flex gap-4 items-center">
                                                     <Typography className="text-gray-900 font-semibold mt-2">
-                                                        {calculateRemainingAmount(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                        {goal.remainingAmountToBeSaved.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                     </Typography>
                                                     <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                                        {calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)}%
+                                                        {calculateSavedPercentage(goal.amount, goal.savedAmount)}%
                                                     </Typography>
                                                 </div>
                                             </div>
-                                            <Progress value={calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} />
+                                            <Progress value={calculateSavedPercentage(goal.amount, goal.savedAmount)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.amount, goal.savedAmount)} />
                                         </div>
                                         <div className="flex items-center">
                                             <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
@@ -169,8 +319,7 @@ export default function GoalCard() {
                         Monthly
                     </Typography>
 
-                    {goals
-                        .filter(goal => goal.period === "monthly")
+                    {monthlyGoals
                         .map((goal) => (
                             <div key={goal.id}>
                                 <Link to={`/goals/monthly/${generatePath(goal.name)}`} onClick={storeScrollPosition}>
@@ -182,14 +331,14 @@ export default function GoalCard() {
                                                 </Typography>
                                                 <div className="flex gap-4 items-center">
                                                     <Typography className="text-gray-900 font-semibold mt-2">
-                                                        {calculateRemainingAmount(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                        {goal.remainingAmountToBeSaved.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                     </Typography>
                                                     <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                                        {calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)}%
+                                                        {calculateSavedPercentage(goal.amount, goal.savedAmount)}%
                                                     </Typography>
                                                 </div>
                                             </div>
-                                            <Progress value={calculateSavedPercentage(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.endDate, goal.currentDate, goal.period, goal.totalAmount, goal.totalSaved, goal.amountSavedThisPeriod)} />
+                                            <Progress value={calculateSavedPercentage(goal.amount, goal.savedAmount)} size="lg" className="mt-2 mb-2" color={generateProgressColor(goal.amount, goal.savedAmount)} />
                                         </div>
                                         <div className="flex items-center">
                                             <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
