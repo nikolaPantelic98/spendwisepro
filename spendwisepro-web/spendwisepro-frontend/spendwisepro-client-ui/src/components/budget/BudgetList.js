@@ -234,7 +234,9 @@ export default function BudgetList() {
 
         // Find the last day of the week (Sunday) for the current date
         const endOfWeek = new Date(currentDate);
-        endOfWeek.setDate(currentDate.getDate() + (6 - currentDate.getDay()));
+        if (currentDate.getDay() !== 0) {
+            endOfWeek.setDate(currentDate.getDate() + (7 - currentDate.getDay()));
+        }
         endOfWeek.setHours(23, 59, 59, 999);
 
         return records.filter(record => {
