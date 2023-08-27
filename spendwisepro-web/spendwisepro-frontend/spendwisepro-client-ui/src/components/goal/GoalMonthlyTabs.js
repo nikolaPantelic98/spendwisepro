@@ -6,6 +6,7 @@ import PageWidthLayout from "../common/PageWidthLayout";
 import {Bars3BottomLeftIcon, ChartBarIcon} from "@heroicons/react/24/outline";
 import {useParams} from "react-router-dom";
 import GoalMonthlyOverview from "./goal-monthly/GoalMonthlyOverview";
+import GoalMonthlyChart from "./goal-monthly/GoalMonthlyChart";
 
 export default function GoalMonthlyTabs() {
 
@@ -44,7 +45,7 @@ export default function GoalMonthlyTabs() {
                                     </div>
 
                                     <div className="mx-6">
-                                        {/*<GoalMonthlyChart/>*/}
+                                        <GoalMonthlyChart name={name}/>
                                     </div>
 
                                     <div><PageWidthLayout/></div>

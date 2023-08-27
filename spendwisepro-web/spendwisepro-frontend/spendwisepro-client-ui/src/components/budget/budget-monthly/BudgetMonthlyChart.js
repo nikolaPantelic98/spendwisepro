@@ -307,12 +307,12 @@ export default function BudgetMonthlyChart( {name} ) {
                 accumulatedSpent += spentThisDay;
 
                 spendingPerDay.push({
-                    date: new Date(iterationDate), // Corrected: Convert to new Date object
+                    date: new Date(iterationDate),
                     spent: accumulatedSpent
                 });
             } else {
                 spendingPerDay.push({
-                    date: new Date(iterationDate), // Corrected: Convert to new Date object
+                    date: new Date(iterationDate),
                     spent: undefined
                 });
             }
