@@ -47,7 +47,7 @@ export default function GoalWeeklyTabs() {
                                     </div>
 
                                     <div className="mx-6">
-                                        <GoalWeeklyChart/>
+                                        <GoalWeeklyChart name={name}/>
                                     </div>
 
                                     <div><PageWidthLayout/></div>
