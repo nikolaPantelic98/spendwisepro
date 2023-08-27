@@ -246,7 +246,7 @@ export default function GoalsList() {
         });
 
     function calculateSavedPercentage(amountToBeSaved, savedAmount) {
-        return ((savedAmount / amountToBeSaved) * 100).toFixed(0);
+        return (savedAmount / amountToBeSaved) * 100;
     }
 
     function generateProgressColor(amountToBeSaved, savedAmount) {

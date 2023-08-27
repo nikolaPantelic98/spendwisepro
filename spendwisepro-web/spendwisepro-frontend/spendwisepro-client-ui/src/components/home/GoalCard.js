@@ -240,7 +240,7 @@ export default function GoalCard() {
         });
 
     function calculateSavedPercentage(amountToBeSaved, savedAmount) {
-        return ((savedAmount / amountToBeSaved) * 100).toFixed(0);
+        return (savedAmount / amountToBeSaved) * 100;
     }
 
     function generateProgressColor(amountToBeSaved, savedAmount) {
@@ -296,7 +296,7 @@ export default function GoalCard() {
                                                         {goal.remainingAmountToBeSaved.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                     </Typography>
                                                     <Typography className="text-gray-700 font-medium mt-2 text-sm">
-                                                        {calculateSavedPercentage(goal.amount, goal.savedAmount)}%
+                                                        {calculateSavedPercentage(goal.amount, goal.savedAmount).toFixed(0)}%
                                                     </Typography>
                                                 </div>
                                             </div>

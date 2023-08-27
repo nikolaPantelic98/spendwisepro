@@ -49,7 +49,7 @@ function App() {
                     <Route path="/add_budget" element={<AddBudgetPage />}></Route>
 
                     <Route path="/goals" element={<GoalsPage />}></Route>
-                    <Route path="/goals/weekly/laptop" element={<GoalWeeklyPage />}></Route>
+                    <Route path="/goals/weekly/*" element={<GoalWeeklyPage />}></Route>
                     <Route path="/add_goal" element={<AddGoalPage />}></Route>
 
                     <Route path="/expenses" element={<ExpensesPage />}></Route>

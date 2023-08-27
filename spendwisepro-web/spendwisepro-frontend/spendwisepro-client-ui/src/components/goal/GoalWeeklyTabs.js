@@ -8,8 +8,11 @@ import GoalWeeklyOverview from "./goal-weekly/GoalWeeklyOverview";
 import GoalWeeklyChart from "./goal-weekly/GoalWeeklyChart";
 import GoalWeeklyFullProcess from "./goal-weekly/GoalWeeklyFullProcess";
 import GoalWeeklyLastPeriods from "./goal-weekly/GoalWeeklyLastPeriods";
+import {useParams} from "react-router-dom";
 
 export default function GoalWeeklyTabs() {
+
+    const { '*': name } = useParams();
 
     const type = [
         {label: "Overview", value: "overview", icon: Bars3BottomLeftIcon},
@@ -40,7 +43,7 @@ export default function GoalWeeklyTabs() {
                             <>
                                 <div className="mt-2">
                                     <div className="mx-6">
-                                        <GoalWeeklyOverview/>
+                                        <GoalWeeklyOverview name={name}/>
                                     </div>
 
                                     <div className="mx-6">

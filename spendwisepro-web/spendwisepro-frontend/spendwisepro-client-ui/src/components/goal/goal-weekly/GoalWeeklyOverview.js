@@ -6,8 +6,205 @@ import {
 } from "@material-tailwind/react";
 import React from "react";
 import { Progress } from "@material-tailwind/react";
+import moment from "moment-timezone";
 
-export default function GoalWeeklyOverview() {
+export default function GoalWeeklyOverview( {name} ) {
+
+    const goals = [
+        {
+            id: 1,
+            period: "weekly",
+            name: "Laptop",
+            amount: 1700.00,
+            startDate: new Date("2023-06-05"),
+            endDate: new Date("2023-12-10")
+        },
+        {
+            id: 2,
+            period: "weekly",
+            name: "Aqua Park",
+            amount: 260.00,
+            startDate: new Date("2023-07-03"),
+            endDate: new Date("2023-09-10")
+        },
+        {
+            id: 3,
+            period: "monthly",
+            name: "Vacation",
+            amount: 1200.00,
+            startDate: new Date("2023-04-01"),
+            endDate: new Date("2023-12-29")
+        },
+        {
+            id: 4,
+            period: "monthly",
+            name: "House",
+            amount: 3500.00,
+            startDate: new Date("2023-03-01"),
+            endDate: new Date("2023-10-18")
+        }
+    ]
+
+    const goalRecords = [
+        {
+            id: 1,
+            amount: 10.00,
+            date: new Date("2023-08-15"),
+            goal: [
+                { id: 1, period: "weekly", name: "Laptop"}
+            ]
+        },
+        {
+            id: 2,
+            amount: 20.00,
+            date: new Date("2023-08-19"),
+            goal: [
+                { id: 1, period: "weekly", name: "Laptop"}
+            ]
+        },
+        {
+            id: 3,
+            amount: 5.00,
+            date: new Date("2023-08-26"),
+            goal: [
+                { id: 1, period: "weekly", name: "Laptop"}
+            ]
+        },
+        {
+            id: 4,
+            amount: 8.00,
+            date: new Date("2023-08-26"),
+            goal: [
+                { id: 1, period: "weekly", name: "Laptop"}
+            ]
+        },
+        {
+            id: 5,
+            amount: 15.00,
+            date: new Date("2023-08-20"),
+            goal: [
+                { id: 2, period: "weekly", name: "Aqua Park"}
+            ]
+        },
+        {
+            id: 6,
+            amount: 30.00,
+            date: new Date("2023-08-22"),
+            goal: [
+                { id: 3, period: "monthly", name: "Vacation"}
+            ]
+        },
+        {
+            id: 7,
+            amount: 55.00,
+            date: new Date("2023-08-23"),
+            goal: [
+                { id: 3, period: "monthly", name: "Vacation"}
+            ]
+        },
+        {
+            id: 8,
+            amount: 20.00,
+            date: new Date("2023-08-25"),
+            goal: [
+                { id: 3, period: "monthly", name: "Vacation"}
+            ]
+        },
+        {
+            id: 9,
+            amount: 100.00,
+            date: new Date("2023-08-13"),
+            goal: [
+                { id: 4, period: "monthly", name: "House"}
+            ]
+        },
+        {
+            id: 10,
+            amount: 250.00,
+            date: new Date("2023-08-26"),
+            goal: [
+                { id: 4, period: "monthly", name: "House"}
+            ]
+        },
+    ]
+
+    const currentDate = new Date();
+
+    // Find the first day of the week (Monday) for the current date
+    const startOfWeek = new Date(currentDate);
+    startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    // Find the last day of the week (Sunday) for the current date
+    const endOfWeek = new Date(currentDate);
+    if (currentDate.getDay() !== 0) {
+        endOfWeek.setDate(currentDate.getDate() + (7 - currentDate.getDay()));
+    }
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    const goalRecordsThisWeek = (() => {
+        return goalRecords.filter(record => {
+            return record.date >= startOfWeek && record.date <= endOfWeek && record.goal[0].period === "weekly";
+        });
+    })();
+
+    const goalRecordsBeforeThisWeek = goalRecords.filter((record) => record.date < startOfWeek && record.goal[0].period === "weekly");
+
+    // find goal from the path
+    const currentGoal = (() => {
+
+        const foundGoal = goals.find(goal =>
+            goal.period === "weekly" && goal.name.toLowerCase().replace(/\s+/g, '_') === name
+        );
+
+        const matchingGoalRecordsBeforeThisWeek = goalRecordsBeforeThisWeek.filter((goalRecord) => goalRecord.goal.some((record) => record.id === foundGoal.id));
+
+        const matchingGoalRecordsCurrentWeek = goalRecordsThisWeek.filter((goalRecord) => goalRecord.goal.some((record) => record.id === foundGoal.id));
+
+        const totalSavedAmountBeforeThisWeek = matchingGoalRecordsBeforeThisWeek.reduce((sum, record) => sum + record.amount, 0);
+
+        const remainingWeeksForGoal = (() => {
+            const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+            const goalEndTimeOfDay = moment.tz(foundGoal.endDate, userTimezone).endOf('day');
+
+            const startOfWeekStartOfDay = moment.tz(startOfWeek, userTimezone).startOf('day');
+
+            const timeDifferenceInHours = goalEndTimeOfDay.diff(startOfWeekStartOfDay, 'hours');
+
+            const hoursPerWeek = 24 * 7;
+
+            return Math.ceil(timeDifferenceInHours / hoursPerWeek);
+        })();
+
+        const amountToBeSavedCurrentWeek = (foundGoal.amount - totalSavedAmountBeforeThisWeek) / remainingWeeksForGoal;
+
+        const savedAmountCurrentWeek = matchingGoalRecordsCurrentWeek.reduce((total, record) => total + record.amount, 0);
+
+        const remainingAmountToBeSaved = amountToBeSavedCurrentWeek - savedAmountCurrentWeek;
+
+        return {
+            id: foundGoal.id,
+            name: foundGoal.name,
+            amount: amountToBeSavedCurrentWeek,
+            savedAmount: savedAmountCurrentWeek,
+            remainingAmountToBeSaved: remainingAmountToBeSaved
+        };
+    })();
+
+    function calculateSavedPercentage(amountToBeSaved, savedAmount) {
+        return (savedAmount / amountToBeSaved) * 100;
+    }
+
+    function generateProgressColor(amountToBeSaved, savedAmount) {
+        const savedPercentage = calculateSavedPercentage(amountToBeSaved, savedAmount);
+
+        if (savedPercentage >= 100) {
+            return "green";
+        } else {
+            return "orange";
+        }
+    }
 
     return (
         <Card className="w-full shadow-lg mt-8">
@@ -18,21 +215,29 @@ export default function GoalWeeklyOverview() {
                             <div className="flex items-center justify-between mb-2">
                                 <div className="flex items-center">
                                     <Typography variant="h4" className="text-gray-900 font-bold mt-2 truncate">
-                                        $100,00
+                                        {currentGoal.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                     </Typography>
                                 </div>
                                 <div className="flex gap-4 items-center">
-                                    <Chip size="md" value="80%" variant="ghost" className="bg-gray-200 text-gray-900 font-semibold mt-2 text-sm" />
+                                    <Chip size="md" value={`${calculateSavedPercentage(currentGoal.amount, currentGoal.savedAmount).toFixed(0)}%`} variant="ghost" className="bg-gray-200 text-gray-900 font-semibold mt-2 text-sm" />
                                 </div>
                             </div>
-                            <Progress value={80} size="lg" className="mt-2 mb-2" color="orange" />
+                            <Progress value={calculateSavedPercentage(currentGoal.amount, currentGoal.savedAmount)} size="lg" className="mt-2 mb-2" color={generateProgressColor(currentGoal.amount, currentGoal.savedAmount)} />
                             <div className="flex justify-between">
-                                <Typography className="font-semibold text-green-800">$80,00</Typography>
-                                <Typography className="font-semibold text-gray-800">$20,00</Typography>
+                                <Typography className="font-semibold text-green-800">
+                                    {currentGoal.savedAmount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                </Typography>
+                                <Typography className="font-semibold text-gray-800">
+                                    {currentGoal.remainingAmountToBeSaved.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                </Typography>
                             </div>
                             <div className="flex justify-between">
-                                <Typography className="text-sm font-medium text-gray-600">Saved</Typography>
-                                <Typography className="text-sm font-medium text-gray-600">To save</Typography>
+                                <Typography className="text-sm font-medium text-gray-600">
+                                    Saved
+                                </Typography>
+                                <Typography className="text-sm font-medium text-gray-600">
+                                    To save
+                                </Typography>
                             </div>
                         </div>
                     </div>

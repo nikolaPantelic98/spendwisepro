@@ -7,7 +7,7 @@ import {useParams} from "react-router-dom";
 function BudgetWeeklyPage() {
     const { '*': name } = useParams();
 
-    // formatting the name of the category from the path
+    // formatting the name of the budget from the path
     const formatName = (name) => {
         const words = name.split('_');
         const formattedWords = words.map((word, index) => {
