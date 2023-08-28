@@ -59,7 +59,7 @@ export default function GoalWeeklyTabs() {
                                 <div className="mt-2">
 
                                     <div className="mx-6">
-                                        <GoalWeeklyFullProcess />
+                                        <GoalWeeklyFullProcess name={name} />
                                     </div>
 
                                     <div className="mx-6">
