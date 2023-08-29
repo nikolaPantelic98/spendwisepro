@@ -63,7 +63,7 @@ export default function GoalWeeklyTabs() {
                                     </div>
 
                                     <div className="mx-6">
-                                        <GoalWeeklyLastPeriods />
+                                        <GoalWeeklyLastPeriods name={name}/>
                                     </div>
 
                                     <div><PageWidthLayout/></div>

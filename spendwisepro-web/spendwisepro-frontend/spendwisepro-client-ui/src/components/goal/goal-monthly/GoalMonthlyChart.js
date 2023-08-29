@@ -338,7 +338,7 @@ export default function GoalMonthlyChart( {name} ) {
                                          content={<TooltipContent />}
                                          wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
                                          offset={25}/>
-                                <ReferenceLine y={goalGraph.amount} label={{ position: 'top', value: 'Budget' }} stroke="red" strokeDasharray="3 3" isFront={true} ifOverflow="extendDomain" />
+                                <ReferenceLine y={goalGraph.amount} label={{ position: 'top', value: 'Goal' }} stroke="red" strokeDasharray="3 3" isFront={true} ifOverflow="extendDomain" />
                                 <Area type="monotone" dataKey="savedAmount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />
                                 <Area type="monotone" dataKey="prediction" stroke="#8884d8" fillOpacity={1} fill="transparent" />
                             </AreaChart>
