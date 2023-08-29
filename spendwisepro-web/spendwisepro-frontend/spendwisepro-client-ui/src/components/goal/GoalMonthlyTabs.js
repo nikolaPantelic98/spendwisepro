@@ -7,6 +7,7 @@ import {Bars3BottomLeftIcon, ChartBarIcon} from "@heroicons/react/24/outline";
 import {useParams} from "react-router-dom";
 import GoalMonthlyOverview from "./goal-monthly/GoalMonthlyOverview";
 import GoalMonthlyChart from "./goal-monthly/GoalMonthlyChart";
+import GoalMonthlyFullProcess from "./goal-monthly/GoalMonthlyFullProcess";
 
 export default function GoalMonthlyTabs() {
 
@@ -57,7 +58,7 @@ export default function GoalMonthlyTabs() {
                                 <div className="mt-2">
 
                                     <div className="mx-6">
-                                        {/*<GoalMonthlyFullProcess />*/}
+                                        <GoalMonthlyFullProcess name={name}/>
                                     </div>
 
                                     <div className="mx-6">

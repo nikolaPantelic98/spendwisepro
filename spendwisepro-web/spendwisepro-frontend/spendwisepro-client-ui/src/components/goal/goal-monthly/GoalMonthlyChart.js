@@ -225,8 +225,6 @@ export default function GoalMonthlyChart( {name} ) {
         };
     })();
 
-    console.log(goalGraph);
-
     let daysWithAmount = goalGraph.savingPerDay.filter(day => day.savedAmount !== undefined).length;
 
     let amountSaved = goalGraph.savingPerDay.reduce((maxSave, day) => {
