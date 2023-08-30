@@ -7,7 +7,7 @@ import {
 } from "@material-tailwind/react";
 import {ArrowTrendingUpIcon, CurrencyDollarIcon} from "@heroicons/react/24/solid";
 import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
-import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis} from "recharts";
+import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 
@@ -170,24 +170,26 @@ export default function TrendCard() {
                                                 </div>
 
                                                 <div>
-                                                    <AreaChart width={250} height={210} data={dataBalance}
-                                                               margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
-                                                        <defs>
-                                                            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                                                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                                                                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                                                            </linearGradient>
-                                                            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                                                                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                                                                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                                                            </linearGradient>
-                                                        </defs>
-                                                        <XAxis dataKey="date" fontSize="small" />
-                                                        <YAxis fontSize="small" />
-                                                        <CartesianGrid strokeDasharray="3 3" />
-                                                        <Tooltip />
-                                                        <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-                                                    </AreaChart>
+                                                    <ResponsiveContainer width="100%" height={220}>
+                                                        <AreaChart className="right-4" data={dataBalance}
+                                                                   margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
+                                                            <defs>
+                                                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                                                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                                                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                                                                </linearGradient>
+                                                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                                                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                                                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                                                                </linearGradient>
+                                                            </defs>
+                                                            <XAxis dataKey="date" fontSize="small" tick={{fontSize: 12, dy: 6}} />
+                                                            <YAxis fontSize="small" />
+                                                            <CartesianGrid strokeDasharray="3 3" vertical={false}/>
+                                                            <Tooltip />
+                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                                                        </AreaChart>
+                                                    </ResponsiveContainer>
                                                 </div>
 
                                                 <CardFooter className="p-0 mt-8">
@@ -214,24 +216,26 @@ export default function TrendCard() {
                                                 </div>
 
                                                 <div>
-                                                    <AreaChart width={250} height={210} data={dataCash}
-                                                               margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
-                                                        <defs>
-                                                            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                                                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                                                                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                                                            </linearGradient>
-                                                            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                                                                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                                                                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                                                            </linearGradient>
-                                                        </defs>
-                                                        <XAxis dataKey="date" fontSize="small" />
-                                                        <YAxis fontSize="small" />
-                                                        <CartesianGrid strokeDasharray="3 3" />
-                                                        <Tooltip />
-                                                        <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-                                                    </AreaChart>
+                                                    <ResponsiveContainer width="100%" height={220}>
+                                                        <AreaChart className="right-4" data={dataCash}
+                                                                   margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
+                                                            <defs>
+                                                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                                                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                                                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                                                                </linearGradient>
+                                                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                                                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                                                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                                                                </linearGradient>
+                                                            </defs>
+                                                            <XAxis dataKey="date" fontSize="small" tick={{fontSize: 12, dy: 6}} />
+                                                            <YAxis fontSize="small" />
+                                                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                                            <Tooltip />
+                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                                                        </AreaChart>
+                                                    </ResponsiveContainer>
                                                 </div>
 
                                                 <CardFooter className="p-0 mt-8">
@@ -259,24 +263,26 @@ export default function TrendCard() {
                                                 </div>
 
                                                 <div>
-                                                    <AreaChart width={250} height={210} data={dataCredit}
-                                                               margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
-                                                        <defs>
-                                                            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                                                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                                                                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                                                            </linearGradient>
-                                                            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                                                                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                                                                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                                                            </linearGradient>
-                                                        </defs>
-                                                        <XAxis dataKey="date" fontSize="small" />
-                                                        <YAxis fontSize="small" />
-                                                        <CartesianGrid strokeDasharray="3 3" />
-                                                        <Tooltip />
-                                                        <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-                                                    </AreaChart>
+                                                    <ResponsiveContainer width="100%" height={220}>
+                                                        <AreaChart className="right-4" data={dataCredit}
+                                                                   margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
+                                                            <defs>
+                                                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                                                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                                                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+                                                                </linearGradient>
+                                                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                                                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                                                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                                                                </linearGradient>
+                                                            </defs>
+                                                            <XAxis dataKey="date" fontSize="small" tick={{fontSize: 12, dy: 6}} />
+                                                            <YAxis fontSize="small" />
+                                                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                                            <Tooltip />
+                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                                                        </AreaChart>
+                                                    </ResponsiveContainer>
                                                 </div>
 
                                                 <CardFooter className="p-0 mt-8">

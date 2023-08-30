@@ -225,7 +225,7 @@ export default function GoalWeeklyLastPeriods( {name} ) {
         <Card className="w-full shadow-lg mt-8">
             <CardBody>
                 <div>
-                    <Typography variant="h4" color="blue-gray" className="mb-2 flex items-center justify-between">
+                    <Typography variant="h4" color="blue-gray" className="mb-2 flex item*-center justify-between">
                         <span className="mb-2">Last 5 periods</span>
                     </Typography>
                 </div>
