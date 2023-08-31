@@ -132,14 +132,10 @@ export default function GoalMonthlyLastPeriods( {name} ) {
             goal.period === "monthly" && goal.name.toLowerCase().replace(/\s+/g, '_') === name
         );
 
-        console.log("found goal");
-        console.log(foundGoal);
-
         const matchingGoalRecords = goalRecords.filter((goalRecord) => goalRecord.goal.some((record) => record.id === foundGoal.id));
 
         const data = [];
 
-        console.log("for loop open");
         for (let i = 4; i >= 0; i--) {
             const targetMonth = currentMonth - i;
             const targetYear = currentYear - Math.floor(targetMonth / 12);
@@ -147,12 +143,6 @@ export default function GoalMonthlyLastPeriods( {name} ) {
 
             const firstDayOfMonth = new Date(targetYear, actualTargetMonth, 1);
             const lastDayOfMonth = new Date(targetYear, actualTargetMonth + 1, 0, 23, 59, 59, 999);
-
-            console.log("first day of month");
-            console.log(firstDayOfMonth);
-
-            console.log("last day of month");
-            console.log(lastDayOfMonth);
 
             let savedInPeriod = 0;
 
@@ -187,8 +177,6 @@ export default function GoalMonthlyLastPeriods( {name} ) {
 
         return data;
     })();
-
-    console.log(dataGraph);
 
     const CustomTooltipContent = ({ active, payload}) => {
         if (active && payload && payload.length) {

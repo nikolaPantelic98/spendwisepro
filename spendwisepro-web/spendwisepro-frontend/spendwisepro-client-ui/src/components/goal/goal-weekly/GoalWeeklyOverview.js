@@ -2,11 +2,13 @@ import {
     Card,
     CardBody,
     Typography,
-    Chip
+    Chip, Button, CardFooter
 } from "@material-tailwind/react";
 import React from "react";
 import { Progress } from "@material-tailwind/react";
 import moment from "moment-timezone";
+import {Link} from "react-router-dom";
+import {ArrowLongRightIcon} from "@heroicons/react/24/outline";
 
 export default function GoalWeeklyOverview( {name} ) {
 
@@ -238,6 +240,15 @@ export default function GoalWeeklyOverview( {name} ) {
                                 <Typography className="text-sm font-medium text-gray-600">
                                     To save
                                 </Typography>
+                            </div>
+
+                            <div color="blue-gray" className="mt-6">
+                                <Link>
+                                    <Button size="sm" variant="text" className="flex gap-2">
+                                        Add saved amount
+                                        <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                                    </Button>
+                                </Link>
                             </div>
                         </div>
                     </div>
