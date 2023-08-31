@@ -8,6 +8,7 @@ import {useParams} from "react-router-dom";
 import GoalMonthlyOverview from "./goal-monthly/GoalMonthlyOverview";
 import GoalMonthlyChart from "./goal-monthly/GoalMonthlyChart";
 import GoalMonthlyFullProcess from "./goal-monthly/GoalMonthlyFullProcess";
+import GoalMonthlyLastPeriods from "./goal-monthly/GoalMonthlyLastPeriods";
 
 export default function GoalMonthlyTabs() {
 
@@ -62,7 +63,7 @@ export default function GoalMonthlyTabs() {
                                     </div>
 
                                     <div className="mx-6">
-                                        {/*<GoalMonthlyLastPeriods />*/}
+                                        <GoalMonthlyLastPeriods name={name} />
                                     </div>
 
                                     <div><PageWidthLayout/></div>
