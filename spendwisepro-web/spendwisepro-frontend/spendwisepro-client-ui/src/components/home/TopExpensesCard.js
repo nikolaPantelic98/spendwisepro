@@ -247,15 +247,25 @@ export default function TopExpensesCard() {
     ];
 
     const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
 
-    // Filter records that occurred in the last 30 days
-    const filteredRecords = records.filter(record => {
-        const daysDifference = Math.floor((currentDate - record.date) / (1000 * 60 * 60 * 24));
-        return daysDifference < 30;
-    });
+    // Calculate the first day of the current month
+    const startOfMonth = new Date(currentYear, currentMonth, 1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    // Calculate the last day of the current month
+    const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
+    endOfMonth.setHours(23, 59, 59, 999);
+
+    const recordsThisMonth = (() => {
+        return records.filter(record => {
+            return record.date >= startOfMonth && record.date <= endOfMonth && record.type === "expense";
+        });
+    })();
 
     // Create a new array to hold unique expenses
-    const expenses = filteredRecords.reduce((acc, record) => {
+    const expenses = recordsThisMonth.reduce((acc, record) => {
         const existingExpense = acc.find(expense => expense.categoryName === record.category[0].categoryName);
         if (existingExpense) {
             existingExpense.amount += record.amount;
