@@ -2,9 +2,9 @@ import {
     Card,
     CardBody,
     Typography,
-    ListItem,
+    ListItem, Button,
 } from "@material-tailwind/react";
-import {ChevronRightIcon} from "@heroicons/react/24/outline";
+import {BanknotesIcon, ChevronRightIcon, DocumentIcon} from "@heroicons/react/24/outline";
 import React from "react";
 import {Link} from "react-router-dom";
 
@@ -344,9 +344,15 @@ export default function BudgetWeeklyRecords( {name} ) {
                 <Card className="w-full shadow-lg mt-4">
                     <CardBody>
                         <div>
-                            <Typography variant="h4" color="blue-gray" className="mb-2 mt-2 flex items-center justify-between">
-                                <span className="mb-2 mt-2 text-gray-500">No data to display</span>
-                            </Typography>
+                            <div className="flex justify-center items-center flex-col mb-3">
+                                <DocumentIcon className="w-20 h-20 text-green-600 mb-2"/>
+                                <Typography variant="h5" className="text-gray-600 mb-2">
+                                    No data to display
+                                </Typography>
+                                <Typography variant="h6" className="text-gray-500">
+                                    Please add some records
+                                </Typography>
+                            </div>
                         </div>
                     </CardBody>
                 </Card>
