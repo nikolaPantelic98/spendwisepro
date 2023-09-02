@@ -1,5 +1,6 @@
 import {Card, CardBody, Progress, Typography} from "@material-tailwind/react";
 import React from "react";
+import {DocumentIcon} from "@heroicons/react/24/outline";
 
 export default function BudgetWeeklyTopExpenses( {name} ) {
 
@@ -315,6 +316,18 @@ export default function BudgetWeeklyTopExpenses( {name} ) {
                         </div>
                     ))}
                 </div>
+
+                {budgetExpenses.length === 0 && (
+                    <div className="flex justify-center items-center flex-col mb-3">
+                        <DocumentIcon className="w-20 h-20 text-green-600 mb-2"/>
+                        <Typography variant="h5" className="text-gray-600 mb-2">
+                            No data to display
+                        </Typography>
+                        <Typography variant="h6" className="text-gray-500">
+                            Please add some records
+                        </Typography>
+                    </div>
+                )}
 
                 <div className="h-4"></div>
             </CardBody>
