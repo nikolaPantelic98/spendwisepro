@@ -9,6 +9,7 @@ import GoalWeeklyChart from "./goal-weekly/GoalWeeklyChart";
 import GoalWeeklyFullProcess from "./goal-weekly/GoalWeeklyFullProcess";
 import GoalWeeklyLastPeriods from "./goal-weekly/GoalWeeklyLastPeriods";
 import {useParams} from "react-router-dom";
+import GoalWeeklyAddSavedAmount from "./goal-weekly/GoalWeeklyAddSavedAmount";
 
 export default function GoalWeeklyTabs() {
 
@@ -44,6 +45,10 @@ export default function GoalWeeklyTabs() {
                                 <div className="mt-2">
                                     <div className="mx-6">
                                         <GoalWeeklyOverview name={name}/>
+                                    </div>
+
+                                    <div className="mx-6">
+                                        <GoalWeeklyAddSavedAmount />
                                     </div>
 
                                     <div className="mx-6">

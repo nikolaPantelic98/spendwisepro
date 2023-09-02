@@ -9,6 +9,7 @@ import GoalMonthlyOverview from "./goal-monthly/GoalMonthlyOverview";
 import GoalMonthlyChart from "./goal-monthly/GoalMonthlyChart";
 import GoalMonthlyFullProcess from "./goal-monthly/GoalMonthlyFullProcess";
 import GoalMonthlyLastPeriods from "./goal-monthly/GoalMonthlyLastPeriods";
+import GoalMonthlyAddSavedAmount from "./goal-monthly/GoalMonthlyAddSavedAmount";
 
 export default function GoalMonthlyTabs() {
 
@@ -44,6 +45,10 @@ export default function GoalMonthlyTabs() {
                                 <div className="mt-2">
                                     <div className="mx-6">
                                         <GoalMonthlyOverview name={name}/>
+                                    </div>
+
+                                    <div className="mx-6">
+                                        <GoalMonthlyAddSavedAmount />
                                     </div>
 
                                     <div className="mx-6">
