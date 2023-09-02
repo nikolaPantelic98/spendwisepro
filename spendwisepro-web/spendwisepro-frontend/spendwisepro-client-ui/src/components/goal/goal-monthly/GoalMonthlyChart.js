@@ -171,7 +171,7 @@ export default function GoalMonthlyChart( {name} ) {
         let accumulatedSave = 0;
         let iterationDate = new Date(currentYear, currentMonth, 1);
 
-        // Iterate through each day of the week
+        // Iterate through each day of the month
         while (iterationDate <= endOfMonth) {
             if (iterationDate <= new Date()) {
                 const matchingRecordsThisDay = matchingGoalRecordsCurrentMonth.filter(record =>

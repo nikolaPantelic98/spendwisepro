@@ -253,6 +253,18 @@ export default function ExpensesOverviewMonth() {
         }
     ];
 
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+
+    // Calculate the first day of the current month
+    const startOfMonth = new Date(currentYear, currentMonth, 1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    // Calculate the last day of the current month
+    const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
+    endOfMonth.setHours(23, 59, 59, 999);
+
     // Filter records for the expense type
     const currentExpense = records.filter(record => record.type === "expense");
 
