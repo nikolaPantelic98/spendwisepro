@@ -82,7 +82,7 @@ export default function PlannedPaymentsCard() {
 
                         {limitedPlannedPayments.map((plannedPayment) => (
                             <li key={plannedPayment.id} className="py-3 sm:py-4">
-                                <Link to={`/planned_payments/${generatePath(plannedPayment.categoryName, plannedPayment.name)}`}>
+                                <Link to={`/planned_payments/${plannedPayment.id}`}>
                                     <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                         <div className="flex-shrink-0">
                                             <img className="w-8 h-8 rounded-full" src={plannedPayment.categoryIcon} alt={plannedPayment.name} />
