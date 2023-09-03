@@ -182,7 +182,7 @@ export default function TopExpensesCard() {
             id: 16,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-07-21T08:57"),
+            date: new Date("2023-09-03T08:57"),
             name: "Doctor",
             paymentType: "Cash",
             category: [
@@ -204,7 +204,7 @@ export default function TopExpensesCard() {
             id: 18,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-18T12:30"),
+            date: new Date("2023-09-02T12:30"),
             name: "Drug",
             paymentType: "Credit Card",
             category: [
@@ -237,7 +237,7 @@ export default function TopExpensesCard() {
             id: 21,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-16T12:30"),
+            date: new Date("2023-09-01T12:30"),
             name: "Coca cola",
             paymentType: "Credit Card",
             category: [
