@@ -23,7 +23,7 @@ export default function ExpensesOverviewWeek() {
             id: 1,
             amount: 70.00,
             type: "expense",
-            date: new Date("2023-08-11T08:57"),
+            date: new Date("2023-07-28T08:57"),
             name: "Gas bill",
             paymentType: "Credit Card",
             category: [
@@ -34,7 +34,7 @@ export default function ExpensesOverviewWeek() {
             id: 2,
             amount: 25.00,
             type: "expense",
-            date: new Date("2023-08-12T12:30"),
+            date: new Date("2023-07-28T12:30"),
             name: "Phone bill",
             paymentType: "Cash",
             category: [
@@ -45,7 +45,7 @@ export default function ExpensesOverviewWeek() {
             id: 3,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-15T12:30"),
+            date: new Date("2023-07-25T12:30"),
             name: "Electricity bill",
             paymentType: "Credit Card",
             category: [
@@ -67,7 +67,7 @@ export default function ExpensesOverviewWeek() {
             id: 5,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-08-18T12:30"),
+            date: new Date("2023-07-29T12:30"),
             name: "Market",
             paymentType: "Credit Card",
             category: [
@@ -78,7 +78,7 @@ export default function ExpensesOverviewWeek() {
             id: 6,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-18T12:30"),
+            date: new Date("2023-07-29T12:30"),
             name: "Tomato",
             paymentType: "Credit Card",
             category: [
@@ -89,7 +89,7 @@ export default function ExpensesOverviewWeek() {
             id: 7,
             amount: 100.00,
             type: "expense",
-            date: new Date("2023-08-11T08:57"),
+            date: new Date("2023-08-10T08:57"),
             name: "Fuel",
             paymentType: "Cash",
             category: [
@@ -100,7 +100,7 @@ export default function ExpensesOverviewWeek() {
             id: 8,
             amount: 112.00,
             type: "expense",
-            date: new Date("2023-08-15T12:30"),
+            date: new Date("2023-08-10T12:30"),
             name: "Fuel",
             paymentType: "Credit Card",
             category: [
@@ -111,7 +111,7 @@ export default function ExpensesOverviewWeek() {
             id: 9,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-18T12:30"),
+            date: new Date("2023-08-10T12:30"),
             name: "Fuel",
             paymentType: "Credit Card",
             category: [
@@ -122,7 +122,7 @@ export default function ExpensesOverviewWeek() {
             id: 10,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-08-12T08:57"),
+            date: new Date("2023-07-22T08:57"),
             name: "Cigarette",
             paymentType: "Cash",
             category: [
@@ -133,7 +133,7 @@ export default function ExpensesOverviewWeek() {
             id: 11,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-08-11T12:30"),
+            date: new Date("2023-07-21T12:30"),
             name: "Tobacco",
             paymentType: "Credit Card",
             category: [
@@ -155,7 +155,7 @@ export default function ExpensesOverviewWeek() {
             id: 13,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-08-12T08:57"),
+            date: new Date("2023-07-29T08:57"),
             name: "Chips",
             paymentType: "Cash",
             category: [
@@ -166,7 +166,7 @@ export default function ExpensesOverviewWeek() {
             id: 14,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-08-15T12:30"),
+            date: new Date("2023-07-25T12:30"),
             time: "12:30",
             name: "Chips",
             paymentType: "Credit Card",
@@ -178,7 +178,7 @@ export default function ExpensesOverviewWeek() {
             id: 15,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-16T12:30"),
+            date: new Date("2023-07-25T12:30"),
             name: "Tortillas",
             paymentType: "Credit Card",
             category: [
@@ -189,7 +189,7 @@ export default function ExpensesOverviewWeek() {
             id: 16,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-08-17T08:57"),
+            date: new Date("2023-09-03T08:57"),
             name: "Doctor",
             paymentType: "Cash",
             category: [
@@ -200,7 +200,7 @@ export default function ExpensesOverviewWeek() {
             id: 17,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-08-12T12:30"),
+            date: new Date("2023-07-21T12:30"),
             name: "Dentist",
             paymentType: "Credit Card",
             category: [
@@ -211,7 +211,7 @@ export default function ExpensesOverviewWeek() {
             id: 18,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-12T12:30"),
+            date: new Date("2023-09-02T12:30"),
             name: "Drug",
             paymentType: "Credit Card",
             category: [
@@ -222,7 +222,7 @@ export default function ExpensesOverviewWeek() {
             id: 19,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-08-15T08:57"),
+            date: new Date("2023-07-21T08:57"),
             name: "Card",
             paymentType: "Cash",
             category: [
@@ -233,7 +233,7 @@ export default function ExpensesOverviewWeek() {
             id: 20,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-08-15T12:30"),
+            date: new Date("2023-07-21T12:30"),
             name: "Cinema chips",
             paymentType: "Credit Card",
             category: [
@@ -244,7 +244,7 @@ export default function ExpensesOverviewWeek() {
             id: 21,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-15T12:30"),
+            date: new Date("2023-09-01T12:30"),
             name: "Coca cola",
             paymentType: "Credit Card",
             category: [
@@ -253,45 +253,53 @@ export default function ExpensesOverviewWeek() {
         }
     ];
 
-    // Filter records for the expense type
-    const currentExpense = records.filter(record => record.type === "expense");
+    const currentDate = new Date();
 
-    // Generates data for a graph representing expenses over the last 7 days
-    function generateDataForGraph(expense) {
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+    // Find the first day of the week (Monday) for the current date
+    const startOfWeek = new Date(currentDate);
+    startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
+    startOfWeek.setHours(0, 0, 0, 0);
 
+    // Find the last day of the week (Sunday) for the current date
+    const endOfWeek = new Date(currentDate);
+    if (currentDate.getDay() !== 0) {
+        endOfWeek.setDate(currentDate.getDate() + (7 - currentDate.getDay()));
+    }
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    const expensesThisWeek = (() => {
+        return records.filter(record => {
+            return record.date >= startOfWeek && record.date <= endOfWeek && record.type === "expense";
+        });
+    })();
+
+    // Generates data for a graph representing expenses for this week
+    const expenseGraph = (() => {
         const dateToAmountMap = new Map();
 
-        // Calculate total expenses for each date within the last 30 days
-        expense.forEach(record => {
+        // Calculate total expenses for each date within this week
+        expensesThisWeek.forEach(record => {
             const recordDate = record.date.toDateString();
-            if (record.date >= sevenDaysAgo) {
-                if (!dateToAmountMap.has(recordDate)) {
-                    dateToAmountMap.set(recordDate, record.amount);
-                } else {
-                    dateToAmountMap.set(recordDate, dateToAmountMap.get(recordDate) + record.amount);
-                }
+            if (!dateToAmountMap.has(recordDate)) {
+                dateToAmountMap.set(recordDate, record.amount);
+            } else {
+                dateToAmountMap.set(recordDate, dateToAmountMap.get(recordDate) + record.amount);
             }
         });
 
         const dataForGraph = [];
 
         // Creates data for the graph, including dates with zero expenses
-        for (let i = 0; i < 7; i++) {
-            const currentDate = new Date();
-            currentDate.setDate(currentDate.getDate() - i);
-            const dateString = currentDate.toDateString();
-
-            if (dateToAmountMap.has(dateString)) {
-                dataForGraph.unshift({ date: dateString, amount: dateToAmountMap.get(dateString) });
-            } else {
-                dataForGraph.unshift({ date: dateString, amount: 0 });
-            }
+        let iterationDate = new Date(startOfWeek);
+        while (iterationDate <= endOfWeek) {
+            const dateString = iterationDate.toDateString();
+            const amount = dateToAmountMap.get(dateString) || 0;
+            dataForGraph.push({ date: dateString, amount });
+            iterationDate.setDate(iterationDate.getDate() + 1);
         }
 
         return dataForGraph;
-    }
+    })();
 
     // tooltip used in graph
     const TooltipContent = ({ active, payload }) => {
@@ -315,13 +323,8 @@ export default function ExpensesOverviewWeek() {
         return null;
     };
 
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-    // Calculate the total amount spent on expenses within the last 30 days.
-    const totalAmountLastSevenDays = currentExpense
-        .filter(r => r.date >= sevenDaysAgo)
-        .reduce((total, r) => total + r.amount, 0);
+    // Calculate the total amount spent on expenses within this week.
+    const totalAmountThisWeek = expensesThisWeek.reduce((total, record) => total + record.amount, 0);
 
     return (
         <Card className="w-full shadow-lg mt-8">
@@ -341,12 +344,12 @@ export default function ExpensesOverviewWeek() {
                             <div className="flex-1">
                                 <div className="flex items-center justify-between">
                                     <p className="text-xs font-medium text-gray-900 truncate">
-                                        LAST 7 DAYS
+                                        THIS WEEK
                                     </p>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <Typography variant="h2" className="text-gray-900 mb-4">
-                                        {totalAmountLastSevenDays.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                        {totalAmountThisWeek.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                     </Typography>
                                     <Chip size="md" value="Total" className="bg-gray-200 normal-case text-gray-900 font-semibold mb-4 text-sm" />
                                 </div>
@@ -354,10 +357,10 @@ export default function ExpensesOverviewWeek() {
 
                             <div>
                                 <ResponsiveContainer width="100%" height={220}>
-                                    <BarChart className="right-4" data={generateDataForGraph(currentExpense)} margin={{ top: 20, right: 0, left: 0, bottom: 0 }} >
-                                        <CartesianGrid strokeDasharray="3 3" />
+                                    <BarChart className="right-4" data={expenseGraph} margin={{ top: 20, right: 0, left: 0, bottom: 0 }} >
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                         <XAxis dataKey="date"
-                                               tick={{fontSize: 12}} tickFormatter={(tick) => {
+                                               tick={{fontSize: 12, dy: 8}} tickFormatter={(tick) => {
                                             const date = new Date(tick);
                                             const day = date.getDate().toString().padStart(2, '0');
                                             const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -365,7 +368,7 @@ export default function ExpensesOverviewWeek() {
                                         />
                                         <YAxis />
                                         <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                 payloadArray={generateDataForGraph(currentExpense)}
+                                                 payloadArray={expenseGraph}
                                                  content={<TooltipContent />}
                                                  wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
                                                  offset={25}/>

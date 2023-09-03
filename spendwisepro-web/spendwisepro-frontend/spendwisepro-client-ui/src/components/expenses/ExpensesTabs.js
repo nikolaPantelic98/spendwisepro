@@ -12,7 +12,7 @@ import ExpensesListWeek from "./ExpensesListWeek";
 export default function ExpensesTabs() {
 
     const type = [
-        {label: "7 Days", value: "7days", icon: CalendarDaysIcon},
+        {label: "This week", value: "week", icon: CalendarDaysIcon},
         {label: "This Month", value: "month", icon: CalendarDaysIcon}
     ];
 
@@ -47,7 +47,7 @@ export default function ExpensesTabs() {
             <TabsBody animate={{ initial: { y: 250 }, mount: { y: 0 }, unmount: { y: 250 } }}>
                 {type.map(({ value }) => (
                     <TabPanel key={value} value={value} className="p-0">
-                        {value === "7days" ? (
+                        {value === "week" ? (
                             // Content for "week" tab
                             <>
                                 <div className="mt-2">

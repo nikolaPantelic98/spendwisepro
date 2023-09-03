@@ -281,7 +281,7 @@ export default function ExpensesListWeek() {
     }
 
     function storeScrollPositionAndTab() {
-        const tab = "7days";
+        const tab = "week";
         sessionStorage.setItem('selectedTab', tab);
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
