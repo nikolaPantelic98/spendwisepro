@@ -4,7 +4,7 @@ import {
     Typography,
     ListItem,
 } from "@material-tailwind/react";
-import {ChevronRightIcon} from "@heroicons/react/24/outline";
+import {ChevronRightIcon, DocumentIcon} from "@heroicons/react/24/outline";
 import React from "react";
 import { Progress } from "@material-tailwind/react";
 import {Link} from "react-router-dom";
@@ -260,14 +260,14 @@ export default function ExpensesListWeek() {
     }
     endOfWeek.setHours(23, 59, 59, 999);
 
-    const expensesThisWeek = (() => {
+    const recordsThisWeek = (() => {
         return records.filter(record => {
             return record.date >= startOfWeek && record.date <= endOfWeek && record.type === "expense";
         });
     })();
 
     // Create a new array to hold unique expenses
-    const expenses = expensesThisWeek.reduce((groupedExpenses, record) => {
+    const expenses = recordsThisWeek.reduce((groupedExpenses, record) => {
         const existingExpense = groupedExpenses.find(expense => expense.categoryName === record.category[0].categoryName);
         if (existingExpense) {
             existingExpense.amount += record.amount;
@@ -307,32 +307,48 @@ export default function ExpensesListWeek() {
 
                 <hr className="my-2 border-blue-gray-50 mb-6" />
 
-                <div>
-                    {expenses.map((expense) => (
-                        <div key={expense.categoryName}>
-                            <Link to={`/expenses/week/${generatePath(expense.categoryName)}`} onClick={storeScrollPositionAndTab}>
-                                <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                                    <div className="flex-1 w-0">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <Typography className="text-gray-900 font-medium mt-2 truncate">
-                                                {expense.categoryName}
-                                            </Typography>
-                                            <div className="flex gap-4 items-center">
-                                                <Typography className="text-gray-900 font-semibold mt-2">
-                                                    {expense.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                {recordsThisWeek.length > 0 && (
+                    <div>
+                        {expenses.map((expense) => (
+                            <div key={expense.categoryName}>
+                                <Link to={`/expenses/week/${generatePath(expense.categoryName)}`} onClick={storeScrollPositionAndTab}>
+                                    <ListItem className="mb-2 flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+                                        <div className="flex-1 w-0">
+                                            <div className="flex items-center justify-between mb-2">
+                                                <Typography className="text-gray-900 font-medium mt-2 truncate">
+                                                    {expense.categoryName}
                                                 </Typography>
+                                                <div className="flex gap-4 items-center">
+                                                    <Typography className="text-gray-900 font-semibold mt-2">
+                                                        {expense.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                    </Typography>
+                                                </div>
                                             </div>
+                                            <Progress value={generateProgressValue(expense.amount)} size="lg" className="mt-2 mb-2" color={expense.color} />
                                         </div>
-                                        <Progress value={generateProgressValue(expense.amount)} size="lg" className="mt-2 mb-2" color={expense.color} />
-                                    </div>
-                                    <div className="flex items-center">
-                                        <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
-                                    </div>
-                                </ListItem>
-                            </Link>
+                                        <div className="flex items-center">
+                                            <ChevronRightIcon className="h-5 w-5 text-green-800 mt-2 mb-2" />
+                                        </div>
+                                    </ListItem>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {recordsThisWeek.length === 0 && (
+                    <div>
+                        <div className="flex justify-center items-center flex-col mb-3">
+                            <DocumentIcon className="w-20 h-20 text-green-600 mb-2"/>
+                            <Typography variant="h5" className="text-gray-600 mb-2">
+                                No data to display
+                            </Typography>
+                            <Typography variant="h6" className="text-gray-500">
+                                Please add some records
+                            </Typography>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                )}
             </CardBody>
         </Card>
     );
