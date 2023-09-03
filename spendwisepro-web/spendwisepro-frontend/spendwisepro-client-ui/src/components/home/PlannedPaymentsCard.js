@@ -4,7 +4,11 @@ import {
     Typography,
     Button, Chip, ListItem,
 } from "@material-tailwind/react";
-import {ArrowLongRightIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
+import {
+    ArrowLongRightIcon,
+    ChevronRightIcon,
+    ClockIcon
+} from "@heroicons/react/24/outline";
 import React from "react";
 import {Link} from "react-router-dom";
 
@@ -41,7 +45,9 @@ export default function PlannedPaymentsCard() {
     ]
 
     // sorting by payment time asc
-    plannedPayments.sort((a, b) => a.paymentTime - b.paymentTime);
+    if (plannedPayments.length !== 0) {
+        plannedPayments.sort((a, b) => a.paymentTime - b.paymentTime);
+    }
 
     // shows only 3 planned payments
     const limitedPlannedPayments = plannedPayments.slice(0, 3);
@@ -59,13 +65,16 @@ export default function PlannedPaymentsCard() {
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                     Planned Payments
-                    <Link to="/planned_payments" onClick={storeScrollPosition}>
-                        <Button size="sm" variant="text" className="flex gap-2">
-                            View All
-                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                        </Button>
-                    </Link>
+                    {plannedPayments.length > 0 && (
+                        <Link to="/planned_payments" onClick={storeScrollPosition}>
+                            <Button size="sm" variant="text" className="flex gap-2">
+                                View All
+                                <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                            </Button>
+                        </Link>
+                    )}
                 </Typography>
+
                 <hr className="my-2 border-blue-gray-50" />
 
                 <div className="flow-root">
@@ -109,12 +118,24 @@ export default function PlannedPaymentsCard() {
                         ))}
 
                         {plannedPayments.length === 0 && (
-                            <Link to="/add_planned_payment" onClick={storeScrollPosition}>
-                                <Button size="sm" variant="text" className="flex gap-2 mt-6 p-0">
-                                    Add planned payment
-                                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                                </Button>
-                            </Link>
+                            <div>
+                                <div className="flex justify-center items-center flex-col mb-6">
+                                    <ClockIcon className="w-20 h-20 text-green-600 mb-2"/>
+                                    <Typography variant="h6" className="text-gray-600">
+                                        You don't have upcoming
+                                    </Typography>
+                                    <Typography variant="h6" className="text-gray-600">
+                                        planned payments
+                                    </Typography>
+                                </div>
+                                <div className="flex justify-center items-center">
+                                    <Link to="/add_planned_payment" onClick={storeScrollPosition} className="w-full">
+                                        <Button className="w-full" variant="gradient" color="green">
+                                            <span>Add planned payment</span>
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </div>
                         )}
                     </ul>
                 </div>

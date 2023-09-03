@@ -1,5 +1,5 @@
 import {Button, Card, CardBody, ListItem, Progress, Typography,} from "@material-tailwind/react";
-import {ArrowLongRightIcon, BanknotesIcon, ChevronRightIcon, CircleStackIcon} from "@heroicons/react/24/outline";
+import {ArrowLongRightIcon, ChevronRightIcon, CircleStackIcon} from "@heroicons/react/24/outline";
 import React from "react";
 import {Link} from "react-router-dom";
 import moment from 'moment-timezone';
