@@ -16,7 +16,7 @@ export default function ExpensesListWeek() {
             id: 1,
             amount: 70.00,
             type: "expense",
-            date: new Date("2023-08-11T08:57"),
+            date: new Date("2023-07-28T08:57"),
             name: "Gas bill",
             paymentType: "Credit Card",
             category: [
@@ -27,7 +27,7 @@ export default function ExpensesListWeek() {
             id: 2,
             amount: 25.00,
             type: "expense",
-            date: new Date("2023-08-12T12:30"),
+            date: new Date("2023-07-28T12:30"),
             name: "Phone bill",
             paymentType: "Cash",
             category: [
@@ -38,7 +38,7 @@ export default function ExpensesListWeek() {
             id: 3,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-15T12:30"),
+            date: new Date("2023-07-25T12:30"),
             name: "Electricity bill",
             paymentType: "Credit Card",
             category: [
@@ -60,7 +60,7 @@ export default function ExpensesListWeek() {
             id: 5,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-08-18T12:30"),
+            date: new Date("2023-07-29T12:30"),
             name: "Market",
             paymentType: "Credit Card",
             category: [
@@ -71,7 +71,7 @@ export default function ExpensesListWeek() {
             id: 6,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-18T12:30"),
+            date: new Date("2023-07-29T12:30"),
             name: "Tomato",
             paymentType: "Credit Card",
             category: [
@@ -82,7 +82,7 @@ export default function ExpensesListWeek() {
             id: 7,
             amount: 100.00,
             type: "expense",
-            date: new Date("2023-08-11T08:57"),
+            date: new Date("2023-08-10T08:57"),
             name: "Fuel",
             paymentType: "Cash",
             category: [
@@ -93,7 +93,7 @@ export default function ExpensesListWeek() {
             id: 8,
             amount: 112.00,
             type: "expense",
-            date: new Date("2023-08-15T12:30"),
+            date: new Date("2023-08-10T12:30"),
             name: "Fuel",
             paymentType: "Credit Card",
             category: [
@@ -104,7 +104,7 @@ export default function ExpensesListWeek() {
             id: 9,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-18T12:30"),
+            date: new Date("2023-08-10T12:30"),
             name: "Fuel",
             paymentType: "Credit Card",
             category: [
@@ -115,7 +115,7 @@ export default function ExpensesListWeek() {
             id: 10,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-08-12T08:57"),
+            date: new Date("2023-07-22T08:57"),
             name: "Cigarette",
             paymentType: "Cash",
             category: [
@@ -126,7 +126,7 @@ export default function ExpensesListWeek() {
             id: 11,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-08-11T12:30"),
+            date: new Date("2023-07-21T12:30"),
             name: "Tobacco",
             paymentType: "Credit Card",
             category: [
@@ -148,7 +148,7 @@ export default function ExpensesListWeek() {
             id: 13,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-08-12T08:57"),
+            date: new Date("2023-07-29T08:57"),
             name: "Chips",
             paymentType: "Cash",
             category: [
@@ -159,7 +159,7 @@ export default function ExpensesListWeek() {
             id: 14,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-08-15T12:30"),
+            date: new Date("2023-07-25T12:30"),
             time: "12:30",
             name: "Chips",
             paymentType: "Credit Card",
@@ -171,7 +171,7 @@ export default function ExpensesListWeek() {
             id: 15,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-16T12:30"),
+            date: new Date("2023-07-25T12:30"),
             name: "Tortillas",
             paymentType: "Credit Card",
             category: [
@@ -182,7 +182,7 @@ export default function ExpensesListWeek() {
             id: 16,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-08-17T08:57"),
+            date: new Date("2023-09-03T08:57"),
             name: "Doctor",
             paymentType: "Cash",
             category: [
@@ -193,7 +193,7 @@ export default function ExpensesListWeek() {
             id: 17,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-08-12T12:30"),
+            date: new Date("2023-07-21T12:30"),
             name: "Dentist",
             paymentType: "Credit Card",
             category: [
@@ -204,7 +204,7 @@ export default function ExpensesListWeek() {
             id: 18,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-12T12:30"),
+            date: new Date("2023-09-02T12:30"),
             name: "Drug",
             paymentType: "Credit Card",
             category: [
@@ -215,7 +215,7 @@ export default function ExpensesListWeek() {
             id: 19,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-08-15T08:57"),
+            date: new Date("2023-07-21T08:57"),
             name: "Card",
             paymentType: "Cash",
             category: [
@@ -226,7 +226,7 @@ export default function ExpensesListWeek() {
             id: 20,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-08-15T12:30"),
+            date: new Date("2023-07-21T12:30"),
             name: "Cinema chips",
             paymentType: "Credit Card",
             category: [
@@ -237,7 +237,7 @@ export default function ExpensesListWeek() {
             id: 21,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-08-15T12:30"),
+            date: new Date("2023-09-01T12:30"),
             name: "Coca cola",
             paymentType: "Credit Card",
             category: [
@@ -248,25 +248,37 @@ export default function ExpensesListWeek() {
 
     const currentDate = new Date();
 
-    // Filter records that occurred in the last 7 days
-    const filteredRecords = records.filter(record => {
-        const daysDifference = Math.floor((currentDate - record.date) / (1000 * 60 * 60 * 24));
-        return daysDifference < 7;
-    });
+    // Find the first day of the week (Monday) for the current date
+    const startOfWeek = new Date(currentDate);
+    startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
+    startOfWeek.setHours(0, 0, 0, 0);
+
+    // Find the last day of the week (Sunday) for the current date
+    const endOfWeek = new Date(currentDate);
+    if (currentDate.getDay() !== 0) {
+        endOfWeek.setDate(currentDate.getDate() + (7 - currentDate.getDay()));
+    }
+    endOfWeek.setHours(23, 59, 59, 999);
+
+    const expensesThisWeek = (() => {
+        return records.filter(record => {
+            return record.date >= startOfWeek && record.date <= endOfWeek && record.type === "expense";
+        });
+    })();
 
     // Create a new array to hold unique expenses
-    const expenses = filteredRecords.reduce((acc, record) => {
-        const existingExpense = acc.find(expense => expense.categoryName === record.category[0].categoryName);
+    const expenses = expensesThisWeek.reduce((groupedExpenses, record) => {
+        const existingExpense = groupedExpenses.find(expense => expense.categoryName === record.category[0].categoryName);
         if (existingExpense) {
             existingExpense.amount += record.amount;
         } else {
-            acc.push({
+            groupedExpenses.push({
                 categoryName: record.category[0].categoryName,
                 amount: record.amount,
                 color: record.category[0].color
             });
         }
-        return acc;
+        return groupedExpenses;
     }, []);
 
     expenses.sort((a, b) => b.amount - a.amount);
