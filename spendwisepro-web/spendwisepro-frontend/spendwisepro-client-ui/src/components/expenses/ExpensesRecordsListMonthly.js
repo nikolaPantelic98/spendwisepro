@@ -185,7 +185,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 16,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-07-21T08:57"),
+            date: new Date("2023-09-03T08:57"),
             name: "Doctor",
             paymentType: "Cash",
             category: [
@@ -207,7 +207,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 18,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-18T12:30"),
+            date: new Date("2023-09-02T12:30"),
             name: "Drug",
             paymentType: "Credit Card",
             category: [
@@ -240,7 +240,7 @@ export default function ExpensesRecordsListMonthly() {
             id: 21,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-16T12:30"),
+            date: new Date("2023-09-01T12:30"),
             name: "Coca cola",
             paymentType: "Credit Card",
             category: [
@@ -249,14 +249,57 @@ export default function ExpensesRecordsListMonthly() {
         }
     ];
 
-    // Filter expenses/records for the selected category and expense type
-    const currentExpense = records.filter(record =>
-        record.category[0].categoryName.toLowerCase().replace(/\s+/g, '_') === category &&
-        record.type === "expense"
-    );
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
+
+    // Calculate the first day of the current month
+    const startOfMonth = new Date(currentYear, currentMonth, 1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    // Calculate the last day of the current month
+    const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
+    endOfMonth.setHours(23, 59, 59, 999);
+
+    // Find expenses within this month with the specified category
+    const recordsThisMonth = (() => {
+        return records.filter(record => {
+            return record.date >= startOfMonth && record.date <= endOfMonth &&
+                record.type === "expense" &&
+                record.category[0].categoryName.toLowerCase().replace(/\s+/g, '_') === category;
+        });
+    })();
+
+    // Generates data for a graph representing expenses for this month with the specified category
+    const expenseGraph = (() => {
+        const dateToAmountMap = new Map();
+
+        // Calculate total expenses for each date within this month
+        recordsThisMonth.forEach(record => {
+            const recordDate = record.date.toDateString();
+            if (!dateToAmountMap.has(recordDate)) {
+                dateToAmountMap.set(recordDate, record.amount);
+            } else {
+                dateToAmountMap.set(recordDate, dateToAmountMap.get(recordDate) + record.amount);
+            }
+        });
+
+        const dataForGraph = [];
+
+        // Creates data for the graph, including dates with zero expenses
+        let iterationDate = new Date(startOfMonth);
+        while (iterationDate <= endOfMonth) {
+            const dateString = iterationDate.toDateString();
+            const amount = dateToAmountMap.get(dateString) || 0;
+            dataForGraph.push({ date: dateString, amount });
+            iterationDate.setDate(iterationDate.getDate() + 1);
+        }
+
+        return dataForGraph;
+    })();
 
     // Extracts dates without hours and minutes
-    const datesWithoutTime = currentExpense.map(record => {
+    const datesWithoutTime = recordsThisMonth.map(record => {
         const dateWithoutTime = new Date(record.date);
         dateWithoutTime.setHours(0, 0, 0, 0);
         return dateWithoutTime;
@@ -272,43 +315,6 @@ export default function ExpensesRecordsListMonthly() {
     function formatDate(date) {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
         return date.toLocaleDateString(undefined, options).toUpperCase();
-    }
-
-    // Generates data for a graph representing expenses over the last 30 days
-    function generateDataForGraph(expense) {
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-        const dateToAmountMap = new Map();
-
-        // Calculate total expenses for each date within the last 30 days
-        expense.forEach(record => {
-            const recordDate = record.date.toDateString();
-            if (record.date >= thirtyDaysAgo) {
-                if (!dateToAmountMap.has(recordDate)) {
-                    dateToAmountMap.set(recordDate, record.amount);
-                } else {
-                    dateToAmountMap.set(recordDate, dateToAmountMap.get(recordDate) + record.amount);
-                }
-            }
-        });
-
-        const dataForGraph = [];
-
-        // Creates data for the graph, including dates with zero expenses
-        for (let i = 0; i < 30; i++) {
-            const currentDate = new Date();
-            currentDate.setDate(currentDate.getDate() - i);
-            const dateString = currentDate.toDateString();
-
-            if (dateToAmountMap.has(dateString)) {
-                dataForGraph.unshift({ date: dateString, amount: dateToAmountMap.get(dateString) });
-            } else {
-                dataForGraph.unshift({ date: dateString, amount: 0 });
-            }
-        }
-
-        return dataForGraph;
     }
 
     // tooltip used in graph
@@ -333,13 +339,8 @@ export default function ExpensesRecordsListMonthly() {
         return null;
     };
 
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-    // Calculate the total amount spent on expenses within the last 30 days.
-    const totalAmountLast30Days = currentExpense
-        .filter(r => r.date >= thirtyDaysAgo)
-        .reduce((total, r) => total + r.amount, 0);
+    // Calculate the total amount spent on expenses within this month.
+    const totalAmountThisMonth = recordsThisMonth.reduce((total, record) => total + record.amount, 0);
 
     return (
         <>
@@ -347,7 +348,7 @@ export default function ExpensesRecordsListMonthly() {
                 <CardBody>
                     <div>
                         <Typography variant="h4" color="blue-gray" className="mb-2 flex items-center justify-between">
-                            <span className="mb-2">{currentExpense[0].category[0].categoryName}</span>
+                            <span className="mb-2">{recordsThisMonth[0].category[0].categoryName}</span>
                             <ChartBarIcon className="text-green-700 w-10 h-10 mb-4" />
                         </Typography>
                     </div>
@@ -356,22 +357,22 @@ export default function ExpensesRecordsListMonthly() {
                         <div className="flex-1">
                             <div className="flex items-center justify-between">
                                 <p className="text-xs font-medium text-gray-900 truncate">
-                                    LAST 30 DAYS
+                                    THIS MONTH
                                 </p>
                             </div>
                             <div className="flex items-center justify-between">
                                 <Typography variant="h2" className="text-gray-900 mb-4">
-                                    {totalAmountLast30Days.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                    {totalAmountThisMonth.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                 </Typography>
                                 <Chip size="md" value="Total" className="bg-gray-200 normal-case text-gray-900 font-semibold mb-4 text-sm" />
                             </div>
                         </div>
                         <div>
                             <ResponsiveContainer width="100%" height={220}>
-                                <BarChart className="right-4" data={generateDataForGraph(currentExpense)} margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
-                                    <CartesianGrid strokeDasharray="3 3" />
+                                <BarChart className="right-4" data={expenseGraph} margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                     <XAxis dataKey="date"
-                                           tick={{fontSize: 12}} tickFormatter={(tick) => {
+                                           tick={{fontSize: 12, dy: 8}} tickFormatter={(tick) => {
                                         const date = new Date(tick);
                                         const day = date.getDate().toString().padStart(2, '0');
                                         const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -379,7 +380,7 @@ export default function ExpensesRecordsListMonthly() {
                                     />
                                     <YAxis />
                                     <Tooltip cursor={{fill: '#E8F5E9'}}
-                                             payloadArray={generateDataForGraph(currentExpense)}
+                                             payloadArray={expenseGraph}
                                              content={<TooltipContent />}
                                              wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
                                              offset={25}/>
@@ -394,60 +395,57 @@ export default function ExpensesRecordsListMonthly() {
             <div className="h-4"></div>
 
             {sortedUniqueRecordDates.map((recordDate) => {
-                const date = new Date(recordDate);
-                if (date >= thirtyDaysAgo) {
-                    const recordsForDate = currentExpense.filter(record =>
-                        new Date(record.date).setHours(0, 0, 0, 0) === recordDate
-                    );
-                    return (
-                        <Card key={recordDate} className="w-full shadow-lg mt-4">
-                            <CardBody>
-                                <Typography variant="h6" className="mb-4 flex items-center justify-between text-gray-600">
-                                    {formatDate(new Date(recordDate))}
-                                </Typography>
-                                <hr className="my-2 border-blue-gray-50"/>
-                                <div className="flow-root">
-                                    <ul role="list" className="divide-y divide-gray-200">
-                                        {recordsForDate.map((recordForSpecificDate) => (
-                                            <li key={recordForSpecificDate.id} className="py-3 sm:py-4">
-                                                <Link>
-                                                    <ListItem
-                                                        className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                                                        <div className="flex-shrink-0">
-                                                            <img className="w-8 h-8 rounded-full" src={recordForSpecificDate.category[0].icon} alt={recordForSpecificDate.category[0].categoryName}/>
+                const recordsForDate = recordsThisMonth.filter(record =>
+                    new Date(record.date).setHours(0, 0, 0, 0) === recordDate
+                );
+
+                return (
+                    <Card key={recordDate} className="w-full shadow-lg mt-4">
+                        <CardBody>
+                            <Typography variant="h6" className="mb-4 flex items-center justify-between text-gray-600">
+                                {formatDate(new Date(recordDate))}
+                            </Typography>
+                            <hr className="my-2 border-blue-gray-50"/>
+                            <div className="flow-root">
+                                <ul role="list" className="divide-y divide-gray-200">
+                                    {recordsForDate.map((recordForSpecificDate) => (
+                                        <li key={recordForSpecificDate.id} className="py-3 sm:py-4">
+                                            <Link>
+                                                <ListItem
+                                                    className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+                                                    <div className="flex-shrink-0">
+                                                        <img className="w-8 h-8 rounded-full" src={recordForSpecificDate.category[0].icon} alt={recordForSpecificDate.category[0].categoryName}/>
+                                                    </div>
+                                                    <div className="flex-1 min-w-0">
+                                                        <div className="h-2"></div>
+                                                        <p className="text-sm font-medium text-gray-900 truncate">
+                                                            {recordForSpecificDate.name}
+                                                        </p>
+                                                        <p className="text-sm text-gray-500 truncate">
+                                                            {recordForSpecificDate.paymentType}
+                                                        </p>
+                                                        <div className="h-2"></div>
+                                                    </div>
+                                                    <div className="text-right">
+                                                        <div className="inline-flex items-center text-base font-semibold text-gray-900">
+                                                            -{recordForSpecificDate.amount.toLocaleString('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2})}
                                                         </div>
-                                                        <div className="flex-1 min-w-0">
-                                                            <div className="h-2"></div>
-                                                            <p className="text-sm font-medium text-gray-900 truncate">
-                                                                {recordForSpecificDate.name}
-                                                            </p>
-                                                            <p className="text-sm text-gray-500 truncate">
-                                                                {recordForSpecificDate.paymentType}
-                                                            </p>
-                                                            <div className="h-2"></div>
+                                                        <div className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                            {recordForSpecificDate.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
                                                         </div>
-                                                        <div className="text-right">
-                                                            <div className="inline-flex items-center text-base font-semibold text-gray-900">
-                                                                -{recordForSpecificDate.amount.toLocaleString('en-US', {style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                                                            </div>
-                                                            <div className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                                                {recordForSpecificDate.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
-                                                            </div>
-                                                        </div>
-                                                        <div className="ml-2">
-                                                            <ChevronRightIcon className="h-5 w-5 text-green-800"/>
-                                                        </div>
-                                                    </ListItem>
-                                                </Link>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </CardBody>
-                        </Card>
-                    );
-                }
-                return null;
+                                                    </div>
+                                                    <div className="ml-2">
+                                                        <ChevronRightIcon className="h-5 w-5 text-green-800"/>
+                                                    </div>
+                                                </ListItem>
+                                            </Link>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </CardBody>
+                    </Card>
+                );
             })}
         </>
     );
