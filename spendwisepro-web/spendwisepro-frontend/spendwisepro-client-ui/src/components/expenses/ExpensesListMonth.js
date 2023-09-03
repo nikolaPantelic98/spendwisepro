@@ -281,7 +281,7 @@ export default function ExpensesListMonth() {
     }
 
     function storeScrollPositionAndTab() {
-        const tab = "30days";
+        const tab = "month";
         sessionStorage.setItem('selectedTab', tab);
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }

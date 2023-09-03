@@ -189,7 +189,7 @@ export default function ExpensesOverviewMonth() {
             id: 16,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-07-21T08:57"),
+            date: new Date("2023-09-03T08:57"),
             name: "Doctor",
             paymentType: "Cash",
             category: [
@@ -211,7 +211,7 @@ export default function ExpensesOverviewMonth() {
             id: 18,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-18T12:30"),
+            date: new Date("2023-09-02T12:30"),
             name: "Drug",
             paymentType: "Credit Card",
             category: [
@@ -244,7 +244,7 @@ export default function ExpensesOverviewMonth() {
             id: 21,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-16T12:30"),
+            date: new Date("2023-09-01T12:30"),
             name: "Coca cola",
             paymentType: "Credit Card",
             category: [
@@ -265,45 +265,39 @@ export default function ExpensesOverviewMonth() {
     const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
     endOfMonth.setHours(23, 59, 59, 999);
 
-    // Filter records for the expense type
-    const currentExpense = records.filter(record => record.type === "expense");
+    const expensesThisMonth = (() => {
+        return records.filter(record => {
+            return record.date >= startOfMonth && record.date <= endOfMonth && record.type === "expense";
+        });
+    })();
 
-    // Generates data for a graph representing expenses over the last 30 days
-    function generateDataForGraph(expense) {
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
+    // Generates data for a graph representing expenses for this month
+    const expenseGraph = (() => {
         const dateToAmountMap = new Map();
 
-        // Calculate total expenses for each date within the last 30 days
-        expense.forEach(record => {
+        // Calculate total expenses for each date within this month
+        expensesThisMonth.forEach(record => {
             const recordDate = record.date.toDateString();
-            if (record.date >= thirtyDaysAgo) {
-                if (!dateToAmountMap.has(recordDate)) {
-                    dateToAmountMap.set(recordDate, record.amount);
-                } else {
-                    dateToAmountMap.set(recordDate, dateToAmountMap.get(recordDate) + record.amount);
-                }
+            if (!dateToAmountMap.has(recordDate)) {
+                dateToAmountMap.set(recordDate, record.amount);
+            } else {
+                dateToAmountMap.set(recordDate, dateToAmountMap.get(recordDate) + record.amount);
             }
         });
 
         const dataForGraph = [];
 
         // Creates data for the graph, including dates with zero expenses
-        for (let i = 0; i < 30; i++) {
-            const currentDate = new Date();
-            currentDate.setDate(currentDate.getDate() - i);
-            const dateString = currentDate.toDateString();
-
-            if (dateToAmountMap.has(dateString)) {
-                dataForGraph.unshift({ date: dateString, amount: dateToAmountMap.get(dateString) });
-            } else {
-                dataForGraph.unshift({ date: dateString, amount: 0 });
-            }
+        let iterationDate = new Date(startOfMonth);
+        while (iterationDate <= endOfMonth) {
+            const dateString = iterationDate.toDateString();
+            const amount = dateToAmountMap.get(dateString) || 0;
+            dataForGraph.push({ date: dateString, amount });
+            iterationDate.setDate(iterationDate.getDate() + 1);
         }
 
         return dataForGraph;
-    }
+    })();
 
     // tooltip used in graph
     const TooltipContent = ({ active, payload }) => {
@@ -327,13 +321,8 @@ export default function ExpensesOverviewMonth() {
         return null;
     };
 
-    const thirtyDaysAgo = new Date();
-    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
-    // Calculate the total amount spent on expenses within the last 30 days.
-    const totalAmountLast30Days = currentExpense
-        .filter(r => r.date >= thirtyDaysAgo)
-        .reduce((total, r) => total + r.amount, 0);
+    // Calculate the total amount spent on expenses within this month.
+    const totalAmountThisMonth = expensesThisMonth.reduce((total, record) => total + record.amount, 0);
 
     return (
         <Card className="w-full shadow-lg mt-8">
@@ -353,12 +342,12 @@ export default function ExpensesOverviewMonth() {
                             <div className="flex-1">
                                 <div className="flex items-center justify-between">
                                     <p className="text-xs font-medium text-gray-900 truncate">
-                                        LAST 30 DAYS
+                                        THIS MONTH
                                     </p>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <Typography variant="h2" className="text-gray-900 mb-4">
-                                        {totalAmountLast30Days.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                        {totalAmountThisMonth.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                     </Typography>
                                     <Chip size="md" value="Total" className="bg-gray-200 normal-case text-gray-900 font-semibold mb-4 text-sm" />
                                 </div>
@@ -366,10 +355,10 @@ export default function ExpensesOverviewMonth() {
 
                             <div>
                                 <ResponsiveContainer width="100%" height={220}>
-                                    <BarChart className="right-4" data={generateDataForGraph(currentExpense)} margin={{ top: 20, right: 0, left: 0, bottom: 0 }} >
-                                        <CartesianGrid strokeDasharray="3 3" />
+                                    <BarChart className="right-4" data={expenseGraph} margin={{ top: 20, right: 0, left: 0, bottom: 0 }} >
+                                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                         <XAxis dataKey="date"
-                                               tick={{fontSize: 12}} tickFormatter={(tick) => {
+                                               tick={{fontSize: 12, dy: 8}} tickFormatter={(tick) => {
                                             const date = new Date(tick);
                                             const day = date.getDate().toString().padStart(2, '0');
                                             const month = (date.getMonth() + 1).toString().padStart(2, '0');
@@ -377,7 +366,7 @@ export default function ExpensesOverviewMonth() {
                                         />
                                         <YAxis />
                                         <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                 payloadArray={generateDataForGraph(currentExpense)}
+                                                 payloadArray={expenseGraph}
                                                  content={<TooltipContent />}
                                                  wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
                                                  offset={25}/>

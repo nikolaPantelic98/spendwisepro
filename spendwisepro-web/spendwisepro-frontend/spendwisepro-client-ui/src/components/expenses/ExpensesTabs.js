@@ -13,11 +13,11 @@ export default function ExpensesTabs() {
 
     const type = [
         {label: "7 Days", value: "7days", icon: CalendarDaysIcon},
-        {label: "30 Days", value: "30days", icon: CalendarDaysIcon}
+        {label: "This Month", value: "month", icon: CalendarDaysIcon}
     ];
 
     const storedTab = sessionStorage.getItem('selectedTab');
-    const [selectedTab, setSelectedTab] = useState(storedTab || "30days");
+    const [selectedTab, setSelectedTab] = useState(storedTab || "month");
 
     const handleTabChange = (value) => {
         setSelectedTab(value);
@@ -63,7 +63,7 @@ export default function ExpensesTabs() {
                                     <div><PageWidthLayout/></div>
                                 </div>
                             </>
-                        ) : value === "30days" ? (
+                        ) : value === "month" ? (
                             // Content for "month" tab
                             <>
                                 <div className="mt-2">
