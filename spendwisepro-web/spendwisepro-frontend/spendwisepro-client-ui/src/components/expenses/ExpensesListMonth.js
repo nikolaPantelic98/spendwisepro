@@ -182,7 +182,7 @@ export default function ExpensesListMonth() {
             id: 16,
             amount: 15.00,
             type: "expense",
-            date: new Date("2023-07-21T08:57"),
+            date: new Date("2023-09-03T08:57"),
             name: "Doctor",
             paymentType: "Cash",
             category: [
@@ -204,7 +204,7 @@ export default function ExpensesListMonth() {
             id: 18,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-18T12:30"),
+            date: new Date("2023-09-02T12:30"),
             name: "Drug",
             paymentType: "Credit Card",
             category: [
@@ -237,7 +237,7 @@ export default function ExpensesListMonth() {
             id: 21,
             amount: 45.00,
             type: "expense",
-            date: new Date("2023-07-16T12:30"),
+            date: new Date("2023-09-01T12:30"),
             name: "Coca cola",
             paymentType: "Credit Card",
             category: [
@@ -247,26 +247,36 @@ export default function ExpensesListMonth() {
     ];
 
     const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
 
-    // Filter records that occurred in the last 30 days
-    const filteredRecords = records.filter(record => {
-        const daysDifference = Math.floor((currentDate - record.date) / (1000 * 60 * 60 * 24));
-        return daysDifference < 30;
-    });
+    // Calculate the first day of the current month
+    const startOfMonth = new Date(currentYear, currentMonth, 1);
+    startOfMonth.setHours(0, 0, 0, 0);
+
+    // Calculate the last day of the current month
+    const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
+    endOfMonth.setHours(23, 59, 59, 999);
+
+    const recordsThisMonth = (() => {
+        return records.filter(record => {
+            return record.date >= startOfMonth && record.date <= endOfMonth && record.type === "expense";
+        });
+    })();
 
     // Create a new array to hold unique expenses
-    const expenses = filteredRecords.reduce((acc, record) => {
-        const existingExpense = acc.find(expense => expense.categoryName === record.category[0].categoryName);
+    const expenses = recordsThisMonth.reduce((groupedExpenses, record) => {
+        const existingExpense = groupedExpenses.find(expense => expense.categoryName === record.category[0].categoryName);
         if (existingExpense) {
             existingExpense.amount += record.amount;
         } else {
-            acc.push({
+            groupedExpenses.push({
                 categoryName: record.category[0].categoryName,
                 amount: record.amount,
                 color: record.category[0].color
             });
         }
-        return acc;
+        return groupedExpenses;
     }, []);
 
     expenses.sort((a, b) => b.amount - a.amount);
