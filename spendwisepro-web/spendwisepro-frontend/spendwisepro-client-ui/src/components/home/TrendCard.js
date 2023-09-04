@@ -14,37 +14,37 @@ import {Link} from "react-router-dom";
 export default function TrendCard() {
 
     const dataBalance = [
-        {"date": "21.6", "amount": 180},
-        {"date": "22.6", "amount": 160},
-        {"date": "23.6", "amount": 150},
-        {"date": "24.6", "amount": 130},
-        {"date": "25.6", "amount": 550},
-        {"date": "26.6", "amount": 540},
-        {"date": "27.6", "amount": 540},
-        {"date": "28.6", "amount": 540},
-        {"date": "29.6", "amount": 540},
-        {"date": "30.6", "amount": 530},
-        {"date": "1.7", "amount": 370},
-        {"date": "2.7", "amount": 370},
-        {"date": "3.7", "amount": 350},
-        {"date": "4.7", "amount": 950},
-        {"date": "5.7", "amount": 920},
-        {"date": "6.7", "amount": 920},
-        {"date": "7.7", "amount": 910},
-        {"date": "8.7", "amount": 900},
-        {"date": "9.7", "amount": 1200},
-        {"date": "10.7", "amount": 1200},
-        {"date": "11.7", "amount": 1160},
-        {"date": "12.7", "amount": 1160},
-        {"date": "13.7", "amount": 1135},
-        {"date": "14.7", "amount": 1130},
-        {"date": "15.7", "amount": 1130},
-        {"date": "16.7", "amount": 1050},
-        {"date": "17.7", "amount": 1030},
-        {"date": "18.7", "amount": 1030},
-        {"date": "19.7", "amount": 1000},
-        {"date": "20.7", "amount": 1000},
-        {"date": "21.7.", "amount": 1000}
+        {date: new Date("2023-06-21"), amount: 180},
+        {date: new Date("2023-06-22"), amount: 160},
+        {date: new Date("2023-06-23"), amount: 150},
+        {date: new Date("2023-06-24"), amount: 130},
+        {date: new Date("2023-06-25"), amount: 550},
+        {date: new Date("2023-06-26"), amount: 540},
+        {date: new Date("2023-06-27"), amount: 540},
+        {date: new Date("2023-06-28"), amount: 540},
+        {date: new Date("2023-06-29"), amount: 540},
+        {date: new Date("2023-06-30"), amount: 530},
+        {date: new Date("2023-07-01"), amount: 370},
+        {date: new Date("2023-07-02"), amount: 370},
+        {date: new Date("2023-07-03"), amount: 350},
+        {date: new Date("2023-07-04"), amount: 950},
+        {date: new Date("2023-07-05"), amount: 920},
+        {date: new Date("2023-07-06"), amount: 920},
+        {date: new Date("2023-07-07"), amount: 910},
+        {date: new Date("2023-07-08"), amount: 900},
+        {date: new Date("2023-07-09"), amount: 1200},
+        {date: new Date("2023-07-10"), amount: 1200},
+        {date: new Date("2023-07-11"), amount: 1160},
+        {date: new Date("2023-07-12"), amount: 1160},
+        {date: new Date("2023-07-13"), amount: 1135},
+        {date: new Date("2023-07-14"), amount: 1130},
+        {date: new Date("2023-07-15"), amount: 1130},
+        {date: new Date("2023-07-16"), amount: 1050},
+        {date: new Date("2023-07-17"), amount: 1030},
+        {date: new Date("2023-07-18"), amount: 1030},
+        {date: new Date("2023-07-19"), amount: 1000},
+        {date: new Date("2023-07-20"), amount: 1000},
+        {date: new Date("2023-07-21"), amount: 1000}
     ]
 
     const dataCash = [
@@ -123,6 +123,27 @@ export default function TrendCard() {
 
     const [selectedTab, setSelectedTab] = useState("balance");
 
+    const TooltipContent = ({ active, payload }) => {
+        if (active && payload && payload.length) {
+            const data = payload[0];
+            if (data.payload.amount !== undefined) {
+                const date = new Date(data.payload.date);
+                const day = date.getDate().toString().padStart(2, '0');
+                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                const formattedDate = `${day}.${month}`;
+
+                return (
+                    <div className="p-1 pl-2 pr-2">
+                        <p className="text-gray-900 border-b-2">{formattedDate}</p>
+                        <p className="font-semibold text-right text-green-chart mt-1 mb-1">{`$${(data.payload.amount).toFixed(2)}`}</p>
+                    </div>
+                );
+            }
+        }
+
+        return null;
+    };
+
     function storeScrollPosition() {
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
@@ -174,20 +195,26 @@ export default function TrendCard() {
                                                         <AreaChart className="right-4" data={dataBalance}
                                                                    margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                                                             <defs>
-                                                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                                                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                                                                </linearGradient>
-                                                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                                                                <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
                                                                     <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
                                                                     <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
                                                                 </linearGradient>
                                                             </defs>
-                                                            <XAxis dataKey="date" fontSize="small" tick={{fontSize: 12, dy: 6}} />
-                                                            <YAxis fontSize="small" />
+                                                            <XAxis dataKey="date"
+                                                                   tick={{fontSize: 12, dy: 6}} tickFormatter={(tick) => {
+                                                                const date = new Date(tick);
+                                                                const day = date.getDate().toString().padStart(2, '0');
+                                                                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                                                                return `${day}.${month}.`;}}
+                                                            />
+                                                            <YAxis tick={{fontSize: 15, dx: -3}} />
                                                             <CartesianGrid strokeDasharray="3 3" vertical={false}/>
-                                                            <Tooltip />
-                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                                                            <Tooltip cursor={{fill: '#E8F5E9'}}
+                                                                     payloadArray={dataBalance}
+                                                                     content={<TooltipContent />}
+                                                                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
+                                                                     offset={25}/>
+                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />
                                                         </AreaChart>
                                                     </ResponsiveContainer>
                                                 </div>
