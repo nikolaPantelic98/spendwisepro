@@ -82,37 +82,37 @@ export default function TrendCard() {
     ];
 
     const dataCredit = [
-        {"date": "21.6", "amount": 80},
-        {"date": "22.6", "amount": 60},
-        {"date": "23.6", "amount": 50},
-        {"date": "24.6", "amount": 50},
-        {"date": "25.6", "amount": 130},
-        {"date": "26.6", "amount": 120},
-        {"date": "27.6", "amount": 120},
-        {"date": "28.6", "amount": 120},
-        {"date": "29.6", "amount": 120},
-        {"date": "30.6", "amount": 120},
-        {"date": "1.7", "amount": 70},
-        {"date": "2.7", "amount": 70},
-        {"date": "3.7", "amount": 70},
-        {"date": "4.7", "amount": 250},
-        {"date": "5.7", "amount": 240},
-        {"date": "6.7", "amount": 240},
-        {"date": "7.7", "amount": 260},
-        {"date": "8.7", "amount": 250},
-        {"date": "9.7", "amount": 150},
-        {"date": "10.7", "amount": 150},
-        {"date": "11.7", "amount": 150},
-        {"date": "12.7", "amount": 150},
-        {"date": "13.7", "amount": 160},
-        {"date": "14.7", "amount": 160},
-        {"date": "15.7", "amount": 160},
-        {"date": "16.7", "amount": 200},
-        {"date": "17.7", "amount": 200},
-        {"date": "18.7", "amount": 200},
-        {"date": "19.7", "amount": 250},
-        {"date": "20.7", "amount": 250},
-        {"date": "21.7", "amount": 300},
+        {date: new Date("2023-06-21"), amount: 80},
+        {date: new Date("2023-06-22"), amount: 60},
+        {date: new Date("2023-06-23"), amount: 50},
+        {date: new Date("2023-06-24"), amount: 50},
+        {date: new Date("2023-06-25"), amount: 130},
+        {date: new Date("2023-06-26"), amount: 120},
+        {date: new Date("2023-06-27"), amount: 120},
+        {date: new Date("2023-06-28"), amount: 120},
+        {date: new Date("2023-06-29"), amount: 120},
+        {date: new Date("2023-06-30"), amount: 120},
+        {date: new Date("2023-07-01"), amount: 70},
+        {date: new Date("2023-07-02"), amount: 70},
+        {date: new Date("2023-07-03"), amount: 70},
+        {date: new Date("2023-07-04"), amount: 250},
+        {date: new Date("2023-07-05"), amount: 240},
+        {date: new Date("2023-07-06"), amount: 240},
+        {date: new Date("2023-07-07"), amount: 260},
+        {date: new Date("2023-07-08"), amount: 250},
+        {date: new Date("2023-07-09"), amount: 150},
+        {date: new Date("2023-07-10"), amount: 150},
+        {date: new Date("2023-07-11"), amount: 150},
+        {date: new Date("2023-07-12"), amount: 150},
+        {date: new Date("2023-07-13"), amount: 160},
+        {date: new Date("2023-07-14"), amount: 160},
+        {date: new Date("2023-07-15"), amount: 160},
+        {date: new Date("2023-07-16"), amount: 200},
+        {date: new Date("2023-07-17"), amount: 200},
+        {date: new Date("2023-07-18"), amount: 200},
+        {date: new Date("2023-07-19"), amount: 250},
+        {date: new Date("2023-07-20"), amount: 250},
+        {date: new Date("2023-07-21"), amount: 300},
     ];
 
     const type = [
@@ -262,7 +262,7 @@ export default function TrendCard() {
                                                             <YAxis tick={{fontSize: 15, dx: -3}} />
                                                             <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                                             <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                                     payloadArray={dataBalance}
+                                                                     payloadArray={dataCash}
                                                                      content={<TooltipContent />}
                                                                      wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
                                                                      offset={25}/>
@@ -300,20 +300,26 @@ export default function TrendCard() {
                                                         <AreaChart className="right-4" data={dataCredit}
                                                                    margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                                                             <defs>
-                                                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-                                                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-                                                                </linearGradient>
-                                                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+                                                                <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
                                                                     <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
                                                                     <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
                                                                 </linearGradient>
                                                             </defs>
-                                                            <XAxis dataKey="date" fontSize="small" tick={{fontSize: 12, dy: 6}} />
-                                                            <YAxis fontSize="small" />
+                                                            <XAxis dataKey="date"
+                                                                   tick={{fontSize: 12, dy: 6}} tickFormatter={(tick) => {
+                                                                const date = new Date(tick);
+                                                                const day = date.getDate().toString().padStart(2, '0');
+                                                                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                                                                return `${day}.${month}.`;}}
+                                                            />
+                                                            <YAxis tick={{fontSize: 15, dx: -3}} />
                                                             <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                                                            <Tooltip />
-                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+                                                            <Tooltip cursor={{fill: '#E8F5E9'}}
+                                                                     payloadArray={dataCredit}
+                                                                     content={<TooltipContent />}
+                                                                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
+                                                                     offset={25}/>
+                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />
                                                         </AreaChart>
                                                     </ResponsiveContainer>
                                                 </div>
