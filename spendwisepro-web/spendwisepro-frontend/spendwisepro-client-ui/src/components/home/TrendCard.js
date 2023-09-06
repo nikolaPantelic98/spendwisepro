@@ -18,40 +18,6 @@ import {Link} from "react-router-dom";
 
 export default function TrendCard() {
 
-    const dataCredit = [
-        {date: new Date("2023-06-21"), amount: 80},
-        {date: new Date("2023-06-22"), amount: 60},
-        {date: new Date("2023-06-23"), amount: 50},
-        {date: new Date("2023-06-24"), amount: 50},
-        {date: new Date("2023-06-25"), amount: 130},
-        {date: new Date("2023-06-26"), amount: 120},
-        {date: new Date("2023-06-27"), amount: 120},
-        {date: new Date("2023-06-28"), amount: 120},
-        {date: new Date("2023-06-29"), amount: 120},
-        {date: new Date("2023-06-30"), amount: 120},
-        {date: new Date("2023-07-01"), amount: 70},
-        {date: new Date("2023-07-02"), amount: 70},
-        {date: new Date("2023-07-03"), amount: 70},
-        {date: new Date("2023-07-04"), amount: 250},
-        {date: new Date("2023-07-05"), amount: 240},
-        {date: new Date("2023-07-06"), amount: 240},
-        {date: new Date("2023-07-07"), amount: 260},
-        {date: new Date("2023-07-08"), amount: 250},
-        {date: new Date("2023-07-09"), amount: 150},
-        {date: new Date("2023-07-10"), amount: 150},
-        {date: new Date("2023-07-11"), amount: 150},
-        {date: new Date("2023-07-12"), amount: 150},
-        {date: new Date("2023-07-13"), amount: 160},
-        {date: new Date("2023-07-14"), amount: 160},
-        {date: new Date("2023-07-15"), amount: 160},
-        {date: new Date("2023-07-16"), amount: 200},
-        {date: new Date("2023-07-17"), amount: 200},
-        {date: new Date("2023-07-18"), amount: 200},
-        {date: new Date("2023-07-19"), amount: 250},
-        {date: new Date("2023-07-20"), amount: 250},
-        {date: new Date("2023-07-21"), amount: 300},
-    ];
-
     const type = [
         {label: "Balance", value: "balance", icon: ArrowTrendingUpIcon},
         {label: "Cash", value: "cash", icon: ArrowTrendingUpIcon},
@@ -271,71 +237,116 @@ export default function TrendCard() {
         return result;
     })();
 
+    // Filter expenses before the last 30 days
     const expensesBeforeLast30Days = (() => {
         return records.filter(record => {
             return record.date < thirtyDaysAgo && record.type === "expense";
         });
     })();
 
+    // Filter cash expenses before the last 30 days
     const cashExpensesBeforeLast30Days = (() => {
         return records.filter(record => {
             return record.date < thirtyDaysAgo && record.type === "expense" && record.paymentType === "Cash";
         });
     })();
 
+    // Filter credit card expenses before the last 30 days
+    const creditCardExpensesBeforeLast30Days = (() => {
+        return records.filter(record => {
+            return record.date < thirtyDaysAgo && record.type === "expense" && record.paymentType === "Credit Card";
+        });
+    })();
+
+    // Filter incomes before the last 30 days
     const incomesBeforeLast30Days = (() => {
         return records.filter(record => {
             return record.date < thirtyDaysAgo && record.type === "income";
         });
     })();
 
+    // Filter cash incomes before the last 30 days
     const cashIncomesBeforeLast30Days = (() => {
         return records.filter(record => {
             return record.date < thirtyDaysAgo && record.type === "income" && record.paymentType === "Cash";
         });
     })();
 
-    const startingAmountBalance = (() => {
+    // Filter credit card incomes before the last 30 days
+    const creditCardIncomesBeforeLast30Days = (() => {
+        return records.filter(record => {
+            return record.date < thirtyDaysAgo && record.type === "income" && record.paymentType === "Credit Card";
+        });
+    })();
 
+    // Calculate the initial balance amount for the chart
+    const startingAmountBalance = (() => {
         const totalExpenseAmountBeforeLast30Days = expensesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
         const totalIncomeAmountBeforeLast30Days = incomesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
 
         return totalIncomeAmountBeforeLast30Days - totalExpenseAmountBeforeLast30Days;
     })();
 
+    // Calculate the initial cash amount for the chart
     const startingAmountCash = (() => {
-
         const totalCashExpenseAmountBeforeLast30Days = cashExpensesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
         const totalCashIncomeAmountBeforeLast30Days = cashIncomesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
 
         return totalCashIncomeAmountBeforeLast30Days - totalCashExpenseAmountBeforeLast30Days;
     })();
 
+    // Calculate the initial credit card amount for the chart
+    const startingAmountCreditCard = (() => {
+        const totalCreditCardExpenseAmountBeforeLast30Days = creditCardExpensesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
+        const totalCreditCardIncomeAmountBeforeLast30Days = creditCardIncomesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
+
+        return totalCreditCardIncomeAmountBeforeLast30Days - totalCreditCardExpenseAmountBeforeLast30Days;
+    })();
+
+    // Filter expenses within the last 30 days
     const expensesLast30Days = (() => {
         return records.filter(record => {
             return record.date >= thirtyDaysAgo && record.type === "expense";
         });
     })();
 
+    // Filter cash expenses within the last 30 days
     const cashExpensesLast30Days = (() => {
         return records.filter(record => {
             return record.date >= thirtyDaysAgo && record.type === "expense" && record.paymentType === "Cash";
         });
     })();
 
+    // Filter credit card expenses within the last 30 days
+    const creditCardExpensesLast30Days = (() => {
+        return records.filter(record => {
+            return record.date >= thirtyDaysAgo && record.type === "expense" && record.paymentType === "Credit Card";
+        });
+    })();
+
+    // Filter incomes within the last 30 days
     const incomesLast30Days = (() => {
         return records.filter(record => {
             return record.date >= thirtyDaysAgo && record.type === "income";
         });
     })();
 
+    // Filter cash incomes within the last 30 days
     const cashIncomesLast30Days = (() => {
         return records.filter(record => {
             return record.date >= thirtyDaysAgo && record.type === "income" && record.paymentType === "Cash";
         });
     })();
 
+    // Filter credit card incomes within the last 30 days
+    const creditCardIncomesLast30Days = (() => {
+        return records.filter(record => {
+            return record.date >= thirtyDaysAgo && record.type === "income" && record.paymentType === "Credit Card";
+        });
+    })();
 
+
+    // Calculate balance chart data
     const balanceGraph = (() => {
 
         const amountPerDay = [];
@@ -372,6 +383,7 @@ export default function TrendCard() {
         return amountPerDay;
     })();
 
+    // Calculate cash chart data
     const cashGraph = (() => {
 
         const amountPerDay = [];
@@ -408,9 +420,53 @@ export default function TrendCard() {
         return amountPerDay;
     })();
 
+    // Calculate credit card chart data
+    const creditCardGraph = (() => {
+
+        const amountPerDay = [];
+        let accumulatedAmount = startingAmountCreditCard;
+        let iterationDate = new Date(thirtyDaysAgo);
+
+        // Iterate through each day of the last 30 days
+        while (iterationDate <= currentDate) {
+            const matchingExpensesThisDay = creditCardExpensesLast30Days.filter(record =>
+                record.date.getDate() === iterationDate.getDate() &&
+                record.date.getMonth() === iterationDate.getMonth() &&
+                record.date.getFullYear() === iterationDate.getFullYear()
+            );
+            const matchingIncomesThisDay = creditCardIncomesLast30Days.filter(record =>
+                record.date.getDate() === iterationDate.getDate() &&
+                record.date.getMonth() === iterationDate.getMonth() &&
+                record.date.getFullYear() === iterationDate.getFullYear()
+            );
+
+            const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
+            accumulatedAmount += expensesThisDay;
+            const incomesThisDay = matchingIncomesThisDay.reduce((total, record) => total + record.amount, 0);
+            accumulatedAmount += incomesThisDay;
+
+            amountPerDay.push({
+                date: new Date(iterationDate),
+                amount: accumulatedAmount
+            });
+
+            // Move to the next day
+            iterationDate.setDate(iterationDate.getDate() + 1);
+        }
+
+        return amountPerDay;
+    })();
+
+    // Get the balance amount for today
     const balanceAmountToday = balanceGraph[balanceGraph.length - 1].amount;
+
+    // Get the cash amount for today
     const cashAmountToday = cashGraph[cashGraph.length - 1].amount;
 
+    // Get the credit card amount for today
+    const creditCardAmountToday = creditCardGraph[creditCardGraph.length - 1].amount;
+
+    // Define a Tooltip component for the charts
     const TooltipContent = ({ active, payload }) => {
         if (active && payload && payload.length) {
             const data = payload[0];
@@ -579,13 +635,13 @@ export default function TrendCard() {
                                                         TODAY
                                                     </p>
                                                     <Typography variant="h2" className="text-gray-900 mb-4">
-                                                        $300,00
+                                                        {creditCardAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                     </Typography>
                                                 </div>
 
                                                 <div>
                                                     <ResponsiveContainer width="100%" height={220}>
-                                                        <AreaChart className="right-4" data={dataCredit}
+                                                        <AreaChart className="right-4" data={creditCardGraph}
                                                                    margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                                                             <defs>
                                                                 <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
@@ -603,7 +659,7 @@ export default function TrendCard() {
                                                             <YAxis tick={{fontSize: 15, dx: -3}} />
                                                             <CartesianGrid strokeDasharray="3 3" vertical={false} />
                                                             <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                                     payloadArray={dataCredit}
+                                                                     payloadArray={creditCardGraph}
                                                                      content={<TooltipContent />}
                                                                      wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
                                                                      offset={25}/>
