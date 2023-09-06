@@ -220,7 +220,7 @@ export default function BudgetWeeklyChart( {name} ) {
             id: 14,
             amount: 27.00,
             type: "expense",
-            date: new Date("2023-07-23T12:30"),
+            date: new Date("2023-09-04T12:30"),
             note: "Cinema chips",
             paymentType: "Credit Card",
             category: [

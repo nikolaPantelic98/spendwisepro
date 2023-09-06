@@ -1,51 +1,22 @@
 import {
+    Button,
     Card,
     CardBody,
     CardFooter,
+    Tab,
+    TabPanel,
+    Tabs,
+    TabsBody,
+    TabsHeader,
     Typography,
-    Button, Tabs, TabsHeader, Tab, TabsBody, TabPanel,
 } from "@material-tailwind/react";
 import {ArrowTrendingUpIcon, CurrencyDollarIcon} from "@heroicons/react/24/solid";
-import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
+import {ArrowLongRightIcon} from "@heroicons/react/24/outline";
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
 
 export default function TrendCard() {
-
-    const dataBalance = [
-        {date: new Date("2023-06-21"), amount: 180},
-        {date: new Date("2023-06-22"), amount: 160},
-        {date: new Date("2023-06-23"), amount: 150},
-        {date: new Date("2023-06-24"), amount: 130},
-        {date: new Date("2023-06-25"), amount: 550},
-        {date: new Date("2023-06-26"), amount: 540},
-        {date: new Date("2023-06-27"), amount: 540},
-        {date: new Date("2023-06-28"), amount: 540},
-        {date: new Date("2023-06-29"), amount: 540},
-        {date: new Date("2023-06-30"), amount: 530},
-        {date: new Date("2023-07-01"), amount: 370},
-        {date: new Date("2023-07-02"), amount: 370},
-        {date: new Date("2023-07-03"), amount: 350},
-        {date: new Date("2023-07-04"), amount: 950},
-        {date: new Date("2023-07-05"), amount: 920},
-        {date: new Date("2023-07-06"), amount: 920},
-        {date: new Date("2023-07-07"), amount: 910},
-        {date: new Date("2023-07-08"), amount: 900},
-        {date: new Date("2023-07-09"), amount: 1200},
-        {date: new Date("2023-07-10"), amount: 1200},
-        {date: new Date("2023-07-11"), amount: 1160},
-        {date: new Date("2023-07-12"), amount: 1160},
-        {date: new Date("2023-07-13"), amount: 1135},
-        {date: new Date("2023-07-14"), amount: 1130},
-        {date: new Date("2023-07-15"), amount: 1130},
-        {date: new Date("2023-07-16"), amount: 1050},
-        {date: new Date("2023-07-17"), amount: 1030},
-        {date: new Date("2023-07-18"), amount: 1030},
-        {date: new Date("2023-07-19"), amount: 1000},
-        {date: new Date("2023-07-20"), amount: 1000},
-        {date: new Date("2023-07-21"), amount: 1000}
-    ]
 
     const dataCash = [
         {date: new Date("2023-06-21"), amount: 100},
@@ -123,6 +94,288 @@ export default function TrendCard() {
 
     const [selectedTab, setSelectedTab] = useState("balance");
 
+    const records = [
+        {
+            id: 1,
+            amount: 30.00,
+            type: "expense",
+            date: new Date("2023-08-16T08:57"),
+            note: "Window repair",
+            paymentType: "Credit Card",
+            category: [
+                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
+            ]
+        },
+        {
+            id: 2,
+            amount: 25.00,
+            type: "expense",
+            date: new Date("2023-08-20T12:30"),
+            note: "New door",
+            paymentType: "Cash",
+            category: [
+                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
+            ]
+        },
+        {
+            id: 3,
+            amount: 45.00,
+            type: "expense",
+            date: new Date("2023-08-16T12:30"),
+            note: "Garden maintenance",
+            paymentType: "Credit Card",
+            category: [
+                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
+            ]
+        },
+        {
+            id: 4,
+            amount: 45.00,
+            type: "expense",
+            date: new Date("2023-08-30T12:30"),
+            note: "Tomato",
+            paymentType: "Credit Card",
+            category: [
+                { id: 2, categoryName: "Groceries", icon: "https://icon-library.com/images/grocery-icon-png/grocery-icon-png-14.jpg" }
+            ]
+        },
+        {
+            id: 5,
+            amount: 100.00,
+            type: "expense",
+            date: new Date("2023-08-10T08:57"),
+            note: "Car maintenance",
+            paymentType: "Cash",
+            category: [
+                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
+            ]
+        },
+        {
+            id: 6,
+            amount: 112.00,
+            type: "expense",
+            date: new Date("2023-08-21T12:30"),
+            note: "Broken window repair",
+            paymentType: "Credit Card",
+            category: [
+                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
+            ]
+        },
+        {
+            id: 7,
+            amount: 45.00,
+            type: "expense",
+            date: new Date("2023-09-01T12:30"),
+            note: "Fuel",
+            paymentType: "Credit Card",
+            category: [
+                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
+            ]
+        },
+        {
+            id: 8,
+            amount: 15.00,
+            type: "expense",
+            date: new Date("2023-08-21T08:57"),
+            note: "Cigarette",
+            paymentType: "Cash",
+            category: [
+                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
+            ]
+        },
+        {
+            id: 91,
+            amount: 27.00,
+            type: "expense",
+            date: new Date("2023-08-18T12:30"),
+            note: "Tobacco",
+            paymentType: "Credit Card",
+            category: [
+                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
+            ]
+        },
+        {
+            id: 10,
+            amount: 22.00,
+            type: "expense",
+            date: new Date("2023-08-17T12:30"),
+            note: "Pack",
+            paymentType: "Credit Card",
+            category: [
+                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
+            ]
+        },
+        {
+            id: 11,
+            amount: 27.00,
+            type: "expense",
+            date: new Date("2023-08-14T12:30"),
+            time: "12:30",
+            note: "Chips",
+            paymentType: "Credit Card",
+            category: [
+                { id: 5, categoryName: "Snacks", icon: "https://www.iconbunny.com/icons/media/catalog/product/cache/2/thumbnail/600x/1b89f2fc96fc819c2a7e15c7e545e8a9/5/2/524.9-fries-icon-iconbunny.jpg" }
+            ]
+        },
+        {
+            id: 12,
+            amount: 15.00,
+            type: "expense",
+            date: new Date("2023-08-22T08:57"),
+            note: "Doctor",
+            paymentType: "Cash",
+            category: [
+                { id: 6, categoryName: "Health care", icon: "https://i.ibb.co/k362Qsn/healthcare.png" }
+            ]
+        },
+        {
+            id: 13,
+            amount: 15.00,
+            type: "expense",
+            date: new Date("2023-09-01T08:57"),
+            note: "Card",
+            paymentType: "Cash",
+            category: [
+                { id: 7, categoryName: "Cinema", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
+            ]
+        },
+        {
+            id: 14,
+            amount: 27.00,
+            type: "expense",
+            date: new Date("2023-08-23T12:30"),
+            note: "Cinema chips",
+            paymentType: "Credit Card",
+            category: [
+                { id: 7, categoryName: "Cinema", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
+            ]
+        },
+        {
+            id: 15,
+            amount: 600.00,
+            type: "income",
+            date: new Date("2023-08-01T12:30"),
+            note: "Salary",
+            paymentType: "Credit Card",
+            category: [
+                { id: 7, categoryName: "Income", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
+            ]
+        },
+        {
+            id: 16,
+            amount: 400.00,
+            type: "income",
+            date: new Date("2023-08-01T12:30"),
+            note: "Salary",
+            paymentType: "Cash",
+            category: [
+                { id: 7, categoryName: "Income", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
+            ]
+        },
+        {
+            id: 17,
+            amount: 300.00,
+            type: "income",
+            date: new Date("2023-08-28T12:30"),
+            note: "Invoice",
+            paymentType: "Credit Card",
+            category: [
+                { id: 7, categoryName: "Income", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
+            ]
+        },
+        {
+            id: 18,
+            amount: 100.00,
+            type: "expense",
+            date: new Date("2023-09-06T08:57"),
+            note: "Card",
+            paymentType: "Cash",
+            category: [
+                { id: 7, categoryName: "Cinema", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
+            ]
+        }
+    ];
+
+    const currentDate = new Date();
+
+    const thirtyDaysAgo = (() => {
+        const result = new Date(currentDate);
+        result.setDate(currentDate.getDate() - 30);
+        result.setHours(0, 0, 0, 0);
+        return result;
+    })();
+
+    const expensesBeforeLast30Days = (() => {
+        return records.filter(record => {
+            return record.date < thirtyDaysAgo && record.type === "expense";
+        });
+    })();
+
+    const incomesBeforeLast30Days = (() => {
+        return records.filter(record => {
+            return record.date < thirtyDaysAgo && record.type === "income";
+        });
+    })();
+
+    const startingAmountBalance = (() => {
+
+        const totalExpenseAmountBeforeLast30Days = expensesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
+        const totalIncomeAmountBeforeLast30Days = incomesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
+
+        return totalIncomeAmountBeforeLast30Days - totalExpenseAmountBeforeLast30Days;
+    })();
+
+    const expensesLast30Days = (() => {
+        return records.filter(record => {
+            return record.date >= thirtyDaysAgo && record.type === "expense";
+        });
+    })();
+
+    const incomesLast30Days = (() => {
+        return records.filter(record => {
+            return record.date >= thirtyDaysAgo && record.type === "income";
+        });
+    })();
+
+
+    const balanceGraph = (() => {
+
+        const amountPerDay = [];
+        let accumulatedAmount = startingAmountBalance;
+        let iterationDate = new Date(thirtyDaysAgo);
+
+        // Iterate through each day of the last 30 days
+        while (iterationDate <= currentDate) {
+            const matchingExpensesThisDay = expensesLast30Days.filter(record =>
+                record.date.getDate() === iterationDate.getDate() &&
+                record.date.getMonth() === iterationDate.getMonth() &&
+                record.date.getFullYear() === iterationDate.getFullYear()
+            );
+            const matchingIncomesThisDay = incomesLast30Days.filter(record =>
+                record.date.getDate() === iterationDate.getDate() &&
+                record.date.getMonth() === iterationDate.getMonth() &&
+                record.date.getFullYear() === iterationDate.getFullYear()
+            );
+
+            const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
+            accumulatedAmount += expensesThisDay;
+            const incomesThisDay = matchingIncomesThisDay.reduce((total, record) => total + record.amount, 0);
+            accumulatedAmount += incomesThisDay;
+
+            amountPerDay.push({
+                date: new Date(iterationDate),
+                amount: accumulatedAmount
+            });
+
+            // Move to the next day
+            iterationDate.setDate(iterationDate.getDate() + 1);
+        }
+
+        return amountPerDay;
+    })();
+
+    const balanceAmountToday = balanceGraph[balanceGraph.length - 1].amount;
+
     const TooltipContent = ({ active, payload }) => {
         if (active && payload && payload.length) {
             const data = payload[0];
@@ -186,13 +439,13 @@ export default function TrendCard() {
                                                         TODAY
                                                     </p>
                                                     <Typography variant="h2" className="text-gray-900 mb-4">
-                                                        $1.000,00
+                                                        {balanceAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                     </Typography>
                                                 </div>
 
                                                 <div>
                                                     <ResponsiveContainer width="100%" height={220}>
-                                                        <AreaChart className="right-4" data={dataBalance}
+                                                        <AreaChart className="right-4" data={balanceGraph}
                                                                    margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                                                             <defs>
                                                                 <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
@@ -210,7 +463,7 @@ export default function TrendCard() {
                                                             <YAxis tick={{fontSize: 15, dx: -3}} />
                                                             <CartesianGrid strokeDasharray="3 3" vertical={false}/>
                                                             <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                                     payloadArray={dataBalance}
+                                                                     payloadArray={balanceGraph}
                                                                      content={<TooltipContent />}
                                                                      wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
                                                                      offset={25}/>
