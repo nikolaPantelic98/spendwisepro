@@ -10,16 +10,6 @@ import React, {useState} from "react";
 
 export default function BalanceChart() {
 
-    const dataWeek = [
-        {"date": "15.7", "amount": 1130},
-        {"date": "16.7", "amount": 1050},
-        {"date": "17.7", "amount": 1030},
-        {"date": "18.7", "amount": 1030},
-        {"date": "19.7", "amount": 1000},
-        {"date": "20.7", "amount": 1000},
-        {"date": "21.7.", "amount": 1000}
-    ];
-
     const dataTime = [
         {label: "7 Days", value: "7days", icon: ArrowTrendingUpIcon},
         {label: "30 Days", value: "30days", icon: ArrowTrendingUpIcon},
@@ -238,10 +228,24 @@ export default function BalanceChart() {
         return result;
     })();
 
+    const sevenDaysAgo = (() => {
+        const result = new Date(currentDate);
+        result.setDate(currentDate.getDate() - 7);
+        result.setHours(0, 0, 0, 0);
+        return result;
+    })();
+
     // Filter expenses before the last 30 days
     const expensesBeforeLast30Days = (() => {
         return records.filter(record => {
             return record.date < thirtyDaysAgo && record.type === "expense";
+        });
+    })();
+
+    // Filter expenses before the last 7 days
+    const expensesBeforeLast7Days = (() => {
+        return records.filter(record => {
+            return record.date < sevenDaysAgo && record.type === "expense";
         });
     })();
 
@@ -252,18 +256,40 @@ export default function BalanceChart() {
         });
     })();
 
-    // Calculate the initial balance amount for the chart
-    const startingAmountBalance = (() => {
+    // Filter incomes before the last 7 days
+    const incomesBeforeLast7Days = (() => {
+        return records.filter(record => {
+            return record.date < sevenDaysAgo && record.type === "income";
+        });
+    })();
+
+    // Calculate the initial balance amount for the chart that shows last 30 days
+    const startingAmountBalance30Days = (() => {
         const totalExpenseAmountBeforeLast30Days = expensesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
         const totalIncomeAmountBeforeLast30Days = incomesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
 
         return totalIncomeAmountBeforeLast30Days - totalExpenseAmountBeforeLast30Days;
     })();
 
+    // Calculate the initial balance amount for the chart that shows last 7 days
+    const startingAmountBalance7Days = (() => {
+        const totalExpenseAmountBeforeLast7Days = expensesBeforeLast7Days.reduce((total, record) => total + record.amount, 0);
+        const totalIncomeAmountBeforeLast7Days = incomesBeforeLast7Days.reduce((total, record) => total + record.amount, 0);
+
+        return totalIncomeAmountBeforeLast7Days - totalExpenseAmountBeforeLast7Days;
+    })();
+
     // Filter expenses within the last 30 days
     const expensesLast30Days = (() => {
         return records.filter(record => {
             return record.date >= thirtyDaysAgo && record.type === "expense";
+        });
+    })();
+
+    // Filter expenses within the last 7 days
+    const expensesLast7Days = (() => {
+        return records.filter(record => {
+            return record.date >= sevenDaysAgo && record.type === "expense";
         });
     })();
 
@@ -274,11 +300,18 @@ export default function BalanceChart() {
         });
     })();
 
+    // Filter incomes within the last 7 days
+    const incomesLast7Days = (() => {
+        return records.filter(record => {
+            return record.date >= sevenDaysAgo && record.type === "income";
+        });
+    })();
+
     // Calculate balance chart data
-    const balanceGraph = (() => {
+    const balanceGraphLast30Days = (() => {
 
         const amountPerDay = [];
-        let accumulatedAmount = startingAmountBalance;
+        let accumulatedAmount = startingAmountBalance30Days;
         let iterationDate = new Date(thirtyDaysAgo);
 
         // Iterate through each day of the last 30 days
@@ -311,15 +344,64 @@ export default function BalanceChart() {
         return amountPerDay;
     })();
 
-    // Get the balance amount for today
-    const balanceAmountToday = balanceGraph[balanceGraph.length - 1].amount;
+    // Calculate balance chart data
+    const balanceGraphLast7Days = (() => {
 
-    const chipAmount = (() => {
-        return (balanceAmountToday - startingAmountBalance) / startingAmountBalance * 100;
+        const amountPerDay = [];
+        let accumulatedAmount = startingAmountBalance7Days;
+        let iterationDate = new Date(sevenDaysAgo);
+
+        // Iterate through each day of the last 7 days
+        while (iterationDate <= currentDate) {
+            const matchingExpensesThisDay = expensesLast7Days.filter(record =>
+                record.date.getDate() === iterationDate.getDate() &&
+                record.date.getMonth() === iterationDate.getMonth() &&
+                record.date.getFullYear() === iterationDate.getFullYear()
+            );
+            const matchingIncomesThisDay = incomesLast7Days.filter(record =>
+                record.date.getDate() === iterationDate.getDate() &&
+                record.date.getMonth() === iterationDate.getMonth() &&
+                record.date.getFullYear() === iterationDate.getFullYear()
+            );
+
+            const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
+            accumulatedAmount += expensesThisDay;
+            const incomesThisDay = matchingIncomesThisDay.reduce((total, record) => total + record.amount, 0);
+            accumulatedAmount += incomesThisDay;
+
+            amountPerDay.push({
+                date: new Date(iterationDate),
+                amount: accumulatedAmount
+            });
+
+            // Move to the next day
+            iterationDate.setDate(iterationDate.getDate() + 1);
+        }
+
+        return amountPerDay;
     })();
 
-    const chipColor = (() => {
-        if (chipAmount >= 0) {
+    // Get the balance amount for today
+    const balanceAmountToday = balanceGraphLast30Days[balanceGraphLast30Days.length - 1].amount;
+
+    const chipAmount30Days = (() => {
+        return (balanceAmountToday - startingAmountBalance30Days) / startingAmountBalance30Days * 100;
+    })();
+
+    const chipAmount7Days = (() => {
+        return (balanceAmountToday - startingAmountBalance7Days) / startingAmountBalance7Days * 100;
+    })();
+
+    const chipColor30Days = (() => {
+        if (chipAmount30Days >= 0) {
+            return "green";
+        } else {
+            return "red";
+        }
+    })();
+
+    const chipColor7Days = (() => {
+        if (chipAmount7Days >= 0) {
             return "green";
         } else {
             return "red";
@@ -394,13 +476,13 @@ export default function BalanceChart() {
                                                             <Typography variant="h2" className="text-gray-900 mb-4">
                                                                 {balanceAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                             </Typography>
-                                                            <Chip size="md" value={`${(chipAmount).toFixed(0)}%`} className="mb-4 text-sm" color={chipColor} />
+                                                            <Chip size="md" value={`${(chipAmount30Days).toFixed(0)}%`} className="mb-4 text-sm" color={chipColor30Days} />
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <ResponsiveContainer width="100%" height={220}>
-                                                            <AreaChart className="right-4" data={balanceGraph}
+                                                            <AreaChart className="right-4" data={balanceGraphLast30Days}
                                                                        margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                                                                 <defs>
                                                                     <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
@@ -418,7 +500,7 @@ export default function BalanceChart() {
                                                                 <YAxis tick={{fontSize: 15, dx: -3}} />
                                                                 <CartesianGrid strokeDasharray="3 3" vertical={false}/>
                                                                 <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                                         payloadArray={balanceGraph}
+                                                                         payloadArray={balanceGraphLast30Days}
                                                                          content={<TooltipContent />}
                                                                          wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
                                                                          offset={25}/>
@@ -442,15 +524,15 @@ export default function BalanceChart() {
                                                         </div>
                                                         <div className="flex items-center justify-between">
                                                             <Typography variant="h2" className="text-gray-900 mb-4">
-                                                                $1000,00
+                                                                {balanceAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                             </Typography>
-                                                            <Chip size="md" value="- 13%" className="bg-red-700 mb-4 text-sm" />
+                                                            <Chip size="md" value={`${(chipAmount7Days).toFixed(0)}%`} className="mb-4 text-sm" color={chipColor7Days} />
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <ResponsiveContainer width="100%" height={220}>
-                                                            <AreaChart className="right-4" data={dataWeek}
+                                                            <AreaChart className="right-4" data={balanceGraphLast7Days}
                                                                        margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                                                                 <defs>
                                                                     <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
@@ -468,7 +550,7 @@ export default function BalanceChart() {
                                                                 <YAxis tick={{fontSize: 15, dx: -3}} />
                                                                 <CartesianGrid strokeDasharray="3 3" vertical={false}/>
                                                                 <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                                         payloadArray={dataWeek}
+                                                                         payloadArray={balanceGraphLast7Days}
                                                                          content={<TooltipContent />}
                                                                          wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
                                                                          offset={25}/>
