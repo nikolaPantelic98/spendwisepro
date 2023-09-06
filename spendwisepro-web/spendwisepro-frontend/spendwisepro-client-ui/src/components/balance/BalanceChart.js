@@ -5,7 +5,7 @@ import {
     Chip, Tabs, TabsHeader, Tab, TabsBody, TabPanel,
 } from "@material-tailwind/react";
 import {ArrowTrendingUpIcon, CurrencyDollarIcon} from "@heroicons/react/24/solid";
-import {Area, AreaChart, CartesianGrid, Tooltip, XAxis, YAxis} from "recharts";
+import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import React, {useState} from "react";
 
 export default function BalanceChart() {
@@ -144,28 +144,32 @@ export default function BalanceChart() {
                                                     </div>
 
                                                     <div>
-                                                        <AreaChart width={250} height={210} data={dataMonth}
-                                                                   margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
-                                                            <defs>
-                                                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-                                                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-                                                                </linearGradient>
-                                                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
-                                                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
-                                                                </linearGradient>
-                                                            </defs>
-                                                            <XAxis dataKey="date" fontSize="small" />
-                                                            <YAxis fontSize="small"/>
-                                                            <CartesianGrid strokeDasharray="3 3" />
-                                                            <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                                     payloadArray={dataMonth}
-                                                                     content={<TooltipContentMonth />}
-                                                                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
-                                                                     offset={25}/>
-                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-                                                        </AreaChart>
+                                                        <ResponsiveContainer width="100%" height={220}>
+                                                            <AreaChart className="right-4" data={dataMonth}
+                                                                       margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
+                                                                <defs>
+                                                                    <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
+                                                                        <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
+                                                                        <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+                                                                    </linearGradient>
+                                                                </defs>
+                                                                <XAxis dataKey="date"
+                                                                       tick={{fontSize: 12, dy: 6}} tickFormatter={(tick) => {
+                                                                    const date = new Date(tick);
+                                                                    const day = date.getDate().toString().padStart(2, '0');
+                                                                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                                                                    return `${day}.${month}.`;}}
+                                                                />
+                                                                <YAxis tick={{fontSize: 15, dx: -3}} />
+                                                                <CartesianGrid strokeDasharray="3 3" vertical={false}/>
+                                                                <Tooltip cursor={{fill: '#E8F5E9'}}
+                                                                         payloadArray={dataMonth}
+                                                                         content={<TooltipContentMonth />}
+                                                                         wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
+                                                                         offset={25}/>
+                                                                <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />
+                                                            </AreaChart>
+                                                        </ResponsiveContainer>
                                                     </div>
                                                 </div>
                                             </>
@@ -190,28 +194,32 @@ export default function BalanceChart() {
                                                     </div>
 
                                                     <div>
-                                                        <AreaChart width={250} height={210} data={dataWeek}
-                                                                   margin={{ top: 10, right: 0, left: 0, bottom: 0 }}>
-                                                            <defs>
-                                                                <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-                                                                    <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-                                                                </linearGradient>
-                                                                <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
-                                                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
-                                                                </linearGradient>
-                                                            </defs>
-                                                            <XAxis dataKey="date" fontSize="small" />
-                                                            <YAxis fontSize="small"/>
-                                                            <CartesianGrid strokeDasharray="3 3" />
-                                                            <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                                     payloadArray={dataWeek}
-                                                                     content={<TooltipContentWeek />}
-                                                                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
-                                                                     offset={25}/>
-                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-                                                        </AreaChart>
+                                                        <ResponsiveContainer width="100%" height={220}>
+                                                            <AreaChart className="right-4" data={dataWeek}
+                                                                       margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
+                                                                <defs>
+                                                                    <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
+                                                                        <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8}/>
+                                                                        <stop offset="95%" stopColor="#82ca9d" stopOpacity={0}/>
+                                                                    </linearGradient>
+                                                                </defs>
+                                                                <XAxis dataKey="date"
+                                                                       tick={{fontSize: 12, dy: 6}} tickFormatter={(tick) => {
+                                                                    const date = new Date(tick);
+                                                                    const day = date.getDate().toString().padStart(2, '0');
+                                                                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                                                                    return `${day}.${month}.`;}}
+                                                                />
+                                                                <YAxis tick={{fontSize: 15, dx: -3}} />
+                                                                <CartesianGrid strokeDasharray="3 3" vertical={false}/>
+                                                                <Tooltip cursor={{fill: '#E8F5E9'}}
+                                                                         payloadArray={dataWeek}
+                                                                         content={<TooltipContentWeek />}
+                                                                         wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
+                                                                         offset={25}/>
+                                                                <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />
+                                                            </AreaChart>
+                                                        </ResponsiveContainer>
                                                     </div>
                                                 </div>
                                             </>
