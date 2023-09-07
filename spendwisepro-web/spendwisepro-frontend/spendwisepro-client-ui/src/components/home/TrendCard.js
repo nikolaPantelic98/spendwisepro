@@ -116,7 +116,7 @@ export default function TrendCard() {
             ]
         },
         {
-            id: 91,
+            id: 9,
             amount: 27.00,
             type: "expense",
             date: new Date("2023-08-18T12:30"),

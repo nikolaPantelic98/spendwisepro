@@ -10,50 +10,6 @@ import React, {useState} from "react";
 
 export default function CashChart() {
 
-    const dataMonth = [
-        {"date": "21.6", "amount": 100},
-        {"date": "22.6", "amount": 100},
-        {"date": "23.6", "amount": 100},
-        {"date": "24.6", "amount": 80},
-        {"date": "25.6", "amount": 420},
-        {"date": "26.6", "amount": 420},
-        {"date": "27.6", "amount": 420},
-        {"date": "28.6", "amount": 420},
-        {"date": "29.6", "amount": 420},
-        {"date": "30.6", "amount": 410},
-        {"date": "1.7", "amount": 300},
-        {"date": "2.7", "amount": 300},
-        {"date": "3.7", "amount": 280},
-        {"date": "4.7", "amount": 700},
-        {"date": "5.7", "amount": 680},
-        {"date": "6.7", "amount": 680},
-        {"date": "7.7", "amount": 670},
-        {"date": "8.7", "amount": 650},
-        {"date": "9.7", "amount": 1050},
-        {"date": "10.7", "amount": 1050},
-        {"date": "11.7", "amount": 1010},
-        {"date": "12.7", "amount": 1010},
-        {"date": "13.7", "amount": 975},
-        {"date": "14.7", "amount": 970},
-        {"date": "15.7", "amount": 970},
-        {"date": "16.7", "amount": 850},
-        {"date": "17.7", "amount": 830},
-        {"date": "18.7", "amount": 830},
-        {"date": "19.7", "amount": 750},
-        {"date": "20.7", "amount": 750},
-        {"date": "21.7.", "amount": 700}
-    ];
-
-    const dataWeek = [
-        {"date": "15.7", "amount": 970},
-        {"date": "16.7", "amount": 850},
-        {"date": "17.7", "amount": 830},
-        {"date": "18.7", "amount": 830},
-        {"date": "19.7", "amount": 750},
-        {"date": "20.7", "amount": 750},
-        {"date": "21.7.", "amount": 700}
-    ];
-
     const dataTime = [
         {label: "7 Days", value: "7days", icon: ArrowTrendingUpIcon},
         {label: "30 Days", value: "30days", icon: ArrowTrendingUpIcon}
@@ -151,7 +107,7 @@ export default function CashChart() {
             ]
         },
         {
-            id: 91,
+            id: 9,
             amount: 27.00,
             type: "expense",
             date: new Date("2023-08-18T12:30"),
@@ -272,10 +228,24 @@ export default function CashChart() {
         return result;
     })();
 
+    const sevenDaysAgo = (() => {
+        const result = new Date(currentDate);
+        result.setDate(currentDate.getDate() - 7);
+        result.setHours(0, 0, 0, 0);
+        return result;
+    })();
+
     // Filter cash expenses before the last 30 days
     const cashExpensesBeforeLast30Days = (() => {
         return records.filter(record => {
             return record.date < thirtyDaysAgo && record.type === "expense" && record.paymentType === "Cash";
+        });
+    })();
+
+    // Filter cash expenses before the last 7 days
+    const cashExpensesBeforeLast7Days = (() => {
+        return records.filter(record => {
+            return record.date < sevenDaysAgo && record.type === "expense" && record.paymentType === "Cash";
         });
     })();
 
@@ -286,7 +256,14 @@ export default function CashChart() {
         });
     })();
 
-    // Calculate the initial cash amount for the chart
+    // Filter cash incomes before the last 7 days
+    const cashIncomesBeforeLast7Days = (() => {
+        return records.filter(record => {
+            return record.date < sevenDaysAgo && record.type === "income" && record.paymentType === "Cash";
+        });
+    })();
+
+    // Calculate the initial cash amount for the chart that shows last 30 days
     const startingAmountCash30Days = (() => {
         const totalCashExpenseAmountBeforeLast30Days = cashExpensesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
         const totalCashIncomeAmountBeforeLast30Days = cashIncomesBeforeLast30Days.reduce((total, record) => total + record.amount, 0);
@@ -294,10 +271,25 @@ export default function CashChart() {
         return totalCashIncomeAmountBeforeLast30Days - totalCashExpenseAmountBeforeLast30Days;
     })();
 
+    // Calculate the initial cash amount for the chart that shows last 7 days
+    const startingAmountCash7Days = (() => {
+        const totalCashExpenseAmountBeforeLast7Days = cashExpensesBeforeLast7Days.reduce((total, record) => total + record.amount, 0);
+        const totalCashIncomeAmountBeforeLast7Days = cashIncomesBeforeLast7Days.reduce((total, record) => total + record.amount, 0);
+
+        return totalCashIncomeAmountBeforeLast7Days - totalCashExpenseAmountBeforeLast7Days;
+    })();
+
     // Filter cash expenses within the last 30 days
     const cashExpensesLast30Days = (() => {
         return records.filter(record => {
             return record.date >= thirtyDaysAgo && record.type === "expense" && record.paymentType === "Cash";
+        });
+    })();
+
+    // Filter cash expenses within the last 7 days
+    const cashExpensesLast7Days = (() => {
+        return records.filter(record => {
+            return record.date >= sevenDaysAgo && record.type === "expense" && record.paymentType === "Cash";
         });
     })();
 
@@ -308,7 +300,14 @@ export default function CashChart() {
         });
     })();
 
-    // Calculate cash chart data
+    // Filter cash incomes within the last 7 days
+    const cashIncomesLast7Days = (() => {
+        return records.filter(record => {
+            return record.date >= sevenDaysAgo && record.type === "income" && record.paymentType === "Cash";
+        });
+    })();
+
+    // Calculate cash chart data for the last 30 days
     const cashGraphLast30Days = (() => {
 
         const amountPerDay = [];
@@ -345,6 +344,43 @@ export default function CashChart() {
         return amountPerDay;
     })();
 
+    // Calculate cash chart data for the last 7 days
+    const cashGraphLast7Days = (() => {
+
+        const amountPerDay = [];
+        let accumulatedAmount = startingAmountCash7Days;
+        let iterationDate = new Date(sevenDaysAgo);
+
+        // Iterate through each day of the last 7 days
+        while (iterationDate <= currentDate) {
+            const matchingExpensesThisDay = cashExpensesLast7Days.filter(record =>
+                record.date.getDate() === iterationDate.getDate() &&
+                record.date.getMonth() === iterationDate.getMonth() &&
+                record.date.getFullYear() === iterationDate.getFullYear()
+            );
+            const matchingIncomesThisDay = cashIncomesLast7Days.filter(record =>
+                record.date.getDate() === iterationDate.getDate() &&
+                record.date.getMonth() === iterationDate.getMonth() &&
+                record.date.getFullYear() === iterationDate.getFullYear()
+            );
+
+            const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
+            accumulatedAmount += expensesThisDay;
+            const incomesThisDay = matchingIncomesThisDay.reduce((total, record) => total + record.amount, 0);
+            accumulatedAmount += incomesThisDay;
+
+            amountPerDay.push({
+                date: new Date(iterationDate),
+                amount: accumulatedAmount
+            });
+
+            // Move to the next day
+            iterationDate.setDate(iterationDate.getDate() + 1);
+        }
+
+        return amountPerDay;
+    })();
+
     // Get the cash amount for today
     const cashAmountToday = cashGraphLast30Days[cashGraphLast30Days.length - 1].amount;
 
@@ -352,8 +388,20 @@ export default function CashChart() {
         return (cashAmountToday - startingAmountCash30Days) / startingAmountCash30Days * 100;
     })();
 
+    const chipAmount7Days = (() => {
+        return (cashAmountToday - startingAmountCash7Days) / startingAmountCash7Days * 100;
+    })();
+
     const chipColor30Days = (() => {
         if (chipAmount30Days >= 0) {
+            return "green";
+        } else {
+            return "red";
+        }
+    })();
+
+    const chipColor7Days = (() => {
+        if (chipAmount7Days >= 0) {
             return "green";
         } else {
             return "red";
@@ -475,15 +523,15 @@ export default function CashChart() {
                                                         </div>
                                                         <div className="flex items-center justify-between">
                                                             <Typography variant="h2" className="text-gray-900 mb-4">
-                                                                $700,00
+                                                                {cashAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                             </Typography>
-                                                            <Chip size="md" value="- 28%" className="bg-red-700 mb-4 text-sm" />
+                                                            <Chip size="md" value={`${(chipAmount7Days).toFixed(0)}%`} className="mb-4 text-sm" color={chipColor7Days} />
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <ResponsiveContainer width="100%" height={220}>
-                                                            <AreaChart className="right-4" data={dataWeek}
+                                                            <AreaChart className="right-4" data={cashGraphLast7Days}
                                                                        margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                                                                 <defs>
                                                                     <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
@@ -501,7 +549,7 @@ export default function CashChart() {
                                                                 <YAxis tick={{fontSize: 15, dx: -3}} />
                                                                 <CartesianGrid strokeDasharray="3 3" vertical={false}/>
                                                                 <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                                         payloadArray={dataWeek}
+                                                                         payloadArray={cashGraphLast7Days}
                                                                          content={<TooltipContent />}
                                                                          wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
                                                                          offset={25}/>
