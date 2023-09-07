@@ -10,16 +10,6 @@ import React, {useState} from "react";
 
 export default function CreditCardChart() {
 
-    const dataWeek = [
-        {"date": "15.7", "amount": 160},
-        {"date": "16.7", "amount": 200},
-        {"date": "17.7", "amount": 200},
-        {"date": "18.7", "amount": 200},
-        {"date": "19.7", "amount": 250},
-        {"date": "20.7", "amount": 250},
-        {"date": "21.7.", "amount": 300}
-    ];
-
     const dataTime = [
         {label: "7 Days", value: "7days", icon: ArrowTrendingUpIcon},
         {label: "30 Days", value: "30days", icon: ArrowTrendingUpIcon}
@@ -238,6 +228,13 @@ export default function CreditCardChart() {
         return result;
     })();
 
+    const sevenDaysAgo = (() => {
+        const result = new Date(currentDate);
+        result.setDate(currentDate.getDate() - 7);
+        result.setHours(0, 0, 0, 0);
+        return result;
+    })();
+
     // Filter credit card expenses before the last 30 days
     const creditCardExpensesBeforeLast30Days = (() => {
         return records.filter(record => {
@@ -245,10 +242,24 @@ export default function CreditCardChart() {
         });
     })();
 
+    // Filter credit card expenses before the last 7 days
+    const creditCardExpensesBeforeLast7Days = (() => {
+        return records.filter(record => {
+            return record.date < sevenDaysAgo && record.type === "expense" && record.paymentType === "Credit Card";
+        });
+    })();
+
     // Filter credit card incomes before the last 30 days
     const creditCardIncomesBeforeLast30Days = (() => {
         return records.filter(record => {
             return record.date < thirtyDaysAgo && record.type === "income" && record.paymentType === "Credit Card";
+        });
+    })();
+
+    // Filter credit card incomes before the last 7 days
+    const creditCardIncomesBeforeLast7Days = (() => {
+        return records.filter(record => {
+            return record.date < sevenDaysAgo && record.type === "income" && record.paymentType === "Credit Card";
         });
     })();
 
@@ -260,6 +271,14 @@ export default function CreditCardChart() {
         return totalCreditCardIncomeAmountBeforeLast30Days - totalCreditCardExpenseAmountBeforeLast30Days;
     })();
 
+    // Calculate the initial credit card amount for the chart that shows last 7 days
+    const startingAmountCreditCard7Days = (() => {
+        const totalCreditCardExpenseAmountBeforeLast7Days = creditCardExpensesBeforeLast7Days.reduce((total, record) => total + record.amount, 0);
+        const totalCreditCardIncomeAmountBeforeLast7Days = creditCardIncomesBeforeLast7Days.reduce((total, record) => total + record.amount, 0);
+
+        return totalCreditCardIncomeAmountBeforeLast7Days - totalCreditCardExpenseAmountBeforeLast7Days;
+    })();
+
     // Filter credit card expenses within the last 30 days
     const creditCardExpensesLast30Days = (() => {
         return records.filter(record => {
@@ -267,10 +286,24 @@ export default function CreditCardChart() {
         });
     })();
 
+    // Filter credit card expenses within the last 7 days
+    const creditCardExpensesLast7Days = (() => {
+        return records.filter(record => {
+            return record.date >= sevenDaysAgo && record.type === "expense" && record.paymentType === "Credit Card";
+        });
+    })();
+
     // Filter credit card incomes within the last 30 days
     const creditCardIncomesLast30Days = (() => {
         return records.filter(record => {
             return record.date >= thirtyDaysAgo && record.type === "income" && record.paymentType === "Credit Card";
+        });
+    })();
+
+    // Filter credit card incomes within the last 7 days
+    const creditCardIncomesLast7Days = (() => {
+        return records.filter(record => {
+            return record.date >= sevenDaysAgo && record.type === "income" && record.paymentType === "Credit Card";
         });
     })();
 
@@ -311,6 +344,43 @@ export default function CreditCardChart() {
         return amountPerDay;
     })();
 
+    // Calculate credit card chart data for the last 7 days
+    const creditCardGraphLast7Days = (() => {
+
+        const amountPerDay = [];
+        let accumulatedAmount = startingAmountCreditCard7Days;
+        let iterationDate = new Date(sevenDaysAgo);
+
+        // Iterate through each day of the last 7 days
+        while (iterationDate <= currentDate) {
+            const matchingExpensesThisDay = creditCardExpensesLast7Days.filter(record =>
+                record.date.getDate() === iterationDate.getDate() &&
+                record.date.getMonth() === iterationDate.getMonth() &&
+                record.date.getFullYear() === iterationDate.getFullYear()
+            );
+            const matchingIncomesThisDay = creditCardIncomesLast7Days.filter(record =>
+                record.date.getDate() === iterationDate.getDate() &&
+                record.date.getMonth() === iterationDate.getMonth() &&
+                record.date.getFullYear() === iterationDate.getFullYear()
+            );
+
+            const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
+            accumulatedAmount += expensesThisDay;
+            const incomesThisDay = matchingIncomesThisDay.reduce((total, record) => total + record.amount, 0);
+            accumulatedAmount += incomesThisDay;
+
+            amountPerDay.push({
+                date: new Date(iterationDate),
+                amount: accumulatedAmount
+            });
+
+            // Move to the next day
+            iterationDate.setDate(iterationDate.getDate() + 1);
+        }
+
+        return amountPerDay;
+    })();
+
     // Get the credit card amount for today
     const creditCardAmountToday = creditCardGraphLast30Days[creditCardGraphLast30Days.length - 1].amount;
 
@@ -318,8 +388,20 @@ export default function CreditCardChart() {
         return (creditCardAmountToday - startingAmountCreditCard30Days) / startingAmountCreditCard30Days * 100;
     })();
 
+    const chipAmount7Days = (() => {
+        return (creditCardAmountToday - startingAmountCreditCard7Days) / startingAmountCreditCard7Days * 100;
+    })();
+
     const chipColor30Days = (() => {
         if (chipAmount30Days >= 0) {
+            return "green";
+        } else {
+            return "red";
+        }
+    })();
+
+    const chipColor7Days = (() => {
+        if (chipAmount7Days >= 0) {
             return "green";
         } else {
             return "red";
@@ -441,15 +523,15 @@ export default function CreditCardChart() {
                                                         </div>
                                                         <div className="flex items-center justify-between">
                                                             <Typography variant="h2" className="text-gray-900 mb-4">
-                                                                $300,00
+                                                                {creditCardAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                             </Typography>
-                                                            <Chip size="md" value="+ 175%" className="bg-green-700 mb-4 text-sm" />
+                                                            <Chip size="md" value={`${(chipAmount7Days).toFixed(0)}%`} className="mb-4 text-sm" color={chipColor7Days} />
                                                         </div>
                                                     </div>
 
                                                     <div>
                                                         <ResponsiveContainer width="100%" height={220}>
-                                                            <AreaChart className="right-4" data={dataWeek}
+                                                            <AreaChart className="right-4" data={creditCardGraphLast7Days}
                                                                        margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
                                                                 <defs>
                                                                     <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
@@ -467,7 +549,7 @@ export default function CreditCardChart() {
                                                                 <YAxis tick={{fontSize: 15, dx: -3}} />
                                                                 <CartesianGrid strokeDasharray="3 3" vertical={false}/>
                                                                 <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                                         payloadArray={dataWeek}
+                                                                         payloadArray={creditCardGraphLast7Days}
                                                                          content={<TooltipContent />}
                                                                          wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
                                                                          offset={25}/>
