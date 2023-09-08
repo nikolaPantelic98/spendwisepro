@@ -4,7 +4,6 @@ import {
     Button,
 } from "@material-tailwind/react";
 import React from "react";
-import AddCreditCardAmount from "./add-credit-card-elements/AddCreditCardAmount";
 import AddCreditCardType from "./add-credit-card-elements/AddCreditCardType";
 import AddCreditCardBank from "./add-credit-card-elements/AddCreditCardBank";
 import AddCreditCardNote from "./add-credit-card-elements/AddCreditCardNote";
@@ -15,8 +14,6 @@ export default function AddCreditCardForm() {
             <CardBody>
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200">
-                        <AddCreditCardAmount />
-
                         <AddCreditCardType />
 
                         <AddCreditCardBank />
