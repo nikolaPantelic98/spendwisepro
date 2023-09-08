@@ -42,7 +42,7 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
 
     const handleTouchMove = (e) => {
         const deltaY = e.touches[0].clientY;
-        if (deltaY < screenHeight * 0.18) {
+        if (deltaY < screenHeight * 0.12) {
             closeDrawer();
         }
     };
@@ -128,7 +128,7 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
                 placement="bottom"
                 open={isDrawerOpen}
                 onClose={() => closeDrawer()}
-                size={window.innerHeight * 0.9}
+                size={window.innerHeight * 0.95}
                 transition={{ type: "tween", duration: 0.55 }}
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
