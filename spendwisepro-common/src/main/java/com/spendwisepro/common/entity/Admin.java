@@ -44,4 +44,11 @@ public class Admin {
             name = "enabled"
     )
     private boolean enabled;
+
+
+    public Admin(String emailAddress, String password, String username) {
+        this.emailAddress = emailAddress;
+        this.password = password;
+        this.username = username;
+    }
 }

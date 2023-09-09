@@ -11,6 +11,9 @@ public interface AdminRepository extends JpaRepository<Admin, Long> {
     @Query("SELECT a FROM Admin a WHERE a.emailAddress = :emailAddress")
     Admin getAdminByEmailAddress(@Param("emailAddress") String emailAddress);
 
+    @Query("SELECT a FROM Admin a WHERE a.username = :username")
+    Admin getAdminByUsername(@Param("username") String username);
+
     @Query("UPDATE Admin a SET a.enabled = ?2 WHERE a.adminId = ?1")
     @Modifying
     void updateEnabledStatus(Long adminId, boolean enabled);
