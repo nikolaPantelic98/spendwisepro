@@ -2,6 +2,12 @@ package com.spendwisepro.common.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -11,7 +17,11 @@ import lombok.*;
 @ToString
 @Builder
 @Table(
-        name = "admins"
+        name = "admins",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "username"),
+                @UniqueConstraint(columnNames = "email")
+        }
 )
 public class Admin {
 
@@ -19,36 +29,31 @@ public class Admin {
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
-    private Long adminId;
-    @Column(
-            name = "email_address",
-            length = 128,
-            nullable = false,
-            unique = true
-    )
-    private String emailAddress;
-    @Column(
-            name = "password",
-            length = 64,
-            nullable = false
-    )
-    private String password;
-    @Column(
-            name = "username",
-            length = 45,
-            nullable = false,
-            unique = true
-    )
+    private Long id;
+
+    @NotBlank
+    @Size(max = 20)
     private String username;
-    @Column(
-            name = "enabled"
-    )
-    private boolean enabled;
+
+    @NotBlank
+    @Size(max = 50)
+    @Email
+    private String email;
+
+    @NotBlank
+    @Size(max = 120)
+    private String password;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(  name = "admin_roles",
+            joinColumns = @JoinColumn(name = "admin_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
 
-    public Admin(String emailAddress, String password, String username) {
-        this.emailAddress = emailAddress;
-        this.password = password;
+    public Admin(String username, String email, String password) {
         this.username = username;
+        this.email = email;
+        this.password = password;
     }
 }
