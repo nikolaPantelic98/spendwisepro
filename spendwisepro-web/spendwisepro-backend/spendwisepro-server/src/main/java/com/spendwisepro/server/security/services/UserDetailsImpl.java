@@ -96,7 +96,7 @@ public class UserDetailsImpl implements UserDetails {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        UserDetailsImpl user = (UserDetailsImpl) o;
-        return Objects.equals(id, user.id);
+        UserDetailsImpl admin = (UserDetailsImpl) o;
+        return Objects.equals(id, admin.id);
     }
 }

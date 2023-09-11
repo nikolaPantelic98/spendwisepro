@@ -2,9 +2,6 @@ package com.spendwisepro.common.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -31,17 +28,22 @@ public class Admin {
     )
     private Long id;
 
-    @NotBlank
-    @Size(max = 20)
+    @Column(
+            length = 20,
+            nullable = false
+    )
     private String username;
 
-    @NotBlank
-    @Size(max = 50)
-    @Email
+    @Column(
+            length = 128,
+            nullable = false
+    )
     private String email;
 
-    @NotBlank
-    @Size(max = 120)
+    @Column(
+            length = 120,
+            nullable = false
+    )
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -55,5 +57,9 @@ public class Admin {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 }
