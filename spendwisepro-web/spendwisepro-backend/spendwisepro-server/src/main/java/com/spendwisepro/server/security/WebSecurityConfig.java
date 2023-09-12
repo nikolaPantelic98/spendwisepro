@@ -15,7 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.spendwisepro.server.security.jwt.AuthEntryPointJwt;
-import com.spendwisepro.server.security.jwt.AuthTokenFilter;
+import com.spendwisepro.server.security.jwt.JwtAuthenticationToken;
 import com.spendwisepro.server.security.services.UserDetailsServiceImpl;
 
 @Configuration
@@ -29,8 +29,8 @@ public class WebSecurityConfig {
     private AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter();
+    public JwtAuthenticationToken authenticationJwtTokenFilter() {
+        return new JwtAuthenticationToken();
     }
 
     @Bean
