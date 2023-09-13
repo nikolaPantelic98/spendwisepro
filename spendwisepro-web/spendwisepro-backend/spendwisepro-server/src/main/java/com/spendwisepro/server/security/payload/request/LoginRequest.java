@@ -1,11 +1,12 @@
 package com.spendwisepro.server.security.payload.request;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class LoginRequest {
 
     @NotBlank
