@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     Card,
     CardHeader,
@@ -8,8 +8,31 @@ import {
     Typography,
     Checkbox
 } from "@material-tailwind/react";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 export default function LoginForm() {
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
+
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => { e.preventDefault();
+        try {
+            const response = await axios.post("http://localhost:8080/spendwisepro_admin/auth/login", {
+                username,
+                password
+            });
+            const token = response.data.token;
+
+            localStorage.setItem("token", token);
+            navigate("/home");
+        } catch (err) {
+            console.log("error");
+        }
+    }
 
     return (
         <Card className="w-full shadow-lg">
@@ -45,10 +68,14 @@ export default function LoginForm() {
                             <Typography color="gray" className="mt-1 font-normal">
                                 Enter your details to login
                             </Typography>
-                            <form className="mt-6 mb-2">
+                            <form className="mt-6 mb-2" onSubmit={handleSubmit}>
                                 <div className="mb-4 flex flex-col gap-6">
-                                    <Input color="green" size="lg" label="Username or email" />
-                                    <Input color="green" type="password" size="lg" label="Password" />
+                                    <Input color="green" size="lg" label="Username or email"
+                                           value={username}
+                                           onChange={(e) => setUsername(e.target.value)} />
+                                    <Input color="green" type="password" size="lg" label="Password"
+                                           value={password}
+                                           onChange={(e) => setPassword(e.target.value)} />
                                 </div>
                                 <Checkbox
                                     label={
@@ -63,7 +90,7 @@ export default function LoginForm() {
                                     containerProps={{ className: "-ml-2.5" }}
                                     color="green"
                                 />
-                                <Button color="green" className="mt-6" fullWidth>
+                                <Button type="submit" color="green" className="mt-6" fullWidth>
                                     Login
                                 </Button>
                                 <Typography color="gray" className="mt-4 text-center font-normal">
