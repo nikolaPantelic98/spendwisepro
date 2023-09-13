@@ -6,11 +6,13 @@ import LoginPage from "./login/LoginPage";
 
 function App() {
 
+
+
   return (
       <>
         <BrowserRouter>
             <Routes>
-                <Route index element={<HomePage />} />
+                <Route index element={<LoginPage />} />
                 <Route path="/" element={<HomePage />}></Route>
                 <Route path="/home" element={<HomePage />}></Route>
                 <Route path="/login" element={<LoginPage />}></Route>

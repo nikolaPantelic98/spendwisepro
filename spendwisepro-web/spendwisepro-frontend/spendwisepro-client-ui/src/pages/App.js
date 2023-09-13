@@ -22,6 +22,7 @@ import LoginPage from "./login/LoginPage";
 import ExpensesRecordsWeeklyPage from "./expenses/ExpensesRecordsWeeklyPage";
 import BudgetMonthlyPage from "./budget/BudgetMonthlyPage";
 import GoalMonthlyPage from "./goal/GoalMonthlyPage";
+import LandingPage from "./LandingPage";
 
 function App() {
 
@@ -29,7 +30,7 @@ function App() {
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route index element={<HomePage />} />
+                    <Route index element={<LandingPage />} />
                     <Route path="/" element={<HomePage />}></Route>
                     <Route path="/home" element={<HomePage />}></Route>
                     <Route path="/login" element={<LoginPage />}></Route>
