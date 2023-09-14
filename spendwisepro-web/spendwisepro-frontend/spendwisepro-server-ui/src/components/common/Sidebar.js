@@ -23,7 +23,8 @@ import {
     ChevronDownIcon,
     CreditCardIcon
 } from "@heroicons/react/24/outline";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import axios from "axios";
 
 
 function storeScrollPosition() {
@@ -33,9 +34,24 @@ function storeScrollPosition() {
 const Sidebar = forwardRef((props, ref) => {
     const [open, setOpen] = React.useState(0);
     const [openAlert, setOpenAlert] = React.useState(true);
+    const navigate = useNavigate();
 
     const handleOpen = (value) => {
         setOpen(open === value ? 0 : value);
+    };
+
+    const handleLogout = async () => {
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        await axios.post("http://localhost:8080/spendwisepro_admin/auth/logout", null, config);
+
+        localStorage.removeItem('token');
+
+        navigate("/login");
     };
 
     return (
@@ -107,12 +123,14 @@ const Sidebar = forwardRef((props, ref) => {
                     Profile
                 </ListItem>
 
-                <ListItem className="focus:bg-red-50 hover:bg-red-50">
-                    <ListItemPrefix>
-                        <PowerIcon className="h-5 w-5 text-red-900" />
-                    </ListItemPrefix>
-                    Log Out
-                </ListItem>
+                <Link onClick={handleLogout}>
+                    <ListItem className="focus:bg-red-50 hover:bg-red-50">
+                        <ListItemPrefix>
+                            <PowerIcon className="h-5 w-5 text-red-900" />
+                        </ListItemPrefix>
+                        Log Out
+                    </ListItem>
+                </Link>
 
                 <hr className="my-2 border-blue-gray-50" />
 
