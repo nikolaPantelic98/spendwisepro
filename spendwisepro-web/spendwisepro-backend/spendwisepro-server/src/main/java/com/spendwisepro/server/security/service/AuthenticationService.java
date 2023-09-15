@@ -9,6 +9,7 @@ import com.spendwisepro.server.security.payload.request.RegisterRequest;
 import com.spendwisepro.server.security.payload.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,10 +41,14 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                request.getUsername(),
-                request.getPassword()
-        ));
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                    request.getUsername(),
+                    request.getPassword()
+            ));
+        } catch (BadCredentialsException exception) {
+            throw new BadCredentialsException("Invalid username or password. Please try again.");
+        }
 
         var admin = adminRepository.findByUsername(request.getUsername())
                 .orElseThrow();
@@ -53,6 +58,5 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
-
     }
 }

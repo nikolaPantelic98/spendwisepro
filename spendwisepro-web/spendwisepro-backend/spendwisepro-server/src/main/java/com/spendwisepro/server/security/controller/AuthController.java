@@ -5,8 +5,11 @@ import com.spendwisepro.server.security.payload.request.LoginRequest;
 import com.spendwisepro.server.security.payload.request.RegisterRequest;
 import com.spendwisepro.server.security.payload.response.AuthenticationResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -23,12 +26,16 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequest request) {
-        return ResponseEntity.ok(authenticationService.login(request));
+        try {
+            return ResponseEntity.ok(authenticationService.login(request));
+        } catch (BadCredentialsException exception) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, exception.getMessage());
+        }
     }
 
     @PostMapping("/logout")
     public ResponseEntity<?> logout(@RequestHeader("Authorization") String authHeader) {
-        String token = authHeader.substring(7);
+        String token = authHeader.substring(7); // todo only for testing purpose, delete this
         System.out.println(token);
 
         return ResponseEntity.ok("Logout successful");
