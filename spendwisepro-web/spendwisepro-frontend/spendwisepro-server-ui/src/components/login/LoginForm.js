@@ -9,7 +9,7 @@ import {
     Checkbox
 } from "@material-tailwind/react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 
 export default function LoginForm() {
 
@@ -18,6 +18,7 @@ export default function LoginForm() {
     const [error, setError] = useState(null);
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSubmit = async (e) => { e.preventDefault();
         try {
@@ -28,7 +29,11 @@ export default function LoginForm() {
             const token = response.data.token;
 
             localStorage.setItem("token", token);
-            navigate("/home");
+            if (location.state && location.state.from) {
+                navigate(location.state.from);
+            } else {
+                navigate("/home");
+            }
         } catch (err) {
             console.log("error");
         }

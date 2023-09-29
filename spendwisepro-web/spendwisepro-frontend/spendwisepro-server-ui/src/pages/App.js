@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import HomePage from "./HomePage";
 import UsersPage from "./user/UsersPage";
 import LoginPage from "./login/LoginPage";
+import PrivateRoute from "../components/common/PrivateRoute";
 
 function App() {
 
@@ -13,11 +14,11 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route index element={<LoginPage />} />
-                <Route path="/" element={<HomePage />}></Route>
-                <Route path="/home" element={<HomePage />}></Route>
                 <Route path="/login" element={<LoginPage />}></Route>
+                <Route path="/" element={<PrivateRoute element={<HomePage />} />} />
+                <Route path="home" element={<PrivateRoute element={<HomePage />} />} />
 
-                <Route path="/users" element={<UsersPage />}></Route>
+                <Route path="/users" element={<PrivateRoute element={<UsersPage />} />} />
             </Routes>
         </BrowserRouter>
       </>
