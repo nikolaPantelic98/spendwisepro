@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     Card,
     CardHeader,
@@ -6,16 +6,17 @@ import {
     Input,
     Button,
     Typography,
-    Checkbox
+    Checkbox, Tooltip
 } from "@material-tailwind/react";
 import axios from "axios";
 import {useNavigate, useLocation} from "react-router-dom";
+import {ExclamationCircleIcon} from "@heroicons/react/20/solid";
 
 export default function LoginForm() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(null);
+    const [error, setError] = useState(false);
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -35,9 +36,21 @@ export default function LoginForm() {
                 navigate("/home");
             }
         } catch (err) {
-            console.log("error");
+            setError(true);
         }
     }
+
+    useEffect(() => {
+        setError(false);
+    }, [username, password]);
+
+    const TooltipError = () => {
+        return (
+            <div className="p-1">
+                <p className=" text-red-500 font-bold">Invalid username or password</p>
+            </div>
+        );
+    };
 
     return (
         <Card className="w-full shadow-lg">
@@ -77,10 +90,19 @@ export default function LoginForm() {
                                 <div className="mb-4 flex flex-col gap-6">
                                     <Input color="green" size="lg" label="Username or email"
                                            value={username}
-                                           onChange={(e) => setUsername(e.target.value)} />
+                                           onChange={(e) => setUsername(e.target.value)}
+                                           error={error} />
                                     <Input color="green" type="password" size="lg" label="Password"
                                            value={password}
-                                           onChange={(e) => setPassword(e.target.value)} />
+                                           onChange={(e) => setPassword(e.target.value)}
+                                           error={error}
+                                           icon={
+                                               error && (
+                                                   <Tooltip content={<TooltipError/>} placement="top-end" size="sm" className="bg-gray-100 border-1 border-red-700">
+                                                       <ExclamationCircleIcon className="text-red-500 h-5 w-5"/>
+                                                   </Tooltip>
+                                               )
+                                           } />
                                 </div>
                                 <Checkbox
                                     label={
