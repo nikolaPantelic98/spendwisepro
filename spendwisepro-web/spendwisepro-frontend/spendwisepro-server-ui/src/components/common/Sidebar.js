@@ -90,13 +90,24 @@ const Sidebar = forwardRef((props, ref) => {
                         </ListItem>
                     </Link>
 
-                    <Link>
+                    <Link to="/users" onClick={storeScrollPosition}>
                         <ListItem className="focus:bg-green-50 hover:bg-green-50">
                             <ListItemPrefix>
                                 <UsersIcon className="h-5 w-5 text-green-900" />
                             </ListItemPrefix>
                             <Typography color="blue-gray" className="mr-auto font-normal">
                                 Users
+                            </Typography>
+                        </ListItem>
+                    </Link>
+
+                    <Link to="/register" onClick={storeScrollPosition}>
+                        <ListItem className="focus:bg-green-50 hover:bg-green-50">
+                            <ListItemPrefix>
+                                <UsersIcon className="h-5 w-5 text-green-900" />
+                            </ListItemPrefix>
+                            <Typography color="blue-gray" className="mr-auto font-normal">
+                                Register User
                             </Typography>
                         </ListItem>
                     </Link>

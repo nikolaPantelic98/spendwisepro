@@ -4,6 +4,7 @@ import HomePage from "./HomePage";
 import UsersPage from "./user/UsersPage";
 import LoginPage from "./login/LoginPage";
 import PrivateRoute from "../components/common/PrivateRoute";
+import RegisterPage from "./register/RegisterPage";
 
 function App() {
 
@@ -15,6 +16,8 @@ function App() {
             <Routes>
                 <Route index element={<LoginPage />} />
                 <Route path="/login" element={<LoginPage />}></Route>
+                <Route path="/register" element={<PrivateRoute element={<RegisterPage />} />} />
+
                 <Route path="/" element={<PrivateRoute element={<HomePage />} />} />
                 <Route path="home" element={<PrivateRoute element={<HomePage />} />} />
 
