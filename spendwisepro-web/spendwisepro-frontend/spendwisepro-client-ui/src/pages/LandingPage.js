@@ -4,7 +4,6 @@ import {
     BanknotesIcon, BellIcon, CalendarDaysIcon,
     ChartBarIcon,
     CircleStackIcon,
-    ClipboardDocumentIcon,
     LightBulbIcon
 } from "@heroicons/react/24/outline";
 import MenuLanding from "../components/landing-page/MenuLanding";
