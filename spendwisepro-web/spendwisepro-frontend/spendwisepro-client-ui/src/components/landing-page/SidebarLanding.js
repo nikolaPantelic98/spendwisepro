@@ -54,7 +54,7 @@ const SidebarLanding = forwardRef((props, ref) => {
                         />
                     }
                 >
-                    <Link to="" onClick={storeScrollPosition}>
+                    <Link to="/" onClick={storeScrollPosition}>
                         <ListItem className="focus:bg-green-50 hover:bg-green-50">
                             <ListItemPrefix>
                                 <HomeIcon className="h-5 w-5 text-green-900" />

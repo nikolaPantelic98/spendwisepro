@@ -60,7 +60,7 @@ const MenuLanding = ({ sidebarOpen, toggleSidebar }) => {
                 </div>
 
                 <div className="flex items-center mr-4">
-                    <Link to="" onClick={scrollToTop}>
+                    <Link to="/" onClick={scrollToTop}>
                         <img src="https://i.ibb.co/3Mzndmy/Spend-Wise-Pro-full.png" alt="Logo" className="h-15 w-14" />
                     </Link>
                 </div>
