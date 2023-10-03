@@ -12,7 +12,7 @@ import {
 } from "@material-tailwind/react";
 import {
     HomeIcon,
-    EyeIcon, ArrowDownOnSquareStackIcon, ClipboardDocumentListIcon, DocumentTextIcon,
+    EyeIcon, ClipboardDocumentListIcon, DocumentTextIcon,
 } from "@heroicons/react/24/solid";
 import {
     ChevronRightIcon,
