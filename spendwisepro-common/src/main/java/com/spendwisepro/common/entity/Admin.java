@@ -52,13 +52,6 @@ public class Admin implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
-    public Admin(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
