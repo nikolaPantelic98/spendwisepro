@@ -3,17 +3,17 @@ import {
     Card,
     CardHeader,
     CardBody,
-    Input,
-    Button,
     Typography,
     Tabs,
     TabsHeader,
     TabsBody,
     Tab,
     TabPanel,
-    Checkbox,
+
 } from "@material-tailwind/react";
 import {ArrowDownTrayIcon, ArrowRightOnRectangleIcon} from "@heroicons/react/24/outline";
+import LoginForm from "./LoginForm";
+import RegisterForm from "./RegisterForm";
 
 export default function LoginTabs() {
 
@@ -69,86 +69,11 @@ export default function LoginTabs() {
                                     <TabPanel key={value} value={value}>
                                         {value === "login" ? (
                                             <>
-                                                <div>
-                                                    <Typography variant="h4" color="blue-gray">
-                                                        Sign In
-                                                    </Typography>
-                                                    <Button
-                                                        variant="outlined"
-                                                        color="blue-gray"
-                                                        className="flex items-center justify-center gap-3 mt-4 mb-6"
-                                                        fullWidth
-                                                    >
-                                                        <img src="https://cdn-icons-png.flaticon.com/512/720/720255.png" alt="google" className="h-5 w-5" />
-                                                        Continue with Google
-                                                    </Button>
-                                                    <Typography color="gray" className="mt-1 font-normal">
-                                                        or enter your details to login
-                                                    </Typography>
-                                                    <form className="mt-6 mb-2">
-                                                        <div className="mb-4 flex flex-col gap-6">
-                                                            <Input color="green" size="lg" label="Username or email" />
-                                                            <Input color="green" type="password" size="lg" label="Password" />
-                                                        </div>
-                                                        <Checkbox
-                                                            label={
-                                                                <Typography
-                                                                    variant="small"
-                                                                    color="gray"
-                                                                    className="flex items-center font-normal"
-                                                                >
-                                                                    Remember me
-                                                                </Typography>
-                                                            }
-                                                            containerProps={{ className: "-ml-2.5" }}
-                                                            color="green"
-                                                        />
-                                                        <Button color="green" className="mt-6" fullWidth>
-                                                            Login
-                                                        </Button>
-                                                        <Typography color="gray" className="mt-4 text-center font-normal">
-                                                            Did you forget the password?{" "}
-                                                            <a href="#" className="font-medium text-gray-900">
-                                                                Recover the account
-                                                            </a>
-                                                        </Typography>
-                                                    </form>
-                                                </div>
+                                                <LoginForm />
                                             </>
                                         ) : (
                                             <>
-                                                <div>
-                                                    <Typography variant="h4" color="blue-gray">
-                                                        Sign Up
-                                                    </Typography>
-                                                    <Typography color="gray" className="mt-1 font-normal mt-4">
-                                                        Enter your details to register.
-                                                    </Typography>
-                                                    <form className="mt-6 mb-2">
-                                                        <div className="mb-4 flex flex-col gap-6">
-                                                            <Input color="green" size="lg" label="Username" />
-                                                            <Input color="green" size="lg" label="Email" />
-                                                            <Input color="green" type="password" size="lg" label="Password" />
-                                                            <Input color="green" type="password" size="lg" label="Confirm password" />
-                                                        </div>
-                                                        <Checkbox
-                                                            label={
-                                                                <Typography
-                                                                    variant="small"
-                                                                    color="gray"
-                                                                    className="flex items-center font-normal"
-                                                                >
-                                                                    I agree the Terms and Conditions
-                                                                </Typography>
-                                                            }
-                                                            containerProps={{ className: "-ml-2.5" }}
-                                                            color="green"
-                                                        />
-                                                        <Button color="green" className="mt-6" fullWidth>
-                                                            Register
-                                                        </Button>
-                                                    </form>
-                                                </div>
+                                                <RegisterForm />
                                             </>
                                         )}
                                     </TabPanel>
