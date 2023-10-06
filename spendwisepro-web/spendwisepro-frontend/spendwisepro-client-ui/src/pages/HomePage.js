@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Menu from '../components/common/Menu';
 import LastRecordsCard from "../components/home/LastRecordsCard";
 import BudgetCard from "../components/home/BudgetCard";
@@ -14,6 +14,16 @@ function HomePage() {
     const toggleSidebar = (isOpen) => {
         setSidebarOpen(isOpen);
     };
+
+    useEffect(() => {
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition));
+            sessionStorage.removeItem('scrollPosition');
+        } else {
+            window.scrollTo(0, 0);
+        }
+    }, []);
 
     return (
         <>

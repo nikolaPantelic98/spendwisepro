@@ -54,6 +54,10 @@ export default function RegisterForm() {
         );
     };
 
+    function storeScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+    }
+
     return (
 
         <div>
@@ -120,7 +124,7 @@ export default function RegisterForm() {
 
                 )}
 
-                <Button color="green" className="mt-6" fullWidth type="submit">
+                <Button color="green" className="mt-6" fullWidth type="submit" onClick={storeScrollPosition}>
                     Register
                 </Button>
             </form>

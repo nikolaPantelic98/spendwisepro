@@ -51,8 +51,18 @@ const Sidebar = forwardRef((props, ref) => {
         await axios.post("http://localhost:8000/spendwisepro/auth/logout", null, config);
 
         localStorage.removeItem('token');
+        sessionStorage.setItem('scrollPosition', window.scrollY.toString());
 
         navigate("/login");
+    };
+
+    const getUsernameFromToken = () => {
+        const token = localStorage.getItem("token");
+        if (!token) return null;
+        const payload = token.split(".")[1];
+        const decoded = atob(payload);
+        const data = JSON.parse(decoded);
+        return data.sub;
     };
 
     return (
@@ -75,6 +85,15 @@ const Sidebar = forwardRef((props, ref) => {
                         />
                     }
                 >
+                    <ListItem className="focus:bg-green-50 hover:bg-green-50">
+                        <Typography variant="h6" color="blue-gray" className="mr-auto font-normal">
+                            Welcome
+                            <span className="font-bold text-green-900">
+                                &nbsp;{getUsernameFromToken()}
+                            </span>
+                        </Typography>
+                    </ListItem>
+
                     <Link to="/home" onClick={storeScrollPosition}>
                         <ListItem className="focus:bg-green-50 hover:bg-green-50">
                                 <ListItemPrefix>

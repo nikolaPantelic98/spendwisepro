@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import LoginTabs from "../../components/login/LoginTabs";
 import MenuLanding from "../../components/landing-page/MenuLanding";
@@ -10,6 +10,16 @@ function LoginPage() {
     const toggleSidebar = (isOpen) => {
         setSidebarOpen(isOpen);
     };
+
+    useEffect(() => {
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition) {
+            window.scrollTo(0, parseInt(scrollPosition));
+            sessionStorage.removeItem('scrollPosition');
+        } else {
+            window.scrollTo(0, 0);
+        }
+    }, []);
 
     return (
         <>

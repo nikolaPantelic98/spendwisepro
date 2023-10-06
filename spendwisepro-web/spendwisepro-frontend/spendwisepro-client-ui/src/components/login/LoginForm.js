@@ -49,6 +49,10 @@ export default function LoginForm() {
         );
     };
 
+    function storeScrollPosition() {
+        sessionStorage.setItem('scrollPosition', window.scrollY.toString());
+    }
+
     return (
 
         <div>
@@ -98,7 +102,7 @@ export default function LoginForm() {
                     containerProps={{ className: "-ml-2.5" }}
                     color="green"
                 />
-                <Button color="green" className="mt-6" fullWidth type="submit">
+                <Button color="green" className="mt-6" fullWidth type="submit" onClick={storeScrollPosition}>
                     Login
                 </Button>
                 <Typography color="gray" className="mt-4 text-center font-normal">
