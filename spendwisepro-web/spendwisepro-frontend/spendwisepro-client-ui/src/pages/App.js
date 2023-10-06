@@ -23,6 +23,7 @@ import ExpensesRecordsWeeklyPage from "./expenses/ExpensesRecordsWeeklyPage";
 import BudgetMonthlyPage from "./budget/BudgetMonthlyPage";
 import GoalMonthlyPage from "./goal/GoalMonthlyPage";
 import LandingPage from "./LandingPage";
+import PrivateRoute from "../components/common/PrivateRoute";
 
 function App() {
 
@@ -31,36 +32,38 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route index element={<LandingPage />} />
-                    <Route path="/" element={<HomePage />}></Route>
-                    <Route path="/home" element={<HomePage />}></Route>
+                    <Route path="/" element={<LandingPage />}></Route>
+
                     <Route path="/login" element={<LoginPage />}></Route>
 
-                    <Route path="/add_category" element={<AddCategoryPage />}></Route>
-                    <Route path="/categories" element={<CategoriesPage />}></Route>
+                    <Route path="/home" element={<PrivateRoute element={<HomePage />} />} />
 
-                    <Route path="/records" element={<RecordsPage />}></Route>
+                    <Route path="/add_category" element={<PrivateRoute element={<AddCategoryPage />} />} />
+                    <Route path="/categories" element={<PrivateRoute element={<CategoriesPage />} />} />
 
-                    <Route path="/balance" element={<BalancePage />}></Route>
-                    <Route path="/cash" element={<CashPage />}></Route>
-                    <Route path="/credit_cards" element={<CreditCardPage />}></Route>
-                    <Route path="/add_credit_card" element={<AddCreditCardPage />}></Route>
+                    <Route path="/records" element={<PrivateRoute element={<RecordsPage />} />} />
 
-                    <Route path="/budgets" element={<BudgetPage />}></Route>
-                    <Route path="/budgets/weekly/*" element={<BudgetWeeklyPage />}></Route>
-                    <Route path="/budgets/monthly/*" element={<BudgetMonthlyPage />}></Route>
-                    <Route path="/add_budget" element={<AddBudgetPage />}></Route>
+                    <Route path="/balance" element={<PrivateRoute element={<BalancePage />} />} />
+                    <Route path="/cash" element={<PrivateRoute element={<CashPage />} />} />
+                    <Route path="/credit_cards" element={<PrivateRoute element={<CreditCardPage />} />} />
+                    <Route path="/add_credit_card" element={<PrivateRoute element={<AddCreditCardPage />} />} />
 
-                    <Route path="/goals" element={<GoalsPage />}></Route>
-                    <Route path="/goals/weekly/*" element={<GoalWeeklyPage />}></Route>
-                    <Route path="/goals/monthly/*" element={<GoalMonthlyPage />}></Route>
-                    <Route path="/add_goal" element={<AddGoalPage />}></Route>
+                    <Route path="/budgets" element={<PrivateRoute element={<BudgetPage />} />} />
+                    <Route path="/budgets/weekly/*" element={<PrivateRoute element={<BudgetWeeklyPage />} />} />
+                    <Route path="/budgets/monthly/*" element={<PrivateRoute element={<BudgetMonthlyPage />} />} />
+                    <Route path="/add_budget" element={<PrivateRoute element={<AddBudgetPage />} />} />
 
-                    <Route path="/expenses" element={<ExpensesPage />}></Route>
-                    <Route path="/expenses/month/*" element={<ExpensesRecordsMonthlyPage />}></Route>
-                    <Route path="/expenses/week/*" element={<ExpensesRecordsWeeklyPage />}></Route>
+                    <Route path="/goals" element={<PrivateRoute element={<GoalsPage />} />} />
+                    <Route path="/goals/weekly/*" element={<PrivateRoute element={<GoalWeeklyPage />} />} />
+                    <Route path="/goals/monthly/*" element={<PrivateRoute element={<GoalMonthlyPage />} />} />
+                    <Route path="/add_goal" element={<PrivateRoute element={<AddGoalPage />} />} />
 
-                    <Route path="/planned_payments" element={<PlannedPaymentsPage />}></Route>
-                    <Route path="/add_planned_payment" element={<AddPlannedPaymentPage />}></Route>
+                    <Route path="/expenses" element={<PrivateRoute element={<ExpensesPage />} />} />
+                    <Route path="/expenses/month/*" element={<PrivateRoute element={<ExpensesRecordsMonthlyPage />} />} />
+                    <Route path="/expenses/week/*" element={<PrivateRoute element={<ExpensesRecordsWeeklyPage />} />} />
+
+                    <Route path="/planned_payments" element={<PrivateRoute element={<PlannedPaymentsPage />} />} />
+                    <Route path="/add_planned_payment" element={<PrivateRoute element={<AddPlannedPaymentPage />} />} />
                 </Routes>
             </BrowserRouter>
         </>
