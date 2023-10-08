@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 @Table(
         name = "category_icons",
         uniqueConstraints = {
@@ -27,4 +28,9 @@ public class CategoryIcon {
             nullable = false
     )
     private String icon;
+
+
+    public CategoryIcon(String icon) {
+        this.icon = icon;
+    }
 }
