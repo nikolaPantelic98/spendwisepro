@@ -33,4 +33,9 @@ public class CategoryIcon {
     public CategoryIcon(String icon) {
         this.icon = icon;
     }
+
+    @Transient
+    public String getIconPath() {
+        return "/category-icons/" + this.id + "/" + this.icon;
+    }
 }
