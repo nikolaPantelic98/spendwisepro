@@ -5,6 +5,7 @@ import UsersPage from "./user/UsersPage";
 import LoginPage from "./login/LoginPage";
 import PrivateRoute from "../components/common/PrivateRoute";
 import RegisterPage from "./register/RegisterPage";
+import IconsPage from "./icon/IconsPage";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                 <Route path="home" element={<PrivateRoute element={<HomePage />} />} />
 
                 <Route path="/users" element={<PrivateRoute element={<UsersPage />} />} />
+                <Route path="/icons" element={<PrivateRoute element={<IconsPage />} />} />
             </Routes>
         </BrowserRouter>
       </>

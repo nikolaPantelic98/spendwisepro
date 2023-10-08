@@ -16,7 +16,7 @@ import {
     PowerIcon,
     HomeIcon,
     EyeIcon,
-    UsersIcon
+    UsersIcon, InformationCircleIcon
 } from "@heroicons/react/24/solid";
 import {
     ChevronRightIcon,
@@ -108,6 +108,17 @@ const Sidebar = forwardRef((props, ref) => {
                             </ListItemPrefix>
                             <Typography color="blue-gray" className="mr-auto font-normal">
                                 Register User
+                            </Typography>
+                        </ListItem>
+                    </Link>
+
+                    <Link to="/icons" onClick={storeScrollPosition}>
+                        <ListItem className="focus:bg-green-50 hover:bg-green-50">
+                            <ListItemPrefix>
+                                <InformationCircleIcon className="h-5 w-5 text-green-900" />
+                            </ListItemPrefix>
+                            <Typography color="blue-gray" className="mr-auto font-normal">
+                                View Icons
                             </Typography>
                         </ListItem>
                     </Link>
