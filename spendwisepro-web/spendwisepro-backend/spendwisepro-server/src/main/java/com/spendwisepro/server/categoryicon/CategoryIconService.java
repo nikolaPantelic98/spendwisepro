@@ -7,4 +7,5 @@ import java.util.List;
 public interface CategoryIconService {
 
     List<CategoryIcon> getAllCategoryIcons();
+    CategoryIcon saveCategoryIcon(CategoryIcon categoryIcon);
 }

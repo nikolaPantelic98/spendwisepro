@@ -16,4 +16,9 @@ public class CategoryIconServiceImpl implements CategoryIconService{
     public List<CategoryIcon> getAllCategoryIcons() {
         return categoryIconRepository.findAll();
     }
+
+    @Override
+    public CategoryIcon saveCategoryIcon(CategoryIcon categoryIcon) {
+        return categoryIconRepository.save(categoryIcon);
+    }
 }
