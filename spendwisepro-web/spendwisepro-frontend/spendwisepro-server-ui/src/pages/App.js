@@ -6,6 +6,7 @@ import LoginPage from "./login/LoginPage";
 import PrivateRoute from "../components/common/PrivateRoute";
 import RegisterPage from "./register/RegisterPage";
 import IconsPage from "./icon/IconsPage";
+import AddIconPage from "./icon/AddIconPage";
 
 function App() {
 
@@ -23,7 +24,9 @@ function App() {
                 <Route path="home" element={<PrivateRoute element={<HomePage />} />} />
 
                 <Route path="/users" element={<PrivateRoute element={<UsersPage />} />} />
+
                 <Route path="/icons" element={<PrivateRoute element={<IconsPage />} />} />
+                <Route path="/add_icon" element={<PrivateRoute element={<AddIconPage />} />} />
             </Routes>
         </BrowserRouter>
       </>

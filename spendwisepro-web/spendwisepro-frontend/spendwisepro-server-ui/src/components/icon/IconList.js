@@ -37,7 +37,7 @@ export default function IconList() {
             <CardBody>
                 <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                     All Icons
-                    <Link>
+                    <Link to="/add_icon" onClick={storeScrollPosition}>
                         <Button size="sm" variant="text" className="flex gap-2" color="blue">
                             Add icon
                             <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
