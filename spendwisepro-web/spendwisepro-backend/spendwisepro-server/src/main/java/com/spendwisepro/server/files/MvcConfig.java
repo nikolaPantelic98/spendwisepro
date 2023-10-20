@@ -20,7 +20,7 @@ public class MvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        String categoryIconsDirName = "../category-icons";
+        String categoryIconsDirName = "category-icons";
         Path categoryIconsDir = Paths.get(categoryIconsDirName);
         String categoryIconsPath = categoryIconsDir.toFile().getAbsolutePath();
         registry.addResourceHandler("/category-icons/**").addResourceLocations("file:/" + categoryIconsPath + "/");

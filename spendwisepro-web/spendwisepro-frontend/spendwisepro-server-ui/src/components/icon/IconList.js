@@ -2,7 +2,7 @@ import {
     Card,
     CardBody,
     Typography,
-    Button, ListItem, Avatar, PopoverHandler, Popover, List, ListItemPrefix, PopoverContent,
+    Button, ListItem, Avatar, PopoverHandler, Popover, List, PopoverContent,
 } from "@material-tailwind/react";
 import {ArrowLongRightIcon} from "@heroicons/react/24/outline";
 import React, {useEffect, useState} from "react";
@@ -13,7 +13,6 @@ import axios from "axios";
 export default function IconList() {
 
     const [icons, setIcons] = useState([]);
-
     const token = localStorage.getItem("token");
 
     const headers = {
