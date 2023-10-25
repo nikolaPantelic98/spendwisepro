@@ -22,6 +22,7 @@ export default function IconList() {
     useEffect(() => {
         axios.get('http://localhost:8080/spendwisepro_admin/icons/all', { headers })
             .then(response => {
+                console.log(response.data);
                 setIcons(response.data);
             })
             .catch(error => console.error('Error fetching icons:', error));

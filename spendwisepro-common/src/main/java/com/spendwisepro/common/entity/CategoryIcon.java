@@ -1,5 +1,6 @@
 package com.spendwisepro.common.entity;
 
+import com.spendwisepro.common.Constants;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -36,6 +37,6 @@ public class CategoryIcon {
 
     @Transient
     public String getIconPath() {
-        return "/category-icons/" + this.id + "/" + this.icon;
+        return Constants.S3_BASE_URI + "/category-icons/" + this.id + "/" + this.icon;
     }
 }
