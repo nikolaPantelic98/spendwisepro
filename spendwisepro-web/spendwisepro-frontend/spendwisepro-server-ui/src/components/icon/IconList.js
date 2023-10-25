@@ -22,7 +22,6 @@ export default function IconList() {
     useEffect(() => {
         axios.get('http://localhost:8080/spendwisepro_admin/icons/all', { headers })
             .then(response => {
-                console.log(response.data);
                 setIcons(response.data);
             })
             .catch(error => console.error('Error fetching icons:', error));
@@ -57,27 +56,22 @@ export default function IconList() {
                                     unmount: { scale: 0, y: 25 },
                                 }}
                             >
-                                <li className="py-3 sm:py-4 flex-0 w-1/5">
+                                <li className="flex-0 w-1/5">
                                     <PopoverHandler>
-                                        <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
-                                            <div className="flex-shrink-0">
+                                        <ListItem className="flex items-center focus:bg-green-50 hover:bg-green-50 justify-center">
+                                            <div>
                                                 <Avatar className="w-8 h-8 rounded-full" src={categoryIcon.iconPath} alt={categoryIcon.icon} />
                                             </div>
                                         </ListItem>
                                     </PopoverHandler>
 
-                                    <PopoverContent className="w-72 border-1 bg-green-100 rounded-xl">
-                                        <div className="mb-4 flex justify-center items-center gap-4 pb-1">
-                                            <Avatar src={categoryIcon.iconPath} alt={categoryIcon.icon} />
+                                    <PopoverContent className=" border-1 bg-green-100 rounded-xl">
+                                        <div className=" flex items-center justify-between gap-x-8 pb-1">
+                                            <Avatar className="w-20 h-20 rounded-full"  src={categoryIcon.iconPath} alt={categoryIcon.icon} />
+                                            <Button size="sm" variant="text" className="flex gap-2" color="blue">
+                                                <TrashIcon className="h-6 w-6 text-red-500 cursor-pointer" />
+                                            </Button>
                                         </div>
-                                        <List className="p-0">
-                                            <hr className="my-2 border-blue-gray-50" />
-                                            <div className="flex justify-end mr-2">
-                                                <Button size="sm" variant="text" className="flex gap-2" color="blue">
-                                                    <TrashIcon className="h-6 w-6 text-red-500 cursor-pointer" />
-                                                </Button>
-                                            </div>
-                                        </List>
                                     </PopoverContent>
                                 </li>
                             </Popover>

@@ -1,7 +1,7 @@
 package com.spendwisepro.server.categoryicon;
 
 import com.spendwisepro.common.entity.CategoryIcon;
-import com.spendwisepro.server.files.FileUploadUtil;
+import com.spendwisepro.server.files.AmazonS3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -21,7 +21,7 @@ public class CategoryIconRestController {
 
 
     @GetMapping("/all")
-    public List<CategoryIcon> getAllCategoryIcons() {
+    public List<CategoryIcon> getAllCategoryIcons(  ) {
         return categoryIconService.getAllCategoryIcons();
     }
 
@@ -34,8 +34,8 @@ public class CategoryIconRestController {
             CategoryIcon savedCategoryIcon = categoryIconService.saveCategoryIcon(categoryIcon);
             String uploadDir = "category-icons/" + savedCategoryIcon.getId();
 
-            FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            AmazonS3Util.removeFolder(uploadDir);
+            AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
         } else {
             categoryIconService.saveCategoryIcon(categoryIcon);
         }
