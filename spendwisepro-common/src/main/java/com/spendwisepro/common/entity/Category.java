@@ -34,7 +34,7 @@ public class Category {
     )
     private String color;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(
             name = "parent_id"
     )

@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -48,7 +50,7 @@ public class CategoryRepositoryTests {
     @Test
     public void testCreateSubCategory() {
         User user = userRepository.findById(2L).get();
-        Category parent = categoryRepository.findById(2L).get();
+        Category parent = categoryRepository.findById(1L).get();
         CategoryIcon icon = categoryIconRepository.findById(22L).get();
 
         Category subCategory = new Category("CPU", "red", user, icon, parent);
@@ -56,5 +58,18 @@ public class CategoryRepositoryTests {
         Category savedCategory = categoryRepository.save(subCategory);
 
         assertThat(savedCategory.getId()).isGreaterThan(0);
+    }
+
+    @Test
+    public void testGetCategory() {
+        Category category = categoryRepository.findById(1L).get();
+        System.out.println("Root category: " + category.getName());
+
+        Set<Category> children = category.getChildren();
+        for (Category subCategory : children) {
+            System.out.println("Subcategories: " + subCategory.getName());
+        }
+
+        assertThat(children.size()).isGreaterThan(0);
     }
 }
