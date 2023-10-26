@@ -1,6 +1,7 @@
 package com.spendwisepro.server.categoryicon;
 
 import com.spendwisepro.common.entity.CategoryIcon;
+import com.spendwisepro.common.exception.CategoryIconNotFoundException;
 import com.spendwisepro.server.files.AmazonS3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +42,17 @@ public class CategoryIconRestController {
         }
 
         return ResponseEntity.ok("Category icon saved.");
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteCategoryIcon(@PathVariable Long id) {
+        try {
+            categoryIconService.deleteCategoryIcon(id);
+            String categoryIconDir = "category-icons/" + id;
+            AmazonS3Util.removeFolder(categoryIconDir);
+        } catch (CategoryIconNotFoundException exception) {
+            return ResponseEntity.ok(exception.getMessage());
+        }
+        return ResponseEntity.ok("Category icon deleted successfully");
     }
 }

@@ -2,7 +2,7 @@ import {
     Card,
     CardBody,
     Typography,
-    Button, ListItem, Avatar, PopoverHandler, Popover, List, PopoverContent,
+    Button, ListItem, Avatar, PopoverHandler, Popover, PopoverContent,
 } from "@material-tailwind/react";
 import {ArrowLongRightIcon} from "@heroicons/react/24/outline";
 import React, {useEffect, useState} from "react";
@@ -26,6 +26,16 @@ export default function IconList() {
             })
             .catch(error => console.error('Error fetching icons:', error));
     }, []);
+
+    const deleteIcon = (id) => {
+        axios.delete(`http://localhost:8080/spendwisepro_admin/icons/delete/${id}`, { headers })
+            .then(response => {
+                console.log(response.data);
+                setIcons(icons.filter(icon => icon.id !== id));
+            })
+            .catch(error => console.error('Error deleting icon:', error));
+    }
+
 
     function storeScrollPosition() {
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
@@ -68,7 +78,7 @@ export default function IconList() {
                                     <PopoverContent className=" border-1 bg-green-100 rounded-xl">
                                         <div className=" flex items-center justify-between gap-x-8 pb-1">
                                             <Avatar className="w-20 h-20 rounded-full"  src={categoryIcon.iconPath} alt={categoryIcon.icon} />
-                                            <Button size="sm" variant="text" className="flex gap-2" color="blue">
+                                            <Button size="sm" variant="text" className="flex gap-2" color="blue" onClick={() => deleteIcon(categoryIcon.id)}>
                                                 <TrashIcon className="h-6 w-6 text-red-500 cursor-pointer" />
                                             </Button>
                                         </div>

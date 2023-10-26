@@ -1,6 +1,7 @@
 package com.spendwisepro.server.categoryicon;
 
 import com.spendwisepro.common.entity.CategoryIcon;
+import com.spendwisepro.common.exception.CategoryIconNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,16 @@ public class CategoryIconServiceImpl implements CategoryIconService{
     @Override
     public CategoryIcon saveCategoryIcon(CategoryIcon categoryIcon) {
         return categoryIconRepository.save(categoryIcon);
+    }
+
+    @Override
+    public void deleteCategoryIcon(Long id) throws CategoryIconNotFoundException {
+        Long countById = categoryIconRepository.countById(id);
+
+        if (countById == null || countById == 0) {
+            throw new CategoryIconNotFoundException("Could not find any icon with id " + id);
+        }
+
+        categoryIconRepository.deleteById(id);
     }
 }
