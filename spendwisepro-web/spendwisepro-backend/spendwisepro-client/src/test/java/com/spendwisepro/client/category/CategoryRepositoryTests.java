@@ -44,4 +44,17 @@ public class CategoryRepositoryTests {
         Iterable<Category> listAdmins = categoryRepository.findAll();
         listAdmins.forEach(System.out::println);
     }
+
+    @Test
+    public void testCreateSubCategory() {
+        User user = userRepository.findById(2L).get();
+        Category parent = categoryRepository.findById(2L).get();
+        CategoryIcon icon = categoryIconRepository.findById(22L).get();
+
+        Category subCategory = new Category("CPU", "red", user, icon, parent);
+
+        Category savedCategory = categoryRepository.save(subCategory);
+
+        assertThat(savedCategory.getId()).isGreaterThan(0);
+    }
 }
