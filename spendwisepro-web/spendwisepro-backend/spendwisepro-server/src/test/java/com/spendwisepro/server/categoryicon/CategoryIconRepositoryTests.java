@@ -46,11 +46,11 @@ public class CategoryIconRepositoryTests {
     public void testUpdateCategoryIcon() {
         String newIcon = "money-icon.png";
         CategoryIcon moneyIcon = categoryIconRepository.findById(2L).get();
-        moneyIcon.setIcon(newIcon);
+        moneyIcon.setImage(newIcon);
 
         CategoryIcon savedIcon = categoryIconRepository.save(moneyIcon);
 
-        assertThat(savedIcon.getIcon()).isEqualTo(newIcon);
+        assertThat(savedIcon.getImage()).isEqualTo(newIcon);
     }
 
     @Test
