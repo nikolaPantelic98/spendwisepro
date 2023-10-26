@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,9 +35,9 @@ public class CategoryRepositoryTests {
     @Test
     public void testCreateRootCategory() {
         User user = userRepository.findById(2L).get();
-        CategoryIcon icon = categoryIconRepository.findById(21L).get();
+        CategoryIcon icon = categoryIconRepository.findById(6L).get();
 
-        Category category = new Category("Computer", "blue", user, icon);
+        Category category = new Category("Applications", "orange", user, icon);
         Category savedCategory = categoryRepository.save(category);
 
         assertThat(savedCategory.getId()).isGreaterThan(0);
@@ -104,5 +106,13 @@ public class CategoryRepositoryTests {
 
             printChildren(subCategory, newSubLevel);
         }
+    }
+
+    @Test
+    public void testFindRootCategories() {
+        List<Category> rootCategories = categoryRepository.findRootCategories(Sort.by("name"));
+        rootCategories.forEach(System.out::println);
+
+        assertThat(rootCategories).isNotNull();
     }
 }
