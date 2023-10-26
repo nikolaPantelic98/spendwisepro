@@ -56,4 +56,12 @@ public class Category {
             name = "user_id"
     )
     private User user;
+
+
+    public Category(String name, String color, User user, CategoryIcon icon) {
+        this.name = name;
+        this.color = color;
+        this.user = user;
+        this.icon = icon;
+    }
 }
