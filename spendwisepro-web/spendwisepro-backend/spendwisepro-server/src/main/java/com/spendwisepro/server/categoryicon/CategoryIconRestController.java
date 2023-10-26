@@ -30,7 +30,7 @@ public class CategoryIconRestController {
     public ResponseEntity<String> saveCategoryIcon(CategoryIcon categoryIcon, @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
         if (!multipartFile.isEmpty()) {
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-            categoryIcon.setIcon(fileName);
+            categoryIcon.setImage(fileName);
 
             CategoryIcon savedCategoryIcon = categoryIconService.saveCategoryIcon(categoryIcon);
             String uploadDir = "category-icons/" + savedCategoryIcon.getId();

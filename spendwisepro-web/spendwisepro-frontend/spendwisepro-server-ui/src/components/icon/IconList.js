@@ -58,9 +58,9 @@ export default function IconList() {
                 <div>
                     <ul role="list" className="divide-y divide-gray-200 flex flex-wrap gap-4 justify-center">
 
-                        {icons.map(categoryIcon => (
+                        {icons.map(icon => (
                             <Popover
-                                key={categoryIcon.id}
+                                key={icon.id}
                                 animate={{
                                     mount: { scale: 1, y: 0 },
                                     unmount: { scale: 0, y: 25 },
@@ -70,15 +70,15 @@ export default function IconList() {
                                     <PopoverHandler>
                                         <ListItem className="flex items-center focus:bg-green-50 hover:bg-green-50 justify-center">
                                             <div>
-                                                <Avatar className="w-8 h-8 rounded-full" src={categoryIcon.iconPath} alt={categoryIcon.icon} />
+                                                <Avatar className="w-8 h-8 rounded-full" src={icon.iconPath} alt={icon.image} />
                                             </div>
                                         </ListItem>
                                     </PopoverHandler>
 
                                     <PopoverContent className=" border-1 bg-green-100 rounded-xl">
                                         <div className=" flex items-center justify-between gap-x-8 pb-1">
-                                            <Avatar className="w-20 h-20 rounded-full"  src={categoryIcon.iconPath} alt={categoryIcon.icon} />
-                                            <Button size="sm" variant="text" className="flex gap-2" color="blue" onClick={() => deleteIcon(categoryIcon.id)}>
+                                            <Avatar className="w-20 h-20 rounded-full"  src={icon.iconPath} alt={icon.image} />
+                                            <Button size="sm" variant="text" className="flex gap-2" color="blue" onClick={() => deleteIcon(icon.id)}>
                                                 <TrashIcon className="h-6 w-6 text-red-500 cursor-pointer" />
                                             </Button>
                                         </div>

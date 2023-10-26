@@ -14,7 +14,7 @@ import lombok.*;
 @Table(
         name = "category_icons",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "icon")
+                @UniqueConstraint(columnNames = "image")
         }
 )
 public class CategoryIcon {
@@ -25,18 +25,18 @@ public class CategoryIcon {
     )
     private Long id;
     @Column(
-            name = "icon",
+            name = "image",
             nullable = false
     )
-    private String icon;
+    private String image;
 
 
-    public CategoryIcon(String icon) {
-        this.icon = icon;
+    public CategoryIcon(String image) {
+        this.image = image;
     }
 
     @Transient
     public String getIconPath() {
-        return Constants.S3_BASE_URI + "/category-icons/" + this.id + "/" + this.icon;
+        return Constants.S3_BASE_URI + "/category-icons/" + this.id + "/" + this.image;
     }
 }
