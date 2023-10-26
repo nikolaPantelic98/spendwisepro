@@ -38,4 +38,10 @@ public class CategoryRepositoryTests {
 
         assertThat(savedCategory.getId()).isGreaterThan(0);
     }
+
+    @Test
+    public void testListAllCategories() {
+        Iterable<Category> listAdmins = categoryRepository.findAll();
+        listAdmins.forEach(System.out::println);
+    }
 }
