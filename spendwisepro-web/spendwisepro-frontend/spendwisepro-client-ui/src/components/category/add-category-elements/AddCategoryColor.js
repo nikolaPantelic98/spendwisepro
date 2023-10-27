@@ -11,25 +11,101 @@ import React from "react";
 import {InformationCircleIcon} from "@heroicons/react/20/solid";
 
 const colorOptions = [
-    "https://i.ibb.co/KxFFbSz/blue-gray.png",
-    "https://i.ibb.co/p2zphsf/gray.png",
-    "https://i.ibb.co/tZnGD2d/brown.png",
-    "https://i.ibb.co/3Chy0PT/deep-orange.png",
-    "https://i.ibb.co/9vgqFdS/orange.png",
-    "https://i.ibb.co/yQ2sQv8/amber.png",
-    "https://i.ibb.co/xL8Hk2t/yellow.png",
-    "https://i.ibb.co/KzM5dBY/lime.png",
-    "https://i.ibb.co/CtHgJqc/light-green.png",
-    "https://i.ibb.co/pJDFFbr/green.png",
-    "https://i.ibb.co/4pc1szg/teal.png",
-    "https://i.ibb.co/TtJGdmp/cyan.png",
-    "https://i.ibb.co/hFgDjbY/light-blue.png",
-    "https://i.ibb.co/Q6LzwQF/blue.png",
-    "https://i.ibb.co/89NTH46/indigo.png",
-    "https://i.ibb.co/ccWzHZt/deep-purple.png",
-    "https://i.ibb.co/2hcRVhs/purple.png",
-    "https://i.ibb.co/CmMyFBr/pink.png",
-    "https://i.ibb.co/C7mNPLf/red.png"
+    {
+        id: 1,
+        value: "blue-gray",
+        image: "https://i.ibb.co/KxFFbSz/blue-gray.png"
+    },
+    {
+        id: 2,
+        value: "gray",
+        image: "https://i.ibb.co/p2zphsf/gray.png"
+    },
+    {
+        id: 3,
+        value: "brown",
+        image: "https://i.ibb.co/tZnGD2d/brown.png"
+    },
+    {
+        id: 4,
+        value: "deep-orange",
+        image: "https://i.ibb.co/3Chy0PT/deep-orange.png"
+    },
+    {
+        id: 5,
+        value: "orange",
+        image: "https://i.ibb.co/9vgqFdS/orange.png"
+    },
+    {
+        id: 6,
+        value: "amber",
+        image: "https://i.ibb.co/yQ2sQv8/amber.png"
+    },
+    {
+        id: 7,
+        value: "yellow",
+        image: "https://i.ibb.co/xL8Hk2t/yellow.png"
+    },
+    {
+        id: 8,
+        value: "lime",
+        image: "https://i.ibb.co/KzM5dBY/lime.png"
+    },
+    {
+        id: 9,
+        value: "light-green",
+        image: "https://i.ibb.co/CtHgJqc/light-green.png"
+    },
+    {
+        id: 10,
+        value: "green",
+        image: "https://i.ibb.co/pJDFFbr/green.png"
+    },
+    {
+        id: 11,
+        value: "teal",
+        image: "https://i.ibb.co/4pc1szg/teal.png"
+    },
+    {
+        id: 12,
+        value: "cyan",
+        image: "https://i.ibb.co/TtJGdmp/cyan.png"
+    },
+    {
+        id: 13,
+        value: "light-blue",
+        image: "https://i.ibb.co/hFgDjbY/light-blue.png"
+    },
+    {
+        id: 14,
+        value: "blue",
+        image: "https://i.ibb.co/Q6LzwQF/blue.png"
+    },
+    {
+        id: 15,
+        value: "indigo",
+        image: "https://i.ibb.co/89NTH46/indigo.png"
+    },
+    {
+        id: 16,
+        value: "deep-purple",
+        image: "https://i.ibb.co/ccWzHZt/deep-purple.png"
+    },
+    {
+        id: 17,
+        value: "purple",
+        image: "https://i.ibb.co/2hcRVhs/purple.png"
+    },
+    {
+        id: 18,
+        value: "pink",
+        image: "https://i.ibb.co/CmMyFBr/pink.png"
+    },
+    {
+        id: 19,
+        value: "red",
+        image: "https://i.ibb.co/C7mNPLf/red.png"
+    }
 ];
 
 export default function AddCategoryColor({ onColorChange }) {
@@ -53,6 +129,11 @@ export default function AddCategoryColor({ onColorChange }) {
     const handleIconColor = (value) => {
         setSelectedColor(value);
         setTempSelectedColor(value);
+    };
+
+    const findImageByValue = (value) => {
+        const option = colorOptions.find((option) => option.value === value);
+        return option ? option.image : "";
     };
 
     return (
@@ -79,7 +160,7 @@ export default function AddCategoryColor({ onColorChange }) {
                             {selectedColor ? (
                                 <img
                                     className="w-8 h-8 inline-block"
-                                    src={selectedColor}
+                                    src={findImageByValue(selectedColor)}
                                     alt="Selected Color"
                                 />
                             ) : (
@@ -113,11 +194,11 @@ export default function AddCategoryColor({ onColorChange }) {
                         className="relative"
                     >
                         {colorOptions.map((option) => (
-                            <Option value={option} key={option}>
+                            <Option value={option.value} key={option.id}>
                                 <div className="flex items-center justify-center">
                                     <img
                                         className="w-8 h-8 rounded-full"
-                                        src={option}
+                                        src={option.image}
                                     />
                                 </div>
                             </Option>
