@@ -22,7 +22,7 @@ public class CategoryIconRestController {
 
 
     @GetMapping("/all")
-    public List<CategoryIcon> getAllCategoryIcons(  ) {
+    public List<CategoryIcon> getAllCategoryIcons() {
         return categoryIconService.getAllCategoryIcons();
     }
 

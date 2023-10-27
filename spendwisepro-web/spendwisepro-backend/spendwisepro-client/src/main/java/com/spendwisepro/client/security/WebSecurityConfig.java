@@ -31,6 +31,7 @@ public class WebSecurityConfig {
                                 .requestMatchers("/auth/register").permitAll()
                                 .requestMatchers("/api/test/public").permitAll()
                                 .requestMatchers("/auth/logout", "/api/test/private").authenticated()
+                                .requestMatchers("/categories/**").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

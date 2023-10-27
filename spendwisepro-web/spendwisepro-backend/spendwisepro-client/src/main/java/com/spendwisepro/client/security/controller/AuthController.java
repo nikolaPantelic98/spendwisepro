@@ -35,10 +35,7 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<?> logout(@RequestHeader("Authorization") String authHeader) {
-        String token = authHeader.substring(7); // todo only for testing purpose, delete this
-        System.out.println(token);
-
+    public ResponseEntity<?> logout() {
         return ResponseEntity.ok("Logout successful");
     }
 }

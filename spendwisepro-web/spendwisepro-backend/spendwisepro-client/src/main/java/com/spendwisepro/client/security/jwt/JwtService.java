@@ -27,6 +27,14 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
+    // Extracts the username from the JWT for authenticated requests
+    public String extractUsernameForAuthentication(String token) {
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        return extractClaim(token, Claims::getSubject);
+    }
+
     // Extracts a specific claim from the JWT.
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
