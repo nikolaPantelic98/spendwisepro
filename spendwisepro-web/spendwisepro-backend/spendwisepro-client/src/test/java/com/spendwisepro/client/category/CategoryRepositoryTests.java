@@ -34,7 +34,7 @@ public class CategoryRepositoryTests {
 
     @Test
     public void testCreateRootCategory() {
-        User user = userRepository.findById(2L).get();
+        User user = userRepository.findById(19L).get();
         CategoryIcon icon = categoryIconRepository.findById(6L).get();
 
         Category category = new Category("Applications", "orange", user, icon);
@@ -110,7 +110,20 @@ public class CategoryRepositoryTests {
 
     @Test
     public void testFindRootCategories() {
-        List<Category> rootCategories = categoryRepository.findRootCategories(Sort.by("name"));
+        User user = userRepository.findById(19L).get();
+
+        List<Category> rootCategories = categoryRepository.findRootCategories(user.getId(), Sort.by("name"));
+        rootCategories.forEach(System.out::println);
+
+        assertThat(rootCategories).isNotNull();
+    }
+
+    @Test
+    public void testFindSubCategoriesOfRootCategory() {
+        User user = userRepository.findById(2L).get();
+        Category category = categoryRepository.findById(1L).get();
+
+        List<Category> rootCategories = categoryRepository.findSubCategoriesOfRootCategory(category.getId(), user.getId(), Sort.by("name"));
         rootCategories.forEach(System.out::println);
 
         assertThat(rootCategories).isNotNull();
