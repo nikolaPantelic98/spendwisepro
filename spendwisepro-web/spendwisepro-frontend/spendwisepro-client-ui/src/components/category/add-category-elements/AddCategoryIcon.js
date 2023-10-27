@@ -30,7 +30,7 @@ const iconOptions = [
     "https://cdn-icons-png.flaticon.com/512/3693/3693434.png",
 ];
 
-export default function AddCategoryIcon() {
+export default function AddCategoryIcon({ onIconChange }) {
     const [openIcon, setOpenIcon] = React.useState(false);
     const [selectedIcon, setSelectedIcon] = React.useState("");
     const [tempSelectedIcon, setTempSelectedIcon] = React.useState("");
@@ -45,6 +45,7 @@ export default function AddCategoryIcon() {
     const handleConfirmIcon = () => {
         setOpenIcon(false);
         setSelectedIcon(tempSelectedIcon);
+        onIconChange(selectedIcon);
     };
     const handleIconChange = (value) => {
         setSelectedIcon(value);

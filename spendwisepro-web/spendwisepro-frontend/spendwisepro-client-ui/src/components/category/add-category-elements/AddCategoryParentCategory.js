@@ -10,7 +10,7 @@ import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 import {InformationCircleIcon} from "@heroicons/react/20/solid";
 
-export default function AddCategoryParentCategory() {
+export default function AddCategoryParentCategory({ onParentChange }) {
 
     const [openParentCategory, setOpenParentCategory] = React.useState(false);
     const [selectedParentCategory, setSelectedParentCategory] = React.useState("");
@@ -25,6 +25,7 @@ export default function AddCategoryParentCategory() {
     };
 
     const handleConfirmParentCategory = () => {
+        onParentChange(selectedParentCategory);
         setOpenParentCategory(false);
         setTempSelectedParentCategory("");
     };
