@@ -1,5 +1,7 @@
 package com.spendwisepro.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -34,15 +36,17 @@ public class Category {
     )
     private String color;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(
             name = "parent_id"
     )
+    @JsonBackReference
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
     @ToString.Exclude
     @OrderBy("name asc")
+    @JsonManagedReference
     private Set<Category> children = new HashSet<>();
 
     @ManyToOne

@@ -51,11 +51,11 @@ public class CategoryRepositoryTests {
 
     @Test
     public void testCreateSubCategory() {
-        User user = userRepository.findById(2L).get();
-        Category parent = categoryRepository.findById(1L).get();
-        CategoryIcon icon = categoryIconRepository.findById(22L).get();
+        User user = userRepository.findById(19L).get();
+        Category parent = categoryRepository.findById(8L).get();
+        CategoryIcon icon = categoryIconRepository.findById(19L).get();
 
-        Category subCategory = new Category("CPU", "red", user, icon, parent);
+        Category subCategory = new Category("Gas bills", "lime", user, icon, parent);
 
         Category savedCategory = categoryRepository.save(subCategory);
 
