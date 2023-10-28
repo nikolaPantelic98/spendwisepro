@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
@@ -18,5 +20,10 @@ public class CategoryRestController {
     public ResponseEntity<String> saveCategory(@RequestBody Category category, @RequestHeader("Authorization") String token) {
         categoryService.saveCategory(category, token);
         return ResponseEntity.ok("Category saved successfully.");
+    }
+
+    @GetMapping("/all_root")
+    public List<Category> getAllRootCategories(@RequestHeader("Authorization") String token) {
+        return categoryService.getAllRootCategories(token);
     }
 }

@@ -5,9 +5,11 @@ import com.spendwisepro.client.user.UserRepository;
 import com.spendwisepro.common.entity.Category;
 import com.spendwisepro.common.entity.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,5 +34,19 @@ public class CategoryServiceImpl implements CategoryService{
         category.setUser(userToSave);
 
         return categoryRepository.save(category);
+    }
+
+    @Override
+    public List<Category> getAllRootCategories(String token) {
+
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+        User authorizedUser = user.get();
+
+        return categoryRepository.findRootCategories(authorizedUser.getId(), Sort.by("name"));
     }
 }
