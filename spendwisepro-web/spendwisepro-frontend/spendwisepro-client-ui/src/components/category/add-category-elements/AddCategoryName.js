@@ -10,7 +10,7 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddCategoryName({ onNameChange }) {
+export default function AddCategoryName({ setName }) {
 
     const [openName, setOpenName] = React.useState(false);
     const [contentName, setContentName] = React.useState("");
@@ -31,7 +31,7 @@ export default function AddCategoryName({ onNameChange }) {
             setTempANoteContent("");
             setIsNameTyped(false);
         }
-        onNameChange(contentName);
+        setName(contentName);
         setOpenName(false);
     };
     const handleNameChange = (event) => {

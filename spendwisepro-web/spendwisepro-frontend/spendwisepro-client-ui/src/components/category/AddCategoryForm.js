@@ -51,13 +51,13 @@ export default function AddCategoryForm() {
                 <form onSubmit={handleSubmit}>
                     <div className="flow-root">
                         <ul role="list" className="divide-y divide-gray-200">
-                            <AddCategoryName onNameChange={handleNameChange} />
+                            <AddCategoryName setName={handleNameChange} />
 
-                            <AddCategoryParentCategory onParentChange={handleParentChange} />
+                            <AddCategoryParentCategory setParent={handleParentChange} />
 
-                            <AddCategoryIcon onIconChange={handleIconChange} />
+                            <AddCategoryIcon setIcon={handleIconChange} />
 
-                            <AddCategoryColor onColorChange={handleColorChange} />
+                            <AddCategoryColor setColor={handleColorChange} />
                         </ul>
                         <hr className="my-2 border-blue-gray-50" />
                         <div className="flex justify-center items-center">

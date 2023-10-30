@@ -108,7 +108,7 @@ const colorOptions = [
     }
 ];
 
-export default function AddCategoryColor({ onColorChange }) {
+export default function AddCategoryColor({ setColor }) {
 
     const [openColor, setOpenColor] = React.useState(false);
     const [selectedColor, setSelectedColor] = React.useState("");
@@ -124,7 +124,7 @@ export default function AddCategoryColor({ onColorChange }) {
     const handleConfirmColor = () => {
         setOpenColor(false);
         setSelectedColor(tempSelectedColor);
-        onColorChange(selectedColor);
+        setColor(selectedColor);
     };
     const handleIconColor = (value) => {
         setSelectedColor(value);

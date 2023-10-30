@@ -4,7 +4,6 @@ import com.spendwisepro.client.security.jwt.JwtService;
 import com.spendwisepro.client.user.UserRepository;
 import com.spendwisepro.common.entity.Category;
 import com.spendwisepro.common.entity.User;
-import com.spendwisepro.common.exception.CategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,6 +32,15 @@ public class CategoryServiceImpl implements CategoryService{
         User userToSave = user.get();
 
         category.setUser(userToSave);
+
+        if (category.getParent() != null) {
+            Optional<Category> parent = categoryRepository.findById(category.getParent().getId());
+            if (parent.isPresent()) {
+                category.setParent(parent.get());
+            } else {
+                throw new IllegalArgumentException("Parent category with id " + category.getParent().getId() + " not found");
+            }
+        }
 
         return categoryRepository.save(category);
     }

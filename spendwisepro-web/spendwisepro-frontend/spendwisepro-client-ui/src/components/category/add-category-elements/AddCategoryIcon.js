@@ -12,7 +12,7 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-export default function AddCategoryIcon({ onIconChange }) {
+export default function AddCategoryIcon({ setIcon }) {
     const [openIcon, setOpenIcon] = React.useState(false);
     const [selectedIcon, setSelectedIcon] = React.useState("");
     const [tempSelectedIcon, setTempSelectedIcon] = React.useState("");
@@ -28,7 +28,7 @@ export default function AddCategoryIcon({ onIconChange }) {
     };
     const handleConfirmIcon = () => {
         setOpenIcon(false);
-        onIconChange(selectedIcon);
+        setIcon(selectedIcon);
         setSelectedIcon(tempSelectedIcon);
     };
     const handleIconChange = (value) => {
@@ -121,6 +121,7 @@ export default function AddCategoryIcon({ onIconChange }) {
                                     <img
                                         className="w-8 h-8 rounded-full"
                                         src={icon.iconPath}
+                                        alt={icon.image}
                                     />
                                 </div>
                             </Option>

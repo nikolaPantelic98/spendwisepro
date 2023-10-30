@@ -7,31 +7,49 @@ import {
     ListItem, Option, Select, Typography
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {InformationCircleIcon} from "@heroicons/react/20/solid";
+import axios from "axios";
 
-export default function AddCategoryParentCategory({ onParentChange }) {
+export default function AddCategoryParentCategory({ setParent }) {
+    const [openParentCategory, setOpenParentCategory] = useState(false);
+    const [selectedParentCategory, setSelectedParentCategory] = useState("");
+    const [tempSelectedParentCategory, setTempSelectedParentCategory] = useState("");
+    const [parents, setParents] = useState([]);
 
-    const [openParentCategory, setOpenParentCategory] = React.useState(false);
-    const [selectedParentCategory, setSelectedParentCategory] = React.useState("");
-    const [tempSelectedParentCategory, setTempSelectedParentCategory] = React.useState("");
     const handleOpenParentCategory = () => {
         setTempSelectedParentCategory(selectedParentCategory);
         setOpenParentCategory(true);
     };
     const handleCloseParentCategory = () => {
-        setSelectedParentCategory(tempSelectedParentCategory);
+        setSelectedParentCategory(null);
+        setParent(null);
         setOpenParentCategory(false);
     };
 
     const handleConfirmParentCategory = () => {
-        onParentChange(selectedParentCategory);
+        setParent(selectedParentCategory);
         setOpenParentCategory(false);
         setTempSelectedParentCategory("");
     };
+
     const handleParentCategoryChange = (value) => {
         setSelectedParentCategory(value);
     }
+
+    const token = localStorage.getItem("token");
+
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    };
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/spendwisepro/categories/all_root', { headers })
+            .then(response => {
+                setParents(response.data);
+            })
+            .catch(error => console.error('Error fetching parent categories:', error));
+    }, []);
 
     return (
         <li className="py-3 sm:py-4">
@@ -48,7 +66,7 @@ export default function AddCategoryParentCategory({ onParentChange }) {
                     <div className="text-right">
                         <div className="h-4"></div>
                         <div className={`text-sm truncate dark:text-gray-400 ${selectedParentCategory ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
-                            {selectedParentCategory || "Select"}
+                            {selectedParentCategory ? selectedParentCategory.name : "Select"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -76,40 +94,28 @@ export default function AddCategoryParentCategory({ onParentChange }) {
                         onChange={handleParentCategoryChange}
                         className="relative"
                     >
-                        <Option value="None">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://icon-library.com/images/none-icon/none-icon-13.jpg" alt="None" />
-                                <span className="ml-3">None</span>
-                            </div>
-                        </Option>
-                        <Option value="Car">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://www.iconbunny.com/icons/media/catalog/product/1/2/1258.9-car-icon-iconbunny.jpg" alt="Car" />
-                                <span className="ml-3">Car</span>
-                            </div>
-                        </Option>
-                        <Option value="Food & Drinks">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://icon-library.com/images/icon-food/icon-food-13.jpg" alt="Food and drinks" />
-                                <span className="ml-3">Food & Drinks</span>
-                            </div>
-                        </Option>
-                        <Option value="Communication & PC">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/186/186056.png" alt="Communication and PC" />
-                                <span className="ml-3">Communication & PC</span>
-                            </div>
-                        </Option>
-                        <Option value="Shopping">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://cdn2.iconfinder.com/data/icons/online-shopping-flat-round/550/cart-512.png" alt="Shopping" />
-                                <span className="ml-3">Shopping</span>
-                            </div>
-                        </Option>
+                        {/*<Option value={0} key={0}>*/}
+                        {/*    <div className="flex items-center">*/}
+                        {/*        <img className="w-8 h-8 rounded-full" src="https://icon-library.com/images/none-icon/none-icon-13.jpg" alt="None" />*/}
+                        {/*        <span className="ml-3">None</span>*/}
+                        {/*    </div>*/}
+                        {/*</Option>*/}
+                        {parents.map((parentCategory) => (
+                            <Option value={parentCategory} key={parentCategory.id}>
+                                <div className="flex items-center">
+                                    <img
+                                        className="w-8 h-8 rounded-full"
+                                        src={parentCategory.icon.iconPath}
+                                        alt={parentCategory.icon.image}
+                                    />
+                                    <span className="ml-3">{parentCategory.name}</span>
+                                </div>
+                            </Option>
+                        ))}
                     </Select>
                     <Typography variant="small" color="gray" className="flex items-center gap-1 font-normal mt-4 ml-1">
                         <InformationCircleIcon className="w-4 h-4 -mt-px" />
-                        Choose 'None' if this is parent category.
+                        Press 'Clean' if this is parent category.
                     </Typography>
                     <Typography variant="small" color="gray" className="flex items-center gap-1 font-normal mt-2 ml-1">
                         <InformationCircleIcon className="w-4 h-4 -mt-px" />
@@ -126,7 +132,7 @@ export default function AddCategoryParentCategory({ onParentChange }) {
                         onClick={handleCloseParentCategory}
                         className="mr-1"
                     >
-                        <span>Cancel</span>
+                        <span>Clean</span>
                     </Button>
                     <Button variant="gradient" color="green" onClick={handleConfirmParentCategory}>
                         <span>Confirm</span>
