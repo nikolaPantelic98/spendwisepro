@@ -24,6 +24,7 @@ import BudgetMonthlyPage from "./budget/BudgetMonthlyPage";
 import GoalMonthlyPage from "./goal/GoalMonthlyPage";
 import LandingPage from "./LandingPage";
 import PrivateRoute from "../components/common/PrivateRoute";
+import EditCategoryPage from "./category/EditCategoryPage";
 
 function App() {
 
@@ -40,6 +41,7 @@ function App() {
 
                     <Route path="/add_category" element={<PrivateRoute element={<AddCategoryPage />} />} />
                     <Route path="/categories" element={<PrivateRoute element={<CategoriesPage />} />} />
+                    <Route path="/edit_category/:id" element={<PrivateRoute element={<EditCategoryPage />} />} />
 
                     <Route path="/records" element={<PrivateRoute element={<RecordsPage />} />} />
 

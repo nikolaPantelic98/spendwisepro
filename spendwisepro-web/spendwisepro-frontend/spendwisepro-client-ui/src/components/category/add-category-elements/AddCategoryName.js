@@ -10,12 +10,13 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddCategoryName({ setName }) {
+export default function AddCategoryName({ setName, initialValue = "" }) {
 
     const [openName, setOpenName] = React.useState(false);
-    const [contentName, setContentName] = React.useState("");
+    const [contentName, setContentName] = React.useState(initialValue);
     const [isNameTyped, setIsNameTyped] = React.useState(false);
     const [tempNameContent, setTempANoteContent] = React.useState("");
+
     const handleOpenName = () => {
         setTempANoteContent(contentName);
         setOpenName(true);
@@ -53,7 +54,7 @@ export default function AddCategoryName({ setName }) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isNameTyped ? 'font-bold text-gray-500 truncate' : ''}`}>
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isNameTyped || initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
                             {contentName ? contentName : "Type"}
                         </div>
                         <div className="h-4"></div>

@@ -142,7 +142,7 @@ export default function CategoryList() {
                                         ) : (
                                             superCategory.subCategories.map(subCategory => (
                                                 <li key={subCategory.id}>
-                                                    <Link>
+                                                    <Link to={`/edit_category/${subCategory.id}`}>
                                                         <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
                                                             <div className="pl-5 border-l-2 border-green-500">
                                                                 <img className="w-8 h-8 rounded-full" src={subCategory.icon.iconPath} alt={subCategory.icon.image} />

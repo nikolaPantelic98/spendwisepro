@@ -98,4 +98,38 @@ public class CategoryServiceImpl implements CategoryService{
 
         return categoryRepository.findCategoryById(categoryId, authenticatedUser.getId());
     }
+
+    @Override
+    public void updateCategory(Long categoryId, Category category, String token) {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+
+        User authenticatedUser = user.get();
+
+        Category existingCategory = categoryRepository.findCategoryById(categoryId, authenticatedUser.getId());
+
+        if (category.getName() != null) {
+            existingCategory.setName(category.getName());
+        }
+        if (category.getColor() != null) {
+            existingCategory.setColor(category.getColor());
+        }
+        if (category.getIcon() != null) {
+            existingCategory.setIcon(category.getIcon());
+        }
+        if (category.getParent() != null) {
+            Optional<Category> parent = categoryRepository.findById(category.getParent().getId());
+            if (parent.isPresent()) {
+                existingCategory.setParent(parent.get());
+            } else {
+                throw new IllegalArgumentException("Parent category with id " + category.getParent().getId() + " not found");
+            }
+        }
+
+        categoryRepository.save(existingCategory);
+    }
 }

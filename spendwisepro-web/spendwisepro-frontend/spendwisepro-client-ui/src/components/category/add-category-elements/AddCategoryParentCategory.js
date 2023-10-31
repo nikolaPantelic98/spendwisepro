@@ -11,9 +11,9 @@ import React, {useEffect, useState} from "react";
 import {InformationCircleIcon} from "@heroicons/react/20/solid";
 import axios from "axios";
 
-export default function AddCategoryParentCategory({ setParent }) {
+export default function AddCategoryParentCategory({ setParent, initialValue = "" }) {
     const [openParentCategory, setOpenParentCategory] = useState(false);
-    const [selectedParentCategory, setSelectedParentCategory] = useState("");
+    const [selectedParentCategory, setSelectedParentCategory] = useState(initialValue);
     const [tempSelectedParentCategory, setTempSelectedParentCategory] = useState("");
     const [parents, setParents] = useState([]);
 
@@ -66,7 +66,7 @@ export default function AddCategoryParentCategory({ setParent }) {
                     <div className="text-right">
                         <div className="h-4"></div>
                         <div className={`text-sm truncate dark:text-gray-400 ${selectedParentCategory ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
-                            {selectedParentCategory ? selectedParentCategory.name : "Select"}
+                            {selectedParentCategory ? (selectedParentCategory.name.length > 14 ? selectedParentCategory.name.substring(0, 11) + "..." : selectedParentCategory.name) : "Select"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -94,12 +94,6 @@ export default function AddCategoryParentCategory({ setParent }) {
                         onChange={handleParentCategoryChange}
                         className="relative"
                     >
-                        {/*<Option value={0} key={0}>*/}
-                        {/*    <div className="flex items-center">*/}
-                        {/*        <img className="w-8 h-8 rounded-full" src="https://icon-library.com/images/none-icon/none-icon-13.jpg" alt="None" />*/}
-                        {/*        <span className="ml-3">None</span>*/}
-                        {/*    </div>*/}
-                        {/*</Option>*/}
                         {parents.map((parentCategory) => (
                             <Option value={parentCategory} key={parentCategory.id}>
                                 <div className="flex items-center">

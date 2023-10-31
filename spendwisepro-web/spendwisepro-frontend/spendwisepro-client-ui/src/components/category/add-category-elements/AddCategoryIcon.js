@@ -12,9 +12,9 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-export default function AddCategoryIcon({ setIcon }) {
+export default function AddCategoryIcon({ setIcon, initialValue = "" }) {
     const [openIcon, setOpenIcon] = React.useState(false);
-    const [selectedIcon, setSelectedIcon] = React.useState("");
+    const [selectedIcon, setSelectedIcon] = React.useState(initialValue);
     const [tempSelectedIcon, setTempSelectedIcon] = React.useState("");
     const [icons, setIcons] = useState([]);
 

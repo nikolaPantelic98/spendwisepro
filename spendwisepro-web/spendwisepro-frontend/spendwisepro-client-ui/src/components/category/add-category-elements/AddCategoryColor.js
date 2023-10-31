@@ -108,10 +108,10 @@ const colorOptions = [
     }
 ];
 
-export default function AddCategoryColor({ setColor }) {
+export default function AddCategoryColor({ setColor, initialValue = "" }) {
 
     const [openColor, setOpenColor] = React.useState(false);
-    const [selectedColor, setSelectedColor] = React.useState("");
+    const [selectedColor, setSelectedColor] = React.useState(initialValue);
     const [tempSelectedColor, setTempSelectedColor] = React.useState("");
     const handleOpenColor = () => {
         setTempSelectedColor(selectedColor);
