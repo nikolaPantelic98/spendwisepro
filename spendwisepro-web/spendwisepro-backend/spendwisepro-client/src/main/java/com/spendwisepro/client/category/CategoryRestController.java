@@ -36,4 +36,9 @@ public class CategoryRestController {
     public List<Category> getAllSubCategoriesOfRootCategory(@PathVariable Long categoryId, @RequestHeader("Authorization") String token) {
         return categoryService.getAllSubCategoriesOfRootCategory(categoryId, token);
     }
+
+    @GetMapping("/{categoryId}")
+    public Category getCategoryById(@PathVariable Long categoryId, @RequestHeader("Authorization") String token) {
+        return categoryService.getCategoryById(categoryId, token);
+    }
 }

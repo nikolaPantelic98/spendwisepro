@@ -10,4 +10,5 @@ public interface CategoryService {
     List<Category> getAllRootCategories(String token);
     List<Category> getAllSubCategoriesOfRootCategory(Long categoryId, String token);
     List<Category> getAllCategories(String token);
+    Category getCategoryById(Long categoryId, String token);
 }
