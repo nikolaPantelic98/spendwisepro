@@ -4,17 +4,15 @@ import AddCategoryName from "./add-category-elements/AddCategoryName";
 import AddCategoryColor from "./add-category-elements/AddCategoryColor";
 import AddCategoryIcon from "./add-category-elements/AddCategoryIcon";
 import AddCategoryParentCategory from "./add-category-elements/AddCategoryParentCategory";
-import {Button, Card, CardBody} from "@material-tailwind/react";
+import {Button, Card, CardBody, Dialog, DialogBody, DialogFooter, DialogHeader} from "@material-tailwind/react";
 import {useNavigate, useParams} from "react-router-dom";
 
 export default function EditCategoryForm() {
     const [category, setCategory] = useState(null);
     const { id } = useParams();
-
     const [error, setError] = useState(false);
 
     const navigate = useNavigate();
-
     const token = localStorage.getItem("token");
 
     const headers = {
@@ -25,6 +23,10 @@ export default function EditCategoryForm() {
     const handleColorChange = (color) => setCategory({...category, color});
     const handleIconChange = (icon) => setCategory({...category, icon});
     const handleParentChange = (parent) => setCategory({...category, parent});
+
+    const [openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog] = useState(false);
+    const handleOpenDeleteConfirmationDialog = () => setOpenDeleteConfirmationDialog(true);
+    const handleCloseDeleteConfirmationDialog = () => setOpenDeleteConfirmationDialog(false);
 
     useEffect(() => {
         axios.get(`http://localhost:8000/spendwisepro/categories/${id}`, { headers })
@@ -51,6 +53,7 @@ export default function EditCategoryForm() {
                 navigate("/categories", {state: {success: true}});
             })
             .catch(error => console.error('Error deleting icon:', error));
+        handleCloseDeleteConfirmationDialog();
     }
 
     function navigateToCategories() {
@@ -64,12 +67,12 @@ export default function EditCategoryForm() {
                 <form onSubmit={handleSubmit}>
                     <div className="flow-root">
                         <div className="flex justify-center items-center">
-                            <Button onClick={deleteCategory} className="mt-2 w-full" variant="outlined" color="red">
+                            <Button onClick={handleOpenDeleteConfirmationDialog} className="mt-2 w-full" variant="outlined" color="red">
                                 <span>Delete</span>
                             </Button>
                         </div>
                         <div className="h-4"></div>
-                        <ul role="list" className="divide-y divide-gray-200">
+                        <ul className="divide-y divide-gray-200">
                             <AddCategoryName setName={handleNameChange} initialValue={category.name} />
 
                             <AddCategoryParentCategory setParent={handleParentChange} initialValue={category.parent} />
@@ -95,6 +98,34 @@ export default function EditCategoryForm() {
                 </form>
 
             </CardBody>
+
+            <Dialog
+                open={openDeleteConfirmationDialog}
+                handler={handleCloseDeleteConfirmationDialog}
+                animate={{
+                    mount: { scale: 1, y: 0 },
+                    unmount: { scale: 0.9, y: -100 },
+                }}
+            >
+                <DialogHeader>Are you sure?</DialogHeader>
+                <DialogBody>
+                    Do you really want to delete this category? This process cannot be undone.
+                </DialogBody>
+                <DialogFooter>
+                    <Button
+                        variant="text"
+                        color="red"
+                        onClick={deleteCategory}
+                        className="mr-1"
+                    >
+                        <span>Delete</span>
+                    </Button>
+                    <Button variant="gradient" color="green" onClick={handleCloseDeleteConfirmationDialog}>
+                        <span>Cancel</span>
+                    </Button>
+                </DialogFooter>
+            </Dialog>
+
         </Card>
     ) : null;
 }
