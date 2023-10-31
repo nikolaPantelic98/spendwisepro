@@ -1,6 +1,7 @@
 package com.spendwisepro.client.category;
 
 import com.spendwisepro.common.entity.Category;
+import com.spendwisepro.common.exception.CategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +47,15 @@ public class CategoryRestController {
     public ResponseEntity<String> updateCategory(@PathVariable Long categoryId, @RequestBody Category category, @RequestHeader("Authorization") String token) {
         categoryService.updateCategory(categoryId, category, token);
         return ResponseEntity.ok("Category updated successfully.");
+    }
+
+    @DeleteMapping("/delete/{categoryId}")
+    public ResponseEntity<String> deleteCategory(@PathVariable Long categoryId, @RequestHeader("Authorization") String token) {
+        try {
+            categoryService.deleteCategory(categoryId, token);
+        } catch (CategoryNotFoundException exception) {
+            return ResponseEntity.ok(exception.getMessage());
+        }
+        return ResponseEntity.ok("Category deleted successfully.");
     }
 }

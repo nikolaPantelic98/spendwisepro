@@ -1,6 +1,7 @@
 package com.spendwisepro.client.category;
 
 import com.spendwisepro.common.entity.Category;
+import com.spendwisepro.common.exception.CategoryNotFoundException;
 
 import java.util.List;
 
@@ -12,4 +13,5 @@ public interface CategoryService {
     List<Category> getAllCategories(String token);
     Category getCategoryById(Long categoryId, String token);
     void updateCategory(Long categoryId, Category category, String token);
+    void deleteCategory(Long categoryId, String token) throws CategoryNotFoundException;
 }

@@ -4,6 +4,7 @@ import com.spendwisepro.client.security.jwt.JwtService;
 import com.spendwisepro.client.user.UserRepository;
 import com.spendwisepro.common.entity.Category;
 import com.spendwisepro.common.entity.User;
+import com.spendwisepro.common.exception.CategoryNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -131,5 +132,25 @@ public class CategoryServiceImpl implements CategoryService{
         }
 
         categoryRepository.save(existingCategory);
+    }
+
+    @Override
+    public void deleteCategory(Long categoryId, String token) throws CategoryNotFoundException {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+
+        User authenticatedUser = user.get();
+
+        Long countById = categoryRepository.countById(categoryId);
+
+        if (countById == null || countById == 0) {
+            throw new CategoryNotFoundException("Could not find any category with id " + categoryId);
+        }
+
+        categoryRepository.deleteCategoryById(categoryId, authenticatedUser.getId());
     }
 }
