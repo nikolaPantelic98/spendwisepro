@@ -9,4 +9,5 @@ public interface CategoryService {
     Category saveCategory(Category category, String token);
     List<Category> getAllRootCategories(String token);
     List<Category> getAllSubCategoriesOfRootCategory(Long categoryId, String token);
+    List<Category> getAllCategories(String token);
 }

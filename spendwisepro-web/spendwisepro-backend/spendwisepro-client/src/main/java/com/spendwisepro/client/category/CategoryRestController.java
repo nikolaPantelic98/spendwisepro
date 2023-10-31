@@ -22,6 +22,11 @@ public class CategoryRestController {
         return ResponseEntity.ok("Category saved successfully.");
     }
 
+    @GetMapping("/all")
+    public List<Category> getAllCategories(@RequestHeader("Authorization") String token) {
+        return categoryService.getAllCategories(token);
+    }
+
     @GetMapping("/all_root")
     public List<Category> getAllRootCategories(@RequestHeader("Authorization") String token) {
         return categoryService.getAllRootCategories(token);

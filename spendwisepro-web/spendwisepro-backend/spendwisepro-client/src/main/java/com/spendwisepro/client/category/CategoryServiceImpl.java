@@ -71,4 +71,17 @@ public class CategoryServiceImpl implements CategoryService{
         return categoryRepository
                 .findSubCategoriesOfRootCategory(categoryId, authenticatedUser.getId(), Sort.by("name"));
     }
+
+    @Override
+    public List<Category> getAllCategories(String token) {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+        User authenticatedUser = user.get();
+
+        return categoryRepository.findAllCategories(authenticatedUser.getId(), Sort.by("name"));
+    }
 }

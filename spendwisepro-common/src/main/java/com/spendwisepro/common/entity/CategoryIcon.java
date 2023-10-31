@@ -1,8 +1,12 @@
 package com.spendwisepro.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spendwisepro.common.Constants;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -29,6 +33,11 @@ public class CategoryIcon {
             nullable = false
     )
     private String image;
+
+    @OneToMany(mappedBy = "icon", orphanRemoval = true)
+    @JsonIgnore
+    @ToString.Exclude
+    private Set<Category> categories = new HashSet<>();
 
 
     public CategoryIcon(String image) {

@@ -4,7 +4,7 @@ import {
     Card,
     CardBody, ListItem, Typography,
 } from "@material-tailwind/react";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import '../../App.css';
 import {
     ArrowLongRightIcon,
@@ -13,6 +13,7 @@ import {
     RectangleGroupIcon
 } from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 export default function CategoryList() {
 
@@ -21,122 +22,39 @@ export default function CategoryList() {
         setOpen(open === value ? 0 : value);
     };
 
-    const categories = [
-        {
-            id: 1,
-            name: "Car",
-            parentCategory: "None",
-            icon: "https://www.iconbunny.com/icons/media/catalog/product/1/2/1258.9-car-icon-iconbunny.jpg"
-        },
-        {
-            id: 2,
-            name: "Food & Drinks",
-            parentCategory: "None",
-            icon: "https://icon-library.com/images/icon-food/icon-food-13.jpg"
-        },
-        {
-            id: 3,
-            name: "Communication & PC",
-            parentCategory: "None",
-            icon: "https://cdn-icons-png.flaticon.com/512/186/186056.png"
-        },
-        {
-            id: 4,
-            name: "Shopping",
-            parentCategory: "None",
-            icon: "https://cdn2.iconfinder.com/data/icons/online-shopping-flat-round/550/cart-512.png"
-        },
-        {
-            id: 5,
-            name: "Fuel",
-            parentCategory: "Car",
-            icon: "https://www.iconbunny.com/icons/media/catalog/product/1/2/1248.9-petrol-pump-icon-iconbunny.jpg"
-        },
-        {
-            id: 6,
-            name: "Parking",
-            parentCategory: "Car",
-            icon: "https://www.iconbunny.com/icons/media/catalog/product/1/2/1228.9-parking-sign-icon-iconbunny.jpg"
-        },
-        {
-            id: 7,
-            name: "Groceries",
-            parentCategory: "Food & Drinks",
-            icon: "https://icon-library.com/images/grocery-icon-png/grocery-icon-png-14.jpg"
-        },
-        {
-            id: 8,
-            name: "Restaurant",
-            parentCategory: "Food & Drinks",
-            icon: "https://cdn-icons-png.flaticon.com/512/227/227326.png"
-        },
-        {
-            id: 9,
-            name: "Snacks",
-            parentCategory: "Food & Drinks",
-            icon: "https://www.iconbunny.com/icons/media/catalog/product/cache/2/thumbnail/600x/1b89f2fc96fc819c2a7e15c7e545e8a9/5/2/524.9-fries-icon-iconbunny.jpg"
-        },
-        {
-            id: 10,
-            name: "Bar & Cafe",
-            parentCategory: "Food & Drinks",
-            icon: "https://w7.pngwing.com/pngs/50/319/png-transparent-coffee-icon100-computer-icons-android-pub-orange-logo-coffee-thumbnail.png"
-        },
-        {
-            id: 11,
-            name: "Phone",
-            parentCategory: "Communication & PC",
-            icon: "https://cdn.icon-icons.com/icons2/70/PNG/512/phone_14179.png"
-        },
-        {
-            id: 12,
-            name: "Internet",
-            parentCategory: "Communication & PC",
-            icon: "https://www.iconbunny.com/icons/media/catalog/product/1/9/195.9-wifi-icon-iconbunny.jpg"
-        },
-        {
-            id: 13,
-            name: "PC & Laptop",
-            parentCategory: "Communication & PC",
-            icon: "https://cdn3.iconfinder.com/data/icons/flat-rounded-5/50/482-512.png"
-        },
-        {
-            id: 14,
-            name: "Clothes & Shoes",
-            parentCategory: "Shopping",
-            icon: "https://cdn-icons-png.flaticon.com/512/189/189569.png"
-        },
-        {
-            id: 15,
-            name: "Jewels & Accessories",
-            parentCategory: "Shopping",
-            icon: "https://www.shareicon.net/data/2016/08/18/809300_diamond_512x512.png"
-        },
-        {
-            id: 16,
-            name: "Home & Garden",
-            parentCategory: "Shopping",
-            icon: "https://cdn-icons-png.flaticon.com/512/3693/3693434.png"
-        },
-    ]
+    const [categories, setCategories] = useState([]);
+
+    const token = localStorage.getItem("token");
+
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    };
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/spendwisepro/categories/all', { headers })
+            .then(response => {
+                setCategories(response.data);
+            })
+            .catch(error => console.error('Error fetching parent categories:', error));
+    }, []);
 
     // Filter parent categories from the 'categories' array.
     const parentCategories = (() => {
         return categories.filter(category => {
-            return category.parentCategory === "None";
+            return category.parent === null;
         });
     })();
 
     // Filter subcategories from the 'categories' array.
     const subCategories = (() => {
         return categories.filter(category => {
-            return category.parentCategory !== "None";
+            return category.parent !== null;
         });
     })();
 
     // Create full categories by mapping parent categories and adding corresponding subcategories.
     const fullCategories = parentCategories.map(superCategory => {
-        const subCats = subCategories.filter(subCategory => subCategory.parentCategory === superCategory.name);
+        const subCats = subCategories.filter(subCategory => subCategory.parent.name === superCategory.name);
 
         return {
             ...superCategory,
@@ -182,7 +100,7 @@ export default function CategoryList() {
                                     <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50" selected={open === superCategory.id}>
                                         <AccordionHeader onClick={() => handleOpen(superCategory.id)} className="border-b-0 p-3 gap-4 pl-0">
                                             <div className="flex-shrink-0">
-                                                <img className="w-8 h-8 rounded-full" src={superCategory.icon} alt={superCategory.name} />
+                                                <img className="w-8 h-8 rounded-full" src={superCategory.icon.iconPath} alt={superCategory.icon.image} />
                                             </div>
                                             <div className="flex-1 min-w-0">
                                                 <div className="h-1"></div>
@@ -227,7 +145,7 @@ export default function CategoryList() {
                                                     <Link>
                                                         <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50 pl-3 pr-2">
                                                             <div className="pl-5 border-l-2 border-green-500">
-                                                                <img className="w-8 h-8 rounded-full" src={subCategory.icon} alt={subCategory.name} />
+                                                                <img className="w-8 h-8 rounded-full" src={subCategory.icon.iconPath} alt={subCategory.icon.image} />
                                                             </div>
                                                             <div className="flex-1 min-w-0">
                                                                 <div className="h-3"></div>
