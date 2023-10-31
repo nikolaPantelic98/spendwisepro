@@ -45,6 +45,14 @@ export default function EditCategoryForm() {
         }
     }
 
+    const deleteCategory = () => {
+        axios.delete(`http://localhost:8000/spendwisepro/categories/delete/${id}`, { headers })
+            .then(() => {
+                navigate("/categories", {state: {success: true}});
+            })
+            .catch(error => console.error('Error deleting icon:', error));
+    }
+
     function navigateToCategories() {
         navigate("/categories");
     }
@@ -56,7 +64,7 @@ export default function EditCategoryForm() {
                 <form onSubmit={handleSubmit}>
                     <div className="flow-root">
                         <div className="flex justify-center items-center">
-                            <Button className="mt-2 w-full" variant="outlined" color="red">
+                            <Button onClick={deleteCategory} className="mt-2 w-full" variant="outlined" color="red">
                                 <span>Delete</span>
                             </Button>
                         </div>
