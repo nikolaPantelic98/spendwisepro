@@ -128,4 +128,17 @@ public class CategoryRepositoryTests {
 
         assertThat(rootCategories).isNotNull();
     }
+
+    @Test
+    public void testFindCategoryById() {
+        User user = userRepository.findById(19L).get();
+
+        Category category = categoryRepository.findById(82L).get();
+
+        Category foundCategory = categoryRepository.findCategoryById(category.getId(), user.getId());
+
+        System.out.println(foundCategory);
+
+        assertThat(foundCategory).isNotNull();
+    }
 }
