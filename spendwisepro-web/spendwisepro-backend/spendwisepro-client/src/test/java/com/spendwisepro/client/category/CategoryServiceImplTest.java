@@ -5,6 +5,7 @@ import com.spendwisepro.client.user.UserRepository;
 import com.spendwisepro.common.entity.Category;
 import com.spendwisepro.common.entity.CategoryIcon;
 import com.spendwisepro.common.entity.User;
+import com.spendwisepro.common.exception.CategoryNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -391,5 +392,47 @@ public class CategoryServiceImplTest {
         assertThrows(Exception.class, () -> {
             categoryService.updateCategory(categoryId, category, token);
         });
+    }
+
+    // deleteCategory
+    @Test
+    public void testDeletesCategorySuccessfully() throws CategoryNotFoundException {
+        // Arrange
+        Long categoryId = 1L;
+        String token = "validToken";
+
+        User user = new User();
+        user.setId(1L);
+
+        Optional<User> optionalUser = Optional.of(user);
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
+        when(userRepository.findByUsername("username")).thenReturn(optionalUser);
+        when(categoryRepository.countById(categoryId)).thenReturn(1L);
+
+        // Act
+        categoryService.deleteCategory(categoryId, token);
+
+        // Assert
+        verify(jwtService, times(1)).extractUsernameForAuthentication(token);
+        verify(userRepository, times(1)).findByUsername("username");
+        verify(categoryRepository, times(1)).countById(categoryId);
+        verify(categoryRepository, times(1)).deleteCategoryById(categoryId, user.getId());
+    }
+
+    // deleteCategory
+    @Test
+    public void testThrowsCategoryNotFoundException() {
+        // Arrange
+        Long categoryId = 1L;
+        String token = "validToken";
+        User user = new User();
+        user.setId(1L);
+        Optional<User> optionalUser = Optional.of(user);
+        when(userRepository.findByUsername(anyString())).thenReturn(optionalUser);
+        when(categoryRepository.countById(anyLong())).thenReturn(0L);
+
+        // Act and Assert
+        assertThrows(Exception.class, () -> categoryService.deleteCategory(categoryId, token));
     }
 }
