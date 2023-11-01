@@ -116,7 +116,7 @@ public class CategoryServiceImplTest {
         Long categoryId = 1L;
         String token = "valid_token";
         User user = User.builder().id(1L).build();
-        Category category = Category.builder().id(categoryId).user(user).build();
+        Category.builder().id(categoryId).user(user).build();
         List<Category> subCategories = Arrays.asList(
                 Category.builder().id(2L).name("Subcategory 1").build(),
                 Category.builder().id(3L).name("Subcategory 2").build()
@@ -142,7 +142,7 @@ public class CategoryServiceImplTest {
         Long categoryId = 1L;
         String token = "valid_token";
         User user = User.builder().id(1L).build();
-        Category category = Category.builder().id(categoryId).user(user).build();
+        Category.builder().id(categoryId).user(user).build();
 
         when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
         when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
@@ -158,5 +158,87 @@ public class CategoryServiceImplTest {
         verify(categoryRepository).findSubCategoriesOfRootCategory(categoryId, user.getId(), Sort.by("name"));
     }
 
+    @Test
+    public void testReturnsListOfAllCategoriesForValidUserWithAtLeastOneCategory() {
+        // Mock dependencies
+        JwtService jwtService = mock(JwtService.class);
+        UserRepository userRepository = mock(UserRepository.class);
+        CategoryRepository categoryRepository = mock(CategoryRepository.class);
 
+        // Create test data
+        String token = "valid_token";
+        String username = "valid_username";
+        User user = new User();
+        user.setId(1L);
+        user.setUsername(username);
+        List<Category> categories = new ArrayList<>();
+        categories.add(new Category("Category 1", "Color 1", user, null));
+        categories.add(new Category("Category 2", "Color 2", user, null));
+
+        // Set up mock behavior
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(username);
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+        when(categoryRepository.findAllCategories(user.getId(), Sort.by("name"))).thenReturn(categories);
+
+        // Create instance of CategoryServiceImpl
+        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository, userRepository, jwtService);
+
+        // Call the method under test
+        List<Category> result = categoryService.getAllCategories(token);
+
+        // Assert the result
+        assertEquals(categories, result);
+    }
+
+    @Test
+    public void testReturnsEmptyListForValidUserWithNoCategories() {
+        // Mock dependencies
+        JwtService jwtService = mock(JwtService.class);
+        UserRepository userRepository = mock(UserRepository.class);
+        CategoryRepository categoryRepository = mock(CategoryRepository.class);
+
+        // Create test data
+        String token = "valid_token";
+        String username = "valid_username";
+        User user = new User();
+        user.setId(1L);
+        user.setUsername(username);
+        List<Category> categories = new ArrayList<>();
+
+        // Set up mock behavior
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(username);
+        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+        when(categoryRepository.findAllCategories(user.getId(), Sort.by("name"))).thenReturn(categories);
+
+        // Create instance of CategoryServiceImpl
+        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository, userRepository, jwtService);
+
+        // Call the method under test
+        List<Category> result = categoryService.getAllCategories(token);
+
+        // Assert the result
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void testThrowsUsernameNotFoundExceptionIfUserNotFound() {
+        // Mock dependencies
+        JwtService jwtService = mock(JwtService.class);
+        UserRepository userRepository = mock(UserRepository.class);
+        CategoryRepository categoryRepository = mock(CategoryRepository.class);
+
+        // Create test data
+        String token = "valid_token";
+        String username = "valid_username";
+
+        // Set up mock behavior
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(username);
+        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
+
+        // Create instance of CategoryServiceImpl
+        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository, userRepository, jwtService);
+
+        // Call the method under test and assert the exception
+        assertThrows(UsernameNotFoundException.class, () -> categoryService.getAllCategories(token));
+    }
 }
