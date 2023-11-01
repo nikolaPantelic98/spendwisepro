@@ -10,10 +10,16 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -61,11 +67,7 @@ public class CategoryServiceImplTest {
         when(jwtService.extractUsernameForAuthentication(anyString())).thenReturn(user.getUsername());
         when(userRepository.findByUsername(anyString())).thenReturn(Optional.empty());
 
-        try {
-            categoryService.saveCategory(category, "token");
-        } catch (Exception e) {
-            assert (e instanceof UsernameNotFoundException);
-        }
+        assertThrows(UsernameNotFoundException.class, () -> categoryService.saveCategory(category, "token"));
     }
 
     @Test
@@ -78,10 +80,39 @@ public class CategoryServiceImplTest {
         when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(user));
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        try {
-            categoryService.saveCategory(category, "token");
-        } catch (Exception e) {
-            assert (e instanceof IllegalArgumentException);
-        }
+        assertThrows(IllegalArgumentException.class, () -> categoryService.saveCategory(category, "token"));
     }
+
+    @Test
+    public void testReturnsListOfRootCategoriesForValidUser() {
+        // Arrange
+        String token = "valid_token";
+        String username = "valid_username";
+        Long userId = 1L;
+        User user = new User(userId, username, "valid_email", "valid_password", new Date());
+        Category category1 = new Category("Category 1", "color1", user, null);
+        Category category2 = new Category("Category 2", "color2", user, null);
+        List<Category> expectedCategories = Arrays.asList(category1, category2);
+
+        JwtService jwtServiceMock = mock(JwtService.class);
+        UserRepository userRepositoryMock = mock(UserRepository.class);
+        CategoryRepository categoryRepositoryMock = mock(CategoryRepository.class);
+
+        when(jwtServiceMock.extractUsernameForAuthentication(token)).thenReturn(username);
+        when(userRepositoryMock.findByUsername(username)).thenReturn(Optional.of(user));
+        when(categoryRepositoryMock.findRootCategories(userId, Sort.by("name"))).thenReturn(expectedCategories);
+
+        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepositoryMock, userRepositoryMock, jwtServiceMock);
+
+        // Act
+        List<Category> actualCategories = categoryService.getAllRootCategories(token);
+
+        // Assert
+        assertEquals(expectedCategories, actualCategories);
+        verify(jwtServiceMock).extractUsernameForAuthentication(token);
+        verify(userRepositoryMock).findByUsername(username);
+        verify(categoryRepositoryMock).findRootCategories(userId, Sort.by("name"));
+    }
+
+
 }
