@@ -4,6 +4,7 @@ import com.spendwisepro.client.security.jwt.JwtService;
 import com.spendwisepro.client.user.UserRepository;
 import com.spendwisepro.common.entity.Category;
 import com.spendwisepro.common.entity.User;
+import com.spendwisepro.common.exception.CategoryNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,6 +48,7 @@ public class CategoryServiceImplTest {
         category.setUser(user);
     }
 
+    // saveCategory
     @Test
     public void testSaveCategoryWhenValidCategoryAndTokenThenCategorySaved() {
         when(jwtService.extractUsernameForAuthentication(anyString())).thenReturn(user.getUsername());
@@ -58,6 +60,7 @@ public class CategoryServiceImplTest {
         verify(categoryRepository, times(1)).save(any(Category.class));
     }
 
+    // saveCategory
     @Test
     public void testSaveCategoryWhenUserNotFoundThenThrowException() {
         when(jwtService.extractUsernameForAuthentication(anyString())).thenReturn(user.getUsername());
@@ -66,6 +69,7 @@ public class CategoryServiceImplTest {
         assertThrows(UsernameNotFoundException.class, () -> categoryService.saveCategory(category, "token"));
     }
 
+    // saveCategory
     @Test
     public void testSaveCategoryWhenParentCategoryNotFoundThenThrowException() {
         Category parentCategory = new Category();
@@ -79,6 +83,7 @@ public class CategoryServiceImplTest {
         assertThrows(IllegalArgumentException.class, () -> categoryService.saveCategory(category, "token"));
     }
 
+    // getAllRootCategories
     @Test
     public void testReturnsListOfRootCategoriesForValidUser() {
         // Arrange
@@ -110,6 +115,7 @@ public class CategoryServiceImplTest {
         verify(categoryRepositoryMock).findRootCategories(userId, Sort.by("name"));
     }
 
+    // getAllSubCategoriesOfRootCategory
     @Test
     public void shouldReturnListOfSubcategoriesForValidCategoryIdAndToken() {
         // Arrange
@@ -136,6 +142,7 @@ public class CategoryServiceImplTest {
         verify(categoryRepository).findSubCategoriesOfRootCategory(categoryId, user.getId(), Sort.by("name"));
     }
 
+    // getAllSubCategoriesOfRootCategory
     @Test
     public void shouldReturnEmptyListForNoSubcategories() {
         // Arrange
@@ -158,6 +165,7 @@ public class CategoryServiceImplTest {
         verify(categoryRepository).findSubCategoriesOfRootCategory(categoryId, user.getId(), Sort.by("name"));
     }
 
+    // getAllCategories
     @Test
     public void testReturnsListOfAllCategoriesForValidUserWithAtLeastOneCategory() {
         // Mock dependencies
@@ -190,6 +198,7 @@ public class CategoryServiceImplTest {
         assertEquals(categories, result);
     }
 
+    // getAllCategories
     @Test
     public void testReturnsEmptyListForValidUserWithNoCategories() {
         // Mock dependencies
@@ -220,6 +229,7 @@ public class CategoryServiceImplTest {
         assertTrue(result.isEmpty());
     }
 
+    // getAllCategories
     @Test
     public void testThrowsUsernameNotFoundExceptionIfUserNotFound() {
         // Mock dependencies
@@ -240,5 +250,28 @@ public class CategoryServiceImplTest {
 
         // Call the method under test and assert the exception
         assertThrows(UsernameNotFoundException.class, () -> categoryService.getAllCategories(token));
+    }
+
+    // getCategoryById
+    @Test
+    public void testReturnsCategoryWhenGivenValidCategoryIdAndToken() {
+        // Arrange
+        Long categoryId = 1L;
+        String token = "validToken";
+        User user = new User();
+        user.setId(1L);
+        Category category = new Category();
+        category.setId(categoryId);
+        category.setUser(user);
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
+        when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
+        when(categoryRepository.findCategoryById(categoryId, user.getId())).thenReturn(category);
+
+        // Act
+        Category result = categoryService.getCategoryById(categoryId, token);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(categoryId, result.getId());
     }
 }
