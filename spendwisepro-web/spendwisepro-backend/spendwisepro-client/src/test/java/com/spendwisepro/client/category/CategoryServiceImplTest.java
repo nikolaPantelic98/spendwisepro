@@ -3,8 +3,8 @@ package com.spendwisepro.client.category;
 import com.spendwisepro.client.security.jwt.JwtService;
 import com.spendwisepro.client.user.UserRepository;
 import com.spendwisepro.common.entity.Category;
+import com.spendwisepro.common.entity.CategoryIcon;
 import com.spendwisepro.common.entity.User;
-import com.spendwisepro.common.exception.CategoryNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -273,5 +273,123 @@ public class CategoryServiceImplTest {
         // Assert
         assertNotNull(result);
         assertEquals(categoryId, result.getId());
+    }
+
+    // updateCategory
+    @Test
+    public void testUpdatesExistingCategoryWithValidInput() {
+        // Arrange
+        Long categoryId = 1L;
+        Category category = new Category("New Name", "New Color", null, null);
+        String token = "valid_token";
+
+        User authenticatedUser = new User();
+        authenticatedUser.setId(1L);
+
+        Category existingCategory = new Category();
+        existingCategory.setId(categoryId);
+        existingCategory.setName("Old Name");
+        existingCategory.setColor("Old Color");
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
+        when(userRepository.findByUsername("username")).thenReturn(Optional.of(authenticatedUser));
+        when(categoryRepository.findCategoryById(categoryId, authenticatedUser.getId())).thenReturn(existingCategory);
+
+        // Act
+        categoryService.updateCategory(categoryId, category, token);
+
+        // Assert
+        assertEquals("New Name", existingCategory.getName());
+        assertEquals("New Color", existingCategory.getColor());
+    }
+
+    // updateCategory
+    @Test
+    public void testUpdatesExistingCategoryWithValidParentCategory() {
+        // Arrange
+        Long categoryId = 1L;
+        Category category = new Category();
+        category.setParent(new Category());
+        category.getParent().setId(2L);
+        String token = "valid_token";
+
+        User authenticatedUser = new User();
+        authenticatedUser.setId(1L);
+
+        Category existingCategory = new Category();
+        existingCategory.setId(categoryId);
+        existingCategory.setName("Old Name");
+        existingCategory.setColor("Old Color");
+
+        Category parentCategory = new Category();
+        parentCategory.setId(2L);
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
+        when(userRepository.findByUsername("username")).thenReturn(Optional.of(authenticatedUser));
+        when(categoryRepository.findCategoryById(categoryId, authenticatedUser.getId())).thenReturn(existingCategory);
+        when(categoryRepository.findById(2L)).thenReturn(Optional.of(parentCategory));
+
+        // Act
+        categoryService.updateCategory(categoryId, category, token);
+
+        // Assert
+        assertEquals(parentCategory, existingCategory.getParent());
+    }
+
+    // updateCategory
+    @Test
+    public void testUpdatesExistingCategoryWithValidIcon() {
+        // Arrange
+        Long categoryId = 1L;
+        Category category = new Category();
+        category.setName("Updated Category");
+        category.setColor("Blue");
+        CategoryIcon icon = new CategoryIcon();
+        icon.setId(1L);
+        category.setIcon(icon);
+        String token = "valid_token";
+
+        String username = "test_user";
+        User user = new User();
+        user.setUsername(username);
+        Optional<User> userOptional = Optional.of(user);
+
+        Category existingCategory = new Category();
+        existingCategory.setId(categoryId);
+        existingCategory.setName("Existing Category");
+        existingCategory.setColor("Red");
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(username);
+        when(userRepository.findByUsername(username)).thenReturn(userOptional);
+        when(categoryRepository.findCategoryById(categoryId, user.getId())).thenReturn(existingCategory);
+
+        // Act
+        categoryService.updateCategory(categoryId, category, token);
+
+        // Assert
+        assertEquals(category.getName(), existingCategory.getName());
+        assertEquals(category.getColor(), existingCategory.getColor());
+        assertEquals(category.getIcon(), existingCategory.getIcon());
+    }
+
+    // updateCategory
+    @Test
+    public void testThrowsExceptionWhenCategoryToUpdateNotFound() {
+        // Arrange
+        Long categoryId = 1L;
+        Category category = new Category();
+        String token = "valid_token";
+
+        User authenticatedUser = new User();
+        authenticatedUser.setId(1L);
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
+        when(userRepository.findByUsername("username")).thenReturn(Optional.of(authenticatedUser));
+        when(categoryRepository.findCategoryById(2L, authenticatedUser.getId())).thenReturn(null);
+
+        // Act & Assert
+        assertThrows(Exception.class, () -> {
+            categoryService.updateCategory(categoryId, category, token);
+        });
     }
 }
