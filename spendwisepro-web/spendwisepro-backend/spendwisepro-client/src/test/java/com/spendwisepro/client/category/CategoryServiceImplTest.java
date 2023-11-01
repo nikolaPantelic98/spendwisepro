@@ -38,41 +38,52 @@ public class CategoryServiceImplTest {
 
     private User user;
     private Category category;
+    private String token;
 
     @BeforeEach
     public void setUp() {
         user = new User();
-        user.setUsername("testUser");
+        user.setId(1L);
+        user.setUsername("validUsername");
 
         category = new Category();
-        category.setName("testCategory");
+        category.setId(1L);
+        category.setName("validCategory");
         category.setUser(user);
+
+        token = "validToken";
     }
 
     // saveCategory
     @Test
     public void testSaveCategoryWhenValidCategoryAndTokenThenCategorySaved() {
+        // Arrange
         when(jwtService.extractUsernameForAuthentication(anyString())).thenReturn(user.getUsername());
         when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(user));
         when(categoryRepository.save(any(Category.class))).thenReturn(category);
 
-        categoryService.saveCategory(category, "token");
+        // Act
+        categoryService.saveCategory(category, token);
 
+        // Assert
         verify(categoryRepository, times(1)).save(any(Category.class));
     }
 
     // saveCategory
     @Test
     public void testSaveCategoryWhenUserNotFoundThenThrowException() {
+        // Arrange
         when(jwtService.extractUsernameForAuthentication(anyString())).thenReturn(user.getUsername());
         when(userRepository.findByUsername(anyString())).thenReturn(Optional.empty());
 
-        assertThrows(UsernameNotFoundException.class, () -> categoryService.saveCategory(category, "token"));
+        // Act and assert
+        assertThrows(UsernameNotFoundException.class, () -> categoryService.saveCategory(category, token));
     }
 
     // saveCategory
     @Test
     public void testSaveCategoryWhenParentCategoryNotFoundThenThrowException() {
+        // Arrange
         Category parentCategory = new Category();
         parentCategory.setId(1L);
         category.setParent(parentCategory);
@@ -81,175 +92,117 @@ public class CategoryServiceImplTest {
         when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(user));
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-        assertThrows(IllegalArgumentException.class, () -> categoryService.saveCategory(category, "token"));
+        // Act and assert
+        assertThrows(IllegalArgumentException.class, () -> categoryService.saveCategory(category, token));
     }
 
     // getAllRootCategories
     @Test
     public void testReturnsListOfRootCategoriesForValidUser() {
         // Arrange
-        String token = "valid_token";
-        String username = "valid_username";
-        Long userId = 1L;
-        User user = new User(userId, username, "valid_email", "valid_password", new Date());
         Category category1 = new Category("Category 1", "color1", user, null);
         Category category2 = new Category("Category 2", "color2", user, null);
         List<Category> expectedCategories = Arrays.asList(category1, category2);
 
-        JwtService jwtServiceMock = mock(JwtService.class);
-        UserRepository userRepositoryMock = mock(UserRepository.class);
-        CategoryRepository categoryRepositoryMock = mock(CategoryRepository.class);
-
-        when(jwtServiceMock.extractUsernameForAuthentication(token)).thenReturn(username);
-        when(userRepositoryMock.findByUsername(username)).thenReturn(Optional.of(user));
-        when(categoryRepositoryMock.findRootCategories(userId, Sort.by("name"))).thenReturn(expectedCategories);
-
-        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepositoryMock, userRepositoryMock, jwtServiceMock);
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(categoryRepository.findRootCategories(user.getId(), Sort.by("name"))).thenReturn(expectedCategories);
 
         // Act
         List<Category> actualCategories = categoryService.getAllRootCategories(token);
 
         // Assert
         assertEquals(expectedCategories, actualCategories);
-        verify(jwtServiceMock).extractUsernameForAuthentication(token);
-        verify(userRepositoryMock).findByUsername(username);
-        verify(categoryRepositoryMock).findRootCategories(userId, Sort.by("name"));
+        verify(jwtService).extractUsernameForAuthentication(token);
+        verify(userRepository).findByUsername(user.getUsername());
+        verify(categoryRepository).findRootCategories(user.getId(), Sort.by("name"));
     }
 
     // getAllSubCategoriesOfRootCategory
     @Test
-    public void shouldReturnListOfSubcategoriesForValidCategoryIdAndToken() {
+    public void testReturnListOfSubcategoriesForValidCategoryIdAndToken() {
         // Arrange
-        Long categoryId = 1L;
-        String token = "valid_token";
-        User user = User.builder().id(1L).build();
-        Category.builder().id(categoryId).user(user).build();
         List<Category> subCategories = Arrays.asList(
                 Category.builder().id(2L).name("Subcategory 1").build(),
                 Category.builder().id(3L).name("Subcategory 2").build()
         );
 
-        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
-        when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
-        when(categoryRepository.findSubCategoriesOfRootCategory(categoryId, user.getId(), Sort.by("name"))).thenReturn(subCategories);
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(categoryRepository.findSubCategoriesOfRootCategory(category.getId(), user.getId(), Sort.by("name"))).thenReturn(subCategories);
 
         // Act
-        List<Category> result = categoryService.getAllSubCategoriesOfRootCategory(categoryId, token);
+        List<Category> result = categoryService.getAllSubCategoriesOfRootCategory(category.getId(), token);
 
         // Assert
         assertEquals(subCategories, result);
         verify(jwtService).extractUsernameForAuthentication(token);
-        verify(userRepository).findByUsername("username");
-        verify(categoryRepository).findSubCategoriesOfRootCategory(categoryId, user.getId(), Sort.by("name"));
+        verify(userRepository).findByUsername(user.getUsername());
+        verify(categoryRepository).findSubCategoriesOfRootCategory(category.getId(), user.getId(), Sort.by("name"));
     }
 
     // getAllSubCategoriesOfRootCategory
     @Test
-    public void shouldReturnEmptyListForNoSubcategories() {
+    public void testReturnEmptyListForNoSubcategories() {
         // Arrange
-        Long categoryId = 1L;
-        String token = "valid_token";
-        User user = User.builder().id(1L).build();
-        Category.builder().id(categoryId).user(user).build();
-
-        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
-        when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
-        when(categoryRepository.findSubCategoriesOfRootCategory(categoryId, user.getId(), Sort.by("name"))).thenReturn(Collections.emptyList());
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(categoryRepository.findSubCategoriesOfRootCategory(category.getId(), user.getId(), Sort.by("name"))).thenReturn(Collections.emptyList());
 
         // Act
-        List<Category> result = categoryService.getAllSubCategoriesOfRootCategory(categoryId, token);
+        List<Category> result = categoryService.getAllSubCategoriesOfRootCategory(category.getId(), token);
 
         // Assert
         assertTrue(result.isEmpty());
         verify(jwtService).extractUsernameForAuthentication(token);
-        verify(userRepository).findByUsername("username");
-        verify(categoryRepository).findSubCategoriesOfRootCategory(categoryId, user.getId(), Sort.by("name"));
+        verify(userRepository).findByUsername(user.getUsername());
+        verify(categoryRepository).findSubCategoriesOfRootCategory(category.getId(), user.getId(), Sort.by("name"));
     }
 
     // getAllCategories
     @Test
     public void testReturnsListOfAllCategoriesForValidUserWithAtLeastOneCategory() {
-        // Mock dependencies
-        JwtService jwtService = mock(JwtService.class);
-        UserRepository userRepository = mock(UserRepository.class);
-        CategoryRepository categoryRepository = mock(CategoryRepository.class);
-
-        // Create test data
-        String token = "valid_token";
-        String username = "valid_username";
-        User user = new User();
-        user.setId(1L);
-        user.setUsername(username);
+        // Arrange
         List<Category> categories = new ArrayList<>();
         categories.add(new Category("Category 1", "Color 1", user, null));
         categories.add(new Category("Category 2", "Color 2", user, null));
 
-        // Set up mock behavior
-        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(username);
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
         when(categoryRepository.findAllCategories(user.getId(), Sort.by("name"))).thenReturn(categories);
 
-        // Create instance of CategoryServiceImpl
-        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository, userRepository, jwtService);
-
-        // Call the method under test
+        // Act
         List<Category> result = categoryService.getAllCategories(token);
 
-        // Assert the result
+        // Assert
         assertEquals(categories, result);
     }
 
     // getAllCategories
     @Test
     public void testReturnsEmptyListForValidUserWithNoCategories() {
-        // Mock dependencies
-        JwtService jwtService = mock(JwtService.class);
-        UserRepository userRepository = mock(UserRepository.class);
-        CategoryRepository categoryRepository = mock(CategoryRepository.class);
-
-        // Create test data
-        String token = "valid_token";
-        String username = "valid_username";
-        User user = new User();
-        user.setId(1L);
-        user.setUsername(username);
+        // Arrange
         List<Category> categories = new ArrayList<>();
 
-        // Set up mock behavior
-        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(username);
-        when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
         when(categoryRepository.findAllCategories(user.getId(), Sort.by("name"))).thenReturn(categories);
 
-        // Create instance of CategoryServiceImpl
-        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository, userRepository, jwtService);
-
-        // Call the method under test
+        // Act
         List<Category> result = categoryService.getAllCategories(token);
 
-        // Assert the result
+        // Assert
         assertTrue(result.isEmpty());
     }
 
     // getAllCategories
     @Test
     public void testThrowsUsernameNotFoundExceptionIfUserNotFound() {
-        // Mock dependencies
-        JwtService jwtService = mock(JwtService.class);
-        UserRepository userRepository = mock(UserRepository.class);
-        CategoryRepository categoryRepository = mock(CategoryRepository.class);
+        // Arrange
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.empty());
 
-        // Create test data
-        String token = "valid_token";
-        String username = "valid_username";
-
-        // Set up mock behavior
-        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(username);
-        when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
-
-        // Create instance of CategoryServiceImpl
-        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository, userRepository, jwtService);
-
-        // Call the method under test and assert the exception
+        // Act and assert
         assertThrows(UsernameNotFoundException.class, () -> categoryService.getAllCategories(token));
     }
 
@@ -257,23 +210,16 @@ public class CategoryServiceImplTest {
     @Test
     public void testReturnsCategoryWhenGivenValidCategoryIdAndToken() {
         // Arrange
-        Long categoryId = 1L;
-        String token = "validToken";
-        User user = new User();
-        user.setId(1L);
-        Category category = new Category();
-        category.setId(categoryId);
-        category.setUser(user);
-        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
-        when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
-        when(categoryRepository.findCategoryById(categoryId, user.getId())).thenReturn(category);
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(categoryRepository.findCategoryById(category.getId(), user.getId())).thenReturn(category);
 
         // Act
-        Category result = categoryService.getCategoryById(categoryId, token);
+        Category result = categoryService.getCategoryById(category.getId(), token);
 
         // Assert
         assertNotNull(result);
-        assertEquals(categoryId, result.getId());
+        assertEquals(category.getId(), result.getId());
     }
 
     // updateCategory
@@ -282,19 +228,15 @@ public class CategoryServiceImplTest {
         // Arrange
         Long categoryId = 1L;
         Category category = new Category("New Name", "New Color", null, null);
-        String token = "valid_token";
-
-        User authenticatedUser = new User();
-        authenticatedUser.setId(1L);
 
         Category existingCategory = new Category();
         existingCategory.setId(categoryId);
         existingCategory.setName("Old Name");
         existingCategory.setColor("Old Color");
 
-        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
-        when(userRepository.findByUsername("username")).thenReturn(Optional.of(authenticatedUser));
-        when(categoryRepository.findCategoryById(categoryId, authenticatedUser.getId())).thenReturn(existingCategory);
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(categoryRepository.findCategoryById(categoryId, user.getId())).thenReturn(existingCategory);
 
         // Act
         categoryService.updateCategory(categoryId, category, token);
@@ -308,30 +250,24 @@ public class CategoryServiceImplTest {
     @Test
     public void testUpdatesExistingCategoryWithValidParentCategory() {
         // Arrange
-        Long categoryId = 1L;
-        Category category = new Category();
         category.setParent(new Category());
         category.getParent().setId(2L);
-        String token = "valid_token";
-
-        User authenticatedUser = new User();
-        authenticatedUser.setId(1L);
 
         Category existingCategory = new Category();
-        existingCategory.setId(categoryId);
+        existingCategory.setId(category.getId());
         existingCategory.setName("Old Name");
         existingCategory.setColor("Old Color");
 
         Category parentCategory = new Category();
         parentCategory.setId(2L);
 
-        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
-        when(userRepository.findByUsername("username")).thenReturn(Optional.of(authenticatedUser));
-        when(categoryRepository.findCategoryById(categoryId, authenticatedUser.getId())).thenReturn(existingCategory);
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(categoryRepository.findCategoryById(category.getId(), user.getId())).thenReturn(existingCategory);
         when(categoryRepository.findById(2L)).thenReturn(Optional.of(parentCategory));
 
         // Act
-        categoryService.updateCategory(categoryId, category, token);
+        categoryService.updateCategory(category.getId(), category, token);
 
         // Assert
         assertEquals(parentCategory, existingCategory.getParent());
@@ -348,20 +284,14 @@ public class CategoryServiceImplTest {
         CategoryIcon icon = new CategoryIcon();
         icon.setId(1L);
         category.setIcon(icon);
-        String token = "valid_token";
-
-        String username = "test_user";
-        User user = new User();
-        user.setUsername(username);
-        Optional<User> userOptional = Optional.of(user);
 
         Category existingCategory = new Category();
         existingCategory.setId(categoryId);
         existingCategory.setName("Existing Category");
         existingCategory.setColor("Red");
 
-        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(username);
-        when(userRepository.findByUsername(username)).thenReturn(userOptional);
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
         when(categoryRepository.findCategoryById(categoryId, user.getId())).thenReturn(existingCategory);
 
         // Act
@@ -377,62 +307,40 @@ public class CategoryServiceImplTest {
     @Test
     public void testThrowsExceptionWhenCategoryToUpdateNotFound() {
         // Arrange
-        Long categoryId = 1L;
-        Category category = new Category();
-        String token = "valid_token";
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(categoryRepository.findCategoryById(2L, user.getId())).thenReturn(null);
 
-        User authenticatedUser = new User();
-        authenticatedUser.setId(1L);
-
-        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
-        when(userRepository.findByUsername("username")).thenReturn(Optional.of(authenticatedUser));
-        when(categoryRepository.findCategoryById(2L, authenticatedUser.getId())).thenReturn(null);
-
-        // Act & Assert
-        assertThrows(Exception.class, () -> {
-            categoryService.updateCategory(categoryId, category, token);
-        });
+        // Act and assert
+        assertThrows(Exception.class, () -> categoryService.updateCategory(category.getId(), category, token));
     }
 
     // deleteCategory
     @Test
     public void testDeletesCategorySuccessfully() throws CategoryNotFoundException {
         // Arrange
-        Long categoryId = 1L;
-        String token = "validToken";
-
-        User user = new User();
-        user.setId(1L);
-
-        Optional<User> optionalUser = Optional.of(user);
-
-        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
-        when(userRepository.findByUsername("username")).thenReturn(optionalUser);
-        when(categoryRepository.countById(categoryId)).thenReturn(1L);
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(categoryRepository.countById(category.getId())).thenReturn(1L);
 
         // Act
-        categoryService.deleteCategory(categoryId, token);
+        categoryService.deleteCategory(category.getId(), token);
 
         // Assert
         verify(jwtService, times(1)).extractUsernameForAuthentication(token);
-        verify(userRepository, times(1)).findByUsername("username");
-        verify(categoryRepository, times(1)).countById(categoryId);
-        verify(categoryRepository, times(1)).deleteCategoryById(categoryId, user.getId());
+        verify(userRepository, times(1)).findByUsername(user.getUsername());
+        verify(categoryRepository, times(1)).countById(category.getId());
+        verify(categoryRepository, times(1)).deleteCategoryById(category.getId(), user.getId());
     }
 
     // deleteCategory
     @Test
     public void testThrowsCategoryNotFoundException() {
         // Arrange
-        Long categoryId = 1L;
-        String token = "validToken";
-        User user = new User();
-        user.setId(1L);
-        Optional<User> optionalUser = Optional.of(user);
-        when(userRepository.findByUsername(anyString())).thenReturn(optionalUser);
+        when(userRepository.findByUsername(anyString())).thenReturn(Optional.of(user));
         when(categoryRepository.countById(anyLong())).thenReturn(0L);
 
         // Act and Assert
-        assertThrows(Exception.class, () -> categoryService.deleteCategory(categoryId, token));
+        assertThrows(Exception.class, () -> categoryService.deleteCategory(category.getId(), token));
     }
 }

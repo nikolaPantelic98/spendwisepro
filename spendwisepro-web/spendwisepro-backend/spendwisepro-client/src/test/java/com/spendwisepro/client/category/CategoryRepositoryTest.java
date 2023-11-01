@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(value = false)
-public class CategoryRepositoryTests {
+public class CategoryRepositoryTest {
 
     @Autowired
     private CategoryRepository categoryRepository;
