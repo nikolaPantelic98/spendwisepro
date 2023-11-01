@@ -13,13 +13,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -112,6 +108,54 @@ public class CategoryServiceImplTest {
         verify(jwtServiceMock).extractUsernameForAuthentication(token);
         verify(userRepositoryMock).findByUsername(username);
         verify(categoryRepositoryMock).findRootCategories(userId, Sort.by("name"));
+    }
+
+    @Test
+    public void shouldReturnListOfSubcategoriesForValidCategoryIdAndToken() {
+        // Arrange
+        Long categoryId = 1L;
+        String token = "valid_token";
+        User user = User.builder().id(1L).build();
+        Category category = Category.builder().id(categoryId).user(user).build();
+        List<Category> subCategories = Arrays.asList(
+                Category.builder().id(2L).name("Subcategory 1").build(),
+                Category.builder().id(3L).name("Subcategory 2").build()
+        );
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
+        when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
+        when(categoryRepository.findSubCategoriesOfRootCategory(categoryId, user.getId(), Sort.by("name"))).thenReturn(subCategories);
+
+        // Act
+        List<Category> result = categoryService.getAllSubCategoriesOfRootCategory(categoryId, token);
+
+        // Assert
+        assertEquals(subCategories, result);
+        verify(jwtService).extractUsernameForAuthentication(token);
+        verify(userRepository).findByUsername("username");
+        verify(categoryRepository).findSubCategoriesOfRootCategory(categoryId, user.getId(), Sort.by("name"));
+    }
+
+    @Test
+    public void shouldReturnEmptyListForNoSubcategories() {
+        // Arrange
+        Long categoryId = 1L;
+        String token = "valid_token";
+        User user = User.builder().id(1L).build();
+        Category category = Category.builder().id(categoryId).user(user).build();
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn("username");
+        when(userRepository.findByUsername("username")).thenReturn(Optional.of(user));
+        when(categoryRepository.findSubCategoriesOfRootCategory(categoryId, user.getId(), Sort.by("name"))).thenReturn(Collections.emptyList());
+
+        // Act
+        List<Category> result = categoryService.getAllSubCategoriesOfRootCategory(categoryId, token);
+
+        // Assert
+        assertTrue(result.isEmpty());
+        verify(jwtService).extractUsernameForAuthentication(token);
+        verify(userRepository).findByUsername("username");
+        verify(categoryRepository).findSubCategoriesOfRootCategory(categoryId, user.getId(), Sort.by("name"));
     }
 
 
