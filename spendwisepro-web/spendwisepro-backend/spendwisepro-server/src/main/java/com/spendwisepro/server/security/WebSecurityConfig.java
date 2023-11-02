@@ -32,6 +32,7 @@ public class WebSecurityConfig {
 
                                 .requestMatchers("/auth/register", "/auth/logout").authenticated()
                                 .requestMatchers("/icons/**").authenticated()
+                                .requestMatchers("/credit_card_icons").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
