@@ -47,4 +47,10 @@ public class CreditCard {
             name = "icon_id"
     )
     private CreditCardIcon icon;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "user_id"
+    )
+    private User user;
 }
