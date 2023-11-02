@@ -7,4 +7,5 @@ import java.util.List;
 public interface CreditCardIconService {
 
     List<CreditCardIcon> getAllCreditCardIcons();
+    CreditCardIcon saveCreditCardIcon(CreditCardIcon creditCardIcon);
 }

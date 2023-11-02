@@ -1,12 +1,15 @@
 package com.spendwisepro.server.creditcardicon;
 
+import com.spendwisepro.common.entity.CategoryIcon;
 import com.spendwisepro.common.entity.CreditCardIcon;
+import com.spendwisepro.server.files.AmazonS3Util;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -21,5 +24,23 @@ public class CreditCardIconRestController {
     @GetMapping("/all")
     public List<CreditCardIcon> getAllCreditCardIcons() {
         return creditCardIconService.getAllCreditCardIcons();
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<String> saveCreditCardIcon(CreditCardIcon creditCardIcon, @RequestParam("fileImage") MultipartFile multipartFile) throws IOException {
+        if (!multipartFile.isEmpty()) {
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            creditCardIcon.setImage(fileName);
+
+            CreditCardIcon savedCreditCardIcon = creditCardIconService.saveCreditCardIcon(creditCardIcon);
+            String uploadDir = "credit-card-icons/" + savedCreditCardIcon.getId();
+
+            AmazonS3Util.removeFolder(uploadDir);
+            AmazonS3Util.uploadFile(uploadDir, fileName, multipartFile.getInputStream());
+        } else {
+            creditCardIconService.saveCreditCardIcon(creditCardIcon);
+        }
+
+        return ResponseEntity.ok("Credit card icon saved.");
     }
 }
