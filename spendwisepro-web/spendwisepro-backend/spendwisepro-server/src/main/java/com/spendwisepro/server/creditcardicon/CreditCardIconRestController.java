@@ -1,7 +1,7 @@
 package com.spendwisepro.server.creditcardicon;
 
-import com.spendwisepro.common.entity.CategoryIcon;
 import com.spendwisepro.common.entity.CreditCardIcon;
+import com.spendwisepro.common.exception.CreditCardIconNotFoundException;
 import com.spendwisepro.server.files.AmazonS3Util;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -42,5 +42,17 @@ public class CreditCardIconRestController {
         }
 
         return ResponseEntity.ok("Credit card icon saved.");
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteCreditCardIcon(@PathVariable Long id) {
+        try {
+            creditCardIconService.deleteCreditCardIcon(id);
+            String creditCardIconDir = "credit-card-icons/" + id;
+            AmazonS3Util.removeFolder(creditCardIconDir);
+        } catch (CreditCardIconNotFoundException exception) {
+            return ResponseEntity.ok(exception.getMessage());
+        }
+        return ResponseEntity.ok("Credit card icon deleted successfully");
     }
 }

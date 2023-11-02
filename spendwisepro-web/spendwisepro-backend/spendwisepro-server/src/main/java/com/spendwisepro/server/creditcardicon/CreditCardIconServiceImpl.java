@@ -1,6 +1,7 @@
 package com.spendwisepro.server.creditcardicon;
 
 import com.spendwisepro.common.entity.CreditCardIcon;
+import com.spendwisepro.common.exception.CreditCardIconNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,16 @@ public class CreditCardIconServiceImpl implements CreditCardIconService{
     @Override
     public CreditCardIcon saveCreditCardIcon(CreditCardIcon creditCardIcon) {
         return creditCardIconRepository.save(creditCardIcon);
+    }
+
+    @Override
+    public void deleteCreditCardIcon(Long id) throws CreditCardIconNotFoundException {
+        Long countById = creditCardIconRepository.countById(id);
+
+        if (countById == null || countById == 0) {
+            throw new CreditCardIconNotFoundException("Could not find any icon with id " + id);
+        }
+
+        creditCardIconRepository.deleteById(id);
     }
 }
