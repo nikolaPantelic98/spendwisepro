@@ -66,12 +66,6 @@ export default function EditCategoryForm() {
             <CardBody>
                 <form onSubmit={handleSubmit}>
                     <div className="flow-root">
-                        <div className="flex justify-center items-center">
-                            <Button onClick={handleOpenDeleteConfirmationDialog} className="mt-2 w-full" variant="outlined" color="red">
-                                <span>Delete</span>
-                            </Button>
-                        </div>
-                        <div className="h-4"></div>
                         <ul className="divide-y divide-gray-200">
                             <AddCategoryName setName={handleNameChange} initialValue={category.name} />
 
@@ -84,7 +78,10 @@ export default function EditCategoryForm() {
 
                         <hr className="my-2 border-blue-gray-50" />
 
-                        <div className="flex justify-center items-center">
+                        <div className="flex justify-center items-center space-x-2">
+                            <Button onClick={handleOpenDeleteConfirmationDialog} className="mt-2 w-full" variant="outlined" color="red">
+                                <span>Delete</span>
+                            </Button>
                             <Button onClick={navigateToCategories} className="mt-2 w-full" variant="outlined" color="green">
                                 <span>Cancel</span>
                             </Button>
