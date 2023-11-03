@@ -27,6 +27,15 @@ export default function CreditCardIconList() {
             .catch(error => console.error('Error fetching icons:', error));
     }, []);
 
+    const deleteIcon = (id) => {
+        axios.delete(`http://localhost:8080/spendwisepro_admin/credit_card_icons/delete/${id}`, { headers })
+            .then(response => {
+                console.log(response.data);
+                setIcons(icons.filter(icon => icon.id !== id));
+            })
+            .catch(error => console.error('Error deleting icon:', error));
+    }
+
     function storeScrollPosition() {
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
@@ -68,7 +77,7 @@ export default function CreditCardIconList() {
                                     <PopoverContent className=" border-1 bg-green-100 rounded-xl">
                                         <div className=" flex items-center justify-between gap-x-8 pb-1">
                                             <Avatar className="w-20 h-20 rounded-full"  src={icon.iconPath} alt={icon.image} />
-                                            <Button size="sm" variant="text" className="flex gap-2" color="blue">
+                                            <Button size="sm" variant="text" className="flex gap-2" color="blue" onClick={() => deleteIcon(icon.id)}>
                                                 <TrashIcon className="h-6 w-6 text-red-500 cursor-pointer" />
                                             </Button>
                                         </div>
