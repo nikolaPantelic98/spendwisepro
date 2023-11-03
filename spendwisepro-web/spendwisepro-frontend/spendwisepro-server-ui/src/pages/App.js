@@ -5,8 +5,8 @@ import UsersPage from "./user/UsersPage";
 import LoginPage from "./login/LoginPage";
 import PrivateRoute from "../components/common/PrivateRoute";
 import RegisterPage from "./register/RegisterPage";
-import IconsPage from "./icon/IconsPage";
-import AddIconPage from "./icon/AddIconPage";
+import CategoryIconsPage from "./categoryicon/CategoryIconsPage";
+import AddCategoryIconPage from "./categoryicon/AddCategoryIconPage";
 import CreditCardIconsPage from "./creditcardicon/CreditCardIconsPage";
 import AddCreditCardIconPage from "./creditcardicon/AddCreditCardIconPage";
 
@@ -27,8 +27,8 @@ function App() {
 
                 <Route path="/users" element={<PrivateRoute element={<UsersPage />} />} />
 
-                <Route path="/icons" element={<PrivateRoute element={<IconsPage />} />} />
-                <Route path="/add_icon" element={<PrivateRoute element={<AddIconPage />} />} />
+                <Route path="/category_icons" element={<PrivateRoute element={<CategoryIconsPage />} />} />
+                <Route path="/add_category_icon" element={<PrivateRoute element={<AddCategoryIconPage />} />} />
 
                 <Route path="/credit_card_icons" element={<PrivateRoute element={<CreditCardIconsPage />} />} />
                 <Route path="/add_credit_card_icon" element={<PrivateRoute element={<AddCreditCardIconPage />} />} />

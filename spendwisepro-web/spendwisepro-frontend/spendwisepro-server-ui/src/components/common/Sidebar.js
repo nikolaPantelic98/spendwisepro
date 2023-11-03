@@ -112,27 +112,37 @@ const Sidebar = forwardRef((props, ref) => {
                         </ListItem>
                     </Link>
 
-                    <Link to="/icons" onClick={storeScrollPosition}>
-                        <ListItem className="focus:bg-green-50 hover:bg-green-50">
+                    <ListItem className="p-0 focus:bg-green-50 hover:bg-green-50" selected={open === 1}>
+                        <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
                             <ListItemPrefix>
                                 <InformationCircleIcon className="h-5 w-5 text-green-900" />
                             </ListItemPrefix>
                             <Typography color="blue-gray" className="mr-auto font-normal">
-                                Category Icons
+                                View Icons
                             </Typography>
-                        </ListItem>
-                    </Link>
+                        </AccordionHeader>
+                    </ListItem>
 
-                    <Link to="/credit_card_icons" onClick={storeScrollPosition}>
-                        <ListItem className="focus:bg-green-50 hover:bg-green-50">
-                            <ListItemPrefix>
-                                <InformationCircleIcon className="h-5 w-5 text-green-900" />
-                            </ListItemPrefix>
-                            <Typography color="blue-gray" className="mr-auto font-normal">
-                                Credit Card Icons
-                            </Typography>
-                        </ListItem>
-                    </Link>
+                    <AccordionBody className="py-1">
+                        <List className="p-0">
+                            <Link to="/category_icons" onClick={storeScrollPosition}>
+                                <ListItem className="focus:bg-green-50 hover:bg-green-50">
+                                    <ListItemPrefix>
+                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                    </ListItemPrefix>
+                                    Category Icons
+                                </ListItem>
+                            </Link>
+                            <Link to="/credit_card_icons" onClick={storeScrollPosition}>
+                                <ListItem className="focus:bg-green-50 hover:bg-green-50">
+                                    <ListItemPrefix>
+                                        <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                                    </ListItemPrefix>
+                                    Credit Card Icons
+                                </ListItem>
+                            </Link>
+                        </List>
+                    </AccordionBody>
 
                     <Link>
                         <ListItem className="focus:bg-green-50 hover:bg-green-50">

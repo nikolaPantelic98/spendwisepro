@@ -8,7 +8,7 @@ import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
-export default function AddIconForm() {
+export default function AddCategoryIconForm() {
 
     const [selectedIcon, setSelectedIcon] = React.useState("");
     const [selectedFile, setSelectedFile] = React.useState(null);
@@ -44,7 +44,7 @@ export default function AddIconForm() {
             const formData = new FormData();
             formData.append("fileImage", icon);
             await axios.post("http://localhost:8080/spendwisepro_admin/icons/save", formData, { headers });
-            navigate("/icons", {state: {success: true}});
+            navigate("/category_icons", {state: {success: true}});
         } catch (err) {
             setError(true);
             console.log("error");
