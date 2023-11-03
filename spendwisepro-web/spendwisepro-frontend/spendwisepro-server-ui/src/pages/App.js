@@ -8,6 +8,7 @@ import RegisterPage from "./register/RegisterPage";
 import IconsPage from "./icon/IconsPage";
 import AddIconPage from "./icon/AddIconPage";
 import CreditCardIconsPage from "./creditcardicon/CreditCardIconsPage";
+import AddCreditCardIconPage from "./creditcardicon/AddCreditCardIconPage";
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/add_icon" element={<PrivateRoute element={<AddIconPage />} />} />
 
                 <Route path="/credit_card_icons" element={<PrivateRoute element={<CreditCardIconsPage />} />} />
+                <Route path="/add_credit_card_icon" element={<PrivateRoute element={<AddCreditCardIconPage />} />} />
             </Routes>
         </BrowserRouter>
       </>
