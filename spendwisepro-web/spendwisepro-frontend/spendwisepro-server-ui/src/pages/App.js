@@ -7,6 +7,7 @@ import PrivateRoute from "../components/common/PrivateRoute";
 import RegisterPage from "./register/RegisterPage";
 import IconsPage from "./icon/IconsPage";
 import AddIconPage from "./icon/AddIconPage";
+import CreditCardIconsPage from "./creditcardicon/CreditCardIconsPage";
 
 function App() {
 
@@ -27,6 +28,8 @@ function App() {
 
                 <Route path="/icons" element={<PrivateRoute element={<IconsPage />} />} />
                 <Route path="/add_icon" element={<PrivateRoute element={<AddIconPage />} />} />
+
+                <Route path="/credit_card_icons" element={<PrivateRoute element={<CreditCardIconsPage />} />} />
             </Routes>
         </BrowserRouter>
       </>

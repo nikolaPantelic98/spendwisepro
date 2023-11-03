@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import PageHeader from "../../components/common/PageHeader";
-import IconList from "../../components/icon/IconList";
+import CreditCardIconList from "../../components/creditcardicon/CreditCardIconList";
 
-function IconsPage() {
+function CreditCardIconsPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -19,14 +19,14 @@ function IconsPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <PageHeader title="Icons" />
+                    <PageHeader title="Credit card icons" />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
 
                         <div className="mx-6">
-                            <IconList />
+                            <CreditCardIconList />
                         </div>
 
                         <div><PageWidthLayout/></div>
@@ -39,4 +39,4 @@ function IconsPage() {
     );
 }
 
-export default IconsPage;
+export default CreditCardIconsPage;

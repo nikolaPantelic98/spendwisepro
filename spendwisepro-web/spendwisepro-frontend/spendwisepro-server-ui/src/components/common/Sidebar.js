@@ -118,7 +118,18 @@ const Sidebar = forwardRef((props, ref) => {
                                 <InformationCircleIcon className="h-5 w-5 text-green-900" />
                             </ListItemPrefix>
                             <Typography color="blue-gray" className="mr-auto font-normal">
-                                View Icons
+                                Category Icons
+                            </Typography>
+                        </ListItem>
+                    </Link>
+
+                    <Link to="/credit_card_icons" onClick={storeScrollPosition}>
+                        <ListItem className="focus:bg-green-50 hover:bg-green-50">
+                            <ListItemPrefix>
+                                <InformationCircleIcon className="h-5 w-5 text-green-900" />
+                            </ListItemPrefix>
+                            <Typography color="blue-gray" className="mr-auto font-normal">
+                                Credit Card Icons
                             </Typography>
                         </ListItem>
                     </Link>
