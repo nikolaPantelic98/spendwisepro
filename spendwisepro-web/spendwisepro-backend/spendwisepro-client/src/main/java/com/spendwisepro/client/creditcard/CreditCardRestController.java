@@ -2,6 +2,7 @@ package com.spendwisepro.client.creditcard;
 
 import com.spendwisepro.common.entity.CreditCard;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,5 +19,11 @@ public class CreditCardRestController {
     @GetMapping("/all")
     public List<CreditCard> getAllCreditCards(@RequestHeader("Authorization") String token) {
         return creditCardService.getAllCreditCards(token);
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<String> saveCreditCard(@RequestBody CreditCard creditCard, @RequestHeader("Authorization") String token) {
+        creditCardService.saveCreditCard(creditCard, token);
+        return ResponseEntity.ok("Credit card saved successfully.");
     }
 }
