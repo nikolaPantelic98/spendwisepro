@@ -34,4 +34,20 @@ public class CreditCardServiceImpl implements CreditCardService{
 
         return creditCardRepository.findAllCreditCards(authenticatedUser.getId(), Sort.by("type"));
     }
+
+    @Override
+    public CreditCard saveCreditCard(CreditCard creditCard, String token) {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+
+        User userToSave = user.get();
+
+        creditCard.setUser(userToSave);
+
+        return creditCardRepository.save(creditCard);
+    }
 }
