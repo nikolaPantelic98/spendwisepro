@@ -7,6 +7,7 @@ import React from "react";
 import AddCreditCardType from "./add-credit-card-elements/AddCreditCardType";
 import AddCreditCardBank from "./add-credit-card-elements/AddCreditCardBank";
 import AddCreditCardNote from "./add-credit-card-elements/AddCreditCardNote";
+import AddCreditCardAmount from "./add-credit-card-elements/AddCreditCardAmount";
 
 export default function AddCreditCardForm() {
     return (
@@ -14,6 +15,8 @@ export default function AddCreditCardForm() {
             <CardBody>
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200">
+                        <AddCreditCardAmount />
+
                         <AddCreditCardType />
 
                         <AddCreditCardBank />
