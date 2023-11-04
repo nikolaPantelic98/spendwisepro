@@ -10,12 +10,13 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddCreditCardAmount() {
+export default function AddCreditCardAmount({ setAmount, initialValue = "" }) {
 
     const [openAmount, setOpenAmount] = React.useState(false);
-    const [amountValue, setAmountValue] = React.useState("");
+    const [amountValue, setAmountValue] = React.useState(initialValue);
     const [isAmountTyped, setIsAmountTyped] = React.useState(false);
     const [tempAmountValue, setTempAmountValue] = React.useState("");
+
     const handleOpenAmount = () => {
         setTempAmountValue(amountValue);
         setOpenAmount(true);
@@ -31,6 +32,7 @@ export default function AddCreditCardAmount() {
             setTempAmountValue("");
             setIsAmountTyped(false);
         }
+        setAmount(amountValue);
         setOpenAmount(false);
     };
     const handleAmountChange = (event) => {
@@ -52,7 +54,7 @@ export default function AddCreditCardAmount() {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isAmountTyped ? 'font-bold text-gray-800' : ''}`}>
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isAmountTyped || initialValue !== "" ? 'font-bold text-gray-800 truncate' : ''}`}>
                             {amountValue ? `$${parseFloat(amountValue).toFixed(2)}` : "Type"}
                         </div>
                         <div className="h-4"></div>

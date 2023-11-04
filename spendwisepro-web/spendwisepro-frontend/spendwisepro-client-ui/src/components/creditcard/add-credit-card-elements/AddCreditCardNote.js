@@ -10,14 +10,15 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddCreditCardNote() {
+export default function AddCreditCardNote({ setNote, initialValue = "" }) {
 
     const [openNote, setOpenNote] = React.useState(false);
-    const [contentNote, setContentNote] = React.useState("");
+    const [contentNote, setContentNote] = React.useState(initialValue);
     const [isNoteTyped, setIsNoteTyped] = React.useState(false);
-    const [tempNoteContent, setTempANoteContent] = React.useState("");
+    const [tempNoteContent, setTempNoteContent] = React.useState("");
+
     const handleOpenNote = () => {
-        setTempANoteContent(contentNote);
+        setTempNoteContent(contentNote);
         setOpenNote(true);
     };
     const handleCloseNote = () => {
@@ -28,9 +29,10 @@ export default function AddCreditCardNote() {
     };
     const handleConfirmNote = () => {
         if (!isNoteTyped) {
-            setTempANoteContent("");
+            setTempNoteContent("");
             setIsNoteTyped(false);
         }
+        setNote(contentNote);
         setOpenNote(false);
     };
     const handleNoteChange = (event) => {
@@ -52,7 +54,7 @@ export default function AddCreditCardNote() {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isNoteTyped ? 'font-bold text-gray-500 truncate' : ''}`}>
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isNoteTyped || initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
                             {contentNote ? contentNote : "Type"}
                         </div>
                         <div className="h-4"></div>

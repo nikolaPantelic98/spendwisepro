@@ -15,10 +15,10 @@ export default function AddCategoryName({ setName, initialValue = "" }) {
     const [openName, setOpenName] = React.useState(false);
     const [contentName, setContentName] = React.useState(initialValue);
     const [isNameTyped, setIsNameTyped] = React.useState(false);
-    const [tempNameContent, setTempANoteContent] = React.useState("");
+    const [tempNameContent, setTempNameContent] = React.useState("");
 
     const handleOpenName = () => {
-        setTempANoteContent(contentName);
+        setTempNameContent(contentName);
         setOpenName(true);
     };
     const handleCloseName = () => {
@@ -29,7 +29,7 @@ export default function AddCategoryName({ setName, initialValue = "" }) {
     };
     const handleConfirmName = () => {
         if (!isNameTyped) {
-            setTempANoteContent("");
+            setTempNameContent("");
             setIsNameTyped(false);
         }
         setName(contentName);

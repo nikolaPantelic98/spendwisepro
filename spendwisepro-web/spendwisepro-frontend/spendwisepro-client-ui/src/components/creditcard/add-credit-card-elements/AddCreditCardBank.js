@@ -10,37 +10,39 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddCreditCardBank() {
+export default function AddCreditCardBank({ setBank, initialValue = "" }) {
 
     const [openBank, setOpenBank] = React.useState(false);
-    const [typedBank, setTypedBank] = React.useState("");
+    const [contentBank, setContentBank] = React.useState(initialValue);
     const [isBankTyped, setIsBankTyped] = React.useState(false);
-    const [tempTypedBank, setTempANoteContent] = React.useState("");
-    const handleOpenNote = () => {
-        setTempANoteContent(typedBank);
+    const [tempBankContent, setTempBankContent] = React.useState("");
+
+    const handleOpenBank = () => {
+        setTempBankContent(contentBank);
         setOpenBank(true);
     };
-    const handleCloseNote = () => {
+    const handleCloseBank = () => {
         if (isBankTyped) {
-            setTypedBank(tempTypedBank);
+            setContentBank(tempBankContent);
         }
         setOpenBank(false);
     };
-    const handleConfirmNote = () => {
+    const handleConfirmBank = () => {
         if (!isBankTyped) {
-            setTempANoteContent("");
+            setTempBankContent("");
             setIsBankTyped(false);
         }
+        setBank(contentBank);
         setOpenBank(false);
     };
-    const handleNoteChange = (event) => {
-        setTypedBank(event.target.value);
+    const handleBankChange = (event) => {
+        setContentBank(event.target.value);
         setIsBankTyped(event.target.value !== "");
     }
 
     return (
         <li className="py-3 sm:py-4">
-            <div onClick={handleOpenNote}>
+            <div onClick={handleOpenBank}>
                 <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://www.iconbunny.com/icons/media/catalog/product/9/4/948.9-local-banks-icon-iconbunny.jpg" alt="Bank" />
@@ -52,8 +54,8 @@ export default function AddCreditCardBank() {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isBankTyped ? 'font-bold text-gray-500 truncate' : ''}`}>
-                            {typedBank ? typedBank : "Type"}
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isBankTyped || initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
+                            {contentBank ? contentBank : "Type"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -64,7 +66,7 @@ export default function AddCreditCardBank() {
             </div>
             <Dialog
                 open={openBank}
-                handler={handleOpenNote}
+                handler={handleOpenBank}
                 animate={{
                     mount: { scale: 1, y: 0 },
                     unmount: { scale: 0.9, y: -100 },
@@ -72,18 +74,18 @@ export default function AddCreditCardBank() {
             >
                 <DialogHeader>Bank</DialogHeader>
                 <DialogBody>
-                    <Input label="Bank" color="green" value={typedBank} onChange={handleNoteChange} />
+                    <Input label="Bank" color="green" value={contentBank} onChange={handleBankChange} />
                 </DialogBody>
                 <DialogFooter>
                     <Button
                         variant="text"
                         color="red"
-                        onClick={handleCloseNote}
+                        onClick={handleCloseBank}
                         className="mr-1"
                     >
                         <span>Cancel</span>
                     </Button>
-                    <Button variant="gradient" color="green" onClick={handleConfirmNote}>
+                    <Button variant="gradient" color="green" onClick={handleConfirmBank}>
                         <span>Confirm</span>
                     </Button>
                 </DialogFooter>
