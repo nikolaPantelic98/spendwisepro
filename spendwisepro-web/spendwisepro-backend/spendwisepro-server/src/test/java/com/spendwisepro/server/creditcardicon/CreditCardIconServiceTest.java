@@ -1,6 +1,9 @@
 package com.spendwisepro.server.creditcardicon;
 
+import com.spendwisepro.common.entity.Category;
 import com.spendwisepro.common.entity.CreditCardIcon;
+import com.spendwisepro.common.entity.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,7 +15,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 public class CreditCardIconServiceTest {
@@ -22,6 +27,15 @@ public class CreditCardIconServiceTest {
 
     @InjectMocks
     private CreditCardIconServiceImpl creditCardIconService;
+
+    private CreditCardIcon icon;
+
+    @BeforeEach
+    public void setUp() {
+        icon = new CreditCardIcon();
+        icon.setId(1L);
+        icon.setImage("validIcon");
+    }
 
 
     @Test
@@ -50,5 +64,17 @@ public class CreditCardIconServiceTest {
 
         // Assert
         assertTrue(actualIcons.isEmpty());
+    }
+
+    @Test
+    public void testSavingNewCreditCardIconReturnsSavedObject() {
+        // Arrange
+        when(creditCardIconRepository.save(any(CreditCardIcon.class))).thenReturn(icon);
+
+        // Act
+        creditCardIconService.saveCreditCardIcon(icon);
+
+        // Assert
+        verify(creditCardIconRepository, times(1)).save(any(CreditCardIcon.class));
     }
 }
