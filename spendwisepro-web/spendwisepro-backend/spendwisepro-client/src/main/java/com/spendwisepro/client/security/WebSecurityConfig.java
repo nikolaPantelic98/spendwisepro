@@ -33,6 +33,8 @@ public class WebSecurityConfig {
                                 .requestMatchers("/auth/logout", "/api/test/private").authenticated()
                                 .requestMatchers("/categories/**").authenticated()
                                 .requestMatchers("/icons/**").authenticated()
+                                .requestMatchers("/credit_card_icons/**").authenticated()
+                                .requestMatchers("/credit_cards/**").authenticated()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

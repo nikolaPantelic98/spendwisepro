@@ -32,6 +32,6 @@ public class CreditCardServiceImpl implements CreditCardService{
         }
         User authenticatedUser = user.get();
 
-        return creditCardRepository.findAllCreditCards(authenticatedUser.getId(), Sort.by("name"));
+        return creditCardRepository.findAllCreditCards(authenticatedUser.getId(), Sort.by("type"));
     }
 }
