@@ -53,4 +53,12 @@ public class CreditCard {
             name = "user_id"
     )
     private User user;
+
+
+    public CreditCard(float amount, String type, String bank, String note) {
+        this.amount = amount;
+        this.type = type;
+        this.bank = bank;
+        this.note = note;
+    }
 }

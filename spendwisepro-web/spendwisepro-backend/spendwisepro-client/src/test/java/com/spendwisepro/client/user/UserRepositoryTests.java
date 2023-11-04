@@ -1,4 +1,4 @@
-package com.spendwisepro.client;
+package com.spendwisepro.client.user;
 
 import com.spendwisepro.client.user.UserRepository;
 import com.spendwisepro.common.entity.User;
