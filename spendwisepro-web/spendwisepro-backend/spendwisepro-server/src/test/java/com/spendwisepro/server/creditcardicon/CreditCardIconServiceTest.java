@@ -1,8 +1,7 @@
 package com.spendwisepro.server.creditcardicon;
 
-import com.spendwisepro.common.entity.Category;
 import com.spendwisepro.common.entity.CreditCardIcon;
-import com.spendwisepro.common.entity.User;
+import com.spendwisepro.common.exception.CreditCardIconNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,8 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
@@ -76,5 +74,27 @@ public class CreditCardIconServiceTest {
 
         // Assert
         verify(creditCardIconRepository, times(1)).save(any(CreditCardIcon.class));
+    }
+
+    @Test
+    public void testSuccessfullyDeleteExistingCreditCardIcon() throws CreditCardIconNotFoundException {
+        // Arrange
+        when(creditCardIconRepository.countById(icon.getId())).thenReturn(1L);
+
+        // Act
+        creditCardIconService.deleteCreditCardIcon(icon.getId());
+
+        // Assert
+        verify(creditCardIconRepository, times(1)).countById(icon.getId());
+        verify(creditCardIconRepository, times(1)).deleteById(icon.getId());
+    }
+
+    @Test
+    public void testThrowsCreditCardIconNotFoundException() {
+        // Arrange
+        when(creditCardIconRepository.countById(anyLong())).thenReturn(0L);
+
+        // Act and Assert
+        assertThrows(CreditCardIconNotFoundException.class, () -> creditCardIconService.deleteCreditCardIcon(icon.getId()));
     }
 }
