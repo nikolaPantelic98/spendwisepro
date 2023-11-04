@@ -12,7 +12,7 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/icons")
+@RequestMapping("/category_icons")
 public class CategoryIconRestController {
 
     private final CategoryIconServiceImpl categoryIconService;

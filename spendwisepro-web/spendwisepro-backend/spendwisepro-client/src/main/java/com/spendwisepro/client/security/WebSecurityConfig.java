@@ -27,14 +27,18 @@ public class WebSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/auth/login").permitAll()
+                        auth
+                                .requestMatchers("/auth/login").permitAll()
                                 .requestMatchers("/auth/register").permitAll()
                                 .requestMatchers("/api/test/public").permitAll()
                                 .requestMatchers("/auth/logout", "/api/test/private").authenticated()
+
                                 .requestMatchers("/categories/**").authenticated()
-                                .requestMatchers("/icons/**").authenticated()
+                                .requestMatchers("/category_icons/**").authenticated()
+
                                 .requestMatchers("/credit_card_icons/**").authenticated()
                                 .requestMatchers("/credit_cards/**").authenticated()
+
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
