@@ -27,21 +27,13 @@ function CreditCardPage() {
                 setShowAddSuccess(false);
                 navigate("/credit_cards", {state: {addSuccess: false}, replace: true});
             }, 3000);
-        }
-    }, [location, navigate]);
-
-    useEffect(() => {
-        if (location.state && location.state.updateSuccess) {
+        } else if (location.state && location.state.updateSuccess) {
             setShowUpdateSuccess(true);
             setTimeout(() => {
                 setShowUpdateSuccess(false);
                 navigate("/credit_cards", {state: {updateSuccess: false}, replace: true});
             }, 3000);
-        }
-    }, [location, navigate]);
-
-    useEffect(() => {
-        if (location.state && location.state.deleteSuccess) {
+        } else if (location.state && location.state.deleteSuccess) {
             setShowDeleteSuccess(true);
             setTimeout(() => {
                 setShowDeleteSuccess(false);

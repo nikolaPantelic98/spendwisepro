@@ -26,21 +26,13 @@ function CategoriesPage() {
                 setShowAddSuccess(false);
                 navigate("/categories", {state: {addSuccess: false}, replace: true});
             }, 3000);
-        }
-    }, [location, navigate]);
-
-    useEffect(() => {
-        if (location.state && location.state.updateSuccess) {
+        } else if (location.state && location.state.updateSuccess) {
             setShowUpdateSuccess(true);
             setTimeout(() => {
                 setShowUpdateSuccess(false);
                 navigate("/categories", {state: {updateSuccess: false}, replace: true});
             }, 3000);
-        }
-    }, [location, navigate]);
-
-    useEffect(() => {
-        if (location.state && location.state.deleteSuccess) {
+        } else if (location.state && location.state.deleteSuccess) {
             setShowDeleteSuccess(true);
             setTimeout(() => {
                 setShowDeleteSuccess(false);
