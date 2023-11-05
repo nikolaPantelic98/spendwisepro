@@ -43,7 +43,7 @@ public class CategoryRestController {
         return categoryService.getCategoryById(categoryId, token);
     }
 
-    @PutMapping("/{categoryId}")
+    @PutMapping("/edit/{categoryId}")
     public ResponseEntity<String> updateCategory(@PathVariable Long categoryId, @RequestBody Category category, @RequestHeader("Authorization") String token) {
         categoryService.updateCategory(categoryId, category, token);
         return ResponseEntity.ok("Category updated successfully.");

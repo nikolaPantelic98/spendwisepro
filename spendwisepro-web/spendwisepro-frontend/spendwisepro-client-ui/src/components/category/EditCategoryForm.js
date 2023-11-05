@@ -39,7 +39,7 @@ export default function EditCategoryForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:8000/spendwisepro/categories/${id}`, category, { headers });
+            await axios.put(`http://localhost:8000/spendwisepro/categories/edit/${id}`, category, { headers });
             navigate("/categories", {state: {success: true}});
         } catch (err) {
             setError(true);
