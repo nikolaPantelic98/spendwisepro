@@ -52,7 +52,7 @@ export default function EditCreditCardForm() {
     const deleteCreditCard = () => {
         axios.delete(`http://localhost:8000/spendwisepro/credit_cards/delete/${id}`, { headers })
             .then(() => {
-                navigate("/credit_cards", {state: {success: true}});
+                navigate("/credit_cards", {state: {deleteSuccess: true}});
             })
             .catch(error => console.error('Error deleting credit card:', error));
         handleCloseDeleteConfirmationDialog();

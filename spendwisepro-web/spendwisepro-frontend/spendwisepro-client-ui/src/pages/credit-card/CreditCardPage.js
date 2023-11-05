@@ -11,6 +11,7 @@ import {CheckCircleIcon} from "@heroicons/react/24/solid";
 function CreditCardPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
 
     const toggleSidebar = (isOpen) => {
         setSidebarOpen(isOpen);
@@ -25,6 +26,16 @@ function CreditCardPage() {
             setTimeout(() => {
                 setShowSuccess(false);
                 navigate("/credit_cards", {state: {success: false}, replace: true});
+            }, 3000);
+        }
+    }, [location, navigate]);
+
+    useEffect(() => {
+        if (location.state && location.state.deleteSuccess) {
+            setShowDeleteSuccess(true);
+            setTimeout(() => {
+                setShowDeleteSuccess(false);
+                navigate("/credit_cards", {state: {deleteSuccess: false}, replace: true});
             }, 3000);
         }
     }, [location, navigate]);
@@ -52,6 +63,23 @@ function CreditCardPage() {
                                                 <CheckCircleIcon className="w-8 h-8 text-green-600 mb-2"/>
                                                 <Typography className="text-gray-600 text-sm font-semibold">
                                                     Credit card saved successfully
+                                                </Typography>
+                                            </div>
+                                        </div>
+                                    </CardBody>
+                                </Card>
+                            </div>
+                        ) : null}
+
+                        {showDeleteSuccess ? (
+                            <div className="mt-6 ml-6 mr-6">
+                                <Card className="w-full h-1/3 shadow-lg mt-8">
+                                    <CardBody>
+                                        <div>
+                                            <div className="flex justify-center items-center flex-col mb-3">
+                                                <CheckCircleIcon className="w-8 h-8 text-green-600 mb-2"/>
+                                                <Typography className="text-gray-600 text-sm font-semibold">
+                                                    Credit card deleted successfully
                                                 </Typography>
                                             </div>
                                         </div>
