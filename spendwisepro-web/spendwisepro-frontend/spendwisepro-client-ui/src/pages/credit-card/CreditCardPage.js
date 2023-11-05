@@ -10,7 +10,8 @@ import {CheckCircleIcon} from "@heroicons/react/24/solid";
 
 function CreditCardPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
+    const [showAddSuccess, setShowAddSuccess] = useState(false);
+    const [showUpdateSuccess, setShowUpdateSuccess] = useState(false);
     const [showDeleteSuccess, setShowDeleteSuccess] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -21,11 +22,21 @@ function CreditCardPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (location.state && location.state.success) {
-            setShowSuccess(true);
+        if (location.state && location.state.addSuccess) {
+            setShowAddSuccess(true);
             setTimeout(() => {
-                setShowSuccess(false);
-                navigate("/credit_cards", {state: {success: false}, replace: true});
+                setShowAddSuccess(false);
+                navigate("/credit_cards", {state: {addSuccess: false}, replace: true});
+            }, 3000);
+        }
+    }, [location, navigate]);
+
+    useEffect(() => {
+        if (location.state && location.state.updateSuccess) {
+            setShowUpdateSuccess(true);
+            setTimeout(() => {
+                setShowUpdateSuccess(false);
+                navigate("/credit_cards", {state: {updateSuccess: false}, replace: true});
             }, 3000);
         }
     }, [location, navigate]);
@@ -54,7 +65,7 @@ function CreditCardPage() {
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
 
-                        {showSuccess ? (
+                        {showAddSuccess ? (
                             <div className="mt-6 ml-6 mr-6">
                                 <Card className="w-full h-1/3 shadow-lg mt-8">
                                     <CardBody>
@@ -62,7 +73,24 @@ function CreditCardPage() {
                                             <div className="flex justify-center items-center flex-col mb-3">
                                                 <CheckCircleIcon className="w-8 h-8 text-green-600 mb-2"/>
                                                 <Typography className="text-gray-600 text-sm font-semibold">
-                                                    Credit card saved successfully
+                                                    Credit card added successfully
+                                                </Typography>
+                                            </div>
+                                        </div>
+                                    </CardBody>
+                                </Card>
+                            </div>
+                        ) : null}
+
+                        {showUpdateSuccess ? (
+                            <div className="mt-6 ml-6 mr-6">
+                                <Card className="w-full h-1/3 shadow-lg mt-8">
+                                    <CardBody>
+                                        <div>
+                                            <div className="flex justify-center items-center flex-col mb-3">
+                                                <CheckCircleIcon className="w-8 h-8 text-green-600 mb-2"/>
+                                                <Typography className="text-gray-600 text-sm font-semibold">
+                                                    Credit card updated successfully
                                                 </Typography>
                                             </div>
                                         </div>

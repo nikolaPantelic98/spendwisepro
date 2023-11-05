@@ -41,7 +41,7 @@ export default function AddCreditCardForm() {
     const handleSubmit = async (e) => { e.preventDefault();
         try {
             await axios.post("http://localhost:8000/spendwisepro/credit_cards/save", creditCard, { headers });
-            navigate("/credit_cards", {state: {success: true}});
+            navigate("/credit_cards", {state: {addSuccess: true}});
         } catch (err) {
             setError(true);
             console.log("error");

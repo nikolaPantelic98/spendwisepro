@@ -42,7 +42,7 @@ export default function EditCreditCardForm() {
         e.preventDefault();
         try {
             await axios.put(`http://localhost:8000/spendwisepro/credit_cards/edit/${id}`, creditCard, { headers });
-            navigate("/credit_cards", {state: {success: true}});
+            navigate("/credit_cards", {state: {updateSuccess: true}});
         } catch (err) {
             setError(true);
             console.log("error");
