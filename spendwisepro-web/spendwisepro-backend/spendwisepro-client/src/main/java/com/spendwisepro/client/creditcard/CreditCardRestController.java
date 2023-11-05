@@ -1,5 +1,6 @@
 package com.spendwisepro.client.creditcard;
 
+import com.spendwisepro.common.entity.Category;
 import com.spendwisepro.common.entity.CreditCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -31,5 +32,10 @@ public class CreditCardRestController {
     public ResponseEntity<String> updateCreditCard(@PathVariable Long creditCardId, @RequestBody CreditCard creditCard, @RequestHeader("Authorization") String token) {
         creditCardService.updateCreditCard(creditCardId, creditCard, token);
         return ResponseEntity.ok("Credit card updated successfully.");
+    }
+
+    @GetMapping("/{creditCardId}")
+    public CreditCard getCreditCardById(@PathVariable Long creditCardId, @RequestHeader("Authorization") String token) {
+        return creditCardService.getCreditCardById(creditCardId, token);
     }
 }
