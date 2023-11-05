@@ -37,7 +37,7 @@ export default function AddCategoryForm() {
     const handleSubmit = async (e) => { e.preventDefault();
         try {
             await axios.post("http://localhost:8000/spendwisepro/categories/save", category, { headers });
-            navigate("/categories", {state: {success: true}});
+            navigate("/categories", {state: {addSuccess: true}});
         } catch (err) {
             setError(true);
             console.log("error");

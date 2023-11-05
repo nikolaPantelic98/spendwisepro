@@ -43,7 +43,7 @@ export default function AddCategoryIcon({ setIcon, initialValue = "" }) {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/icons/all', { headers })
+        axios.get('http://localhost:8000/spendwisepro/category_icons/all', { headers })
             .then(response => {
                 setIcons(response.data);
             })

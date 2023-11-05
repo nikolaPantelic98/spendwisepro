@@ -40,7 +40,7 @@ export default function EditCategoryForm() {
         e.preventDefault();
         try {
             await axios.put(`http://localhost:8000/spendwisepro/categories/edit/${id}`, category, { headers });
-            navigate("/categories", {state: {success: true}});
+            navigate("/categories", {state: {updateSuccess: true}});
         } catch (err) {
             setError(true);
             console.log("error");
@@ -50,7 +50,7 @@ export default function EditCategoryForm() {
     const deleteCategory = () => {
         axios.delete(`http://localhost:8000/spendwisepro/categories/delete/${id}`, { headers })
             .then(() => {
-                navigate("/categories", {state: {success: true}});
+                navigate("/categories", {state: {deleteSuccess: true}});
             })
             .catch(error => console.error('Error deleting category:', error));
         handleCloseDeleteConfirmationDialog();
