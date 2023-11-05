@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-import {Button, Card, CardBody} from "@material-tailwind/react";
+import {Button, Card, CardBody, Dialog, DialogBody, DialogFooter, DialogHeader} from "@material-tailwind/react";
 import {useNavigate, useParams} from "react-router-dom";
 import AddCreditCardAmount from "./add-credit-card-elements/AddCreditCardAmount";
 import AddCreditCardType from "./add-credit-card-elements/AddCreditCardType";
@@ -26,6 +26,10 @@ export default function EditCreditCardForm() {
     const handleBankChange = (bank) => setCreditCard({...creditCard, bank});
     const handleNoteChange = (note) => setCreditCard({...creditCard, note});
 
+    const [openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog] = useState(false);
+    const handleOpenDeleteConfirmationDialog = () => setOpenDeleteConfirmationDialog(true);
+    const handleCloseDeleteConfirmationDialog = () => setOpenDeleteConfirmationDialog(false);
+
     useEffect(() => {
         axios.get(`http://localhost:8000/spendwisepro/credit_cards/${id}`, { headers })
             .then(response => {
@@ -43,6 +47,15 @@ export default function EditCreditCardForm() {
             setError(true);
             console.log("error");
         }
+    }
+
+    const deleteCreditCard = () => {
+        axios.delete(`http://localhost:8000/spendwisepro/credit_cards/delete/${id}`, { headers })
+            .then(() => {
+                navigate("/credit_cards", {state: {success: true}});
+            })
+            .catch(error => console.error('Error deleting credit card:', error));
+        handleCloseDeleteConfirmationDialog();
     }
 
     function navigateToCreditCards() {
@@ -70,7 +83,7 @@ export default function EditCreditCardForm() {
                         <hr className="my-2 border-blue-gray-50" />
 
                         <div className="flex justify-center items-center space-x-2">
-                            <Button className="mt-2 w-full" variant="outlined" color="red">
+                            <Button onClick={handleOpenDeleteConfirmationDialog} className="mt-2 w-full" variant="outlined" color="red">
                                 <span>Delete</span>
                             </Button>
                             <Button onClick={navigateToCreditCards} className="mt-2 w-full" variant="outlined" color="green">
@@ -86,6 +99,33 @@ export default function EditCreditCardForm() {
                 </form>
 
             </CardBody>
+
+            <Dialog
+                open={openDeleteConfirmationDialog}
+                handler={handleCloseDeleteConfirmationDialog}
+                animate={{
+                    mount: { scale: 1, y: 0 },
+                    unmount: { scale: 0.9, y: -100 },
+                }}
+            >
+                <DialogHeader>Are you sure?</DialogHeader>
+                <DialogBody>
+                    Do you really want to delete this credit card? This process cannot be undone.
+                </DialogBody>
+                <DialogFooter>
+                    <Button
+                        variant="text"
+                        color="red"
+                        onClick={deleteCreditCard}
+                        className="mr-1"
+                    >
+                        <span>Delete</span>
+                    </Button>
+                    <Button variant="gradient" color="green" onClick={handleCloseDeleteConfirmationDialog}>
+                        <span>Cancel</span>
+                    </Button>
+                </DialogFooter>
+            </Dialog>
 
         </Card>
     ) : null;

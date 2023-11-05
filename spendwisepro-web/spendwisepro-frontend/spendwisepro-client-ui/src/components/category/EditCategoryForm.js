@@ -52,7 +52,7 @@ export default function EditCategoryForm() {
             .then(() => {
                 navigate("/categories", {state: {success: true}});
             })
-            .catch(error => console.error('Error deleting icon:', error));
+            .catch(error => console.error('Error deleting category:', error));
         handleCloseDeleteConfirmationDialog();
     }
 
