@@ -26,4 +26,10 @@ public class CreditCardRestController {
         creditCardService.saveCreditCard(creditCard, token);
         return ResponseEntity.ok("Credit card saved successfully.");
     }
+
+    @PutMapping("/edit/{creditCardId}")
+    public ResponseEntity<String> updateCreditCard(@PathVariable Long creditCardId, @RequestBody CreditCard creditCard, @RequestHeader("Authorization") String token) {
+        creditCardService.updateCreditCard(creditCardId, creditCard, token);
+        return ResponseEntity.ok("Credit card updated successfully.");
+    }
 }
