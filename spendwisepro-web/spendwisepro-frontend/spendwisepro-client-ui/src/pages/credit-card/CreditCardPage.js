@@ -5,8 +5,7 @@ import CreditCardChart from "../../components/creditcard/CreditCardChart";
 import CreditCardList from "../../components/creditcard/CreditCardList";
 import PageHeader from "../../components/common/PageHeader";
 import {useLocation, useNavigate} from "react-router-dom";
-import {Card, CardBody, Typography} from "@material-tailwind/react";
-import {CheckCircleIcon} from "@heroicons/react/24/solid";
+import SuccessCard from "../../components/common/SuccessCard";
 
 function CreditCardPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -66,54 +65,15 @@ function CreditCardPage() {
                     <div className="mt-2">
 
                         {showAddSuccess ? (
-                            <div className="mt-6 ml-6 mr-6">
-                                <Card className="w-full h-1/3 shadow-lg mt-8">
-                                    <CardBody>
-                                        <div>
-                                            <div className="flex justify-center items-center flex-col mb-3">
-                                                <CheckCircleIcon className="w-8 h-8 text-green-600 mb-2"/>
-                                                <Typography className="text-gray-600 text-sm font-semibold">
-                                                    Credit card added successfully
-                                                </Typography>
-                                            </div>
-                                        </div>
-                                    </CardBody>
-                                </Card>
-                            </div>
+                            <SuccessCard text="Credit card added successfully" />
                         ) : null}
 
                         {showUpdateSuccess ? (
-                            <div className="mt-6 ml-6 mr-6">
-                                <Card className="w-full h-1/3 shadow-lg mt-8">
-                                    <CardBody>
-                                        <div>
-                                            <div className="flex justify-center items-center flex-col mb-3">
-                                                <CheckCircleIcon className="w-8 h-8 text-green-600 mb-2"/>
-                                                <Typography className="text-gray-600 text-sm font-semibold">
-                                                    Credit card updated successfully
-                                                </Typography>
-                                            </div>
-                                        </div>
-                                    </CardBody>
-                                </Card>
-                            </div>
+                            <SuccessCard text="Credit card updated successfully" />
                         ) : null}
 
                         {showDeleteSuccess ? (
-                            <div className="mt-6 ml-6 mr-6">
-                                <Card className="w-full h-1/3 shadow-lg mt-8">
-                                    <CardBody>
-                                        <div>
-                                            <div className="flex justify-center items-center flex-col mb-3">
-                                                <CheckCircleIcon className="w-8 h-8 text-green-600 mb-2"/>
-                                                <Typography className="text-gray-600 text-sm font-semibold">
-                                                    Credit card deleted successfully
-                                                </Typography>
-                                            </div>
-                                        </div>
-                                    </CardBody>
-                                </Card>
-                            </div>
+                            <SuccessCard text="Credit card deleted successfully" />
                         ) : null}
 
                         <div className="mx-6">
