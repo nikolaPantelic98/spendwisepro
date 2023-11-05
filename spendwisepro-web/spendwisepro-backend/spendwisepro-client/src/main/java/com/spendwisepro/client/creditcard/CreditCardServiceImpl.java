@@ -2,7 +2,6 @@ package com.spendwisepro.client.creditcard;
 
 import com.spendwisepro.client.security.jwt.JwtService;
 import com.spendwisepro.client.user.UserRepository;
-import com.spendwisepro.common.entity.Category;
 import com.spendwisepro.common.entity.CreditCard;
 import com.spendwisepro.common.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +48,37 @@ public class CreditCardServiceImpl implements CreditCardService{
         creditCard.setUser(userToSave);
 
         return creditCardRepository.save(creditCard);
+    }
+
+    @Override
+    public void updateCreditCard(Long creditCardId, CreditCard creditCard, String token) {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+
+        User authenticatedUser = user.get();
+
+        CreditCard existingCreditCard = creditCardRepository.findCreditCardById(creditCardId, authenticatedUser.getId());
+
+        if (creditCard.getAmount() != null) {
+            existingCreditCard.setAmount(creditCard.getAmount());
+        }
+        if (creditCard.getType() != null) {
+            existingCreditCard.setType(creditCard.getType());
+        }
+        if (creditCard.getBank() != null) {
+            existingCreditCard.setBank(creditCard.getBank());
+        }
+        if (creditCard.getNote() != null) {
+            existingCreditCard.setNote(creditCard.getNote());
+        }
+        if (creditCard.getIcon() != null) {
+            existingCreditCard.setIcon(creditCard.getIcon());
+        }
+
+        creditCardRepository.save(existingCreditCard);
     }
 }

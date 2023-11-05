@@ -13,4 +13,7 @@ public interface CreditCardRepository extends JpaRepository<CreditCard, Long> {
 
     @Query("SELECT c FROM CreditCard c WHERE c.user.id = ?1")
     List<CreditCard> findAllCreditCards(Long userId, Sort sort);
+
+    @Query("SELECT c FROM CreditCard c WHERE c.id = ?1 AND c.user.id = ?2")
+    CreditCard findCreditCardById(Long creditCardId, Long userId);
 }

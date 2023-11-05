@@ -24,7 +24,7 @@ public class CreditCard {
     @Column(
             nullable = false
     )
-    private float amount;
+    private Float amount;
 
     @Column(
             length = 128,
