@@ -1,6 +1,7 @@
 package com.spendwisepro.client.creditcard;
 
 import com.spendwisepro.common.entity.CreditCard;
+import com.spendwisepro.common.exception.CreditCardNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,5 +37,15 @@ public class CreditCardRestController {
     @GetMapping("/{creditCardId}")
     public CreditCard getCreditCardById(@PathVariable Long creditCardId, @RequestHeader("Authorization") String token) {
         return creditCardService.getCreditCardById(creditCardId, token);
+    }
+
+    @DeleteMapping("/delete/{creditCardId}")
+    public ResponseEntity<String> deleteCreditCard(@PathVariable Long creditCardId, @RequestHeader("Authorization") String token) {
+        try {
+            creditCardService.deleteCreditCard(creditCardId, token);
+        } catch (CreditCardNotFoundException exception) {
+            return ResponseEntity.ok(exception.getMessage());
+        }
+        return ResponseEntity.ok("Credit card deleted successfully.");
     }
 }
