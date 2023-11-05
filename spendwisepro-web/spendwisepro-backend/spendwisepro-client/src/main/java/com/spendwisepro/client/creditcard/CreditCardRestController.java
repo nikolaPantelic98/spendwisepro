@@ -1,6 +1,5 @@
 package com.spendwisepro.client.creditcard;
 
-import com.spendwisepro.common.entity.Category;
 import com.spendwisepro.common.entity.CreditCard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

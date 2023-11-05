@@ -25,6 +25,7 @@ import GoalMonthlyPage from "./goal/GoalMonthlyPage";
 import LandingPage from "./LandingPage";
 import PrivateRoute from "../components/common/PrivateRoute";
 import EditCategoryPage from "./category/EditCategoryPage";
+import EditCreditCardPage from "./credit-card/EditCreditCardPage";
 
 function App() {
 
@@ -49,6 +50,7 @@ function App() {
                     <Route path="/cash" element={<PrivateRoute element={<CashPage />} />} />
                     <Route path="/credit_cards" element={<PrivateRoute element={<CreditCardPage />} />} />
                     <Route path="/add_credit_card" element={<PrivateRoute element={<AddCreditCardPage />} />} />
+                    <Route path="/edit_credit_card/:id" element={<PrivateRoute element={<EditCreditCardPage />} />} />
 
                     <Route path="/budgets" element={<PrivateRoute element={<BudgetPage />} />} />
                     <Route path="/budgets/weekly/*" element={<PrivateRoute element={<BudgetWeeklyPage />} />} />

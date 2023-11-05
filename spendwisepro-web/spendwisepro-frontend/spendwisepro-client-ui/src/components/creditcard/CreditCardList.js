@@ -53,7 +53,7 @@ export default function CreditCardList() {
 
                         {creditCards.map((creditCard) => (
                             <li key={creditCard.id} className="py-3 sm:py-4">
-                                <Link>
+                                <Link to={`/edit_credit_card/${creditCard.id}`}>
                                     <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                         <div className="flex-shrink-0">
                                             <img className="w-8 h-8 rounded-full" src={creditCard.icon.iconPath}  alt={creditCard.type} />

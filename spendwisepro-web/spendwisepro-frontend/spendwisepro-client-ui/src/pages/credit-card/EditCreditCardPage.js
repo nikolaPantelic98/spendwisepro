@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import PageHeader from "../../components/common/PageHeader";
-import EditCategoryForm from "../../components/category/EditCategoryForm";
+import EditCreditCardForm from "../../components/creditcard/EditCreditCardForm";
 
-function EditCategoryPage() {
+function EditCreditCardPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -19,13 +19,13 @@ function EditCategoryPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <PageHeader title="Edit category" />
+                    <PageHeader title="Edit credit card" />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
                     <div className="mt-2">
                         <div className="mx-6">
-                            <EditCategoryForm/>
+                            <EditCreditCardForm />
                         </div>
 
                         <div><PageWidthLayout/></div>
@@ -38,4 +38,4 @@ function EditCategoryPage() {
     );
 }
 
-export default EditCategoryPage;
+export default EditCreditCardPage;
