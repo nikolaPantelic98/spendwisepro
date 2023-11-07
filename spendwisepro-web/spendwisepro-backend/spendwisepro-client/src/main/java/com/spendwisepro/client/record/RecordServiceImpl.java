@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,5 +36,20 @@ public class RecordServiceImpl implements RecordService{
         Pageable pageable = PageRequest.of(0, 4);
 
         return recordRepository.findLastRecords(authenticatedUser.getId(), pageable);
+    }
+
+    @Override
+    public List<Record> getRecordsLast30Days(String token) {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+        User authenticatedUser = user.get();
+
+        Date thirtyDaysAgo = new Date(System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000);
+
+        return recordRepository.findAllRecordsAfterDate(authenticatedUser.getId(), thirtyDaysAgo);
     }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 public interface RecordService {
 
     List<Record> getLastFourRecords(String token);
+    List<Record> getRecordsLast30Days(String token);
 }
