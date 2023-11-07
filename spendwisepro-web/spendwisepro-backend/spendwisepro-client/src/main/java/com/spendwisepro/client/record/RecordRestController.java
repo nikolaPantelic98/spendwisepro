@@ -19,4 +19,9 @@ public class RecordRestController {
     public List<Record> getLastFourRecords(@RequestHeader("Authorization") String token) {
         return recordService.getLastFourRecords(token);
     }
+
+    @GetMapping("/last_30_days")
+    public List<Record> getRecordsLast30Days(@RequestHeader("Authorization") String token) {
+        return recordService.getRecordsLast30Days(token);
+    }
 }
