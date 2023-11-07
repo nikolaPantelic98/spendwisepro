@@ -1,7 +1,11 @@
 package com.spendwisepro.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -53,6 +57,11 @@ public class CreditCard {
             name = "user_id"
     )
     private User user;
+
+    @OneToMany(mappedBy = "creditCard", orphanRemoval = true)
+    @JsonIgnore
+    @ToString.Exclude
+    private Set<Record> records = new HashSet<>();
 
 
     public CreditCard(float amount, String type, String bank, String note) {

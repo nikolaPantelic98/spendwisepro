@@ -110,7 +110,7 @@ export default function EditCreditCardForm() {
             >
                 <DialogHeader>Are you sure?</DialogHeader>
                 <DialogBody>
-                    Do you really want to delete this credit card? This process cannot be undone.
+                    Do you really want to delete this credit card? All associated records and planned payments will be lost forever.
                 </DialogBody>
                 <DialogFooter>
                     <Button

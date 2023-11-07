@@ -39,7 +39,7 @@ public class CreditCardRepositoryTest {
     }
 
     @Test
-    public void testUpdateCreditCardIcon() {
+    public void testUpdateCreditCard() {
         String newType = "MasterCard";
         CreditCard visa = creditCardRepository.findById(2L).get();
         visa.setType(newType);
@@ -50,8 +50,8 @@ public class CreditCardRepositoryTest {
     }
 
     @Test
-    public void testDeleteCategoryIcon() {
-        Long creditCardId = 2L;
+    public void testDeleteCreditCard() {
+        Long creditCardId = 9L;
         creditCardRepository.deleteById(creditCardId);
 
         Optional<CreditCard> result = creditCardRepository.findById(creditCardId);
