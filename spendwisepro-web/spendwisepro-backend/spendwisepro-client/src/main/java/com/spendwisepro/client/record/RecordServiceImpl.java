@@ -52,4 +52,19 @@ public class RecordServiceImpl implements RecordService{
 
         return recordRepository.findAllRecordsAfterDate(authenticatedUser.getId(), thirtyDaysAgo);
     }
+
+    @Override
+    public List<Record> getRecordsLast365Days(String token) {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+        User authenticatedUser = user.get();
+
+        Date yearAgo = new Date(System.currentTimeMillis() - 365L * 24 * 60 * 60 * 1000);
+
+        return recordRepository.findAllRecordsAfterDate(authenticatedUser.getId(), yearAgo);
+    }
 }
