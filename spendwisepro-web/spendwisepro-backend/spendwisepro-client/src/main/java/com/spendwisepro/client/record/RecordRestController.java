@@ -24,4 +24,9 @@ public class RecordRestController {
     public List<Record> getRecordsLast30Days(@RequestHeader("Authorization") String token) {
         return recordService.getRecordsLast30Days(token);
     }
+
+    @GetMapping("/last_365_days")
+    public List<Record> getRecordsLast365Days(@RequestHeader("Authorization") String token) {
+        return recordService.getRecordsLast365Days(token);
+    }
 }
