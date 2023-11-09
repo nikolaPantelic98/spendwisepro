@@ -3,6 +3,7 @@ package com.spendwisepro.client.record;
 import com.spendwisepro.client.security.jwt.JwtService;
 import com.spendwisepro.client.user.UserRepository;
 import com.spendwisepro.common.entity.Record;
+import com.spendwisepro.common.entity.TransactionType;
 import com.spendwisepro.common.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -66,5 +67,25 @@ public class RecordServiceImpl implements RecordService{
         Date yearAgo = new Date(System.currentTimeMillis() - 365L * 24 * 60 * 60 * 1000);
 
         return recordRepository.findAllRecordsAfterDate(authenticatedUser.getId(), yearAgo);
+    }
+
+    @Override
+    public Record saveIncomeRecord(Record record, String token) {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+
+        User userToSave = user.get();
+
+        record.setUser(userToSave);
+        record.setTransactionType(TransactionType.INCOME);
+        if (record.getDateAndTime() == null) {
+            record.setDateAndTime(new Date());
+        }
+
+        return recordRepository.save(record);
     }
 }
