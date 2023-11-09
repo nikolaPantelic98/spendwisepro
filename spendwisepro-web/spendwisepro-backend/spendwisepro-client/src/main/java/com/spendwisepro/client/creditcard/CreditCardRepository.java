@@ -23,4 +23,9 @@ public interface CreditCardRepository extends JpaRepository<CreditCard, Long> {
     @Modifying
     @Query("DELETE FROM CreditCard c WHERE c.id = ?1 AND c.user.id = ?2")
     void deleteCreditCardById(Long creditCardId, Long userId);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE CreditCard c SET c.amount = c.amount + ?1 WHERE c.id = ?2 AND c.user.id = ?3")
+    void increaseAmountOfCreditCard(Float decreaseAmount, Long creditCardId, Long userId);
 }

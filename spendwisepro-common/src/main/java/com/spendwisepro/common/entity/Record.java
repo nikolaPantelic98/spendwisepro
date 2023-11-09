@@ -26,7 +26,7 @@ public class Record {
     @Column(
             nullable = false
     )
-    private float amount;
+    private Float amount;
 
     @Enumerated(
             EnumType.STRING

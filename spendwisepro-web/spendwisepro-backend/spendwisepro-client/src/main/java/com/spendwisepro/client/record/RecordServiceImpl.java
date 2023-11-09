@@ -1,10 +1,10 @@
 package com.spendwisepro.client.record;
 
+import com.spendwisepro.client.creditcard.CreditCardRepository;
 import com.spendwisepro.client.security.jwt.JwtService;
 import com.spendwisepro.client.user.UserRepository;
+import com.spendwisepro.common.entity.*;
 import com.spendwisepro.common.entity.Record;
-import com.spendwisepro.common.entity.TransactionType;
-import com.spendwisepro.common.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +22,7 @@ public class RecordServiceImpl implements RecordService{
     private final RecordRepository recordRepository;
     private final UserRepository userRepository;
     private final JwtService jwtService;
+    private final CreditCardRepository creditCardRepository;
 
 
     @Override
@@ -86,6 +87,13 @@ public class RecordServiceImpl implements RecordService{
             record.setDateAndTime(new Date());
         }
 
-        return recordRepository.save(record);
+        Record savedRecord = recordRepository.save(record);
+
+        if (savedRecord.getPaymentType().equals(PaymentType.CREDIT_CARD)) {
+            Long creditCardId = savedRecord.getCreditCard().getId();
+            creditCardRepository.increaseAmountOfCreditCard(savedRecord.getAmount(), creditCardId, userToSave.getId());
+        }
+
+        return savedRecord;
     }
 }
