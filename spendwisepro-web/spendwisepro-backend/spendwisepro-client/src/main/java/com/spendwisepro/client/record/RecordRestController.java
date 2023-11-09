@@ -2,6 +2,7 @@ package com.spendwisepro.client.record;
 
 import com.spendwisepro.common.entity.Record;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,5 +29,11 @@ public class RecordRestController {
     @GetMapping("/last_365_days")
     public List<Record> getRecordsLast365Days(@RequestHeader("Authorization") String token) {
         return recordService.getRecordsLast365Days(token);
+    }
+
+    @PostMapping("/save_income")
+    public ResponseEntity<String> saveIncomeRecord(@RequestBody Record record, @RequestHeader("Authorization") String token) {
+        recordService.saveIncomeRecord(record, token);
+        return ResponseEntity.ok("Income record saved successfully.");
     }
 }
