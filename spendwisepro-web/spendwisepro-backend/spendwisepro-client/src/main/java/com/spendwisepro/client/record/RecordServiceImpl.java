@@ -81,18 +81,57 @@ public class RecordServiceImpl implements RecordService{
 
         User userToSave = user.get();
 
+        // set user
         record.setUser(userToSave);
+        // set transaction type
         record.setTransactionType(TransactionType.INCOME);
+        // set current time if time is null
         if (record.getDateAndTime() == null) {
             record.setDateAndTime(new Date());
         }
 
         Record savedRecord = recordRepository.save(record);
 
+        // Increase amount of credit card when payment type of income record is credit card
         if (savedRecord.getPaymentType().equals(PaymentType.CREDIT_CARD)) {
             Long creditCardId = savedRecord.getCreditCard().getId();
             creditCardRepository.increaseAmountOfCreditCard(savedRecord.getAmount(), creditCardId, userToSave.getId());
         }
+
+        // todo: increase amount of cash balance when we create cash entity
+
+        return savedRecord;
+    }
+
+    @Override
+    public Record saveExpenseRecord(Record record, String token) {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+
+        User userToSave = user.get();
+
+        // set user
+        record.setUser(userToSave);
+        // set transaction type
+        record.setTransactionType(TransactionType.EXPENSE);
+        // set current time if time is null
+        if (record.getDateAndTime() == null) {
+            record.setDateAndTime(new Date());
+        }
+
+        Record savedRecord = recordRepository.save(record);
+
+        // Decrease amount of credit card when payment type of expense record is credit card
+        if (savedRecord.getPaymentType().equals(PaymentType.CREDIT_CARD)) {
+            Long creditCardId = savedRecord.getCreditCard().getId();
+            creditCardRepository.decreaseAmountOfCreditCard(savedRecord.getAmount(), creditCardId, userToSave.getId());
+        }
+
+        // todo: decrease amount of cash balance when we create cash entity
 
         return savedRecord;
     }
