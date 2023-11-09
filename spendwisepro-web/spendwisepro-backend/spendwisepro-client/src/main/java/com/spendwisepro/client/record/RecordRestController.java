@@ -36,4 +36,10 @@ public class RecordRestController {
         recordService.saveIncomeRecord(record, token);
         return ResponseEntity.ok("Income record saved successfully.");
     }
+
+    @PostMapping("/save_expense")
+    public ResponseEntity<String> saveExpenseRecord(@RequestBody Record record, @RequestHeader("Authorization") String token) {
+        recordService.saveExpenseRecord(record, token);
+        return ResponseEntity.ok("Expense record saved successfully.");
+    }
 }
