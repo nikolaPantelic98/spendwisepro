@@ -9,7 +9,7 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddRecordCreditCard() {
+export default function AddRecordCreditCard( {setCreditCard} ) {
 
     const [openCreditCard, setOpenCreditCard] = React.useState(false);
     const [selectedCreditCard, setSelectedCreditCard] = React.useState("");

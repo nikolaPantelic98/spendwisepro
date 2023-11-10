@@ -9,10 +9,10 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddRecordCategory() {
+export default function AddRecordCategory({ setCategory, initialValue = "" }) {
 
     const [openCategory, setOpenCategory] = React.useState(false);
-    const [selectedCategory, setSelectedCategory] = React.useState("");
+    const [selectedCategory, setSelectedCategory] = React.useState(initialValue);
     const [tempSelectedCategory, setTempSelectedCategory] = React.useState("");
     const handleOpenCategory = () => {
         setTempSelectedCategory(selectedCategory);

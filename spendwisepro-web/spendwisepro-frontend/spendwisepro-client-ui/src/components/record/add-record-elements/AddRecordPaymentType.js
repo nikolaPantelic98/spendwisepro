@@ -9,7 +9,7 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddRecordPaymentType({ onChange }) {
+export default function AddRecordPaymentType({ onChange, setPaymentType }) {
 
     const [openPaymentType, setOpenPaymentType] = React.useState(false);
     const [selectedPaymentType, setSelectedPaymentType] = React.useState("");

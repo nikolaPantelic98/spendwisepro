@@ -10,7 +10,7 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddRecordDateAndTime() {
+export default function AddRecordDateAndTime( {setDateAndTime} ) {
 
     const [openDateTime, setOpenDateTime] = React.useState(false);
     const [selectedDateTime, setSelectedDateTime] = React.useState("");

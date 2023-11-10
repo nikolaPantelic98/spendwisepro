@@ -10,12 +10,13 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddRecordAmount() {
+export default function AddRecordAmount({ setAmount, initialValue = "" }) {
 
     const [openAmount, setOpenAmount] = React.useState(false);
-    const [amountValue, setAmountValue] = React.useState("");
+    const [amountValue, setAmountValue] = React.useState(initialValue);
     const [isAmountTyped, setIsAmountTyped] = React.useState(false);
     const [tempAmountValue, setTempAmountValue] = React.useState("");
+
     const handleOpenAmount = () => {
         setTempAmountValue(amountValue);
         setOpenAmount(true);
@@ -31,6 +32,7 @@ export default function AddRecordAmount() {
             setTempAmountValue("");
             setIsAmountTyped(false);
         }
+        setAmount(amountValue);
         setOpenAmount(false);
     };
     const handleAmountChange = (event) => {
