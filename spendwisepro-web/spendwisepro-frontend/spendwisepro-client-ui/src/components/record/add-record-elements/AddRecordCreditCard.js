@@ -7,29 +7,48 @@ import {
     ListItem, Option, Select
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
-export default function AddRecordCreditCard( {setCreditCard} ) {
+export default function AddRecordCreditCard({ setCreditCard, initialValue = "" }) {
 
     const [openCreditCard, setOpenCreditCard] = React.useState(false);
-    const [selectedCreditCard, setSelectedCreditCard] = React.useState("");
+    const [selectedCreditCard, setSelectedCreditCard] = React.useState(initialValue);
     const [tempSelectedCreditCard, setTempSelectedCreditCard] = React.useState("");
+    const [creditCards, setCreditCards] = useState([]);
+
     const handleOpenCreditCard = () => {
         setTempSelectedCreditCard(selectedCreditCard);
         setOpenCreditCard(true);
     };
     const handleCloseCreditCard = () => {
-        setSelectedCreditCard(tempSelectedCreditCard);
+        setSelectedCreditCard(null);
+        setCreditCard(null);
         setOpenCreditCard(false);
     };
 
     const handleConfirmCreditCard = () => {
+        setCreditCard(selectedCreditCard);
         setOpenCreditCard(false);
         setTempSelectedCreditCard("");
     };
     const handleCreditCardChange = (value) => {
         setSelectedCreditCard(value);
     }
+
+    const token = localStorage.getItem("token");
+
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    };
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/spendwisepro/credit_cards/all', { headers })
+            .then(response => {
+                setCreditCards(response.data);
+            })
+            .catch(error => console.error('Error fetching credit cards:', error));
+    }, []);
 
     return (
         <li className="py-3 sm:py-4">
@@ -46,7 +65,7 @@ export default function AddRecordCreditCard( {setCreditCard} ) {
                     <div className="text-right">
                         <div className="h-4"></div>
                         <div className={`text-sm truncate dark:text-gray-400 ${selectedCreditCard ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
-                            {selectedCreditCard || "Select"}
+                            {selectedCreditCard ? (selectedCreditCard.type.length > 14 ? selectedCreditCard.type.substring(0, 11) + "..." : selectedCreditCard.type) : "Select"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -73,24 +92,18 @@ export default function AddRecordCreditCard( {setCreditCard} ) {
                         onChange={handleCreditCardChange}
                         className="relative"
                     >
-                        <Option value="Visa">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://cdn3.iconfinder.com/data/icons/popular-services-brands-vol-2/512/visa-512.png" alt="Visa" />
-                                <span className="ml-3">Visa</span>
-                            </div>
-                        </Option>
-                        <Option value="MasterCard">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://cdn3.iconfinder.com/data/icons/circle-payment-methods-4/512/Mastercard-512.png" alt="MasterCard" />
-                                <span className="ml-3">MasterCard</span>
-                            </div>
-                        </Option>
-                        <Option value="American Express">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://cdn3.iconfinder.com/data/icons/popular-services-brands-vol-2/512/american-express-512.png" alt="American Express" />
-                                <span className="ml-3">American Express</span>
-                            </div>
-                        </Option>
+                        {creditCards.map((creditCard) => (
+                            <Option value={creditCard} key={creditCard.id}>
+                                <div className="flex items-center">
+                                    <img
+                                        className="w-8 h-8 rounded-full"
+                                        src={creditCard.icon.iconPath}
+                                        alt={creditCard.icon.image}
+                                    />
+                                    <span className="ml-3">{creditCard.type} - {creditCard.note}</span>
+                                </div>
+                            </Option>
+                        ))}
                     </Select>
                 </DialogBody>
                 <DialogFooter>
