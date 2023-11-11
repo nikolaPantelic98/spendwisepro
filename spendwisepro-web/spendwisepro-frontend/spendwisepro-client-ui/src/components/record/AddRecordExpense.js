@@ -37,7 +37,7 @@ export default function AddRecordExpense() {
     const handleDateAndTimeChange = (dateAndTime) => setRecord({...record, dateAndTime});
     const handleNoteChange = (note) => setRecord({...record, note});
 
-    const [selectedPaymentType, setSelectedPaymentType] = useState("Cash");
+    const [selectedPaymentType, setSelectedPaymentType] = useState("CASH");
 
     const handleSubmit = async (e) => { e.preventDefault();
         try {
@@ -62,7 +62,7 @@ export default function AddRecordExpense() {
 
                             <AddRecordPaymentType onChange={setSelectedPaymentType} setPaymentType={handlePaymentTypeChange} />
 
-                            {selectedPaymentType === "Credit Card" && <AddRecordCreditCard setCreditCard={handleCreditCardChange} />}
+                            {selectedPaymentType === "CREDIT_CARD" && <AddRecordCreditCard setCreditCard={handleCreditCardChange} />}
 
                             <AddRecordDateAndTime setDateAndTime={handleDateAndTimeChange} />
                             {/*done*/}

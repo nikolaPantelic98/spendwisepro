@@ -7,29 +7,40 @@ import {
     ListItem, Option, Select
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, {useState} from "react";
 
 export default function AddRecordPaymentType({ onChange, setPaymentType }) {
 
-    const [openPaymentType, setOpenPaymentType] = React.useState(false);
-    const [selectedPaymentType, setSelectedPaymentType] = React.useState("");
-    const [tempSelectedPaymentType, setTempSelectedPaymentType] = React.useState("");
+    const [openPaymentType, setOpenPaymentType] = useState(false);
+    const [selectedPaymentType, setSelectedPaymentType] = useState("");
+    const [tempSelectedPaymentType, setTempSelectedPaymentType] = useState("");
+
     const handleOpenPaymentType = () => {
         setTempSelectedPaymentType(selectedPaymentType);
         setOpenPaymentType(true);
     };
     const handleClosePaymentType = () => {
-        setSelectedPaymentType(tempSelectedPaymentType);
+        setSelectedPaymentType(null);
+        setPaymentType(null);
         setOpenPaymentType(false);
     };
 
     const handleConfirmPaymentType = () => {
+        setPaymentType(selectedPaymentType);
         setOpenPaymentType(false);
         setTempSelectedPaymentType("");
         onChange(selectedPaymentType);
     };
     const handlePaymentTypeChange = (value) => {
         setSelectedPaymentType(value);
+    }
+
+    function getPaymentType(paymentType) {
+        if (paymentType === "CREDIT_CARD") {
+            return "Credit Card";
+        } else if (paymentType === "CASH") {
+            return "Cash";
+        }
     }
 
     return (
@@ -47,7 +58,7 @@ export default function AddRecordPaymentType({ onChange, setPaymentType }) {
                     <div className="text-right">
                         <div className="h-4"></div>
                         <div className={`text-sm truncate dark:text-gray-400 ${selectedPaymentType ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
-                            {selectedPaymentType || "Select"}
+                            {getPaymentType(selectedPaymentType) || "Select"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -74,13 +85,13 @@ export default function AddRecordPaymentType({ onChange, setPaymentType }) {
                         onChange={handlePaymentTypeChange}
                         className="relative"
                     >
-                        <Option value="Cash">
+                        <Option value="CASH">
                             <div className="flex items-center">
                                 <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/1028/1028137.png" alt="Cash" />
                                 <span className="ml-3">Cash</span>
                             </div>
                         </Option>
-                        <Option value="Credit Card">
+                        <Option value="CREDIT_CARD">
                             <div className="flex items-center">
                                 <img className="w-8 h-8 rounded-full" src="https://www.pngitem.com/pimgs/m/544-5444157_credit-card-icons-png-credit-card-icon-green.png" alt="Credit Card" />
                                 <span className="ml-3">Credit Card</span>
