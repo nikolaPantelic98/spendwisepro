@@ -65,6 +65,7 @@ export default function LastRecordsCard() {
                                             <div className="flex-shrink-0">
                                                 <img className="w-8 h-8 rounded-full" src={record.category.icon.iconPath} alt={record.category.icon.image}/>
                                             </div>
+
                                             <div className="flex-1 min-w-0">
                                                 <p className="text-sm font-medium text-gray-900 truncate">
                                                     {record.category.name}
@@ -76,14 +77,15 @@ export default function LastRecordsCard() {
                                                     {record.note}
                                                 </p>
                                             </div>
+
                                             <div className="text-right">
                                                 <div className={`inline-flex items-center text-base font-semibold ${record.transactionType === 'EXPENSE' ? 'text-red-700' : 'text-green-700'}`}>
                                                     {record.transactionType === 'EXPENSE' ? '- ' : '+ '}
                                                     {record.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                 </div>
                                                 <div className="h-1"></div>
-                                                <div className="text-xs text-gray-500 truncate dark:text-gray-400">
-                                                    {date.getDate()} {date.toLocaleString('default', { month: 'long' })} {date.getFullYear()}
+                                                <div className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                    {date.getDate()} {date.toLocaleString('default', { month: 'short' })} {date.getFullYear()}
                                                 </div>
                                             </div>
                                             <div className="ml-2">

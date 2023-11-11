@@ -32,7 +32,13 @@ export default function AddRecordExpense() {
 
     const handleAmountChange = (amount) => setRecord({...record, amount});
     const handleCategoryChange = (category) => setRecord({...record, category});
-    const handlePaymentTypeChange = (paymentType) => setRecord({...record, paymentType});
+    const handlePaymentTypeChange = (paymentType) => {
+        if (paymentType === 'CASH') {
+            setRecord({...record, paymentType, creditCard: null});
+        } else {
+            setRecord({...record, paymentType});
+        }
+    };
     const handleCreditCardChange = (creditCard) => setRecord({...record, creditCard});
     const handleDateAndTimeChange = (dateAndTime) => setRecord({...record, dateAndTime});
     const handleNoteChange = (note) => setRecord({...record, note});
@@ -55,17 +61,16 @@ export default function AddRecordExpense() {
                 <form onSubmit={handleSubmit}>
                     <div className="flow-root">
                         <ul role="list" className="divide-y divide-gray-200">
-                            {/*done*/}
                             <AddRecordAmount setAmount={handleAmountChange} />
 
                             <AddRecordCategory setCategory={handleCategoryChange} />
-                            {/*done*/}
+
                             <AddRecordPaymentType onChange={setSelectedPaymentType} setPaymentType={handlePaymentTypeChange} />
-                            {/*done*/}
+
                             {selectedPaymentType === "CREDIT_CARD" && <AddRecordCreditCard setCreditCard={handleCreditCardChange} />}
 
                             <AddRecordDateAndTime setDateAndTime={handleDateAndTimeChange} />
-                            {/*done*/}
+
                             <AddRecordNote setNote={handleNoteChange} />
                         </ul>
                         <hr className="my-2 border-blue-gray-50" />
