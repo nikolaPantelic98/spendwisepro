@@ -61,7 +61,7 @@ export default function AddRecordExpense() {
                             <AddRecordCategory setCategory={handleCategoryChange} />
                             {/*done*/}
                             <AddRecordPaymentType onChange={setSelectedPaymentType} setPaymentType={handlePaymentTypeChange} />
-
+                            {/*done*/}
                             {selectedPaymentType === "CREDIT_CARD" && <AddRecordCreditCard setCreditCard={handleCreditCardChange} />}
 
                             <AddRecordDateAndTime setDateAndTime={handleDateAndTimeChange} />

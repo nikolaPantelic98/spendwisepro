@@ -9,29 +9,34 @@ import {
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
+import moment from 'moment';
 
-export default function AddRecordDateAndTime( {setDateAndTime} ) {
+export default function AddRecordDateAndTime({ setDateAndTime, initialValue = "" }) {
 
     const [openDateTime, setOpenDateTime] = React.useState(false);
-    const [selectedDateTime, setSelectedDateTime] = React.useState("");
+    const [selectedDateTime, setSelectedDateTime] = React.useState(initialValue);
     const [tempSelectedDateTime, setTempSelectedDateTime] = React.useState("");
-    const [isDateTimeSelected, setIsDateTimeSelected] = React.useState(false);
 
     const handleOpenDateTime = () => {
-        setTempSelectedDateTime(isDateTimeSelected ? selectedDateTime : "");
+        setTempSelectedDateTime(selectedDateTime);
         setOpenDateTime(true);
     };
 
     const handleCloseDateTime = () => {
+        setSelectedDateTime(null);
+        setDateAndTime(null);
         setOpenDateTime(false);
     };
 
     const handleConfirmDateTime = () => {
-        setSelectedDateTime(tempSelectedDateTime);
+        const utcDate = moment(selectedDateTime).utc().format();
+        setDateAndTime(utcDate);
         setOpenDateTime(false);
-        setIsDateTimeSelected(true);
+        setTempSelectedDateTime("");
     };
+
     const handleDateTimeChange = (event) => {
+        setSelectedDateTime(event.target.value);
         setTempSelectedDateTime(event.target.value);
     }
 
@@ -65,8 +70,8 @@ export default function AddRecordDateAndTime( {setDateAndTime} ) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm truncate dark:text-gray-400 ${isDateTimeSelected ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
-                            {isDateTimeSelected ? formatDateTime(selectedDateTime) : 'Select'}
+                        <div className={`text-sm truncate dark:text-gray-400 ${selectedDateTime ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
+                            {selectedDateTime ? formatDateTime(selectedDateTime) : 'Select'}
                         </div>
                         <div className="h-4"></div>
                     </div>

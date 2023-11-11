@@ -38,7 +38,7 @@ public class RecordRepositoryTest {
         User user = userRepository.findById(19L).get();
         CreditCard creditCard = creditCardRepository.findById(11L).get();
 
-        Record record = new Record(1L, 15, PaymentType.CREDIT_CARD, TransactionType.EXPENSE, new Date(), "5th record",
+        Record record = new Record(1L, 15F, PaymentType.CREDIT_CARD, TransactionType.EXPENSE, new Date(), "5th record",
                 category, creditCard, user);
 
         Record savedRecord = recordRepository.save(record);
