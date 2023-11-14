@@ -26,6 +26,7 @@ import LandingPage from "./LandingPage";
 import PrivateRoute from "../components/common/PrivateRoute";
 import EditCategoryPage from "./category/EditCategoryPage";
 import EditCreditCardPage from "./credit-card/EditCreditCardPage";
+import AddRecordPage from "./record/AddRecordPage";
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/edit_category/:id" element={<PrivateRoute element={<EditCategoryPage />} />} />
 
                     <Route path="/records" element={<PrivateRoute element={<RecordsPage />} />} />
+                    <Route path="/add_record" element={<PrivateRoute element={<AddRecordPage />} />} />
 
                     <Route path="/balance" element={<PrivateRoute element={<BalancePage />} />} />
                     <Route path="/cash" element={<PrivateRoute element={<CashPage />} />} />

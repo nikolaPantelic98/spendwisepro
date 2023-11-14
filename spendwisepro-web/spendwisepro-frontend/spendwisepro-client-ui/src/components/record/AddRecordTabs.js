@@ -1,5 +1,5 @@
 import {
-    TabsHeader, Tab, TabsBody, TabPanel, Tabs, IconButton, Button, Typography,
+    TabsHeader, Tab, TabsBody, TabPanel, Tabs
 } from "@material-tailwind/react";
 import React, {useState} from "react";
 import PageWidthLayout from "../common/PageWidthLayout";
@@ -7,7 +7,7 @@ import {ArrowTrendingDownIcon, ArrowTrendingUpIcon} from "@heroicons/react/24/so
 import AddRecordExpense from "./AddRecordExpense";
 import AddRecordIncome from "./AddRecordIncome";
 
-export default function AddRecordDrawer({ closeDrawer }) {
+export default function AddRecordTabs() {
 
     const type = [
         {label: "Expense", value: "expense", icon: ArrowTrendingDownIcon},
@@ -19,49 +19,6 @@ export default function AddRecordDrawer({ closeDrawer }) {
     return (
 
         <div className="relative">
-
-            <div className="h-24 flex flex-col bg-white">
-                <div
-                    className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-1.5 bg-gray-500 rounded-xl"
-                    style={{ top: 0, width: "22%" }}
-                ></div>
-                <div>
-                    <div variant="text" className="flex gap-2">
-                        <Button variant="text" className="flex gap-2 text-transparent" disabled={true}>
-                            Back
-                        </Button>
-                    </div>
-                </div>
-                <div>
-                    <Typography variant="h3" color="black" className="mb-2 ">
-                        <IconButton
-                            variant="text"
-                            color="blue-gray"
-                            onClick={closeDrawer}
-                            className="float-right bottom-8 m-2 mx-3"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth={2}
-                                stroke="currentColor"
-                                className="h-5 w-5"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
-                            </svg>
-                        </IconButton>
-                        <div className="mx-4">
-                            Add record
-                        </div>
-                    </Typography>
-                </div>
-                <hr className="border-green-100" style={{ boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)" }} />
-            </div>
 
             <Tabs className="mt-8" value={selectedTab} onChange={(value) => setSelectedTab(value)}>
 
@@ -80,7 +37,7 @@ export default function AddRecordDrawer({ closeDrawer }) {
                     {type.map(({ value }) => (
                         <TabPanel key={value} value={value} className="p-0">
                             {value === "expense" ? (
-                                // Content for "overview" tab
+                                // Content for "expense" tab
                                 <>
                                     <div className="mt-2">
                                         <div className="mx-6">
@@ -91,7 +48,7 @@ export default function AddRecordDrawer({ closeDrawer }) {
                                     </div>
                                 </>
                             ) : value === "income" ? (
-                                // Content for "records" tab
+                                // Content for "income" tab
                                 <>
                                     <div className="mt-2">
 

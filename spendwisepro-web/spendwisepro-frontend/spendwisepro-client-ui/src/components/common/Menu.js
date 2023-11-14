@@ -2,16 +2,12 @@ import React, { useRef, useState } from 'react';
 import Sidebar from "./Sidebar";
 import {Link} from "react-router-dom";
 import {PlusCircleIcon} from "@heroicons/react/24/solid";
-import {Drawer} from "@material-tailwind/react";
-import AddRecordDrawer from "../record/AddRecordDrawer";
 
 function scrollToTop() {
     window.scrollTo(0, 0);
 }
 
 const Menu = ({ sidebarOpen, toggleSidebar }) => {
-
-    const screenHeight = window.innerHeight;
 
     // sidebar const
     const sidebarContainerRef = useRef(null);
@@ -25,28 +21,6 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
         toggleSidebar(!sidebarOpen);
     };
 
-    // drawer const
-    const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
-    const [startTouchY, setStartTouchY] = useState(0);
-
-    const openDrawer = () => {
-        setIsDrawerOpen(true);
-    };
-    const closeDrawer = () => {
-        setIsDrawerOpen(false);
-    };
-
-    const handleTouchStart = (e) => {
-        setStartTouchY(e.touches[0].clientY);
-    };
-
-    const handleTouchMove = (e) => {
-        const deltaY = e.touches[0].clientY;
-        if (deltaY < screenHeight * 0.12) {
-            closeDrawer();
-        }
-    };
-
     // effects
 
     React.useEffect(() => {
@@ -56,14 +30,6 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
             document.body.style.overflow = "auto";
         }
     }, [sidebarOpen]);
-
-    React.useEffect(() => {
-        if (isDrawerOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "auto";
-        }
-    }, [isDrawerOpen]);
 
     React.useEffect(() => {
         if (sidebarOpen && sidebarContainerRef.current && !animationComplete) {
@@ -95,7 +61,7 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
                 </div>
 
                 <div className="flex items-center justify-center flex-grow">
-                    <Link onClick={openDrawer}>
+                    <Link to="/add_record" onClick={scrollToTop}>
                         <PlusCircleIcon color="green" className="w-12 h-12" strokeWidth={2} />
                     </Link>
                 </div>
@@ -116,30 +82,6 @@ const Menu = ({ sidebarOpen, toggleSidebar }) => {
                     </div>
                 </div>
             )}
-            {isDrawerOpen && (
-                <div
-                    className="fixed top-0 left-0 right-0 bottom-0 z-0 bg-black bg-opacity-50 backdrop-blur-sm"
-                    onClick={() => {
-                        closeDrawer();
-                    }}
-                ></div>
-            )}
-            <Drawer
-                placement="bottom"
-                open={isDrawerOpen}
-                onClose={() => closeDrawer()}
-                size={window.innerHeight * 0.95}
-                transition={{ type: "tween", duration: 0.55 }}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                className="pt-2 bg-green-50 border-t-1 border-green-200 rounded-t-[10px]"
-            >
-                <div className=" h-full overflow-y-auto">
-                    <div className="flex items-center justify-between">
-                        <AddRecordDrawer closeDrawer={closeDrawer} />
-                    </div>
-                </div>
-            </Drawer>
         </div>
     );
 }
