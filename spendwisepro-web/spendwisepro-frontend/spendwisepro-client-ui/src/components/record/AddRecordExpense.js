@@ -48,7 +48,8 @@ export default function AddRecordExpense() {
     const handleSubmit = async (e) => { e.preventDefault();
         try {
             await axios.post("http://localhost:8000/spendwisepro/records/save_expense", record, { headers });
-            navigate("/home", {state: {addSuccess: true}});
+            navigate("/records", {state: {addSuccess: true}});
+            window.location.reload();
         } catch (err) {
             setError(true);
             console.log("error");
