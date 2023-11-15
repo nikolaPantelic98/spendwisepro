@@ -13,8 +13,9 @@ import {
 import {ArrowTrendingUpIcon, CurrencyDollarIcon} from "@heroicons/react/24/solid";
 import {ArrowLongRightIcon} from "@heroicons/react/24/outline";
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 export default function TrendCard() {
 
@@ -26,207 +27,21 @@ export default function TrendCard() {
 
     const [selectedTab, setSelectedTab] = useState("balance");
 
-    const records = [
-        {
-            id: 1,
-            amount: 30.00,
-            type: "expense",
-            date: new Date("2023-08-16T08:57"),
-            note: "Window repair",
-            paymentType: "Credit Card",
-            category: [
-                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
-            ]
-        },
-        {
-            id: 2,
-            amount: 25.00,
-            type: "expense",
-            date: new Date("2023-08-20T12:30"),
-            note: "New door",
-            paymentType: "Cash",
-            category: [
-                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
-            ]
-        },
-        {
-            id: 3,
-            amount: 45.00,
-            type: "expense",
-            date: new Date("2023-08-16T12:30"),
-            note: "Garden maintenance",
-            paymentType: "Credit Card",
-            category: [
-                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
-            ]
-        },
-        {
-            id: 4,
-            amount: 45.00,
-            type: "expense",
-            date: new Date("2023-08-30T12:30"),
-            note: "Tomato",
-            paymentType: "Credit Card",
-            category: [
-                { id: 2, categoryName: "Groceries", icon: "https://icon-library.com/images/grocery-icon-png/grocery-icon-png-14.jpg" }
-            ]
-        },
-        {
-            id: 5,
-            amount: 100.00,
-            type: "expense",
-            date: new Date("2023-08-10T08:57"),
-            note: "Car maintenance",
-            paymentType: "Cash",
-            category: [
-                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
-            ]
-        },
-        {
-            id: 6,
-            amount: 112.00,
-            type: "expense",
-            date: new Date("2023-08-21T12:30"),
-            note: "Broken window repair",
-            paymentType: "Credit Card",
-            category: [
-                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
-            ]
-        },
-        {
-            id: 7,
-            amount: 45.00,
-            type: "expense",
-            date: new Date("2023-09-01T12:30"),
-            note: "Fuel",
-            paymentType: "Credit Card",
-            category: [
-                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
-            ]
-        },
-        {
-            id: 8,
-            amount: 15.00,
-            type: "expense",
-            date: new Date("2023-08-21T08:57"),
-            note: "Cigarette",
-            paymentType: "Cash",
-            category: [
-                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
-            ]
-        },
-        {
-            id: 9,
-            amount: 27.00,
-            type: "expense",
-            date: new Date("2023-08-18T12:30"),
-            note: "Tobacco",
-            paymentType: "Credit Card",
-            category: [
-                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
-            ]
-        },
-        {
-            id: 10,
-            amount: 22.00,
-            type: "expense",
-            date: new Date("2023-08-17T12:30"),
-            note: "Pack",
-            paymentType: "Credit Card",
-            category: [
-                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
-            ]
-        },
-        {
-            id: 11,
-            amount: 27.00,
-            type: "expense",
-            date: new Date("2023-08-14T12:30"),
-            time: "12:30",
-            note: "Chips",
-            paymentType: "Credit Card",
-            category: [
-                { id: 5, categoryName: "Snacks", icon: "https://www.iconbunny.com/icons/media/catalog/product/cache/2/thumbnail/600x/1b89f2fc96fc819c2a7e15c7e545e8a9/5/2/524.9-fries-icon-iconbunny.jpg" }
-            ]
-        },
-        {
-            id: 12,
-            amount: 15.00,
-            type: "expense",
-            date: new Date("2023-08-22T08:57"),
-            note: "Doctor",
-            paymentType: "Cash",
-            category: [
-                { id: 6, categoryName: "Health care", icon: "https://i.ibb.co/k362Qsn/healthcare.png" }
-            ]
-        },
-        {
-            id: 13,
-            amount: 15.00,
-            type: "expense",
-            date: new Date("2023-09-01T08:57"),
-            note: "Card",
-            paymentType: "Cash",
-            category: [
-                { id: 7, categoryName: "Cinema", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        },
-        {
-            id: 14,
-            amount: 27.00,
-            type: "expense",
-            date: new Date("2023-08-23T12:30"),
-            note: "Cinema chips",
-            paymentType: "Credit Card",
-            category: [
-                { id: 7, categoryName: "Cinema", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        },
-        {
-            id: 15,
-            amount: 600.00,
-            type: "income",
-            date: new Date("2023-08-01T12:30"),
-            note: "Salary",
-            paymentType: "Credit Card",
-            category: [
-                { id: 7, categoryName: "Income", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        },
-        {
-            id: 16,
-            amount: 400.00,
-            type: "income",
-            date: new Date("2023-08-01T12:30"),
-            note: "Salary",
-            paymentType: "Cash",
-            category: [
-                { id: 7, categoryName: "Income", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        },
-        {
-            id: 17,
-            amount: 300.00,
-            type: "income",
-            date: new Date("2023-08-28T12:30"),
-            note: "Invoice",
-            paymentType: "Credit Card",
-            category: [
-                { id: 7, categoryName: "Income", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        },
-        {
-            id: 18,
-            amount: 100.00,
-            type: "expense",
-            date: new Date("2023-09-06T08:57"),
-            note: "Card",
-            paymentType: "Cash",
-            category: [
-                { id: 7, categoryName: "Cinema", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        }
-    ];
+    const [records, setRecords] = useState([]);
+
+    const token = localStorage.getItem("token");
+
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    };
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/spendwisepro/records/all', { headers })
+            .then(response => {
+                setRecords(response.data);
+            })
+            .catch(error => console.error('Error fetching records:', error));
+    }, []);
 
     const currentDate = new Date();
 
@@ -240,42 +55,48 @@ export default function TrendCard() {
     // Filter expenses before the last 30 days
     const expensesBeforeLast30Days = (() => {
         return records.filter(record => {
-            return record.date < thirtyDaysAgo && record.type === "expense";
+            let date = new Date(record.dateAndTime);
+            return date < thirtyDaysAgo && record.transactionType === "EXPENSE";
         });
     })();
 
     // Filter cash expenses before the last 30 days
     const cashExpensesBeforeLast30Days = (() => {
         return records.filter(record => {
-            return record.date < thirtyDaysAgo && record.type === "expense" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date < thirtyDaysAgo && record.transactionType === "EXPENSE" && record.paymentType === "CASH";
         });
     })();
 
     // Filter credit card expenses before the last 30 days
     const creditCardExpensesBeforeLast30Days = (() => {
         return records.filter(record => {
-            return record.date < thirtyDaysAgo && record.type === "expense" && record.paymentType === "Credit Card";
+            let date = new Date(record.dateAndTime);
+            return date < thirtyDaysAgo && record.transactionType === "EXPENSE" && record.paymentType === "CREDIT_CARD";
         });
     })();
 
     // Filter incomes before the last 30 days
     const incomesBeforeLast30Days = (() => {
         return records.filter(record => {
-            return record.date < thirtyDaysAgo && record.type === "income";
+            let date = new Date(record.dateAndTime);
+            return date < thirtyDaysAgo && record.transactionType === "INCOME";
         });
     })();
 
     // Filter cash incomes before the last 30 days
     const cashIncomesBeforeLast30Days = (() => {
         return records.filter(record => {
-            return record.date < thirtyDaysAgo && record.type === "income" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date < thirtyDaysAgo && record.transactionType === "INCOME" && record.paymentType === "CASH";
         });
     })();
 
     // Filter credit card incomes before the last 30 days
     const creditCardIncomesBeforeLast30Days = (() => {
         return records.filter(record => {
-            return record.date < thirtyDaysAgo && record.type === "income" && record.paymentType === "Credit Card";
+            let date = new Date(record.dateAndTime);
+            return date < thirtyDaysAgo && record.transactionType === "INCOME" && record.paymentType === "CREDIT_CARD";
         });
     })();
 
@@ -306,42 +127,48 @@ export default function TrendCard() {
     // Filter expenses within the last 30 days
     const expensesLast30Days = (() => {
         return records.filter(record => {
-            return record.date >= thirtyDaysAgo && record.type === "expense";
+            let date = new Date(record.dateAndTime);
+            return date >= thirtyDaysAgo && record.transactionType === "EXPENSE";
         });
     })();
 
     // Filter cash expenses within the last 30 days
     const cashExpensesLast30Days = (() => {
         return records.filter(record => {
-            return record.date >= thirtyDaysAgo && record.type === "expense" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date >= thirtyDaysAgo && record.transactionType === "EXPENSE" && record.paymentType === "CASH";
         });
     })();
 
     // Filter credit card expenses within the last 30 days
     const creditCardExpensesLast30Days = (() => {
         return records.filter(record => {
-            return record.date >= thirtyDaysAgo && record.type === "expense" && record.paymentType === "Credit Card";
+            let date = new Date(record.dateAndTime);
+            return date >= thirtyDaysAgo && record.transactionType === "EXPENSE" && record.paymentType === "CREDIT_CARD";
         });
     })();
 
     // Filter incomes within the last 30 days
     const incomesLast30Days = (() => {
         return records.filter(record => {
-            return record.date >= thirtyDaysAgo && record.type === "income";
+            let date = new Date(record.dateAndTime);
+            return date >= thirtyDaysAgo && record.transactionType === "INCOME";
         });
     })();
 
     // Filter cash incomes within the last 30 days
     const cashIncomesLast30Days = (() => {
         return records.filter(record => {
-            return record.date >= thirtyDaysAgo && record.type === "income" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date >= thirtyDaysAgo && record.transactionType === "INCOME" && record.paymentType === "CASH";
         });
     })();
 
     // Filter credit card incomes within the last 30 days
     const creditCardIncomesLast30Days = (() => {
         return records.filter(record => {
-            return record.date >= thirtyDaysAgo && record.type === "income" && record.paymentType === "Credit Card";
+            let date = new Date(record.dateAndTime);
+            return date >= thirtyDaysAgo && record.transactionType === "INCOME" && record.paymentType === "CREDIT_CARD";
         });
     })();
 
@@ -355,16 +182,18 @@ export default function TrendCard() {
 
         // Iterate through each day of the last 30 days
         while (iterationDate <= currentDate) {
-            const matchingExpensesThisDay = expensesLast30Days.filter(record =>
-                record.date.getDate() === iterationDate.getDate() &&
-                record.date.getMonth() === iterationDate.getMonth() &&
-                record.date.getFullYear() === iterationDate.getFullYear()
-            );
-            const matchingIncomesThisDay = incomesLast30Days.filter(record =>
-                record.date.getDate() === iterationDate.getDate() &&
-                record.date.getMonth() === iterationDate.getMonth() &&
-                record.date.getFullYear() === iterationDate.getFullYear()
-            );
+            const matchingExpensesThisDay = expensesLast30Days.filter(record => {
+                let date = new Date(record.dateAndTime);
+                return date.getDate() === iterationDate.getDate() &&
+                    date.getMonth() === iterationDate.getMonth() &&
+                    date.getFullYear() === iterationDate.getFullYear();
+            });
+            const matchingIncomesThisDay = incomesLast30Days.filter(record => {
+                let date = new Date(record.dateAndTime);
+                return date.getDate() === iterationDate.getDate() &&
+                    date.getMonth() === iterationDate.getMonth() &&
+                    date.getFullYear() === iterationDate.getFullYear();
+            });
 
             const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
             accumulatedAmount += expensesThisDay;
@@ -384,87 +213,87 @@ export default function TrendCard() {
     })();
 
     // Calculate cash chart data
-    const cashGraph = (() => {
-
-        const amountPerDay = [];
-        let accumulatedAmount = startingAmountCash;
-        let iterationDate = new Date(thirtyDaysAgo);
-
-        // Iterate through each day of the last 30 days
-        while (iterationDate <= currentDate) {
-            const matchingExpensesThisDay = cashExpensesLast30Days.filter(record =>
-                record.date.getDate() === iterationDate.getDate() &&
-                record.date.getMonth() === iterationDate.getMonth() &&
-                record.date.getFullYear() === iterationDate.getFullYear()
-            );
-            const matchingIncomesThisDay = cashIncomesLast30Days.filter(record =>
-                record.date.getDate() === iterationDate.getDate() &&
-                record.date.getMonth() === iterationDate.getMonth() &&
-                record.date.getFullYear() === iterationDate.getFullYear()
-            );
-
-            const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
-            accumulatedAmount += expensesThisDay;
-            const incomesThisDay = matchingIncomesThisDay.reduce((total, record) => total + record.amount, 0);
-            accumulatedAmount += incomesThisDay;
-
-            amountPerDay.push({
-                date: new Date(iterationDate),
-                amount: accumulatedAmount
-            });
-
-            // Move to the next day
-            iterationDate.setDate(iterationDate.getDate() + 1);
-        }
-
-        return amountPerDay;
-    })();
-
-    // Calculate credit card chart data
-    const creditCardGraph = (() => {
-
-        const amountPerDay = [];
-        let accumulatedAmount = startingAmountCreditCard;
-        let iterationDate = new Date(thirtyDaysAgo);
-
-        // Iterate through each day of the last 30 days
-        while (iterationDate <= currentDate) {
-            const matchingExpensesThisDay = creditCardExpensesLast30Days.filter(record =>
-                record.date.getDate() === iterationDate.getDate() &&
-                record.date.getMonth() === iterationDate.getMonth() &&
-                record.date.getFullYear() === iterationDate.getFullYear()
-            );
-            const matchingIncomesThisDay = creditCardIncomesLast30Days.filter(record =>
-                record.date.getDate() === iterationDate.getDate() &&
-                record.date.getMonth() === iterationDate.getMonth() &&
-                record.date.getFullYear() === iterationDate.getFullYear()
-            );
-
-            const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
-            accumulatedAmount += expensesThisDay;
-            const incomesThisDay = matchingIncomesThisDay.reduce((total, record) => total + record.amount, 0);
-            accumulatedAmount += incomesThisDay;
-
-            amountPerDay.push({
-                date: new Date(iterationDate),
-                amount: accumulatedAmount
-            });
-
-            // Move to the next day
-            iterationDate.setDate(iterationDate.getDate() + 1);
-        }
-
-        return amountPerDay;
-    })();
+    // const cashGraph = (() => {
+    //
+    //     const amountPerDay = [];
+    //     let accumulatedAmount = startingAmountCash;
+    //     let iterationDate = new Date(thirtyDaysAgo);
+    //
+    //     // Iterate through each day of the last 30 days
+    //     while (iterationDate <= currentDate) {
+    //         const matchingExpensesThisDay = cashExpensesLast30Days.filter(record =>
+    //             record.date.getDate() === iterationDate.getDate() &&
+    //             record.date.getMonth() === iterationDate.getMonth() &&
+    //             record.date.getFullYear() === iterationDate.getFullYear()
+    //         );
+    //         const matchingIncomesThisDay = cashIncomesLast30Days.filter(record =>
+    //             record.date.getDate() === iterationDate.getDate() &&
+    //             record.date.getMonth() === iterationDate.getMonth() &&
+    //             record.date.getFullYear() === iterationDate.getFullYear()
+    //         );
+    //
+    //         const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
+    //         accumulatedAmount += expensesThisDay;
+    //         const incomesThisDay = matchingIncomesThisDay.reduce((total, record) => total + record.amount, 0);
+    //         accumulatedAmount += incomesThisDay;
+    //
+    //         amountPerDay.push({
+    //             date: new Date(iterationDate),
+    //             amount: accumulatedAmount
+    //         });
+    //
+    //         // Move to the next day
+    //         iterationDate.setDate(iterationDate.getDate() + 1);
+    //     }
+    //
+    //     return amountPerDay;
+    // })();
+    //
+    // // Calculate credit card chart data
+    // const creditCardGraph = (() => {
+    //
+    //     const amountPerDay = [];
+    //     let accumulatedAmount = startingAmountCreditCard;
+    //     let iterationDate = new Date(thirtyDaysAgo);
+    //
+    //     // Iterate through each day of the last 30 days
+    //     while (iterationDate <= currentDate) {
+    //         const matchingExpensesThisDay = creditCardExpensesLast30Days.filter(record =>
+    //             record.date.getDate() === iterationDate.getDate() &&
+    //             record.date.getMonth() === iterationDate.getMonth() &&
+    //             record.date.getFullYear() === iterationDate.getFullYear()
+    //         );
+    //         const matchingIncomesThisDay = creditCardIncomesLast30Days.filter(record =>
+    //             record.date.getDate() === iterationDate.getDate() &&
+    //             record.date.getMonth() === iterationDate.getMonth() &&
+    //             record.date.getFullYear() === iterationDate.getFullYear()
+    //         );
+    //
+    //         const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
+    //         accumulatedAmount += expensesThisDay;
+    //         const incomesThisDay = matchingIncomesThisDay.reduce((total, record) => total + record.amount, 0);
+    //         accumulatedAmount += incomesThisDay;
+    //
+    //         amountPerDay.push({
+    //             date: new Date(iterationDate),
+    //             amount: accumulatedAmount
+    //         });
+    //
+    //         // Move to the next day
+    //         iterationDate.setDate(iterationDate.getDate() + 1);
+    //     }
+    //
+    //     return amountPerDay;
+    // })();
 
     // Get the balance amount for today
     const balanceAmountToday = balanceGraph[balanceGraph.length - 1].amount;
 
     // Get the cash amount for today
-    const cashAmountToday = cashGraph[cashGraph.length - 1].amount;
-
-    // Get the credit card amount for today
-    const creditCardAmountToday = creditCardGraph[creditCardGraph.length - 1].amount;
+    // const cashAmountToday = cashGraph[cashGraph.length - 1].amount;
+    //
+    // // Get the credit card amount for today
+    // const creditCardAmountToday = creditCardGraph[creditCardGraph.length - 1].amount;
 
     // Define a Tooltip component for the charts
     const TooltipContent = ({ active, payload }) => {
@@ -577,105 +406,105 @@ export default function TrendCard() {
                                         // Content for "cash" tab
                                         <>
                                             <div>
-                                                <div className="flex-1">
-                                                    <p className="text-sm font-medium text-gray-900 truncate">
-                                                        TODAY
-                                                    </p>
-                                                    <Typography variant="h2" className="text-gray-900 mb-4">
-                                                        {cashAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                                    </Typography>
-                                                </div>
+                                                {/*<div className="flex-1">*/}
+                                                {/*    <p className="text-sm font-medium text-gray-900 truncate">*/}
+                                                {/*        TODAY*/}
+                                                {/*    </p>*/}
+                                                {/*    <Typography variant="h2" className="text-gray-900 mb-4">*/}
+                                                {/*        {cashAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}*/}
+                                                {/*    </Typography>*/}
+                                                {/*</div>*/}
 
-                                                <div>
-                                                    <ResponsiveContainer width="100%" height={220}>
-                                                        <AreaChart className="right-4" data={cashGraph}
-                                                                   margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
-                                                            <defs>
-                                                                <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                                                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                                                                </linearGradient>
-                                                            </defs>
-                                                            <XAxis dataKey="date"
-                                                                   tick={{fontSize: 12, dy: 6}} tickFormatter={(tick) => {
-                                                                const date = new Date(tick);
-                                                                const day = date.getDate().toString().padStart(2, '0');
-                                                                const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                                                                return `${day}.${month}.`;}}
-                                                            />
-                                                            <YAxis tick={{fontSize: 15, dx: -3}} />
-                                                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                                                            <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                                     payloadArray={cashGraph}
-                                                                     content={<TooltipContent />}
-                                                                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
-                                                                     offset={25}/>
-                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />
-                                                        </AreaChart>
-                                                    </ResponsiveContainer>
-                                                </div>
+                                                {/*<div>*/}
+                                                {/*    <ResponsiveContainer width="100%" height={220}>*/}
+                                                {/*        <AreaChart className="right-4" data={cashGraph}*/}
+                                                {/*                   margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>*/}
+                                                {/*            <defs>*/}
+                                                {/*                <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">*/}
+                                                {/*                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />*/}
+                                                {/*                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />*/}
+                                                {/*                </linearGradient>*/}
+                                                {/*            </defs>*/}
+                                                {/*            <XAxis dataKey="date"*/}
+                                                {/*                   tick={{fontSize: 12, dy: 6}} tickFormatter={(tick) => {*/}
+                                                {/*                const date = new Date(tick);*/}
+                                                {/*                const day = date.getDate().toString().padStart(2, '0');*/}
+                                                {/*                const month = (date.getMonth() + 1).toString().padStart(2, '0');*/}
+                                                {/*                return `${day}.${month}.`;}}*/}
+                                                {/*            />*/}
+                                                {/*            <YAxis tick={{fontSize: 15, dx: -3}} />*/}
+                                                {/*            <CartesianGrid strokeDasharray="3 3" vertical={false} />*/}
+                                                {/*            <Tooltip cursor={{fill: '#E8F5E9'}}*/}
+                                                {/*                     payloadArray={cashGraph}*/}
+                                                {/*                     content={<TooltipContent />}*/}
+                                                {/*                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}*/}
+                                                {/*                     offset={25}/>*/}
+                                                {/*            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />*/}
+                                                {/*        </AreaChart>*/}
+                                                {/*    </ResponsiveContainer>*/}
+                                                {/*</div>*/}
 
-                                                <CardFooter className="p-0 mt-8">
+                                                {/*<CardFooter className="p-0 mt-8">*/}
 
-                                                    <Link to="/cash" onClick={storeScrollPosition}>
-                                                        <Button size="sm" variant="text" className="flex items-center gap-2">
-                                                            Show More
-                                                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                                                        </Button>
-                                                    </Link>
-                                                </CardFooter>
+                                                {/*    <Link to="/cash" onClick={storeScrollPosition}>*/}
+                                                {/*        <Button size="sm" variant="text" className="flex items-center gap-2">*/}
+                                                {/*            Show More*/}
+                                                {/*            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />*/}
+                                                {/*        </Button>*/}
+                                                {/*    </Link>*/}
+                                                {/*</CardFooter>*/}
                                             </div>
                                         </>
                                     ) : value === "credit" ? (
                                         // Content for "credit" tab
                                         <>
                                             <div>
-                                                <div className="flex-1">
-                                                    <p className="text-sm font-medium text-gray-900 truncate">
-                                                        TODAY
-                                                    </p>
-                                                    <Typography variant="h2" className="text-gray-900 mb-4">
-                                                        {creditCardAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                                                    </Typography>
-                                                </div>
+                                                {/*<div className="flex-1">*/}
+                                                {/*    <p className="text-sm font-medium text-gray-900 truncate">*/}
+                                                {/*        TODAY*/}
+                                                {/*    </p>*/}
+                                                {/*    <Typography variant="h2" className="text-gray-900 mb-4">*/}
+                                                {/*        {creditCardAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}*/}
+                                                {/*    </Typography>*/}
+                                                {/*</div>*/}
 
-                                                <div>
-                                                    <ResponsiveContainer width="100%" height={220}>
-                                                        <AreaChart className="right-4" data={creditCardGraph}
-                                                                   margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
-                                                            <defs>
-                                                                <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
-                                                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-                                                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-                                                                </linearGradient>
-                                                            </defs>
-                                                            <XAxis dataKey="date"
-                                                                   tick={{fontSize: 12, dy: 6}} tickFormatter={(tick) => {
-                                                                const date = new Date(tick);
-                                                                const day = date.getDate().toString().padStart(2, '0');
-                                                                const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                                                                return `${day}.${month}.`;}}
-                                                            />
-                                                            <YAxis tick={{fontSize: 15, dx: -3}} />
-                                                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                                                            <Tooltip cursor={{fill: '#E8F5E9'}}
-                                                                     payloadArray={creditCardGraph}
-                                                                     content={<TooltipContent />}
-                                                                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
-                                                                     offset={25}/>
-                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />
-                                                        </AreaChart>
-                                                    </ResponsiveContainer>
-                                                </div>
+                                                {/*<div>*/}
+                                                {/*    <ResponsiveContainer width="100%" height={220}>*/}
+                                                {/*        <AreaChart className="right-4" data={creditCardGraph}*/}
+                                                {/*                   margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>*/}
+                                                {/*            <defs>*/}
+                                                {/*                <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">*/}
+                                                {/*                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />*/}
+                                                {/*                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />*/}
+                                                {/*                </linearGradient>*/}
+                                                {/*            </defs>*/}
+                                                {/*            <XAxis dataKey="date"*/}
+                                                {/*                   tick={{fontSize: 12, dy: 6}} tickFormatter={(tick) => {*/}
+                                                {/*                const date = new Date(tick);*/}
+                                                {/*                const day = date.getDate().toString().padStart(2, '0');*/}
+                                                {/*                const month = (date.getMonth() + 1).toString().padStart(2, '0');*/}
+                                                {/*                return `${day}.${month}.`;}}*/}
+                                                {/*            />*/}
+                                                {/*            <YAxis tick={{fontSize: 15, dx: -3}} />*/}
+                                                {/*            <CartesianGrid strokeDasharray="3 3" vertical={false} />*/}
+                                                {/*            <Tooltip cursor={{fill: '#E8F5E9'}}*/}
+                                                {/*                     payloadArray={creditCardGraph}*/}
+                                                {/*                     content={<TooltipContent />}*/}
+                                                {/*                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}*/}
+                                                {/*                     offset={25}/>*/}
+                                                {/*            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />*/}
+                                                {/*        </AreaChart>*/}
+                                                {/*    </ResponsiveContainer>*/}
+                                                {/*</div>*/}
 
-                                                <CardFooter className="p-0 mt-8">
-                                                    <Link to="/credit_cards" onClick={storeScrollPosition}>
-                                                        <Button size="sm" variant="text" className="flex items-center gap-2">
-                                                            Show More
-                                                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                                                        </Button>
-                                                    </Link>
-                                                </CardFooter>
+                                                {/*<CardFooter className="p-0 mt-8">*/}
+                                                {/*    <Link to="/credit_cards" onClick={storeScrollPosition}>*/}
+                                                {/*        <Button size="sm" variant="text" className="flex items-center gap-2">*/}
+                                                {/*            Show More*/}
+                                                {/*            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />*/}
+                                                {/*        </Button>*/}
+                                                {/*    </Link>*/}
+                                                {/*</CardFooter>*/}
                                             </div>
                                         </>
                                     ) : null}
