@@ -71,6 +71,19 @@ public class RecordServiceImpl implements RecordService{
     }
 
     @Override
+    public List<Record> getAllRecords(String token) {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+        User authenticatedUser = user.get();
+
+        return recordRepository.findAllRecords(authenticatedUser.getId());
+    }
+
+    @Override
     public Record saveIncomeRecord(Record record, String token) {
         String username = jwtService.extractUsernameForAuthentication(token);
         Optional<User> user = userRepository.findByUsername(username);

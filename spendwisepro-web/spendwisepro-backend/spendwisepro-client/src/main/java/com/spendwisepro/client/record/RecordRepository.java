@@ -15,4 +15,7 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
 
     @Query("SELECT r FROM Record r WHERE r.user.id = ?1 AND r.dateAndTime >= ?2 ORDER BY r.dateAndTime DESC")
     List<Record> findAllRecordsAfterDate(Long userId, Date date);
+
+    @Query("SELECT r FROM Record r WHERE r.user.id = ?1 ORDER BY r.dateAndTime DESC")
+    List<Record> findAllRecords(Long userId);
 }

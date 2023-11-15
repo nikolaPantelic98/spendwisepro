@@ -49,7 +49,6 @@ export default function AddRecordIncome() {
         try {
             await axios.post("http://localhost:8000/spendwisepro/records/save_income", record, { headers });
             navigate("/records", {state: {addSuccess: true}});
-            window.location.reload();
         } catch (err) {
             setError(true);
             console.log("error");
