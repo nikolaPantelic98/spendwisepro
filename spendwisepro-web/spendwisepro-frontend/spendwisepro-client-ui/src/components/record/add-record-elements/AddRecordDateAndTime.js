@@ -9,7 +9,7 @@ import {
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
-import moment from 'moment';
+import moment from 'moment-timezone';
 
 export default function AddRecordDateAndTime({ setDateAndTime, initialValue = "" }) {
 
@@ -18,7 +18,14 @@ export default function AddRecordDateAndTime({ setDateAndTime, initialValue = ""
     const [tempSelectedDateTime, setTempSelectedDateTime] = React.useState("");
 
     const handleOpenDateTime = () => {
-        setTempSelectedDateTime(selectedDateTime);
+        if (!selectedDateTime || isNaN(new Date(selectedDateTime))) {
+            const now = moment().tz(Intl.DateTimeFormat().resolvedOptions().timeZone);
+            const dateTimeString = now.format('YYYY-MM-DDTHH:mm');
+            setSelectedDateTime(dateTimeString);
+            setTempSelectedDateTime(dateTimeString);
+        } else {
+            setTempSelectedDateTime(selectedDateTime);
+        }
         setOpenDateTime(true);
     };
 
