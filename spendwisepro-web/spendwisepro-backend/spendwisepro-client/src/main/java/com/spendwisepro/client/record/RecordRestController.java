@@ -31,6 +31,11 @@ public class RecordRestController {
         return recordService.getRecordsLast365Days(token);
     }
 
+    @GetMapping("/all")
+    public List<Record> getAllRecords(@RequestHeader("Authorization") String token) {
+        return recordService.getAllRecords(token);
+    }
+
     @PostMapping("/save_income")
     public ResponseEntity<String> saveIncomeRecord(@RequestBody Record record, @RequestHeader("Authorization") String token) {
         recordService.saveIncomeRecord(record, token);
