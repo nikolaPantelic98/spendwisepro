@@ -252,41 +252,43 @@ export default function TrendCard() {
     })();
 
     // Calculate credit card chart data
-    // const creditCardGraph = (() => {
-    //
-    //     const amountPerDay = [];
-    //     let accumulatedAmount = startingAmountCreditCard;
-    //     let iterationDate = new Date(thirtyDaysAgo);
-    //
-    //     // Iterate through each day of the last 30 days
-    //     while (iterationDate <= currentDate) {
-    //         const matchingExpensesThisDay = creditCardExpensesLast30Days.filter(record =>
-    //             record.date.getDate() === iterationDate.getDate() &&
-    //             record.date.getMonth() === iterationDate.getMonth() &&
-    //             record.date.getFullYear() === iterationDate.getFullYear()
-    //         );
-    //         const matchingIncomesThisDay = creditCardIncomesLast30Days.filter(record =>
-    //             record.date.getDate() === iterationDate.getDate() &&
-    //             record.date.getMonth() === iterationDate.getMonth() &&
-    //             record.date.getFullYear() === iterationDate.getFullYear()
-    //         );
-    //
-    //         const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
-    //         accumulatedAmount += expensesThisDay;
-    //         const incomesThisDay = matchingIncomesThisDay.reduce((total, record) => total + record.amount, 0);
-    //         accumulatedAmount += incomesThisDay;
-    //
-    //         amountPerDay.push({
-    //             date: new Date(iterationDate),
-    //             amount: accumulatedAmount
-    //         });
-    //
-    //         // Move to the next day
-    //         iterationDate.setDate(iterationDate.getDate() + 1);
-    //     }
-    //
-    //     return amountPerDay;
-    // })();
+    const creditCardGraph = (() => {
+
+        const amountPerDay = [];
+        let accumulatedAmount = startingAmountCreditCard;
+        let iterationDate = new Date(thirtyDaysAgo);
+
+        // Iterate through each day of the last 30 days
+        while (iterationDate <= currentDate) {
+            const matchingExpensesThisDay = creditCardExpensesLast30Days.filter(record => {
+                let date = new Date(record.dateAndTime);
+                return date.getDate() === iterationDate.getDate() &&
+                    date.getMonth() === iterationDate.getMonth() &&
+                    date.getFullYear() === iterationDate.getFullYear();
+            });
+            const matchingIncomesThisDay = creditCardIncomesLast30Days.filter(record => {
+                let date = new Date(record.dateAndTime);
+                return date.getDate() === iterationDate.getDate() &&
+                    date.getMonth() === iterationDate.getMonth() &&
+                    date.getFullYear() === iterationDate.getFullYear();
+            });
+
+            const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
+            accumulatedAmount += expensesThisDay;
+            const incomesThisDay = matchingIncomesThisDay.reduce((total, record) => total + record.amount, 0);
+            accumulatedAmount += incomesThisDay;
+
+            amountPerDay.push({
+                date: new Date(iterationDate),
+                amount: accumulatedAmount
+            });
+
+            // Move to the next day
+            iterationDate.setDate(iterationDate.getDate() + 1);
+        }
+
+        return amountPerDay;
+    })();
 
     // Get the balance amount for today
     const balanceAmountToday = balanceGraph[balanceGraph.length - 1].amount;
@@ -295,7 +297,7 @@ export default function TrendCard() {
     const cashAmountToday = cashGraph[cashGraph.length - 1].amount;
 
     // Get the credit card amount for today
-    // const creditCardAmountToday = creditCardGraph[creditCardGraph.length - 1].amount;
+    const creditCardAmountToday = creditCardGraph[creditCardGraph.length - 1].amount;
 
     // Define a Tooltip component for the charts
     const TooltipContent = ({ active, payload }) => {
@@ -461,52 +463,52 @@ export default function TrendCard() {
                                         // Content for "credit" tab
                                         <>
                                             <div>
-                                                {/*<div className="flex-1">*/}
-                                                {/*    <p className="text-sm font-medium text-gray-900 truncate">*/}
-                                                {/*        TODAY*/}
-                                                {/*    </p>*/}
-                                                {/*    <Typography variant="h2" className="text-gray-900 mb-4">*/}
-                                                {/*        {creditCardAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}*/}
-                                                {/*    </Typography>*/}
-                                                {/*</div>*/}
+                                                <div className="flex-1">
+                                                    <p className="text-sm font-medium text-gray-900 truncate">
+                                                        TODAY
+                                                    </p>
+                                                    <Typography variant="h2" className="text-gray-900 mb-4">
+                                                        {creditCardAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                                    </Typography>
+                                                </div>
 
-                                                {/*<div>*/}
-                                                {/*    <ResponsiveContainer width="100%" height={220}>*/}
-                                                {/*        <AreaChart className="right-4" data={creditCardGraph}*/}
-                                                {/*                   margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>*/}
-                                                {/*            <defs>*/}
-                                                {/*                <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">*/}
-                                                {/*                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />*/}
-                                                {/*                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />*/}
-                                                {/*                </linearGradient>*/}
-                                                {/*            </defs>*/}
-                                                {/*            <XAxis dataKey="date"*/}
-                                                {/*                   tick={{fontSize: 12, dy: 6}} tickFormatter={(tick) => {*/}
-                                                {/*                const date = new Date(tick);*/}
-                                                {/*                const day = date.getDate().toString().padStart(2, '0');*/}
-                                                {/*                const month = (date.getMonth() + 1).toString().padStart(2, '0');*/}
-                                                {/*                return `${day}.${month}.`;}}*/}
-                                                {/*            />*/}
-                                                {/*            <YAxis tick={{fontSize: 15, dx: -3}} />*/}
-                                                {/*            <CartesianGrid strokeDasharray="3 3" vertical={false} />*/}
-                                                {/*            <Tooltip cursor={{fill: '#E8F5E9'}}*/}
-                                                {/*                     payloadArray={creditCardGraph}*/}
-                                                {/*                     content={<TooltipContent />}*/}
-                                                {/*                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}*/}
-                                                {/*                     offset={25}/>*/}
-                                                {/*            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />*/}
-                                                {/*        </AreaChart>*/}
-                                                {/*    </ResponsiveContainer>*/}
-                                                {/*</div>*/}
+                                                <div>
+                                                    <ResponsiveContainer width="100%" height={220}>
+                                                        <AreaChart className="right-4" data={creditCardGraph}
+                                                                   margin={{ top: 20, right: 0, left: 0, bottom: 0 }}>
+                                                            <defs>
+                                                                <linearGradient id="chartGreen" x1="0" y1="0" x2="0" y2="1">
+                                                                    <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                                                                    <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+                                                                </linearGradient>
+                                                            </defs>
+                                                            <XAxis dataKey="date"
+                                                                   tick={{fontSize: 12, dy: 6}} tickFormatter={(tick) => {
+                                                                const date = new Date(tick);
+                                                                const day = date.getDate().toString().padStart(2, '0');
+                                                                const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                                                                return `${day}.${month}.`;}}
+                                                            />
+                                                            <YAxis tick={{fontSize: 15, dx: -3}} />
+                                                            <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                                            <Tooltip cursor={{fill: '#E8F5E9'}}
+                                                                     payloadArray={creditCardGraph}
+                                                                     content={<TooltipContent />}
+                                                                     wrapperStyle={{ background: 'white', border: '2px solid #ddd',  borderRadius: '8px', padding: '5px' }}
+                                                                     offset={25}/>
+                                                            <Area type="monotone" dataKey="amount" stroke="#82ca9d" fillOpacity={1} fill="url(#chartGreen)" />
+                                                        </AreaChart>
+                                                    </ResponsiveContainer>
+                                                </div>
 
-                                                {/*<CardFooter className="p-0 mt-8">*/}
-                                                {/*    <Link to="/credit_cards" onClick={storeScrollPosition}>*/}
-                                                {/*        <Button size="sm" variant="text" className="flex items-center gap-2">*/}
-                                                {/*            Show More*/}
-                                                {/*            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />*/}
-                                                {/*        </Button>*/}
-                                                {/*    </Link>*/}
-                                                {/*</CardFooter>*/}
+                                                <CardFooter className="p-0 mt-8">
+                                                    <Link to="/credit_cards" onClick={storeScrollPosition}>
+                                                        <Button size="sm" variant="text" className="flex items-center gap-2">
+                                                            Show More
+                                                            <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                                                        </Button>
+                                                    </Link>
+                                                </CardFooter>
                                             </div>
                                         </>
                                     ) : null}
