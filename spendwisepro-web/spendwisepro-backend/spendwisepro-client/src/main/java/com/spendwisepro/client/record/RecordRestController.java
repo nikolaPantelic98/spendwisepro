@@ -41,6 +41,11 @@ public class RecordRestController {
         return recordService.getExpenseRecordsThisMonth(token);
     }
 
+    @GetMapping("/expense_records_this_week")
+    public List<Record> getExpenseRecordsThisWeek(@RequestHeader("Authorization") String token) {
+        return recordService.getExpenseRecordsThisWeek(token);
+    }
+
     @PostMapping("/save_income")
     public ResponseEntity<String> saveIncomeRecord(@RequestBody Record record, @RequestHeader("Authorization") String token) {
         recordService.saveIncomeRecord(record, token);
