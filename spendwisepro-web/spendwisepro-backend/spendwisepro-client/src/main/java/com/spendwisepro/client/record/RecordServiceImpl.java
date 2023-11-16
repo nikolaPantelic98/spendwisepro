@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -81,6 +82,36 @@ public class RecordServiceImpl implements RecordService{
         User authenticatedUser = user.get();
 
         return recordRepository.findAllRecords(authenticatedUser.getId());
+    }
+
+    @Override
+    public List<Record> getExpenseRecordsThisMonth(String token) {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+        User authenticatedUser = user.get();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date startOfMonth = calendar.getTime();
+
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+
+        Date endOfMonth = calendar.getTime();
+
+        return recordRepository.findExpenseRecordsThisMonth(authenticatedUser.getId(), startOfMonth, endOfMonth);
     }
 
     @Override
