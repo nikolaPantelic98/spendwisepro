@@ -111,7 +111,35 @@ public class RecordServiceImpl implements RecordService{
 
         Date endOfMonth = calendar.getTime();
 
-        return recordRepository.findExpenseRecordsThisMonth(authenticatedUser.getId(), startOfMonth, endOfMonth);
+        return recordRepository.findExpenseRecordsBetweenDates(authenticatedUser.getId(), startOfMonth, endOfMonth);
+    }
+
+    @Override
+    public List<Record> getExpenseRecordsThisWeek(String token) {
+        String username = jwtService.extractUsernameForAuthentication(token);
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isEmpty()) {
+            throw new UsernameNotFoundException("User with username " + username + " not found");
+        }
+        User authenticatedUser = user.get();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        Date startOfWeek = calendar.getTime();
+
+        calendar.add(Calendar.WEEK_OF_YEAR, 1);
+        calendar.add(Calendar.MILLISECOND, -1);
+
+        Date endOfWeek = calendar.getTime();
+
+        return recordRepository.findExpenseRecordsBetweenDates(authenticatedUser.getId(), startOfWeek, endOfWeek);
     }
 
     @Override
