@@ -8,6 +8,7 @@ import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import moment from "moment-timezone";
 
 export default function RecordListYear() {
 
@@ -55,6 +56,10 @@ export default function RecordListYear() {
         }
     }
 
+    function getFormattedTime(dateAndTime) {
+        return moment(dateAndTime).format('HH:mm');
+    }
+
     return (
         <>
             <div className="h-2"></div>
@@ -99,7 +104,7 @@ export default function RecordListYear() {
                                                                 {recordForSpecificDate.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                             </div>
                                                             <div className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                                                {date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+                                                                {getFormattedTime(recordForSpecificDate.dateAndTime)}
                                                             </div>
                                                         </div>
                                                         <div className="ml-2">
