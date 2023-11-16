@@ -13,9 +13,7 @@ import moment from "moment-timezone";
 export default function RecordListYear() {
 
     const [records, setRecords] = useState([]);
-
     const token = localStorage.getItem("token");
-
     const headers = {
         'Authorization': `Bearer ${token}`
     };
@@ -42,22 +40,23 @@ export default function RecordListYear() {
     // Sorts unique dates in descending order
     const sortedUniqueRecordDates = uniqueRecordDates.sort((a, b) => b - a);
 
-    // Formats a given date to a readable string
+    // Formats the given date into a readable string in uppercase using moment.js
     function formatDate(date) {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        return date.toLocaleDateString(undefined, options).toUpperCase();
+        return moment(date).format('LL').toUpperCase();
     }
 
+    // Formats the given time into a 24-hour format using moment.js
+    function getFormattedTime(time) {
+        return moment(time).format('HH:mm');
+    }
+
+    // Converts the payment type from a constant to a readable string
     function getPaymentType(paymentType) {
         if (paymentType === "CREDIT_CARD") {
             return "Credit Card";
         } else if (paymentType === "CASH") {
             return "Cash";
         }
-    }
-
-    function getFormattedTime(dateAndTime) {
-        return moment(dateAndTime).format('HH:mm');
     }
 
     return (
@@ -79,7 +78,6 @@ export default function RecordListYear() {
                                 <ul role="list" className="divide-y divide-gray-200">
 
                                     {recordsForDate.map((recordForSpecificDate) => {
-                                        let date = new Date(recordForSpecificDate.dateAndTime);
                                         return (
                                             <li key={recordForSpecificDate.id} className="py-3 sm:py-4">
                                                 <Link>
