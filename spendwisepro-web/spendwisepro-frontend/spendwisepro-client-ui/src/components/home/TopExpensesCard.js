@@ -28,19 +28,19 @@ export default function TopExpensesCard() {
             .catch(error => console.error('Error fetching expense records this month:', error));
     }, []);
 
-    // Accumulate expenses by category, summing the amounts for each category
-    const accumulatedExpenses = expenseRecordsThisMonth.reduce((accumulator, record) => {
-        const existingExpense = accumulator.find(expense => expense.categoryName === record.category.name);
+    // Group expenses by category, summing the amounts for each category
+    const accumulatedExpenses = expenseRecordsThisMonth.reduce((groupedExpenses, record) => {
+        const existingExpense = groupedExpenses.find(expense => expense.categoryName === record.category.name);
         if (existingExpense) {
             existingExpense.amount += record.amount;
         } else {
-            accumulator.push({
+            groupedExpenses.push({
                 categoryName: record.category.name,
                 amount: record.amount,
                 color: record.category.color
             });
         }
-        return accumulator;
+        return groupedExpenses;
     }, []);
 
     accumulatedExpenses.sort((a, b) => b.amount - a.amount);
