@@ -151,7 +151,7 @@ export default function ExpensesRecordsListMonthly() {
                     <div className="flow-root">
                         <div className="flex-1">
                             <div className="flex items-center justify-between">
-                                <p className="text-xs font-medium text-gray-900 truncate">
+                                <p className="text-xs font-normal text-gray-900 truncate">
                                     THIS MONTH
                                 </p>
                             </div>
