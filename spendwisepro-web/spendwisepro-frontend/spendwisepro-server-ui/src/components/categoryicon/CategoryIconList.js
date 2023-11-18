@@ -20,7 +20,7 @@ export default function CategoryIconList() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8080/spendwisepro_admin/icons/all', { headers })
+        axios.get('http://localhost:8080/spendwisepro_admin/category_icons/all', { headers })
             .then(response => {
                 setIcons(response.data);
             })
