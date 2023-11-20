@@ -47,6 +47,7 @@ public class CreditCardServiceImpl implements CreditCardService{
         User userToSave = user.get();
 
         creditCard.setUser(userToSave);
+        creditCard.setAmount(0F);
 
         return creditCardRepository.save(creditCard);
     }

@@ -55,7 +55,7 @@ export default function AddCreditCardAmount({ setAmount, initialValue = "" }) {
                     <div className="text-right">
                         <div className="h-4"></div>
                         <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isAmountTyped || initialValue !== "" ? 'font-bold text-gray-800 truncate' : ''}`}>
-                            {amountValue ? `$${parseFloat(amountValue).toFixed(2)}` : "Type"}
+                            {amountValue !== undefined && amountValue !== "" ? `$${parseFloat(amountValue).toFixed(2)}` : "Type"}
                         </div>
                         <div className="h-4"></div>
                     </div>

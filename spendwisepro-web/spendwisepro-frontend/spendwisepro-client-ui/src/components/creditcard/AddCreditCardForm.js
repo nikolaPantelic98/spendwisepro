@@ -15,7 +15,6 @@ import axios from "axios";
 export default function AddCreditCardForm() {
 
     const [creditCard, setCreditCard] = useState({
-        amount: "",
         type: "",
         icon: null,
         bank: "",
@@ -32,7 +31,6 @@ export default function AddCreditCardForm() {
         'Authorization': `Bearer ${token}`
     };
 
-    const handleAmountChange = (amount) => setCreditCard({...creditCard, amount});
     const handleTypeChange = (type) => setCreditCard({...creditCard, type});
     const handleIconChange = (icon) => setCreditCard({...creditCard, icon});
     const handleBankChange = (bank) => setCreditCard({...creditCard, bank});
@@ -54,8 +52,6 @@ export default function AddCreditCardForm() {
                 <form onSubmit={handleSubmit}>
                     <div className="flow-root">
                         <ul role="list" className="divide-y divide-gray-200">
-                            <AddCreditCardAmount setAmount={handleAmountChange} />
-
                             <AddCreditCardType setType={handleTypeChange} />
 
                             <AddCreditCardIcon setIcon={handleIconChange} />
