@@ -1,15 +1,17 @@
 package com.spendwisepro.client.creditcard;
 
+import com.spendwisepro.client.record.RecordRepository;
 import com.spendwisepro.client.security.jwt.JwtService;
 import com.spendwisepro.client.user.UserRepository;
-import com.spendwisepro.common.entity.CreditCard;
-import com.spendwisepro.common.entity.User;
+import com.spendwisepro.common.entity.*;
+import com.spendwisepro.common.entity.Record;
 import com.spendwisepro.common.exception.CreditCardNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +22,7 @@ public class CreditCardServiceImpl implements CreditCardService{
     private final CreditCardRepository creditCardRepository;
     private final UserRepository userRepository;
     private final JwtService jwtService;
+    private final RecordRepository recordRepository;
 
 
     @Override
@@ -65,9 +68,6 @@ public class CreditCardServiceImpl implements CreditCardService{
 
         CreditCard existingCreditCard = creditCardRepository.findCreditCardById(creditCardId, authenticatedUser.getId());
 
-        if (creditCard.getAmount() != null) {
-            existingCreditCard.setAmount(creditCard.getAmount());
-        }
         if (creditCard.getType() != null) {
             existingCreditCard.setType(creditCard.getType());
         }
@@ -79,6 +79,25 @@ public class CreditCardServiceImpl implements CreditCardService{
         }
         if (creditCard.getIcon() != null) {
             existingCreditCard.setIcon(creditCard.getIcon());
+        }
+        if (creditCard.getAmount() != null) {
+            Record record = new Record();
+            record.setAmount(Math.abs(creditCard.getAmount() - existingCreditCard.getAmount()));
+            record.setPaymentType(PaymentType.CREDIT_CARD);
+            record.setDateAndTime(new Date());
+            record.setNote("Credit card update");
+            record.setIsHidden(true);
+            record.setCreditCard(existingCreditCard);
+            record.setUser(authenticatedUser);
+
+            if (creditCard.getAmount() > existingCreditCard.getAmount()) {
+                record.setTransactionType(TransactionType.INCOME);
+            } else {
+                record.setTransactionType(TransactionType.EXPENSE);
+            }
+
+            existingCreditCard.setAmount(creditCard.getAmount());
+            recordRepository.save(record);
         }
 
         creditCardRepository.save(existingCreditCard);
