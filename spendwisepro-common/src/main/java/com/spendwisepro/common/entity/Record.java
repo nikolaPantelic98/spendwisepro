@@ -47,6 +47,11 @@ public class Record {
             nullable = false
     )
     private String note;
+    @Column(
+            name = "is_hidden",
+            nullable = false
+    )
+    private Boolean isHidden;
 
     @ManyToOne
     @JoinColumn(

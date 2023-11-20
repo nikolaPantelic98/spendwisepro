@@ -161,6 +161,8 @@ public class RecordServiceImpl implements RecordService{
         if (record.getDateAndTime() == null) {
             record.setDateAndTime(new Date());
         }
+        // record is not hidden
+        record.setIsHidden(false);
 
         Record savedRecord = recordRepository.save(record);
 
@@ -194,6 +196,8 @@ public class RecordServiceImpl implements RecordService{
         if (record.getDateAndTime() == null) {
             record.setDateAndTime(new Date());
         }
+        // record is not hidden
+        record.setIsHidden(false);
 
         Record savedRecord = recordRepository.save(record);
 
