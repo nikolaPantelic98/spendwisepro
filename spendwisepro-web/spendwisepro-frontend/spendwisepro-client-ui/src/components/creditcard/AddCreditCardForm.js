@@ -7,7 +7,6 @@ import React, {useState} from "react";
 import AddCreditCardType from "./add-credit-card-elements/AddCreditCardType";
 import AddCreditCardBank from "./add-credit-card-elements/AddCreditCardBank";
 import AddCreditCardNote from "./add-credit-card-elements/AddCreditCardNote";
-import AddCreditCardAmount from "./add-credit-card-elements/AddCreditCardAmount";
 import AddCreditCardIcon from "./add-credit-card-elements/AddCreditCardIcon";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
