@@ -6,7 +6,8 @@ import {
 } from "@material-tailwind/react";
 import {ArrowTrendingUpIcon, CurrencyEuroIcon} from "@heroicons/react/24/solid";
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function CashChart() {
 
@@ -17,207 +18,21 @@ export default function CashChart() {
 
     const [selectedTab, setSelectedTab] = useState("30days");
 
-    const records = [
-        {
-            id: 1,
-            amount: 30.00,
-            type: "expense",
-            date: new Date("2023-08-16T08:57"),
-            note: "Window repair",
-            paymentType: "Credit Card",
-            category: [
-                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
-            ]
-        },
-        {
-            id: 2,
-            amount: 25.00,
-            type: "expense",
-            date: new Date("2023-08-20T12:30"),
-            note: "New door",
-            paymentType: "Cash",
-            category: [
-                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
-            ]
-        },
-        {
-            id: 3,
-            amount: 45.00,
-            type: "expense",
-            date: new Date("2023-08-16T12:30"),
-            note: "Garden maintenance",
-            paymentType: "Credit Card",
-            category: [
-                { id: 1, categoryName: "House and garden", icon: "https://i.ibb.co/P6tb18T/house.png" }
-            ]
-        },
-        {
-            id: 4,
-            amount: 45.00,
-            type: "expense",
-            date: new Date("2023-08-30T12:30"),
-            note: "Tomato",
-            paymentType: "Credit Card",
-            category: [
-                { id: 2, categoryName: "Groceries", icon: "https://icon-library.com/images/grocery-icon-png/grocery-icon-png-14.jpg" }
-            ]
-        },
-        {
-            id: 5,
-            amount: 100.00,
-            type: "expense",
-            date: new Date("2023-08-10T08:57"),
-            note: "Car maintenance",
-            paymentType: "Cash",
-            category: [
-                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
-            ]
-        },
-        {
-            id: 6,
-            amount: 112.00,
-            type: "expense",
-            date: new Date("2023-08-21T12:30"),
-            note: "Broken window repair",
-            paymentType: "Credit Card",
-            category: [
-                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
-            ]
-        },
-        {
-            id: 7,
-            amount: 45.00,
-            type: "expense",
-            date: new Date("2023-09-01T12:30"),
-            note: "Fuel",
-            paymentType: "Credit Card",
-            category: [
-                { id: 3, categoryName: "Car", icon: "https://i.ibb.co/p0Sc2Bs/car.png" }
-            ]
-        },
-        {
-            id: 8,
-            amount: 15.00,
-            type: "expense",
-            date: new Date("2023-08-21T08:57"),
-            note: "Cigarette",
-            paymentType: "Cash",
-            category: [
-                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
-            ]
-        },
-        {
-            id: 9,
-            amount: 27.00,
-            type: "expense",
-            date: new Date("2023-08-18T12:30"),
-            note: "Tobacco",
-            paymentType: "Credit Card",
-            category: [
-                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
-            ]
-        },
-        {
-            id: 10,
-            amount: 22.00,
-            type: "expense",
-            date: new Date("2023-08-17T12:30"),
-            note: "Pack",
-            paymentType: "Credit Card",
-            category: [
-                { id: 4, categoryName: "Tobacco", icon: "https://www.iconbunny.com/icons/media/catalog/product/3/0/3050.12-cigarette-icon-iconbunny.jpg" }
-            ]
-        },
-        {
-            id: 11,
-            amount: 27.00,
-            type: "expense",
-            date: new Date("2023-08-14T12:30"),
-            time: "12:30",
-            note: "Chips",
-            paymentType: "Credit Card",
-            category: [
-                { id: 5, categoryName: "Snacks", icon: "https://www.iconbunny.com/icons/media/catalog/product/cache/2/thumbnail/600x/1b89f2fc96fc819c2a7e15c7e545e8a9/5/2/524.9-fries-icon-iconbunny.jpg" }
-            ]
-        },
-        {
-            id: 12,
-            amount: 15.00,
-            type: "expense",
-            date: new Date("2023-08-22T08:57"),
-            note: "Doctor",
-            paymentType: "Cash",
-            category: [
-                { id: 6, categoryName: "Health care", icon: "https://i.ibb.co/k362Qsn/healthcare.png" }
-            ]
-        },
-        {
-            id: 13,
-            amount: 15.00,
-            type: "expense",
-            date: new Date("2023-09-01T08:57"),
-            note: "Card",
-            paymentType: "Cash",
-            category: [
-                { id: 7, categoryName: "Cinema", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        },
-        {
-            id: 14,
-            amount: 27.00,
-            type: "expense",
-            date: new Date("2023-08-23T12:30"),
-            note: "Cinema chips",
-            paymentType: "Credit Card",
-            category: [
-                { id: 7, categoryName: "Cinema", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        },
-        {
-            id: 15,
-            amount: 600.00,
-            type: "income",
-            date: new Date("2023-08-01T12:30"),
-            note: "Salary",
-            paymentType: "Credit Card",
-            category: [
-                { id: 7, categoryName: "Income", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        },
-        {
-            id: 16,
-            amount: 400.00,
-            type: "income",
-            date: new Date("2023-08-01T12:30"),
-            note: "Salary",
-            paymentType: "Cash",
-            category: [
-                { id: 7, categoryName: "Income", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        },
-        {
-            id: 17,
-            amount: 300.00,
-            type: "income",
-            date: new Date("2023-08-28T12:30"),
-            note: "Invoice",
-            paymentType: "Credit Card",
-            category: [
-                { id: 7, categoryName: "Income", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        },
-        {
-            id: 18,
-            amount: 100.00,
-            type: "expense",
-            date: new Date("2023-09-06T08:57"),
-            note: "Card",
-            paymentType: "Cash",
-            category: [
-                { id: 7, categoryName: "Cinema", icon: "https://i.ibb.co/GC7MSvb/clapperboard.png" }
-            ]
-        }
-    ];
+    const [records, setRecords] = useState([]);
+
+    const token = localStorage.getItem("token");
+
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    };
+
+    useEffect(() => {
+        axios.get('http://localhost:8000/spendwisepro/records/all', { headers })
+            .then(response => {
+                setRecords(response.data);
+            })
+            .catch(error => console.error('Error fetching records:', error));
+    }, []);
 
     const currentDate = new Date();
 
@@ -238,28 +53,32 @@ export default function CashChart() {
     // Filter cash expenses before the last 30 days
     const cashExpensesBeforeLast30Days = (() => {
         return records.filter(record => {
-            return record.date < thirtyDaysAgo && record.type === "expense" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date < thirtyDaysAgo && record.transactionType === "EXPENSE" && record.paymentType === "CASH";
         });
     })();
 
     // Filter cash expenses before the last 7 days
     const cashExpensesBeforeLast7Days = (() => {
         return records.filter(record => {
-            return record.date < sevenDaysAgo && record.type === "expense" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date < sevenDaysAgo && record.transactionType === "EXPENSE" && record.paymentType === "CASH";
         });
     })();
 
     // Filter cash incomes before the last 30 days
     const cashIncomesBeforeLast30Days = (() => {
         return records.filter(record => {
-            return record.date < thirtyDaysAgo && record.type === "income" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date < thirtyDaysAgo && record.transactionType === "INCOME" && record.paymentType === "CASH";
         });
     })();
 
     // Filter cash incomes before the last 7 days
     const cashIncomesBeforeLast7Days = (() => {
         return records.filter(record => {
-            return record.date < sevenDaysAgo && record.type === "income" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date < sevenDaysAgo && record.transactionType === "INCOME" && record.paymentType === "CASH";
         });
     })();
 
@@ -282,28 +101,32 @@ export default function CashChart() {
     // Filter cash expenses within the last 30 days
     const cashExpensesLast30Days = (() => {
         return records.filter(record => {
-            return record.date >= thirtyDaysAgo && record.type === "expense" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date >= thirtyDaysAgo && record.transactionType === "EXPENSE" && record.paymentType === "CASH";
         });
     })();
 
     // Filter cash expenses within the last 7 days
     const cashExpensesLast7Days = (() => {
         return records.filter(record => {
-            return record.date >= sevenDaysAgo && record.type === "expense" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date >= sevenDaysAgo && record.transactionType === "EXPENSE" && record.paymentType === "CASH";
         });
     })();
 
     // Filter cash incomes within the last 30 days
     const cashIncomesLast30Days = (() => {
         return records.filter(record => {
-            return record.date >= thirtyDaysAgo && record.type === "income" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date >= thirtyDaysAgo && record.transactionType === "INCOME" && record.paymentType === "CASH";
         });
     })();
 
     // Filter cash incomes within the last 7 days
     const cashIncomesLast7Days = (() => {
         return records.filter(record => {
-            return record.date >= sevenDaysAgo && record.type === "income" && record.paymentType === "Cash";
+            let date = new Date(record.dateAndTime);
+            return date >= sevenDaysAgo && record.transactionType === "INCOME" && record.paymentType === "CASH";
         });
     })();
 
@@ -316,16 +139,18 @@ export default function CashChart() {
 
         // Iterate through each day of the last 30 days
         while (iterationDate <= currentDate) {
-            const matchingExpensesThisDay = cashExpensesLast30Days.filter(record =>
-                record.date.getDate() === iterationDate.getDate() &&
-                record.date.getMonth() === iterationDate.getMonth() &&
-                record.date.getFullYear() === iterationDate.getFullYear()
-            );
-            const matchingIncomesThisDay = cashIncomesLast30Days.filter(record =>
-                record.date.getDate() === iterationDate.getDate() &&
-                record.date.getMonth() === iterationDate.getMonth() &&
-                record.date.getFullYear() === iterationDate.getFullYear()
-            );
+            const matchingExpensesThisDay = cashExpensesLast30Days.filter(record => {
+                let date = new Date(record.dateAndTime);
+                return date.getDate() === iterationDate.getDate() &&
+                    date.getMonth() === iterationDate.getMonth() &&
+                    date.getFullYear() === iterationDate.getFullYear();
+            });
+            const matchingIncomesThisDay = cashIncomesLast30Days.filter(record => {
+                let date = new Date(record.dateAndTime);
+                return date.getDate() === iterationDate.getDate() &&
+                    date.getMonth() === iterationDate.getMonth() &&
+                    date.getFullYear() === iterationDate.getFullYear();
+            });
 
             const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
             accumulatedAmount += expensesThisDay;
@@ -353,16 +178,18 @@ export default function CashChart() {
 
         // Iterate through each day of the last 7 days
         while (iterationDate <= currentDate) {
-            const matchingExpensesThisDay = cashExpensesLast7Days.filter(record =>
-                record.date.getDate() === iterationDate.getDate() &&
-                record.date.getMonth() === iterationDate.getMonth() &&
-                record.date.getFullYear() === iterationDate.getFullYear()
-            );
-            const matchingIncomesThisDay = cashIncomesLast7Days.filter(record =>
-                record.date.getDate() === iterationDate.getDate() &&
-                record.date.getMonth() === iterationDate.getMonth() &&
-                record.date.getFullYear() === iterationDate.getFullYear()
-            );
+            const matchingExpensesThisDay = cashExpensesLast7Days.filter(record => {
+                let date = new Date(record.dateAndTime);
+                return date.getDate() === iterationDate.getDate() &&
+                    date.getMonth() === iterationDate.getMonth() &&
+                    date.getFullYear() === iterationDate.getFullYear();
+            });
+            const matchingIncomesThisDay = cashIncomesLast7Days.filter(record => {
+                let date = new Date(record.dateAndTime);
+                return date.getDate() === iterationDate.getDate() &&
+                    date.getMonth() === iterationDate.getMonth() &&
+                    date.getFullYear() === iterationDate.getFullYear();
+            });
 
             const expensesThisDay = matchingExpensesThisDay.reduce((total, record) => total - record.amount, 0);
             accumulatedAmount += expensesThisDay;
@@ -385,12 +212,34 @@ export default function CashChart() {
     const cashAmountToday = cashGraphLast30Days[cashGraphLast30Days.length - 1].amount;
 
     const chipAmount30Days = (() => {
-        return (cashAmountToday - startingAmountCash30Days) / startingAmountCash30Days * 100;
+        if (startingAmountCash30Days <= 0) {
+            return (cashAmountToday / 1) * 100;
+        } else {
+            return (cashAmountToday - startingAmountCash30Days) / startingAmountCash30Days * 100;
+        }
     })();
 
     const chipAmount7Days = (() => {
-        return (cashAmountToday - startingAmountCash7Days) / startingAmountCash7Days * 100;
+        if (startingAmountCash7Days <= 0) {
+            return (cashAmountToday / 1) * 100;
+        } else {
+            return (cashAmountToday - startingAmountCash7Days) / startingAmountCash7Days * 100;
+        }
     })();
+
+    function generateChipPercentage(cashAmountToday, startingAmountCash) {
+
+        let percentage = ((cashAmountToday - startingAmountCash) / startingAmountCash * 100).toFixed(0);
+
+        if (startingAmountCash <= 0) {
+            percentage = ((cashAmountToday / 1) * 100).toFixed(0);
+        }
+
+        if (percentage < -999) percentage = `-999` + "+";
+        if (percentage > 999) percentage = '999' + "+";
+
+        return percentage;
+    }
 
     const chipColor30Days = (() => {
         if (chipAmount30Days >= 0) {
@@ -475,7 +324,7 @@ export default function CashChart() {
                                                             <Typography variant="h2" className="text-gray-900 mb-4">
                                                                 {cashAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                             </Typography>
-                                                            <Chip size="md" value={`${(chipAmount30Days).toFixed(0)}%`} className="mb-4 text-sm" color={chipColor30Days} />
+                                                            <Chip size="md" value={`${generateChipPercentage(cashAmountToday, startingAmountCash30Days)}%`} className="mb-4 text-sm" color={chipColor30Days} />
                                                         </div>
                                                     </div>
 
@@ -525,7 +374,7 @@ export default function CashChart() {
                                                             <Typography variant="h2" className="text-gray-900 mb-4">
                                                                 {cashAmountToday.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                                             </Typography>
-                                                            <Chip size="md" value={`${(chipAmount7Days).toFixed(0)}%`} className="mb-4 text-sm" color={chipColor7Days} />
+                                                            <Chip size="md" value={`${generateChipPercentage(cashAmountToday, startingAmountCash7Days)}%`} className="mb-4 text-sm" color={chipColor7Days} />
                                                         </div>
                                                     </div>
 
