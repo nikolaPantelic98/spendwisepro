@@ -16,6 +16,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -135,5 +136,37 @@ public class RecordServiceTest {
 
         // Assert
         assertTrue(result.isEmpty());
+    }
+
+    // getRecordsLast30Days
+    @Test
+    public void testReturnsListOfRecordsWithinLast30Days() {
+        // Arrange
+        expectedRecords.add(new Record());
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(recordRepository.findAllRecordsAfterDate(any(Long.class), any(Date.class))).thenReturn(expectedRecords);
+
+        // Act
+        List<Record> actualRecords = recordService.getRecordsLast30Days(token);
+
+        // Assert
+        assertEquals(expectedRecords, actualRecords);
+    }
+
+    // getRecordsLast30Days
+    @Test
+    public void testReturnsEmptyListIfNoRecordsWithinLast30Days() {
+        // Arrange
+        List<Record> expectedRecords = new ArrayList<>();
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(recordRepository.findAllRecordsAfterDate(any(Long.class), any(Date.class))).thenReturn(expectedRecords);
+
+        // Act
+        List<Record> actualRecords = recordService.getRecordsLast30Days(token);
+
+        // Assert
+        assertTrue(actualRecords.isEmpty());
     }
 }
