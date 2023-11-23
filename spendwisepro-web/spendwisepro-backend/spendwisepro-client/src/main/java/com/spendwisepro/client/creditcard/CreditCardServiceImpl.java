@@ -25,29 +25,26 @@ public class CreditCardServiceImpl implements CreditCardService{
     private final RecordRepository recordRepository;
 
 
-    @Override
-    public List<CreditCard> getAllCreditCards(String token) {
+    private User getAuthenticatedUser(String token) {
         String username = jwtService.extractUsernameForAuthentication(token);
         Optional<User> user = userRepository.findByUsername(username);
 
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("User with username " + username + " not found");
         }
-        User authenticatedUser = user.get();
+        return user.get();
+    }
+
+    @Override
+    public List<CreditCard> getAllCreditCards(String token) {
+        User authenticatedUser = getAuthenticatedUser(token);
 
         return creditCardRepository.findAllCreditCards(authenticatedUser.getId(), Sort.by("type"));
     }
 
     @Override
     public CreditCard saveCreditCard(CreditCard creditCard, String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-
-        User userToSave = user.get();
+        User userToSave = getAuthenticatedUser(token);
 
         creditCard.setUser(userToSave);
         creditCard.setAmount(0F);
@@ -57,14 +54,7 @@ public class CreditCardServiceImpl implements CreditCardService{
 
     @Override
     public void updateCreditCard(Long creditCardId, CreditCard creditCard, String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         CreditCard existingCreditCard = creditCardRepository.findCreditCardById(creditCardId, authenticatedUser.getId());
 
@@ -105,28 +95,14 @@ public class CreditCardServiceImpl implements CreditCardService{
 
     @Override
     public CreditCard getCreditCardById(Long creditCardId, String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         return creditCardRepository.findCreditCardById(creditCardId, authenticatedUser.getId());
     }
 
     @Override
     public void deleteCreditCard(Long creditCardId, String token) throws CreditCardNotFoundException {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         Long countById = creditCardRepository.countById(creditCardId);
 
