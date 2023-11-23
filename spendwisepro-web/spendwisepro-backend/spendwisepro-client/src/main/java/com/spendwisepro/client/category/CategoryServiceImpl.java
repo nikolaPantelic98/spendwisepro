@@ -21,16 +21,20 @@ public class CategoryServiceImpl implements CategoryService{
     private final UserRepository userRepository;
     private final JwtService jwtService;
 
-    @Override
-    public Category saveCategory(Category category, String token) {
+
+    private User getAuthenticatedUser(String token) {
         String username = jwtService.extractUsernameForAuthentication(token);
         Optional<User> user = userRepository.findByUsername(username);
 
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("User with username " + username + " not found");
         }
+        return user.get();
+    }
 
-        User userToSave = user.get();
+    @Override
+    public Category saveCategory(Category category, String token) {
+        User userToSave = getAuthenticatedUser(token);
 
         category.setUser(userToSave);
 
@@ -48,26 +52,14 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<Category> getAllRootCategories(String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         return categoryRepository.findRootCategories(authenticatedUser.getId(), Sort.by("name"));
     }
 
     @Override
     public List<Category> getAllSubCategoriesOfRootCategory(Long categoryId, String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         return categoryRepository
                 .findSubCategoriesOfRootCategory(categoryId, authenticatedUser.getId(), Sort.by("name"));
@@ -75,41 +67,21 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public List<Category> getAllCategories(String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         return categoryRepository.findAllCategories(authenticatedUser.getId(), Sort.by("name"));
     }
 
     @Override
     public Category getCategoryById(Long categoryId, String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         return categoryRepository.findCategoryById(categoryId, authenticatedUser.getId());
     }
 
     @Override
     public void updateCategory(Long categoryId, Category category, String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         Category existingCategory = categoryRepository.findCategoryById(categoryId, authenticatedUser.getId());
 
@@ -136,14 +108,7 @@ public class CategoryServiceImpl implements CategoryService{
 
     @Override
     public void deleteCategory(Long categoryId, String token) throws CategoryNotFoundException {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         Long countById = categoryRepository.countById(categoryId);
 
