@@ -14,10 +14,9 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class RecordServiceTest {
@@ -168,5 +167,27 @@ public class RecordServiceTest {
 
         // Assert
         assertTrue(actualRecords.isEmpty());
+    }
+
+    // getExpenseRecordsThisMonth
+    @Test
+    public void testReturnsExpenseRecordsForValidUserWithExpenseTransactionType() {
+        // Arrange
+        List<Record> expenseRecords = Arrays.asList(
+                Record.builder().id(1L).transactionType(TransactionType.EXPENSE).build(),
+                Record.builder().id(2L).transactionType(TransactionType.EXPENSE).build()
+        );
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(recordRepository.findExpenseRecordsBetweenDates(eq(user.getId()), any(Date.class), any(Date.class))).thenReturn(expenseRecords);
+
+        // Act
+        List<Record> result = recordService.getExpenseRecordsThisMonth(token);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(expenseRecords.size(), result.size());
+        assertEquals(expenseRecords, result);
+        verify(recordRepository, times(1)).findExpenseRecordsBetweenDates(eq(user.getId()), any(Date.class), any(Date.class));
     }
 }
