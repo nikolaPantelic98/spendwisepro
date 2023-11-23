@@ -26,15 +26,19 @@ public class RecordServiceImpl implements RecordService{
     private final CreditCardRepository creditCardRepository;
 
 
-    @Override
-    public List<Record> getLastFourRecords(String token) {
+    private User getAuthenticatedUser(String token) {
         String username = jwtService.extractUsernameForAuthentication(token);
         Optional<User> user = userRepository.findByUsername(username);
 
         if (user.isEmpty()) {
             throw new UsernameNotFoundException("User with username " + username + " not found");
         }
-        User authenticatedUser = user.get();
+        return user.get();
+    }
+
+    @Override
+    public List<Record> getLastFourRecords(String token) {
+        User authenticatedUser = getAuthenticatedUser(token);
 
         Pageable pageable = PageRequest.of(0, 4);
 
@@ -43,13 +47,7 @@ public class RecordServiceImpl implements RecordService{
 
     @Override
     public List<Record> getRecordsLast30Days(String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         Date thirtyDaysAgo = new Date(System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000);
 
@@ -58,13 +56,7 @@ public class RecordServiceImpl implements RecordService{
 
     @Override
     public List<Record> getRecordsLast365Days(String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         Date yearAgo = new Date(System.currentTimeMillis() - 365L * 24 * 60 * 60 * 1000);
 
@@ -73,26 +65,14 @@ public class RecordServiceImpl implements RecordService{
 
     @Override
     public List<Record> getAllRecords(String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         return recordRepository.findAllRecords(authenticatedUser.getId());
     }
 
     @Override
     public List<Record> getExpenseRecordsThisMonth(String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -116,13 +96,7 @@ public class RecordServiceImpl implements RecordService{
 
     @Override
     public List<Record> getExpenseRecordsThisWeek(String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-        User authenticatedUser = user.get();
+        User authenticatedUser = getAuthenticatedUser(token);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
@@ -144,14 +118,7 @@ public class RecordServiceImpl implements RecordService{
 
     @Override
     public Record saveIncomeRecord(Record record, String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-
-        User userToSave = user.get();
+        User userToSave = getAuthenticatedUser(token);
 
         // set user
         record.setUser(userToSave);
@@ -179,14 +146,7 @@ public class RecordServiceImpl implements RecordService{
 
     @Override
     public Record saveExpenseRecord(Record record, String token) {
-        String username = jwtService.extractUsernameForAuthentication(token);
-        Optional<User> user = userRepository.findByUsername(username);
-
-        if (user.isEmpty()) {
-            throw new UsernameNotFoundException("User with username " + username + " not found");
-        }
-
-        User userToSave = user.get();
+        User userToSave = getAuthenticatedUser(token);
 
         // set user
         record.setUser(userToSave);
