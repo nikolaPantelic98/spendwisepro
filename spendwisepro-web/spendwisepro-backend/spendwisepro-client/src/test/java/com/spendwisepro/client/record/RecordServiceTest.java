@@ -1,5 +1,6 @@
 package com.spendwisepro.client.record;
 
+import com.spendwisepro.client.creditcard.CreditCardRepository;
 import com.spendwisepro.client.security.jwt.JwtService;
 import com.spendwisepro.client.user.UserRepository;
 import com.spendwisepro.common.entity.*;
@@ -25,6 +26,8 @@ public class RecordServiceTest {
     private RecordRepository recordRepository;
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private CreditCardRepository creditCardRepository;
     @Mock
     private JwtService jwtService;
 
@@ -189,5 +192,148 @@ public class RecordServiceTest {
         assertEquals(expenseRecords.size(), result.size());
         assertEquals(expenseRecords, result);
         verify(recordRepository, times(1)).findExpenseRecordsBetweenDates(eq(user.getId()), any(Date.class), any(Date.class));
+    }
+
+    // saveIncomeRecord
+    @Test
+    public void testSaveIncomeRecordWithValidInputs() {
+        // Arrange
+        Record record = new Record();
+        record.setAmount(100.0f);
+        record.setPaymentType(PaymentType.CASH);
+        record.setCreditCard(null);
+        record.setDateAndTime(null);
+
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(recordRepository.save(record)).thenReturn(record);
+
+        // Act
+        Record savedRecord = recordService.saveIncomeRecord(record, token);
+
+        // Assert
+        assertEquals(record, savedRecord);
+        assertEquals(TransactionType.INCOME, savedRecord.getTransactionType());
+        assertFalse(savedRecord.getIsHidden());
+        assertNotNull(savedRecord.getDateAndTime());
+        verify(creditCardRepository, never()).increaseAmountOfCreditCard(anyFloat(), anyLong(), anyLong());
+    }
+
+    // saveIncomeRecord
+    @Test
+    public void testSaveIncomeRecordSetsTransactionTypeAndIsHidden() {
+        // Arrange
+        Record record = new Record();
+        record.setAmount(100.0f);
+        record.setPaymentType(PaymentType.CASH);
+        record.setCreditCard(null);
+        record.setDateAndTime(null);
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(recordRepository.save(record)).thenReturn(record);
+
+        // Act
+        Record savedRecord = recordService.saveIncomeRecord(record, token);
+
+        // Assert
+        assertEquals(TransactionType.INCOME, savedRecord.getTransactionType());
+        assertFalse(savedRecord.getIsHidden());
+    }
+
+    // saveIncomeRecord
+    @Test
+    public void testSaveIncomeRecordSetsCurrentTimeIfTimeIsNull() {
+        // Arrange
+        Record record = new Record();
+        record.setAmount(100.0f);
+        record.setPaymentType(PaymentType.CASH);
+        record.setCreditCard(null);
+        record.setDateAndTime(null);
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(recordRepository.save(record)).thenReturn(record);
+
+        // Act
+        Record savedRecord = recordService.saveIncomeRecord(record, token);
+
+        // Assert
+        assertNotNull(savedRecord.getDateAndTime());
+    }
+
+    // saveIncomeRecord
+    @Test
+    public void testIncreaseAmountOfCreditCardWhenPaymentTypeIsCreditCard() {
+        // Arrange
+        CreditCard creditCard = new CreditCard();
+        creditCard.setId(1L);
+
+        Record record = new Record();
+        record.setPaymentType(PaymentType.CREDIT_CARD);
+        record.setCreditCard(creditCard);
+        record.setAmount(100.0f);
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(recordRepository.save(any(Record.class))).thenReturn(record);
+        doNothing().when(creditCardRepository).increaseAmountOfCreditCard(anyFloat(), anyLong(), anyLong());
+
+        // Act
+        Record savedRecord = recordService.saveIncomeRecord(record, token);
+
+        // Assert
+        verify(creditCardRepository).increaseAmountOfCreditCard(record.getAmount(), creditCard.getId(), user.getId());
+        assertNotNull(savedRecord);
+    }
+
+    @Test
+    public void testSaveExpenseRecordWithValidInputs() {
+        // Arrange
+        Record record = new Record();
+        record.setAmount(100.0f);
+        record.setPaymentType(PaymentType.CASH);
+        record.setCreditCard(null);
+        record.setDateAndTime(null);
+
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(recordRepository.save(record)).thenReturn(record);
+
+        // Act
+        Record savedRecord = recordService.saveExpenseRecord(record, token);
+
+        // Assert
+        assertEquals(record, savedRecord);
+        assertEquals(TransactionType.EXPENSE, savedRecord.getTransactionType());
+        assertFalse(savedRecord.getIsHidden());
+        assertNotNull(savedRecord.getDateAndTime());
+        verify(creditCardRepository, never()).increaseAmountOfCreditCard(anyFloat(), anyLong(), anyLong());
+    }
+
+    @Test
+    public void testDecreaseAmountOfCreditCardWhenPaymentTypeIsCreditCard() {
+        // Arrange
+        CreditCard creditCard = new CreditCard();
+        creditCard.setId(1L);
+
+        Record record = new Record();
+        record.setPaymentType(PaymentType.CREDIT_CARD);
+        record.setCreditCard(creditCard);
+        record.setAmount(100.0f);
+
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(recordRepository.save(any(Record.class))).thenReturn(record);
+        doNothing().when(creditCardRepository).decreaseAmountOfCreditCard(anyFloat(), anyLong(), anyLong());
+
+        // Act
+        Record savedRecord = recordService.saveExpenseRecord(record, token);
+
+        // Assert
+        verify(creditCardRepository).decreaseAmountOfCreditCard(record.getAmount(), creditCard.getId(), user.getId());
+        assertNotNull(savedRecord);
     }
 }
