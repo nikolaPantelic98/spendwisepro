@@ -39,7 +39,7 @@ public class RecordRepositoryTest {
         CreditCard creditCard = creditCardRepository.findById(11L).get();
 
         Record record = new Record(1L, 15F, PaymentType.CREDIT_CARD, TransactionType.EXPENSE, new Date(), "5th record",
-                category, creditCard, user);
+                false, category, creditCard, user);
 
         Record savedRecord = recordRepository.save(record);
 
