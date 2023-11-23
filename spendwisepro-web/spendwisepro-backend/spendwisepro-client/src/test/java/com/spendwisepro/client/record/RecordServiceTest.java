@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.*;
 
@@ -44,6 +45,7 @@ public class RecordServiceTest {
     }
 
 
+    // getAllRecords
     @Test
     public void testReturnsAllRecordsForValidUser() {
         // Arrange
@@ -61,6 +63,7 @@ public class RecordServiceTest {
         assertEquals(expectedRecords, actualRecords);
     }
 
+    // getAllRecords
     @Test
     public void testReturnsEmptyListWhenUserHasNoRecords() {
         // Arrange
@@ -75,6 +78,7 @@ public class RecordServiceTest {
         assertTrue(actualRecords.isEmpty());
     }
 
+    // getAllRecords
     @Test
     public void testReturnsRecordsInDescendingOrderOfDateAndTime() {
         // Arrange
@@ -92,5 +96,44 @@ public class RecordServiceTest {
 
         // Assert
         assertEquals(expectedRecords, actualRecords);
+    }
+
+    // getLastFourRecords
+    @Test
+    public void testReturnsListOfLastFourRecordsForValidUser() {
+        // Arrange
+        for (int i = 0; i < 5; i++) {
+            Record record = new Record();
+            record.setId((long) (i + 1));
+            expectedRecords.add(record);
+        }
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(recordRepository.findLastRecords(user.getId(), PageRequest.of(0, 4))).thenReturn(expectedRecords.subList(0, 4));
+
+        // Act
+        List<Record> result = recordService.getLastFourRecords(token);
+
+        // Assert
+        assertEquals(4, result.size());
+        assertEquals(1L, result.get(0).getId().longValue());
+        assertEquals(2L, result.get(1).getId().longValue());
+        assertEquals(3L, result.get(2).getId().longValue());
+        assertEquals(4L, result.get(3).getId().longValue());
+    }
+
+    // getLastFourRecords
+    @Test
+    public void testReturnsEmptyListForValidUserWithNoRecords() {
+        // Arrange
+        when(jwtService.extractUsernameForAuthentication(token)).thenReturn(user.getUsername());
+        when(userRepository.findByUsername(user.getUsername())).thenReturn(Optional.of(user));
+        when(recordRepository.findLastRecords(user.getId(), PageRequest.of(0, 4))).thenReturn(expectedRecords);
+
+        // Act
+        List<Record> result = recordService.getLastFourRecords(token);
+
+        // Assert
+        assertTrue(result.isEmpty());
     }
 }
