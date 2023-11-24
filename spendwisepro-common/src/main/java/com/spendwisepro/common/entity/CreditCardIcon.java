@@ -8,6 +8,11 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The CreditCardIcon class represents a credit card icon entity in the application.
+ * It contains information about the icon image and its associated credit cards.
+ * The class also provides a method to generate the icon's path.
+ */
 @Entity
 @Getter
 @Setter

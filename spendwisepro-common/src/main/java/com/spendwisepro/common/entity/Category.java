@@ -7,6 +7,12 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The Category class represents a category in the application.
+ * It is used to categorize records and organize them hierarchically.
+ * Each category has a {@code name}, {@code color}, {@code parent category},
+ * {@code set of child categories}, {@code icon}, and {@code user}.
+ */
 @Entity
 @Getter
 @Setter
@@ -24,11 +30,13 @@ public class Category {
             strategy = GenerationType.IDENTITY
     )
     private Long id;
+
     @Column(
             length = 128,
             nullable = false
     )
     private String name;
+
     @Column(
             length = 128,
             nullable = false

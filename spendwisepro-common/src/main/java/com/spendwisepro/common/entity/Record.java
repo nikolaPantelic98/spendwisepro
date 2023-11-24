@@ -5,6 +5,11 @@ import lombok.*;
 
 import java.util.Date;
 
+/**
+ * The Record class represents a record of a financial transaction.
+ * It contains information such as the amount, payment type, transaction type, date and time, note, and whether it is hidden.
+ * It is associated with a {@link Category}, {@link CreditCard}, and {@link User}.
+ */
 @Entity
 @Getter
 @Setter

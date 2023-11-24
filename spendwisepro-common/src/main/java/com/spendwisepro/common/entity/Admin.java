@@ -9,6 +9,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * The Admin class is an entity class that represents an administrator in a system.
+ * It implements the {@link UserDetails} interface, which provides methods for managing user authentication and authorization.
+ * The class defines fields for storing the administrator's username, email, password, and role.
+ * It also includes methods for retrieving the user's authorities and managing account expiration, locking, and credentials.
+ */
 @Entity
 @Getter
 @Setter

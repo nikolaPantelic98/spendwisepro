@@ -7,6 +7,11 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The CreditCard class represents a credit card entity in the application.
+ * It contains information such as the amount, type, bank, and note associated with a credit card.
+ * It also has relationships with other entities such as {@link CreditCardIcon}, {@link User}, and {@link Record}.
+ */
 @Entity
 @Getter
 @Setter

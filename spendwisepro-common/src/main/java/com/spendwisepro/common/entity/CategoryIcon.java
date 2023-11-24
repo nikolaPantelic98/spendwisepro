@@ -8,6 +8,10 @@ import lombok.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The CategoryIcon class represents an icon that can be associated with a category.
+ * It contains information about the icon image and the categories that use it.
+ */
 @Entity
 @Getter
 @Setter

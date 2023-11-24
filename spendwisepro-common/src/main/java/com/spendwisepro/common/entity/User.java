@@ -9,6 +9,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 
+/**
+ * The User class is a Java entity class that represents a user in the application.
+ * It implements the {@link UserDetails} interface, which provides the necessary methods for user authentication and authorization.
+ * The class defines the fields for user information such as username, email, password, and date created.
+ */
 @Entity
 @Getter
 @Setter
