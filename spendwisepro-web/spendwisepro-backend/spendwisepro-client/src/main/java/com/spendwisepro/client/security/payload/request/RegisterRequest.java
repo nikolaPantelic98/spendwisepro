@@ -8,6 +8,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The RegisterRequest class is a Java class that represents a request to register a user.
+ * It contains fields for the username, email, and password of the user.
+ */
 @Data
 @Builder
 @AllArgsConstructor

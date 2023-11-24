@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The AuthenticationResponse class is a Java class that represents a response object for authentication.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

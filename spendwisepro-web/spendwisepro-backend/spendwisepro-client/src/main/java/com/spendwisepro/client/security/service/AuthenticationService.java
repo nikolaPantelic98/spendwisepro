@@ -15,6 +15,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
+/**
+ * The AuthenticationService class is responsible for handling user authentication and registration.
+ * It uses the {@link UserRepository} to interact with the user data in the database,
+ * the {@link PasswordEncoder} to securely store and compare passwords,
+ * the {@link JwtService} to generate and validate JSON Web Tokens (JWTs),
+ * and the {@link AuthenticationManager} to authenticate user credentials.
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {

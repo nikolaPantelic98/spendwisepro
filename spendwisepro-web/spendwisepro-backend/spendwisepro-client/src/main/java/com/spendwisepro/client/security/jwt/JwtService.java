@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+/**
+ * This code defines a JwtService class that provides methods for generating, validating, and extracting information from JSON Web Tokens (JWTs).
+ */
 @Service
 public class JwtService {
 

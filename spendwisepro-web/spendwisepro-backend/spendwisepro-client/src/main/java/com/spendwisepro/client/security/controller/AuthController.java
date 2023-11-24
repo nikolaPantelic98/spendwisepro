@@ -11,6 +11,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+/**
+ * The AuthController class is a REST controller that handles authentication-related requests such as registration, login, and logout.
+ * It uses the {@link AuthenticationService} to perform the authentication operations.
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")

@@ -16,7 +16,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-// This filter class is responsible for authenticating users based on their JWT.
+/**
+ * The JwtAuthenticationFilter class is responsible for authenticating users based on their JSON Web Token (JWT).
+ * It intercepts incoming requests, extracts the JWT from the request header, and validates it.
+ * If the JWT is valid, the user is authenticated and their details are stored in the security context.
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
