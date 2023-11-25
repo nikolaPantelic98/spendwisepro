@@ -7,13 +7,16 @@ import {
     ListItem, Option, Select
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import axios from "axios";
+import {RecordContext} from "../AddRecordTabs";
 
-export default function AddRecordCreditCard({ setCreditCard, initialValue = "" }) {
+export default function AddRecordCreditCard({ setCreditCard }) {
+
+    const { record } = useContext(RecordContext);
 
     const [openCreditCard, setOpenCreditCard] = React.useState(false);
-    const [selectedCreditCard, setSelectedCreditCard] = React.useState(initialValue);
+    const [selectedCreditCard, setSelectedCreditCard] = React.useState(record.creditCard);
     const [tempSelectedCreditCard, setTempSelectedCreditCard] = React.useState("");
     const [creditCards, setCreditCards] = useState([]);
 
@@ -49,6 +52,10 @@ export default function AddRecordCreditCard({ setCreditCard, initialValue = "" }
             })
             .catch(error => console.error('Error fetching credit cards:', error));
     }, []);
+
+    useEffect(() => {
+        setSelectedCreditCard(record.creditCard);
+    }, [record.creditCard]);
 
     return (
         <li className="py-3 sm:py-4">

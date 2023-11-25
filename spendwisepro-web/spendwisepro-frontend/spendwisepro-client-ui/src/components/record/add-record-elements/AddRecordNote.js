@@ -8,12 +8,15 @@ import {
     ListItem
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, {useContext, useEffect} from "react";
+import {RecordContext} from "../AddRecordTabs";
 
-export default function AddRecordNote({ setNote, initialValue = "" }) {
+export default function AddRecordNote({ setNote }) {
+
+    const { record } = useContext(RecordContext);
 
     const [openNote, setOpenNote] = React.useState(false);
-    const [contentNote, setContentNote] = React.useState(initialValue);
+    const [contentNote, setContentNote] = React.useState(record.note);
     const [isNoteTyped, setIsNoteTyped] = React.useState(false);
     const [tempNoteContent, setTempANoteContent] = React.useState("");
 
@@ -40,6 +43,10 @@ export default function AddRecordNote({ setNote, initialValue = "" }) {
         setIsNoteTyped(event.target.value !== "");
     }
 
+    useEffect(() => {
+        setContentNote(record.note);
+    }, [record.note]);
+
     return (
         <li className="py-3 sm:py-4">
             <div onClick={handleOpenNote}>
@@ -54,7 +61,7 @@ export default function AddRecordNote({ setNote, initialValue = "" }) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isNoteTyped || initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isNoteTyped || record.note !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
                             {contentNote ? contentNote : "Type"}
                         </div>
                         <div className="h-4"></div>

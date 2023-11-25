@@ -8,24 +8,30 @@ import {
     ListItem
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import moment from 'moment-timezone';
+import {RecordContext} from "../AddRecordTabs";
 
-export default function AddRecordDateAndTime({ setDateAndTime, initialValue = "" }) {
+export default function AddRecordDateAndTime({ setDateAndTime }) {
+
+    const { record } = useContext(RecordContext);
 
     const [openDateTime, setOpenDateTime] = React.useState(false);
-    const [selectedDateTime, setSelectedDateTime] = React.useState(initialValue);
+    const [selectedDateTime, setSelectedDateTime] = React.useState(record.dateAndTime);
     const [tempSelectedDateTime, setTempSelectedDateTime] = React.useState("");
 
     const handleOpenDateTime = () => {
-        if (!selectedDateTime || isNaN(new Date(selectedDateTime))) {
-            const now = moment().tz(Intl.DateTimeFormat().resolvedOptions().timeZone);
-            const dateTimeString = now.format('YYYY-MM-DDTHH:mm');
-            setSelectedDateTime(dateTimeString);
-            setTempSelectedDateTime(dateTimeString);
+        let dateTimeString;
+        if (record.dateAndTime) {
+            // Use the previously saved date and time
+            dateTimeString = moment(record.dateAndTime).format('YYYY-MM-DDTHH:mm');
         } else {
-            setTempSelectedDateTime(selectedDateTime);
+            // Use the current date and time
+            const now = moment().tz(Intl.DateTimeFormat().resolvedOptions().timeZone);
+            dateTimeString = now.format('YYYY-MM-DDTHH:mm');
         }
+        setSelectedDateTime(dateTimeString);
+        setTempSelectedDateTime(dateTimeString);
         setOpenDateTime(true);
     };
 
@@ -62,6 +68,10 @@ export default function AddRecordDateAndTime({ setDateAndTime, initialValue = ""
             ':' +
             parsedDateTime.getMinutes().toString().padStart(2, '0');
     };
+
+    useEffect(() => {
+        setSelectedDateTime(record.dateAndTime);
+    }, [record.dateAndTime]);
 
     return (
         <li className="py-3 sm:py-4">

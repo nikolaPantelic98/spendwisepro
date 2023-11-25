@@ -8,12 +8,15 @@ import {
     ListItem
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, {useContext, useEffect} from "react";
+import {RecordContext} from "../AddRecordTabs";
 
-export default function AddRecordAmount({ setAmount, initialValue = "" }) {
+export default function AddRecordAmount({ setAmount }) {
+
+    const { record } = useContext(RecordContext);
 
     const [openAmount, setOpenAmount] = React.useState(false);
-    const [amountValue, setAmountValue] = React.useState(initialValue);
+    const [amountValue, setAmountValue] = React.useState(record.amount);
     const [isAmountTyped, setIsAmountTyped] = React.useState(false);
     const [tempAmountValue, setTempAmountValue] = React.useState("");
 
@@ -40,6 +43,10 @@ export default function AddRecordAmount({ setAmount, initialValue = "" }) {
         setIsAmountTyped(event.target.value !== "");
     }
 
+    useEffect(() => {
+        setAmountValue(record.amount);
+    }, [record.amount]);
+
     return (
         <li className="py-3 sm:py-4">
             <div onClick={handleOpenAmount}>
@@ -54,7 +61,7 @@ export default function AddRecordAmount({ setAmount, initialValue = "" }) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isAmountTyped ? 'font-bold text-gray-900' : ''}`}>
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isAmountTyped || record.amount !== "" ? 'font-bold text-gray-900' : ''}`}>
                             {amountValue ? `$${parseFloat(amountValue).toFixed(2)}` : "Type"}
                         </div>
                         <div className="h-4"></div>

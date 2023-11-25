@@ -7,12 +7,15 @@ import {
     ListItem, Option, Select
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
+import {RecordContext} from "../AddRecordTabs";
 
 export default function AddRecordPaymentType({ onChange, setPaymentType }) {
 
+    const { record } = useContext(RecordContext);
+
     const [openPaymentType, setOpenPaymentType] = useState(false);
-    const [selectedPaymentType, setSelectedPaymentType] = useState("");
+    const [selectedPaymentType, setSelectedPaymentType] = React.useState(record.paymentType);
     const [tempSelectedPaymentType, setTempSelectedPaymentType] = useState("");
 
     const handleOpenPaymentType = () => {
@@ -42,6 +45,10 @@ export default function AddRecordPaymentType({ onChange, setPaymentType }) {
             return "Cash";
         }
     }
+
+    useEffect(() => {
+        setSelectedPaymentType(record.paymentType);
+    }, [record.paymentType]);
 
     return (
         <li className="py-3 sm:py-4">

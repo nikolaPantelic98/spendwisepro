@@ -1,5 +1,5 @@
 import { Button, Card, CardBody } from "@material-tailwind/react";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import AddRecordAmount from "./add-record-elements/AddRecordAmount";
 import AddRecordCategory from "./add-record-elements/AddRecordCategory";
 import AddRecordPaymentType from "./add-record-elements/AddRecordPaymentType";
@@ -8,17 +8,11 @@ import AddRecordNote from "./add-record-elements/AddRecordNote";
 import AddRecordCreditCard from "./add-record-elements/AddRecordCreditCard";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {RecordContext} from "./AddRecordTabs";
 
 export default function AddRecordIncome() {
 
-    const [record, setRecord] = useState({
-        amount: "",
-        category: null,
-        paymentType: "",
-        creditCard: null,
-        dateAndTime: null,
-        note: ""
-    });
+    const { record, setRecord } = useContext(RecordContext);
 
     const [error, setError] = useState(false);
 
@@ -67,7 +61,7 @@ export default function AddRecordIncome() {
 
                             <AddRecordPaymentType onChange={setSelectedPaymentType} setPaymentType={handlePaymentTypeChange} />
 
-                            {selectedPaymentType === "CREDIT_CARD" && <AddRecordCreditCard setCreditCard={handleCreditCardChange} />}
+                            {record.paymentType === "CREDIT_CARD" && <AddRecordCreditCard setCreditCard={handleCreditCardChange} />}
 
                             <AddRecordDateAndTime setDateAndTime={handleDateAndTimeChange} />
 

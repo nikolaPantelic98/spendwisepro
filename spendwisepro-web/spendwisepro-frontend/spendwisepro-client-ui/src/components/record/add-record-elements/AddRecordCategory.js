@@ -8,14 +8,17 @@ import {
     ListItem, Option, Select
 } from "@material-tailwind/react";
 import {ChevronDownIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import {RecordContext} from "../AddRecordTabs";
 
-export default function AddRecordCategory({ setCategory, initialValue = "" }) {
+export default function AddRecordCategory({ setCategory }) {
+
+    const { record } = useContext(RecordContext);
 
     const [openCategory, setOpenCategory] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(initialValue);
+    const [selectedCategory, setSelectedCategory] = React.useState(record.category);
     const [tempSelectedCategory, setTempSelectedCategory] = useState("");
     const [categories, setCategories] = useState([]);
 
@@ -84,6 +87,10 @@ export default function AddRecordCategory({ setCategory, initialValue = "" }) {
     function storeScrollPosition() {
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
+
+    useEffect(() => {
+        setSelectedCategory(record.category);
+    }, [record.category]);
 
     return (
         <li className="py-3 sm:py-4">
