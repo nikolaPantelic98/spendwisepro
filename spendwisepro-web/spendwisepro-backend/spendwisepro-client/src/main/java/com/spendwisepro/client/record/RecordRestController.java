@@ -1,6 +1,5 @@
 package com.spendwisepro.client.record;
 
-import com.spendwisepro.common.entity.CreditCard;
 import com.spendwisepro.common.entity.Record;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -68,5 +67,11 @@ public class RecordRestController {
     public ResponseEntity<String> updateExpenseRecord(@PathVariable Long recordId, @RequestBody Record record, @RequestHeader("Authorization") String token) {
         recordService.updateExpenseRecord(recordId, record, token);
         return ResponseEntity.ok("Expense record updated successfully.");
+    }
+
+    @PutMapping("/edit_income/{recordId}")
+    public ResponseEntity<String> updateIncomeRecord(@PathVariable Long recordId, @RequestBody Record record, @RequestHeader("Authorization") String token) {
+        recordService.updateIncomeRecord(recordId, record, token);
+        return ResponseEntity.ok("Income record updated successfully.");
     }
 }

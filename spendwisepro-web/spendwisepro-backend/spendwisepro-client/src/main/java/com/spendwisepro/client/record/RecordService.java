@@ -17,4 +17,5 @@ public interface RecordService {
     Record saveIncomeRecord(Record record, String token);
     Record saveExpenseRecord(Record record, String token);
     void updateExpenseRecord(Long recordId, Record record, String token);
+    void updateIncomeRecord(Long recordId, Record record, String token);
 }
