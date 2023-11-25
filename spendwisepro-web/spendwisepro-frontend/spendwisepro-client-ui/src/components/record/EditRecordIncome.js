@@ -11,7 +11,7 @@ import axios from "axios";
 import {RecordContext} from "./AddRecordTabs";
 import {ArrowPathIcon} from "@heroicons/react/24/solid";
 
-export default function EditRecordExpense() {
+export default function EditRecordIncome() {
 
     const { record, setRecord } = useContext(RecordContext);
     const { id } = useContext(RecordContext);
@@ -57,7 +57,7 @@ export default function EditRecordExpense() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:8000/spendwisepro/records/edit_expense/${id}`, record, { headers });
+            await axios.put(`http://localhost:8000/spendwisepro/records/edit_income/${id}`, record, { headers });
             navigate("/records", {state: {updateSuccess: true}});
         } catch (err) {
             setError(true);

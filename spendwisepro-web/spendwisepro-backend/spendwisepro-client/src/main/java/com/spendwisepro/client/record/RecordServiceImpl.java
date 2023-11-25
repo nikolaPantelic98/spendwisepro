@@ -185,35 +185,27 @@ public class RecordServiceImpl implements RecordService{
 
         Record existingRecord = recordRepository.findRecordById(recordId, authenticatedUser.getId());
 
-        float amountToChange = existingRecord.getAmount() - record.getAmount();
+        float amountDifference = existingRecord.getAmount() - record.getAmount();
+        boolean isPaymentTypeChanged = existingRecord.getTransactionType().equals(record.getTransactionType());
 
-        existingRecord.setAmount(record.getAmount());
+        // because it's difference between positive and negative number (income - expense)
+        float amountDifferenceIfPaymentTypeChanged = existingRecord.getAmount() + record.getAmount();
 
-        if (record.getPaymentType() != null) {
-            existingRecord.setPaymentType(record.getPaymentType());
-        }
-        if (record.getDateAndTime() != null) {
-            existingRecord.setDateAndTime(record.getDateAndTime());
-        }
-        if (record.getNote() != null) {
-            existingRecord.setNote(record.getNote());
-        }
-        if (record.getCategory() != null) {
-            existingRecord.setCategory(record.getCategory());
-        }
-        if (record.getCreditCard() != null) {
-            existingRecord.setCreditCard(record.getCreditCard());
-        }
+        updateRecordFields(existingRecord, record);
         existingRecord.setTransactionType(TransactionType.EXPENSE);
-        existingRecord.setIsHidden(false);
 
         // Increase or decrease amount of credit card when payment type of expense record is credit card
         if (existingRecord.getPaymentType().equals(PaymentType.CREDIT_CARD)) {
             Long creditCardId = existingRecord.getCreditCard().getId();
-            if (amountToChange >= 0) {
-                creditCardRepository.increaseAmountOfCreditCard(Math.abs(amountToChange), creditCardId, authenticatedUser.getId());
+
+            if (isPaymentTypeChanged) {
+                amountDifference = -amountDifferenceIfPaymentTypeChanged;
+            }
+
+            if (amountDifference >= 0) {
+                creditCardRepository.increaseAmountOfCreditCard(Math.abs(amountDifference), creditCardId, authenticatedUser.getId());
             } else {
-                creditCardRepository.decreaseAmountOfCreditCard(Math.abs(amountToChange), creditCardId, authenticatedUser.getId());
+                creditCardRepository.decreaseAmountOfCreditCard(Math.abs(amountDifference), creditCardId, authenticatedUser.getId());
             }
         }
 
@@ -226,8 +218,34 @@ public class RecordServiceImpl implements RecordService{
 
         Record existingRecord = recordRepository.findRecordById(recordId, authenticatedUser.getId());
 
-        float amountToChange = existingRecord.getAmount() - record.getAmount();
+        float amountDifference = existingRecord.getAmount() - record.getAmount();
+        boolean isPaymentTypeChanged = existingRecord.getTransactionType().equals(record.getTransactionType());
 
+        // because it's difference between positive and negative number (income - expense)
+        float amountToChangeIfPaymentTypeChanged = existingRecord.getAmount() + record.getAmount();
+
+        updateRecordFields(existingRecord, record);
+        existingRecord.setTransactionType(TransactionType.INCOME);
+
+        // Decrease or increase amount of credit card when payment type of expense record is credit card
+        if (existingRecord.getPaymentType().equals(PaymentType.CREDIT_CARD)) {
+            Long creditCardId = existingRecord.getCreditCard().getId();
+
+            if (isPaymentTypeChanged) {
+                amountDifference = -amountToChangeIfPaymentTypeChanged;
+            }
+
+            if (amountDifference >= 0) {
+                creditCardRepository.decreaseAmountOfCreditCard(Math.abs(amountDifference), creditCardId, authenticatedUser.getId());
+            } else {
+                creditCardRepository.increaseAmountOfCreditCard(Math.abs(amountDifference), creditCardId, authenticatedUser.getId());
+            }
+        }
+
+        recordRepository.save(existingRecord);
+    }
+
+    private void updateRecordFields(Record existingRecord, Record record) {
         existingRecord.setAmount(record.getAmount());
 
         if (record.getPaymentType() != null) {
@@ -245,19 +263,7 @@ public class RecordServiceImpl implements RecordService{
         if (record.getCreditCard() != null) {
             existingRecord.setCreditCard(record.getCreditCard());
         }
-        existingRecord.setTransactionType(TransactionType.INCOME);
+
         existingRecord.setIsHidden(false);
-
-        // Decrease or increase amount of credit card when payment type of expense record is credit card
-        if (existingRecord.getPaymentType().equals(PaymentType.CREDIT_CARD)) {
-            Long creditCardId = existingRecord.getCreditCard().getId();
-            if (amountToChange >= 0) {
-                creditCardRepository.decreaseAmountOfCreditCard(Math.abs(amountToChange), creditCardId, authenticatedUser.getId());
-            } else {
-                creditCardRepository.increaseAmountOfCreditCard(Math.abs(amountToChange), creditCardId, authenticatedUser.getId());
-            }
-        }
-
-        recordRepository.save(existingRecord);
     }
 }

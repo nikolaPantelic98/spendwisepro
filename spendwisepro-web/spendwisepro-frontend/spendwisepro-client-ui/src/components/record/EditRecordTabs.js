@@ -6,8 +6,8 @@ import PageWidthLayout from "../common/PageWidthLayout";
 import {ArrowTrendingDownIcon, ArrowTrendingUpIcon} from "@heroicons/react/24/solid";
 import {useParams} from "react-router-dom";
 import EditRecordExpense from "./EditRecordExpense";
-
-export const RecordContext = React.createContext();
+import {RecordContext} from "./AddRecordTabs";
+import EditRecordIncome from "./EditRecordIncome";
 
 export default function EditRecordTabs() {
 
@@ -58,7 +58,7 @@ export default function EditRecordTabs() {
                                         <div className="mt-2">
 
                                             <div className="mx-6">
-                                                {/*<EditRecordIncome />*/}
+                                                <EditRecordIncome />
                                             </div>
 
                                             <div><PageWidthLayout/></div>

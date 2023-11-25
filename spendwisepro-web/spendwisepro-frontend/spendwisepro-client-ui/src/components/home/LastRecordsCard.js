@@ -60,7 +60,7 @@ export default function LastRecordsCard() {
                             let date = new Date(record.dateAndTime);
                             return (
                                 <li key={record.id} className="py-3 sm:py-4">
-                                    <Link to={`/records/${record.id}`}>
+                                    <Link to={`/edit_record/${record.id}`}>
                                         <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                             <div className="flex-shrink-0">
                                                 <img className="w-8 h-8 rounded-full" src={record.category.icon.iconPath} alt={record.category.icon.image}/>
