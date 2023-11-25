@@ -178,4 +178,45 @@ public class RecordServiceImpl implements RecordService{
 
         return savedRecord;
     }
+
+    @Override
+    public void updateExpenseRecord(Long recordId, Record record, String token) {
+        User authenticatedUser = getAuthenticatedUser(token);
+
+        Record existingRecord = recordRepository.findRecordById(recordId, authenticatedUser.getId());
+
+        float amountToChange = existingRecord.getAmount() - record.getAmount();
+
+        existingRecord.setAmount(record.getAmount());
+
+        if (record.getPaymentType() != null) {
+            existingRecord.setPaymentType(record.getPaymentType());
+        }
+        if (record.getDateAndTime() != null) {
+            existingRecord.setDateAndTime(record.getDateAndTime());
+        }
+        if (record.getNote() != null) {
+            existingRecord.setNote(record.getNote());
+        }
+        if (record.getCategory() != null) {
+            existingRecord.setCategory(record.getCategory());
+        }
+        if (record.getCreditCard() != null) {
+            existingRecord.setCreditCard(record.getCreditCard());
+        }
+        existingRecord.setTransactionType(TransactionType.EXPENSE);
+        existingRecord.setIsHidden(false);
+
+        // Decrease amount of credit card when payment type of expense record is credit card
+        if (existingRecord.getPaymentType().equals(PaymentType.CREDIT_CARD)) {
+            Long creditCardId = existingRecord.getCreditCard().getId();
+            if (amountToChange >= 0) {
+                creditCardRepository.increaseAmountOfCreditCard(Math.abs(amountToChange), creditCardId, authenticatedUser.getId());
+            } else {
+                creditCardRepository.decreaseAmountOfCreditCard(Math.abs(amountToChange), creditCardId, authenticatedUser.getId());
+            }
+        }
+
+        recordRepository.save(existingRecord);
+    }
 }
