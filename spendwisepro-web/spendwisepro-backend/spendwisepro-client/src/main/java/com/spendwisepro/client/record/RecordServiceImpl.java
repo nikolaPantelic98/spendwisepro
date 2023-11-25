@@ -117,6 +117,13 @@ public class RecordServiceImpl implements RecordService{
     }
 
     @Override
+    public Record getRecordById(Long recordId, String token) {
+        User authenticatedUser = getAuthenticatedUser(token);
+
+        return recordRepository.findRecordById(recordId, authenticatedUser.getId());
+    }
+
+    @Override
     public Record saveIncomeRecord(Record record, String token) {
         User userToSave = getAuthenticatedUser(token);
 
