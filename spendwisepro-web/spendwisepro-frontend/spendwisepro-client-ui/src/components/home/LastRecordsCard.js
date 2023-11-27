@@ -4,7 +4,7 @@ import {
     Typography,
     Button, ListItem,
 } from "@material-tailwind/react";
-import {ArrowLongRightIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
+import {ArrowLongRightIcon, ChevronRightIcon, DocumentIcon} from "@heroicons/react/24/outline";
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
@@ -96,6 +96,20 @@ export default function LastRecordsCard() {
                                 </li>
                             );
                         })}
+
+                        {lastRecords.length === 0 && (
+                            <div>
+                                <div className="flex justify-center items-center flex-col mb-3">
+                                    <DocumentIcon className="w-20 h-20 text-green-600 mb-2"/>
+                                    <Typography variant="h5" className="text-gray-600 mb-2">
+                                        No data to display
+                                    </Typography>
+                                    <Typography variant="h6" className="text-gray-500">
+                                        Please add some records
+                                    </Typography>
+                                </div>
+                            </div>
+                        )}
                     </ul>
                 </div>
             </CardBody>
