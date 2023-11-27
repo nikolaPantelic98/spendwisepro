@@ -80,7 +80,7 @@ export default function RecordListYear() {
                                     {recordsForDate.map((recordForSpecificDate) => {
                                         return (
                                             <li key={recordForSpecificDate.id} className="py-3 sm:py-4">
-                                                <Link>
+                                                <Link to={`/edit_record/${recordForSpecificDate.id}`}>
                                                     <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
                                                         <div className="flex-shrink-0">
                                                             <img className="w-8 h-8 rounded-full" src={recordForSpecificDate.category.icon.iconPath} alt={recordForSpecificDate.category.name} />

@@ -278,6 +278,15 @@ public class RecordServiceImpl implements RecordService{
             throw new RecordNotFoundException("Could not find any record with id " + recordId);
         }
 
+        Record existingRecord = recordRepository.findRecordById(recordId, authenticatedUser.getId());
+        Long creditCardId = existingRecord.getCreditCard().getId();
+
+        if (existingRecord.getTransactionType().equals(TransactionType.INCOME)) {
+            creditCardRepository.decreaseAmountOfCreditCard(existingRecord.getAmount(), creditCardId, authenticatedUser.getId());
+        } else {
+            creditCardRepository.increaseAmountOfCreditCard(existingRecord.getAmount(), creditCardId, authenticatedUser.getId());
+        }
+
         recordRepository.deleteRecordById(recordId, authenticatedUser.getId());
     }
 }

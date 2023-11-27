@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {PlusCircleIcon} from "@heroicons/react/24/solid";
 
 function scrollToTop() {
+    sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     window.scrollTo(0, 0);
 }
 
