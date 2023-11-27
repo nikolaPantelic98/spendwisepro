@@ -3,7 +3,9 @@ package com.spendwisepro.client.record;
 import com.spendwisepro.common.entity.Record;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -25,4 +27,11 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
 
     @Query("SELECT r FROM Record r WHERE r.id = ?1 AND r.user.id = ?2")
     Record findRecordById(Long recordId, Long userId);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Record r WHERE r.id = ?1 AND r.user.id = ?2")
+    void deleteRecordById(Long recordId, Long userId);
+
+    Long countById(Long id);
 }

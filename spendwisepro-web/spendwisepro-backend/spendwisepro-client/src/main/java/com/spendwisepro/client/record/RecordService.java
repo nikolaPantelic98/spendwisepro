@@ -1,7 +1,7 @@
 package com.spendwisepro.client.record;
 
-import com.spendwisepro.common.entity.CreditCard;
 import com.spendwisepro.common.entity.Record;
+import com.spendwisepro.common.exception.RecordNotFoundException;
 
 import java.util.List;
 
@@ -18,4 +18,5 @@ public interface RecordService {
     Record saveExpenseRecord(Record record, String token);
     void updateExpenseRecord(Long recordId, Record record, String token);
     void updateIncomeRecord(Long recordId, Record record, String token);
+    void deleteRecord(Long recordId, String token) throws RecordNotFoundException;
 }

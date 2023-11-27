@@ -1,6 +1,7 @@
 package com.spendwisepro.client.record;
 
 import com.spendwisepro.common.entity.Record;
+import com.spendwisepro.common.exception.RecordNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,5 +74,15 @@ public class RecordRestController {
     public ResponseEntity<String> updateIncomeRecord(@PathVariable Long recordId, @RequestBody Record record, @RequestHeader("Authorization") String token) {
         recordService.updateIncomeRecord(recordId, record, token);
         return ResponseEntity.ok("Income record updated successfully.");
+    }
+
+    @DeleteMapping("/delete/{recordId}")
+    public ResponseEntity<String> deleteRecord(@PathVariable Long recordId, @RequestHeader("Authorization") String token) {
+        try {
+            recordService.deleteRecord(recordId, token);
+        } catch (RecordNotFoundException exception) {
+            return ResponseEntity.ok(exception.getMessage());
+        }
+        return ResponseEntity.ok("Record deleted successfully.");
     }
 }

@@ -5,6 +5,7 @@ import com.spendwisepro.client.security.jwt.JwtService;
 import com.spendwisepro.client.user.UserRepository;
 import com.spendwisepro.common.entity.*;
 import com.spendwisepro.common.entity.Record;
+import com.spendwisepro.common.exception.RecordNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -265,5 +266,18 @@ public class RecordServiceImpl implements RecordService{
         }
 
         existingRecord.setIsHidden(false);
+    }
+
+    @Override
+    public void deleteRecord(Long recordId, String token) throws RecordNotFoundException {
+        User authenticatedUser = getAuthenticatedUser(token);
+
+        Long countById = recordRepository.countById(recordId);
+
+        if (countById == null || countById == 0) {
+            throw new RecordNotFoundException("Could not find any record with id " + recordId);
+        }
+
+        recordRepository.deleteRecordById(recordId, authenticatedUser.getId());
     }
 }
