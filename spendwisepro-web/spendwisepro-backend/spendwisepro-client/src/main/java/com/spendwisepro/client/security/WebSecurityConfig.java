@@ -45,6 +45,8 @@ public class WebSecurityConfig {
 
                                 .requestMatchers("/records/**").authenticated()
 
+                                .requestMatchers("/budgets/**").authenticated()
+
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
