@@ -4,280 +4,73 @@ import {
     Typography,
     Button, ListItem,
 } from "@material-tailwind/react";
-import {ArrowLongRightIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import {ArrowLongRightIcon, BanknotesIcon, ChevronRightIcon} from "@heroicons/react/24/outline";
+import React, {useEffect, useState} from "react";
 import { Progress } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function BudgetList() {
 
-    const budgets = [
-        {
-            id: 1,
-            period: "weekly",
-            name: "General",
-            amount: 140.00,
-            spent: 70.00,
-            category: [
-                { id: 1, categoryName: "All categories" }
-            ]
-        },
-        {
-            id: 2,
-            period: "weekly",
-            name: "Tobacco",
-            amount: 50.00,
-            spent: 55.00,
-            category: [
-                { id: 2, categoryName: "Tobacco" }
-            ]
-        },
-        {
-            id: 3,
-            period: "monthly",
-            name: "General",
-            amount: 2000.00,
-            spent: 1800.00,
-            category: [
-                { id: 1, categoryName: "All categories" }
-            ]
-        },
-        {
-            id: 4,
-            period: "monthly",
-            name: "Car",
-            amount: 400.00,
-            spent: 260.00,
-            category: [
-                { id: 1, categoryName: "Car" }
-            ]
-        },
-        {
-            id: 5,
-            period: "monthly",
-            name: "House",
-            amount: 500.00,
-            spent: 250.00,
-            category: [
-                { id: 1, categoryName: "House and garden" }
-            ]
-        }
-    ]
+    const [weeklyBudgets, setWeeklyBudgets] = useState([]);
+    const [monthlyBudgets, setMonthlyBudgets] = useState([]);
+    const [recordsThisWeek, setRecordsThisWeek] = useState([]);
+    const [recordsThisMonth, setRecordsThisMonth] = useState([]);
+    const [categories, setCategories] = useState([]);
 
-    const records = [
-        {
-            id: 1,
-            amount: 30.00,
-            type: "expense",
-            date: new Date("2023-08-16T08:57"),
-            note: "Window repair",
-            paymentType: "Credit Card",
-            category: [
-                { id: 1, categoryName: "House and garden" }
-            ]
-        },
-        {
-            id: 2,
-            amount: 25.00,
-            type: "expense",
-            date: new Date("2023-08-03T12:30"),
-            note: "New door",
-            paymentType: "Cash",
-            category: [
-                { id: 1, categoryName: "House and garden" }
-            ]
-        },
-        {
-            id: 3,
-            amount: 45.00,
-            type: "expense",
-            date: new Date("2023-07-29T12:30"),
-            note: "Garden maintenance",
-            paymentType: "Credit Card",
-            category: [
-                { id: 1, categoryName: "House and garden" }
-            ]
-        },
-        {
-            id: 4,
-            amount: 45.00,
-            type: "expense",
-            date: new Date("2023-07-30T12:30"),
-            note: "Tomato",
-            paymentType: "Credit Card",
-            category: [
-                { id: 2, categoryName: "Groceries" }
-            ]
-        },
-        {
-            id: 5,
-            amount: 100.00,
-            type: "expense",
-            date: new Date("2023-08-10T08:57"),
-            note: "Car maintenance",
-            paymentType: "Cash",
-            category: [
-                { id: 3, categoryName: "Car" }
-            ]
-        },
-        {
-            id: 6,
-            amount: 112.00,
-            type: "expense",
-            date: new Date("2023-08-08T12:30"),
-            note: "Broken window repair",
-            paymentType: "Credit Card",
-            category: [
-                { id: 3, categoryName: "Car" }
-            ]
-        },
-        {
-            id: 7,
-            amount: 45.00,
-            type: "expense",
-            date: new Date("2023-08-01T12:30"),
-            note: "Fuel",
-            paymentType: "Credit Card",
-            category: [
-                { id: 3, categoryName: "Car" }
-            ]
-        },
-        {
-            id: 8,
-            amount: 15.00,
-            type: "expense",
-            date: new Date("2023-08-19T08:57"),
-            note: "Cigarette",
-            paymentType: "Cash",
-            category: [
-                { id: 4, categoryName: "Tobacco" }
-            ]
-        },
-        {
-            id: 91,
-            amount: 27.00,
-            type: "expense",
-            date: new Date("2023-08-18T12:30"),
-            note: "Tobacco",
-            paymentType: "Credit Card",
-            category: [
-                { id: 4, categoryName: "Tobacco" }
-            ]
-        },
-        {
-            id: 10,
-            amount: 22.00,
-            type: "expense",
-            date: new Date("2023-08-17T12:30"),
-            note: "Pack",
-            paymentType: "Credit Card",
-            category: [
-                { id: 4, categoryName: "Tobacco" }
-            ]
-        },
-        {
-            id: 11,
-            amount: 27.00,
-            type: "expense",
-            date: new Date("2023-08-14T12:30"),
-            time: "12:30",
-            note: "Chips",
-            paymentType: "Credit Card",
-            category: [
-                { id: 5, categoryName: "Snacks" }
-            ]
-        },
-        {
-            id: 12,
-            amount: 15.00,
-            type: "expense",
-            date: new Date("2023-07-27T08:57"),
-            note: "Doctor",
-            paymentType: "Cash",
-            category: [
-                { id: 6, categoryName: "Health care" }
-            ]
-        },
-        {
-            id: 13,
-            amount: 15.00,
-            type: "expense",
-            date: new Date("2023-08-01T08:57"),
-            note: "Card",
-            paymentType: "Cash",
-            category: [
-                { id: 7, categoryName: "Cinema" }
-            ]
-        },
-        {
-            id: 14,
-            amount: 27.00,
-            type: "expense",
-            date: new Date("2023-07-23T12:30"),
-            note: "Cinema chips",
-            paymentType: "Credit Card",
-            category: [
-                { id: 7, categoryName: "Cinema" }
-            ]
-        }
-    ];
+    const token = localStorage.getItem("token");
 
-    const currentDate = new Date();
+    const headers = {
+        'Authorization': `Bearer ${token}`
+    };
 
-    // Filter records that occurred in the current week
-    const recordsThisWeek = (() => {
+    useEffect(() => {
+        axios.get('http://localhost:8000/spendwisepro/budgets/weekly', { headers })
+            .then(response => {
+                setWeeklyBudgets(response.data);
+            })
+            .catch(error => console.error('Error fetching weekly budgets:', error));
+    }, []);
 
-        // Find the first day of the week (Monday) for the current date
-        const startOfWeek = new Date(currentDate);
-        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + (currentDate.getDay() === 0 ? -6 : 1));
-        startOfWeek.setHours(0, 0, 0, 0);
+    useEffect(() => {
+        axios.get('http://localhost:8000/spendwisepro/budgets/monthly', { headers })
+            .then(response => {
+                setMonthlyBudgets(response.data);
+            })
+            .catch(error => console.error('Error fetching monthly budgets:', error));
+    }, []);
 
-        // Find the last day of the week (Sunday) for the current date
-        const endOfWeek = new Date(currentDate);
-        if (currentDate.getDay() !== 0) {
-            endOfWeek.setDate(currentDate.getDate() + (7 - currentDate.getDay()));
-        }
-        endOfWeek.setHours(23, 59, 59, 999);
+    useEffect(() => {
+        axios.get('http://localhost:8000/spendwisepro/records/expense_records_this_week', { headers })
+            .then(response => {
+                setRecordsThisWeek(response.data);
+            })
+            .catch(error => console.error('Error fetching expense records this week:', error));
+    }, []);
 
-        return records.filter(record => {
-            return record.date >= startOfWeek && record.date <= endOfWeek;
-        });
-    })();
+    useEffect(() => {
+        axios.get('http://localhost:8000/spendwisepro/records/expense_records_this_month', { headers })
+            .then(response => {
+                setRecordsThisMonth(response.data);
+            })
+            .catch(error => console.error('Error fetching expense records this month:', error));
+    }, []);
 
-    // Filter records that occurred in the current month
-    const recordsThisMonth = (() => {
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth();
-
-        // Calculate the first day of the current month
-        const startOfMonth = new Date(currentYear, currentMonth, 1);
-        startOfMonth.setHours(0, 0, 0, 0);
-
-        // Calculate the last day of the current month
-        const endOfMonth = new Date(currentYear, currentMonth + 1, 0);
-        endOfMonth.setHours(23, 59, 59, 999);
-
-        return records.filter(record => {
-            return record.date >= startOfMonth && record.date <= endOfMonth;
-        });
-    })();
+    useEffect(() => {
+        axios.get('http://localhost:8000/spendwisepro/categories/all', { headers })
+            .then(response => {
+                setCategories(response.data);
+            })
+            .catch(error => console.error('Error fetching categories:', error));
+    }, []);
 
     // Create a new array of weekly budgets based on the provided budgets and expense records
-    const weeklyBudgets = budgets
-        .filter(budget => budget.period === "weekly") // Filter budgets with "weekly" period
+    const weeklyBudgetsFinal = weeklyBudgets
         .map(budget => {
-            let matchingRecords;
 
-            if (budget.category.some(cat => cat.categoryName === "All categories")) {
-                // If budget's category is "All categories", include all expense records in the current week
-                matchingRecords = recordsThisWeek.filter(record => record.type === "expense");
-            } else {
-                // Otherwise, find expense records in the current week with matching category
-                matchingRecords = recordsThisWeek.filter(record =>
-                    record.category.some(category => budget.category.some(budgetCategory => budgetCategory.categoryName === category.categoryName))
-                    && record.type === "expense"
-                );
-            }
+            let matchingRecords = recordsThisWeek.filter(record =>
+                budget.categories.some(budgetCategory => budgetCategory.name === record.category.name)
+            );
 
             const sumSpent = matchingRecords.reduce((total, record) => total + record.amount, 0);
 
@@ -292,21 +85,12 @@ export default function BudgetList() {
         });
 
     // Create a new array of monthly budgets based on the provided budgets and expense records
-    const monthlyBudgets = budgets
-        .filter(budget => budget.period === "monthly") // Filter budgets with "monthly" period
+    const monthlyBudgetsFinal = monthlyBudgets
         .map(budget => {
-            let matchingRecords;
 
-            if (budget.category.some(cat => cat.categoryName === "All categories")) {
-                // If budget's category is "All categories", include all expense records in the current month
-                matchingRecords = recordsThisMonth.filter(record => record.type === "expense");
-            } else {
-                // Otherwise, find expense records in the current month with matching category
-                matchingRecords = recordsThisMonth.filter(record =>
-                    record.category.some(category => budget.category.some(budgetCategory => budgetCategory.categoryName === category.categoryName))
-                    && record.type === "expense"
-                );
-            }
+            let matchingRecords = recordsThisMonth.filter(record =>
+                budget.categories.some(budgetCategory => budgetCategory.name === record.category.name)
+            );
 
             const sumSpent = matchingRecords.reduce((total, record) => total + record.amount, 0);
 
@@ -356,10 +140,12 @@ export default function BudgetList() {
                     <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                         Weekly
                         <Link to="/add_budget" onClick={storeScrollPosition}>
-                            <Button size="sm" variant="text" className="flex gap-2">
-                                Add budget
-                                <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                            </Button>
+                            {(weeklyBudgetsFinal.length !== 0) && (
+                                <Button size="sm" variant="text" className="flex gap-2">
+                                    Add budget
+                                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                                </Button>
+                            )}
                         </Link>
                     </Typography>
                     <hr className="my-2 border-blue-gray-50" />
@@ -367,7 +153,28 @@ export default function BudgetList() {
                     <div className="flow-root">
                         <ul role="list" className="divide-y divide-gray-200">
 
-                            {weeklyBudgets
+                            {(weeklyBudgetsFinal.length === 0) && (
+                                <div>
+                                    <div className="flex justify-center items-center flex-col mb-6">
+                                        <BanknotesIcon className="w-20 h-20 text-green-600 mb-2"/>
+                                        <Typography variant="h6" className="text-gray-600">
+                                            You don't have
+                                        </Typography>
+                                        <Typography variant="h6" className="text-gray-600">
+                                            active weekly budgets
+                                        </Typography>
+                                    </div>
+                                    <div className="flex justify-center items-center">
+                                        <Link to="/add_budget" onClick={storeScrollPosition} className="w-full">
+                                            <Button className="w-full" variant="gradient" color="green">
+                                                <span>Add weekly budget</span>
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            )}
+
+                            {weeklyBudgetsFinal
                                 .map((budget) => (
                                     <li key={budget.id} className="py-3 sm:py-4">
                                         <Link to={`/budgets/weekly/${generatePath(budget.name)}`} onClick={storeScrollPosition}>
@@ -419,10 +226,12 @@ export default function BudgetList() {
                     <Typography variant="h5" color="blue-gray" className="mb-4 flex items-center justify-between">
                         Monthly
                         <Link to="/add_budget" onClick={storeScrollPosition}>
-                            <Button size="sm" variant="text" className="flex gap-2">
-                                Add budget
-                                <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
-                            </Button>
+                            {(monthlyBudgetsFinal.length !== 0) && (
+                                <Button size="sm" variant="text" className="flex gap-2">
+                                    Add budget
+                                    <ArrowLongRightIcon strokeWidth={2} className="w-4 h-4" />
+                                </Button>
+                            )}
                         </Link>
                     </Typography>
                     <hr className="my-2 border-blue-gray-50" />
@@ -430,7 +239,28 @@ export default function BudgetList() {
                     <div className="flow-root">
                         <ul role="list" className="divide-y divide-gray-200">
 
-                            {monthlyBudgets
+                            {(monthlyBudgetsFinal.length === 0) && (
+                                <div>
+                                    <div className="flex justify-center items-center flex-col mb-6">
+                                        <BanknotesIcon className="w-20 h-20 text-green-600 mb-2"/>
+                                        <Typography variant="h6" className="text-gray-600">
+                                            You don't have
+                                        </Typography>
+                                        <Typography variant="h6" className="text-gray-600">
+                                            active monthly budgets
+                                        </Typography>
+                                    </div>
+                                    <div className="flex justify-center items-center">
+                                        <Link to="/add_budget" onClick={storeScrollPosition} className="w-full">
+                                            <Button className="w-full" variant="gradient" color="green">
+                                                <span>Add monthly budget</span>
+                                            </Button>
+                                        </Link>
+                                    </div>
+                                </div>
+                            )}
+
+                            {monthlyBudgetsFinal
                                 .map((budget) => (
                                     <li key={budget.id} className="py-3 sm:py-4">
                                         <Link to={`/budgets/monthly/${generatePath(budget.name)}`} onClick={storeScrollPosition}>
