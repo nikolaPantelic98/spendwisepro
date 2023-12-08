@@ -9,7 +9,7 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddBudgetPeriod() {
+export default function AddBudgetPeriod({ setPeriod }) {
 
     const [openPeriod, setOpenPeriod] = React.useState(false);
     const [selectedPeriod, setSelectedPeriod] = React.useState("");
@@ -19,16 +19,26 @@ export default function AddBudgetPeriod() {
         setOpenPeriod(true);
     };
     const handleClosePeriod = () => {
-        setSelectedPeriod(tempSelectedPeriod);
+        setSelectedPeriod(null);
+        setPeriod(null);
         setOpenPeriod(false);
     };
 
     const handleConfirmPeriod = () => {
+        setPeriod(selectedPeriod);
         setOpenPeriod(false);
         setTempSelectedPeriod("");
     };
     const handlePeriodChange = (value) => {
         setSelectedPeriod(value);
+    }
+
+    function getPeriod(period) {
+        if (period === "WEEKLY") {
+            return "Weekly";
+        } else if (period === "MONTHLY") {
+            return "Monthly";
+        }
     }
 
     return (
@@ -46,7 +56,7 @@ export default function AddBudgetPeriod() {
                     <div className="text-right">
                         <div className="h-4"></div>
                         <div className={`text-sm truncate dark:text-gray-400 ${selectedPeriod ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
-                            {selectedPeriod || "Select"}
+                            {getPeriod(selectedPeriod) || "Select"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -73,13 +83,13 @@ export default function AddBudgetPeriod() {
                         onChange={handlePeriodChange}
                         className="relative"
                     >
-                        <Option value="Weekly">
+                        <Option value="WEEKLY">
                             <div className="flex items-center">
                                 <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/327/327857.png" alt="Week" />
                                 <span className="ml-3">Weekly</span>
                             </div>
                         </Option>
-                        <Option value="Monthly">
+                        <Option value="MONTHLY">
                             <div className="flex items-center">
                                 <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/327/327857.png" alt="Month" />
                                 <span className="ml-3">Monthly</span>

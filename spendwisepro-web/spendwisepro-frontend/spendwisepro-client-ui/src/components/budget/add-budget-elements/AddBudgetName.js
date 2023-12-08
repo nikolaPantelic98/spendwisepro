@@ -10,14 +10,15 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddBudgetName() {
+export default function AddBudgetName({ setName, initialValue = "" }) {
 
     const [openName, setOpenName] = React.useState(false);
-    const [contentName, setContentName] = React.useState("");
+    const [contentName, setContentName] = React.useState(initialValue);
     const [isNameTyped, setIsNameTyped] = React.useState(false);
-    const [tempNameContent, setTempANoteContent] = React.useState("");
+    const [tempNameContent, setTempNameContent] = React.useState("");
+
     const handleOpenName = () => {
-        setTempANoteContent(contentName);
+        setTempNameContent(contentName);
         setOpenName(true);
     };
     const handleCloseName = () => {
@@ -28,9 +29,10 @@ export default function AddBudgetName() {
     };
     const handleConfirmName = () => {
         if (!isNameTyped) {
-            setTempANoteContent("");
+            setTempNameContent("");
             setIsNameTyped(false);
         }
+        setName(contentName);
         setOpenName(false);
     };
     const handleNameChange = (event) => {
@@ -52,7 +54,7 @@ export default function AddBudgetName() {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isNameTyped ? 'font-bold text-gray-500 truncate' : ''}`}>
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isNameTyped || initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
                             {contentName ? contentName : "Type"}
                         </div>
                         <div className="h-4"></div>

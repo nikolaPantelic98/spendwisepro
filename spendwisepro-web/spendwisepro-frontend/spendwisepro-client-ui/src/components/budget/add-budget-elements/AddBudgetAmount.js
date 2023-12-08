@@ -10,7 +10,7 @@ import {
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React from "react";
 
-export default function AddBudgetAmount() {
+export default function AddBudgetAmount({ setAmount }) {
 
     const [openAmount, setOpenAmount] = React.useState(false);
     const [amountValue, setAmountValue] = React.useState("");
@@ -31,6 +31,7 @@ export default function AddBudgetAmount() {
             setTempAmountValue("");
             setIsAmountTyped(false);
         }
+        setAmount(amountValue);
         setOpenAmount(false);
     };
     const handleAmountChange = (event) => {
