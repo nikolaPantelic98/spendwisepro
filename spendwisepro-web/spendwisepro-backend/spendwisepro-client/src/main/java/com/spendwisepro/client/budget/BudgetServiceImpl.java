@@ -44,4 +44,13 @@ public class BudgetServiceImpl implements BudgetService {
 
         return budgetRepository.findBudgetsByPeriod(authenticatedUser.getId(), BudgetPeriod.MONTHLY);
     }
+
+    @Override
+    public Budget saveBudget(Budget budget, String token) {
+        User authenticatedUser = getAuthenticatedUser(token);
+
+        budget.setUser(authenticatedUser);
+
+        return budgetRepository.save(budget);
+    }
 }
