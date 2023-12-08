@@ -25,4 +25,10 @@ public class BudgetRestController {
     public List<Budget> getMonthlyBudgets(@RequestHeader("Authorization") String token) {
         return budgetService.getMonthlyBudgets(token);
     }
+
+    @PostMapping("/save")
+    public ResponseEntity<String> saveBudget(@RequestBody Budget budget, @RequestHeader("Authorization") String token) {
+        budgetService.saveBudget(budget, token);
+        return ResponseEntity.ok("Budget saved successfully.");
+    }
 }
