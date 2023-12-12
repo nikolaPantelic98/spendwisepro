@@ -47,17 +47,17 @@ export default function BudgetWeeklyTabs() {
                                         <BudgetWeeklyOverview name={name} />
                                     </div>
 
-                                    <div className="mx-6">
-                                        <BudgetWeeklyChart name={name}/>
-                                    </div>
+                                    {/*<div className="mx-6">*/}
+                                    {/*    <BudgetWeeklyChart name={name}/>*/}
+                                    {/*</div>*/}
 
-                                    <div className="mx-6">
-                                        <BudgetWeeklyLastPeriods name={name}/>
-                                    </div>
+                                    {/*<div className="mx-6">*/}
+                                    {/*    <BudgetWeeklyLastPeriods name={name}/>*/}
+                                    {/*</div>*/}
 
-                                    <div className="mx-6">
-                                        <BudgetWeeklyTopExpenses name={name}/>
-                                    </div>
+                                    {/*<div className="mx-6">*/}
+                                    {/*    <BudgetWeeklyTopExpenses name={name}/>*/}
+                                    {/*</div>*/}
 
                                     <div><PageWidthLayout/></div>
                                 </div>
@@ -67,9 +67,9 @@ export default function BudgetWeeklyTabs() {
                             <>
                                 <div className="mt-2">
 
-                                    <div className="mx-6">
-                                        <BudgetWeeklyRecords name={name} />
-                                    </div>
+                                    {/*<div className="mx-6">*/}
+                                    {/*    <BudgetWeeklyRecords name={name} />*/}
+                                    {/*</div>*/}
 
                                     <div><PageWidthLayout/></div>
                                 </div>
