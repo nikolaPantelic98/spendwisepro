@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
-import LoginTabs from "../../components/login/LoginTabs";
+import LoginTabs from "../../components/login-register/LoginTabs";
 import MenuLanding from "../../components/landing-page/MenuLanding";
 
 function LoginPage() {

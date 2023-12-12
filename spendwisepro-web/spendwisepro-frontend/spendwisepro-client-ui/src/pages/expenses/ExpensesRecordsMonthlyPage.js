@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
-import ExpensesRecordsListMonthly from "../../components/expenses/ExpensesRecordsListMonthly";
+import ExpensesRecordsListMonthly from "../../components/expenses/month/ExpensesRecordsListMonthly";
 import PageHeader from "../../components/common/PageHeader";
 
 function ExpensesRecordsMonthlyPage() {

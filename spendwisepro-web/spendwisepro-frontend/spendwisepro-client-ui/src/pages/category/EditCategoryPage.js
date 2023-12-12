@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import PageHeader from "../../components/common/PageHeader";
-import EditCategoryForm from "../../components/category/EditCategoryForm";
+import EditCategoryForm from "../../components/category/edit-category/EditCategoryForm";
 
 function EditCategoryPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);

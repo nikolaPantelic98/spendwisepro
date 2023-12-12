@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import PageHeader from "../../components/common/PageHeader";
-import AddPlannedPaymentForm from "../../components/planned-payments/AddPlannedPaymentForm";
+import AddPlannedPaymentForm from "../../components/planned-payments/add-planned-payment/AddPlannedPaymentForm";
 
 function AddPlannedPaymentPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);

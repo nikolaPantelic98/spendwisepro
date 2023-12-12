@@ -46,7 +46,6 @@ public class WebSecurityConfig {
                                 .requestMatchers("/records/**").authenticated()
 
                                 .requestMatchers("/budgets/**").authenticated()
-                                .requestMatchers("/budgets/save").authenticated()
 
                                 .anyRequest().authenticated()
                 )

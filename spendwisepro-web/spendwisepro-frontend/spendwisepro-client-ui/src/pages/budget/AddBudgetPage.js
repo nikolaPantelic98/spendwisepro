@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import PageHeader from "../../components/common/PageHeader";
-import AddBudgetForm from "../../components/budget/AddBudgetForm";
+import AddBudgetForm from "../../components/budget/add-budget/AddBudgetForm";
 
 function AddBudgetPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);

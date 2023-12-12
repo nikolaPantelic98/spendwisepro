@@ -3,11 +3,11 @@ import {
 } from "@material-tailwind/react";
 import React, {useState} from "react";
 import PageWidthLayout from "../common/PageWidthLayout";
-import ExpensesOverviewMonth from "./ExpensesOverviewMonth";
-import ExpensesListMonth from "./ExpensesListMonth";
+import ExpensesOverviewMonth from "./month/ExpensesOverviewMonth";
+import ExpensesListMonth from "./month/ExpensesListMonth";
 import {CalendarDaysIcon} from "@heroicons/react/24/outline";
-import ExpensesOverviewWeek from "./ExpensesOverviewWeek";
-import ExpensesListWeek from "./ExpensesListWeek";
+import ExpensesOverviewWeek from "./week/ExpensesOverviewWeek";
+import ExpensesListWeek from "./week/ExpensesListWeek";
 
 export default function ExpensesTabs() {
 

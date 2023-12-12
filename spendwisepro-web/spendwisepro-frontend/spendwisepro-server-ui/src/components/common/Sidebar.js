@@ -51,7 +51,7 @@ const Sidebar = forwardRef((props, ref) => {
 
         localStorage.removeItem('token');
 
-        navigate("/login");
+        navigate("/login-register");
     };
 
     return (

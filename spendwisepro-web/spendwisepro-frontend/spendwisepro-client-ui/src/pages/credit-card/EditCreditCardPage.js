@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import PageHeader from "../../components/common/PageHeader";
-import EditCreditCardForm from "../../components/creditcard/EditCreditCardForm";
+import EditCreditCardForm from "../../components/creditcard/edit-credit-card/EditCreditCardForm";
 
 function EditCreditCardPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);

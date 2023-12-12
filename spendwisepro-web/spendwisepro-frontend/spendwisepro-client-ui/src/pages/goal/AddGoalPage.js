@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import PageHeader from "../../components/common/PageHeader";
-import AddGoalForm from "../../components/goal/AddGoalForm";
+import AddGoalForm from "../../components/goal/add-goal/AddGoalForm";
 
 function AddGoalPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);

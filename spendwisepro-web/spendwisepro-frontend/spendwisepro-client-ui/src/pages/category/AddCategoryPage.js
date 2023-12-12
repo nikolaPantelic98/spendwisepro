@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
-import AddCategoryForm from "../../components/category/AddCategoryForm";
+import AddCategoryForm from "../../components/category/add-category/AddCategoryForm";
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import PageHeader from "../../components/common/PageHeader";
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
-import AddCreditCardForm from "../../components/creditcard/AddCreditCardForm";
+import AddCreditCardForm from "../../components/creditcard/add-credit-card/AddCreditCardForm";
 import PageHeader from "../../components/common/PageHeader";
 
 function AddCreditCardPage() {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageWidthLayout from "../../components/common/PageWidthLayout";
 import PageHeader from "../../components/common/PageHeader";
-import ExpensesRecordsListWeekly from "../../components/expenses/ExpensesRecordsListWeekly";
+import ExpensesRecordsListWeekly from "../../components/expenses/week/ExpensesRecordsListWeekly";
 
 function ExpensesRecordsWeeklyPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);

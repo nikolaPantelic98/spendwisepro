@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Menu from '../../components/common/Menu';
 import PageHeader from "../../components/common/PageHeader";
-import AddRecordTabs from "../../components/record/AddRecordTabs";
+import AddRecordTabs from "../../components/record/add-record/AddRecordTabs";
 
 function AddRecordPage() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
