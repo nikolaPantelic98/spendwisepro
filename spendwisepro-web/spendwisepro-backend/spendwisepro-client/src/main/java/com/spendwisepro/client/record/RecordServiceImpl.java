@@ -72,6 +72,13 @@ public class RecordServiceImpl implements RecordService{
     }
 
     @Override
+    public List<Record> getAllExpenseRecords(String token) {
+        User authenticatedUser = getAuthenticatedUser(token);
+
+        return recordRepository.findAllExpenseRecords(authenticatedUser.getId());
+    }
+
+    @Override
     public List<Record> getExpenseRecordsThisMonth(String token) {
         User authenticatedUser = getAuthenticatedUser(token);
 

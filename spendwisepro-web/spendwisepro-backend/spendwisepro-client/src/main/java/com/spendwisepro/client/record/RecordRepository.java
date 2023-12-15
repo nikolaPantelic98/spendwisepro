@@ -21,6 +21,9 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
     @Query("SELECT r FROM Record r WHERE r.user.id = ?1 ORDER BY r.dateAndTime DESC")
     List<Record> findAllRecords(Long userId);
 
+    @Query("SELECT r FROM Record r WHERE r.user.id = ?1 AND r.transactionType = 'EXPENSE' ORDER BY r.dateAndTime DESC")
+    List<Record> findAllExpenseRecords(Long userId);
+
     @Query("SELECT r FROM Record r WHERE r.user.id = ?1 AND r.dateAndTime >= ?2 AND " +
             "r.dateAndTime <= ?3 AND r.transactionType = 'EXPENSE' AND r.isHidden = false ORDER BY r.dateAndTime DESC")
     List<Record> findExpenseRecordsBetweenDates(Long userId, Date startOfMonth, Date endOfMonth);

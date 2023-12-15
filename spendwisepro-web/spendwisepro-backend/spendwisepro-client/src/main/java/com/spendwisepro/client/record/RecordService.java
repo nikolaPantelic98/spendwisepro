@@ -11,6 +11,7 @@ public interface RecordService {
     List<Record> getRecordsLast30Days(String token);
     List<Record> getRecordsLast365Days(String token);
     List<Record> getAllRecords(String token);
+    List<Record> getAllExpenseRecords(String token);
     List<Record> getExpenseRecordsThisMonth(String token);
     List<Record> getExpenseRecordsThisWeek(String token);
     Record getRecordById(Long recordId, String token);

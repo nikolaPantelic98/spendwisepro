@@ -37,6 +37,11 @@ public class RecordRestController {
         return recordService.getAllRecords(token);
     }
 
+    @GetMapping("/all_expense_records")
+    public List<Record> getAllExpenseRecords(@RequestHeader("Authorization") String token) {
+        return recordService.getAllExpenseRecords(token);
+    }
+
     @GetMapping("/expense_records_this_month")
     public List<Record> getExpenseRecordsThisMonth(@RequestHeader("Authorization") String token) {
         return recordService.getExpenseRecordsThisMonth(token);
