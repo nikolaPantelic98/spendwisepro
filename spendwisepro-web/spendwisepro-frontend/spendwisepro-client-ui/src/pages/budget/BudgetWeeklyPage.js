@@ -1,26 +1,27 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Menu from '../../components/common/Menu';
 import BudgetWeeklyTabs from "../../components/budget/BudgetWeeklyTabs";
 import PageHeader from "../../components/common/PageHeader";
 import {useParams} from "react-router-dom";
+import axios from "axios";
 
 function BudgetWeeklyPage() {
-    const { '*': name } = useParams();
+    const { '*': id } = useParams();
+    const [budget, setBudget] = useState(null);
 
-    // formatting the name of the budget from the path
-    const formatName = (name) => {
-        const words = name.split('_');
-        const formattedWords = words.map((word, index) => {
-            if (index === 0) {
-                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
-            } else {
-                return word.toLowerCase();
-            }
-        });
-        return formattedWords.join(' ');
+    const token = localStorage.getItem("token");
+
+    const headers = {
+        'Authorization': `Bearer ${token}`
     };
 
-    const formattedName = formatName(name);
+    useEffect(() => {
+        axios.get(`http://localhost:8000/spendwisepro/budgets/${id}`, { headers })
+            .then(response => {
+                setBudget(response.data);
+            })
+            .catch(error => console.error(`Error fetching budget with id ${id}:`, error));
+    }, [id]);
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -37,7 +38,7 @@ function BudgetWeeklyPage() {
             <div className="h-6 bg-green-50"></div>
 
             <div>
-                <PageHeader title={formattedName} />
+                <PageHeader title={budget ? budget.name : 'Loading...'} />
             </div>
 
             <div className=" flex justify-center min-h-screen bg-green-50">

@@ -9,7 +9,7 @@ import { Progress } from "@material-tailwind/react";
 import {PencilSquareIcon} from "@heroicons/react/24/outline";
 import axios from "axios";
 
-export default function BudgetWeeklyOverview( {name} ) {
+export default function BudgetWeeklyOverview({ id }) {
 
     const [weeklyBudgets, setWeeklyBudgets] = useState([]);
     const [recordsThisWeek, setRecordsThisWeek] = useState([]);
@@ -49,7 +49,7 @@ export default function BudgetWeeklyOverview( {name} ) {
     // Create a new object of weekly budgets based on the budget period and budget name
     useEffect(() => {
         const foundBudget = weeklyBudgets.find(budget =>
-            budget.name.toLowerCase().replace(/\s+/g, '_') === name
+            budget.id == id
         );
 
         if (!foundBudget) return;
@@ -68,7 +68,7 @@ export default function BudgetWeeklyOverview( {name} ) {
             amount: foundBudget.amount,
             spent: sumSpent
         });
-    }, [weeklyBudgets, recordsThisWeek, name]);
+    }, [weeklyBudgets, recordsThisWeek, id]);
 
     function generatePercentageLeft(amount, spent) {
         let percentage = ((amount - spent) / amount * 100).toFixed(0);

@@ -31,4 +31,9 @@ public class BudgetRestController {
         budgetService.saveBudget(budget, token);
         return ResponseEntity.ok("Budget saved successfully.");
     }
+
+    @GetMapping("/{budgetId}")
+    public Budget getBudgetById(@PathVariable Long budgetId, @RequestHeader("Authorization") String token) {
+        return budgetService.getBudgetById(budgetId, token);
+    }
 }

@@ -53,7 +53,7 @@ const Sidebar = forwardRef((props, ref) => {
         localStorage.removeItem('token');
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
 
-        navigate("/login-register");
+        navigate("/login");
     };
 
     const getUsernameFromToken = () => {

@@ -13,7 +13,7 @@ import {useParams} from "react-router-dom";
 
 export default function BudgetWeeklyTabs() {
 
-    const { '*': name } = useParams();
+    const { '*': id } = useParams();
 
     const type = [
         {label: "Overview", value: "overview", icon: Bars3BottomLeftIcon},
@@ -44,12 +44,12 @@ export default function BudgetWeeklyTabs() {
                             <>
                                 <div className="mt-2">
                                     <div className="mx-6">
-                                        <BudgetWeeklyOverview name={name} />
+                                        <BudgetWeeklyOverview id={id} />
                                     </div>
 
-                                    {/*<div className="mx-6">*/}
-                                    {/*    <BudgetWeeklyChart name={name}/>*/}
-                                    {/*</div>*/}
+                                    <div className="mx-6">
+                                        <BudgetWeeklyChart id={id}/>
+                                    </div>
 
                                     {/*<div className="mx-6">*/}
                                     {/*    <BudgetWeeklyLastPeriods name={name}/>*/}

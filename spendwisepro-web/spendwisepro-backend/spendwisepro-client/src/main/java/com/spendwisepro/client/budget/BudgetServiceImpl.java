@@ -53,4 +53,11 @@ public class BudgetServiceImpl implements BudgetService {
 
         return budgetRepository.save(budget);
     }
+
+    @Override
+    public Budget getBudgetById(Long budgetId, String token) {
+        User authenticatedUser = getAuthenticatedUser(token);
+
+        return budgetRepository.findBudgetById(budgetId, authenticatedUser.getId());
+    }
 }
