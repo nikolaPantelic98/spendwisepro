@@ -55,9 +55,9 @@ export default function BudgetWeeklyTabs() {
                                         <BudgetWeeklyLastPeriods id={id}/>
                                     </div>
 
-                                    {/*<div className="mx-6">*/}
-                                    {/*    <BudgetWeeklyTopExpenses name={name}/>*/}
-                                    {/*</div>*/}
+                                    <div className="mx-6">
+                                        <BudgetWeeklyTopExpenses id={id}/>
+                                    </div>
 
                                     <div><PageWidthLayout/></div>
                                 </div>

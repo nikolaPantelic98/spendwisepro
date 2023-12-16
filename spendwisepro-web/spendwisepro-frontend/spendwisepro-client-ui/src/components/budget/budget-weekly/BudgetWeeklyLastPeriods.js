@@ -58,8 +58,6 @@ export default function BudgetWeeklyLastPeriods({ id }) {
         const calculateDataGraph = () => {
             const foundBudget = weeklyBudgets.find(budget => budget.id == id);
 
-            console.log(foundBudget);
-
             if (!foundBudget) {
                 return null;
             }
