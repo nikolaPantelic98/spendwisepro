@@ -13,7 +13,7 @@ import BudgetMonthlyRecords from "./budget-monthly/BudgetMonthlyRecords";
 
 export default function BudgetMonthlyTabs() {
 
-    const { '*': name } = useParams();
+    const { '*': id } = useParams();
 
     const type = [
         {label: "Overview", value: "overview", icon: Bars3BottomLeftIcon},
@@ -44,20 +44,20 @@ export default function BudgetMonthlyTabs() {
                             <>
                                 <div className="mt-2">
                                     <div className="mx-6">
-                                        <BudgetMonthlyOverview name={name} />
+                                        <BudgetMonthlyOverview id={id} />
                                     </div>
 
-                                    <div className="mx-6">
-                                        <BudgetMonthlyChart name={name}/>
-                                    </div>
+                                    {/*<div className="mx-6">*/}
+                                    {/*    <BudgetMonthlyChart id={id}/>*/}
+                                    {/*</div>*/}
 
-                                    <div className="mx-6">
-                                        <BudgetMonthlyLastPeriods name={name}/>
-                                    </div>
+                                    {/*<div className="mx-6">*/}
+                                    {/*    <BudgetMonthlyLastPeriods id={id}/>*/}
+                                    {/*</div>*/}
 
-                                    <div className="mx-6">
-                                        <BudgetMonthlyTopExpenses name={name}/>
-                                    </div>
+                                    {/*<div className="mx-6">*/}
+                                    {/*    <BudgetMonthlyTopExpenses id={id}/>*/}
+                                    {/*</div>*/}
 
                                     <div><PageWidthLayout/></div>
                                 </div>
@@ -67,9 +67,9 @@ export default function BudgetMonthlyTabs() {
                             <>
                                 <div className="mt-2">
 
-                                    <div className="mx-6">
-                                        <BudgetMonthlyRecords name={name}/>
-                                    </div>
+                                    {/*<div className="mx-6">*/}
+                                    {/*    <BudgetMonthlyRecords id={id}/>*/}
+                                    {/*</div>*/}
 
                                     <div><PageWidthLayout/></div>
                                 </div>
