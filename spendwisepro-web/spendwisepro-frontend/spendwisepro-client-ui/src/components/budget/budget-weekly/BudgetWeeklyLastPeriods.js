@@ -54,7 +54,6 @@ export default function BudgetWeeklyLastPeriods({ id }) {
     }, []);
 
     useEffect(() => {
-
         const calculateDataGraph = () => {
             const foundBudget = weeklyBudgets.find(budget => budget.id == id);
 
