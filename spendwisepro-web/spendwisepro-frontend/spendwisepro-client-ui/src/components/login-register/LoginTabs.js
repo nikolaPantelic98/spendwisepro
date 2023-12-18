@@ -51,7 +51,7 @@ export default function LoginTabs() {
 
                 <div className="flow-root">
                     <div className="flow-root">
-                        <Tabs value={selectedTab} onChange={(value) => setSelectedTab(value)}>
+                        <Tabs value={`login-register`} onChange={(value) => setSelectedTab(value)}>
 
                             <TabsHeader>
                                 {dataTabs.map(({ label, value, icon }) => (
