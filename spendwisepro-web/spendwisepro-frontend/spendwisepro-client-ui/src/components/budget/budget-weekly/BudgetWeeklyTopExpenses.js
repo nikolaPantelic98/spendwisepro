@@ -10,8 +10,6 @@ export default function BudgetWeeklyTopExpenses({ id }) {
     const [categories, setCategories] = useState([]);
     const [budgetExpenses, setBudgetExpenses] = useState([]);
 
-    const currentDate = new Date();
-
     const token = localStorage.getItem("token");
 
     const headers = {
