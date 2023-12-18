@@ -63,6 +63,7 @@ export default function BudgetWeeklyRecords({ id }) {
         return moment(date).format('LL').toUpperCase();
     }
 
+    // Formats a given time to a readable string
     function getFormattedTime(time) {
         return moment(time).format('HH:mm');
     }
