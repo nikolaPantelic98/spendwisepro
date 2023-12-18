@@ -99,8 +99,6 @@ export default function BudgetWeeklyOverview({ id }) {
         return progressValue;
     }
 
-    console.log(budget);
-
     return (
         <Card className="w-full shadow-lg mt-8">
             <CardBody>

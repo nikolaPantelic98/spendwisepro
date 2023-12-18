@@ -59,7 +59,7 @@ export default function BudgetWeeklyChart({ id }) {
     useEffect(() => {
         // Calculate and store budget graph data based on selected budget period and name
         const calculateBudgetGraph = () => {
-            // Find the budget information based on the specified period and name
+            // Find the budget information based on the specified id
             const foundBudget = weeklyBudgets.find(b =>
                 b.id == id
             );
