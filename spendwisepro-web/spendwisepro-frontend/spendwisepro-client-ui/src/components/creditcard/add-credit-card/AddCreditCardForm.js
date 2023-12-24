@@ -9,6 +9,7 @@ import CreditCardBank from "../form-elements/CreditCardBank";
 import CreditCardNote from "../form-elements/CreditCardNote";
 import CreditCardIcon from "../form-elements/CreditCardIcon";
 import {useNavigate} from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 import axios from "axios";
 
 export default function AddCreditCardForm() {
@@ -22,8 +23,10 @@ export default function AddCreditCardForm() {
 
     const [error, setError] = useState(false);
 
-    const navigate = useNavigate();
+    const location = useLocation();
+    const type = location.state?.type || '';
 
+    const navigate = useNavigate();
     const token = localStorage.getItem("token");
 
     const headers = {
@@ -51,7 +54,7 @@ export default function AddCreditCardForm() {
                 <form onSubmit={handleSubmit}>
                     <div className="flow-root">
                         <ul role="list" className="divide-y divide-gray-200">
-                            <CreditCardType setType={handleTypeChange} />
+                            <CreditCardType setType={handleTypeChange} initialValue={type} formType="add" />
 
                             <CreditCardIcon setIcon={handleIconChange} />
 

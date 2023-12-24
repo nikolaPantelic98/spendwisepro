@@ -1,49 +1,26 @@
 import {
-    Button,
-    Dialog,
-    DialogBody,
-    DialogFooter,
-    DialogHeader, Input,
     ListItem
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, {useEffect} from "react";
+import { useNavigate } from 'react-router-dom';
 
-export default function CreditCardType({ setType, initialValue = "" }) {
+export default function CreditCardType({ setType, initialValue = "", formType, id}) {
 
-    const [openType, setOpenType] = React.useState(false);
+    const navigate = useNavigate();
+    const navigateTo = formType === 'add' ? '/add_credit_card' : `/edit_credit_card/${id}`;
+
     const [contentType, setContentType] = React.useState(initialValue);
-    const [isTypeTyped, setIsTypeTyped] = React.useState(false);
-    const [tempTypeContent, setTempTypeContent] = React.useState("");
 
-    const handleOpenType = () => {
-        setTempTypeContent(contentType);
-        setOpenType(true);
-    };
-    const handleCloseType = () => {
-        if (isTypeTyped) {
-            setContentType(tempTypeContent);
-        }
-        setOpenType(false);
-    };
-
-    const handleConfirmType = () => {
-        if (!isTypeTyped) {
-            setTempTypeContent("");
-            setIsTypeTyped(false);
-        }
-        setType(contentType);
-        setOpenType(false);
-    };
-    const handleTypeChange = (event) => {
-        setContentType(event.target.value);
-        setIsTypeTyped(event.target.value !== "");
-    }
+    useEffect(() => {
+        setType(initialValue);
+    }, [initialValue]);
 
     return (
         <li className="py-3 sm:py-4">
-            <div onClick={handleOpenType}>
-                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+            <div >
+                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
+                          onClick={() => navigate('/credit_cards/type', { state: { type: contentType, from: navigateTo } })}>
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://www.pngitem.com/pimgs/m/544-5444157_credit-card-icons-png-credit-card-icon-green.png" alt="Type" />
                     </div>
@@ -54,8 +31,8 @@ export default function CreditCardType({ setType, initialValue = "" }) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isTypeTyped || initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
-                            {contentType ? contentType : "Type"}
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
+                            {contentType ? (contentType.length > 20 ? contentType.substring(0, 17) + "..." : contentType) : "Type"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -64,32 +41,6 @@ export default function CreditCardType({ setType, initialValue = "" }) {
                     </div>
                 </ListItem>
             </div>
-            <Dialog
-                open={openType}
-                handler={handleOpenType}
-                animate={{
-                    mount: { scale: 1, y: 0 },
-                    unmount: { scale: 0.9, y: -100 },
-                }}
-            >
-                <DialogHeader>Type</DialogHeader>
-                <DialogBody>
-                    <Input label="Type" color="green" value={contentType} onChange={handleTypeChange} />
-                </DialogBody>
-                <DialogFooter>
-                    <Button
-                        variant="text"
-                        color="red"
-                        onClick={handleCloseType}
-                        className="mr-1"
-                    >
-                        <span>Cancel</span>
-                    </Button>
-                    <Button variant="gradient" color="green" onClick={handleConfirmType}>
-                        <span>Confirm</span>
-                    </Button>
-                </DialogFooter>
-            </Dialog>
         </li>
     );
 }

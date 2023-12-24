@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import axios from "axios";
 import {Button, Card, CardBody, Dialog, DialogBody, DialogFooter, DialogHeader} from "@material-tailwind/react";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import CreditCardAmount from "../form-elements/CreditCardAmount";
 import CreditCardType from "../form-elements/CreditCardType";
 import CreditCardIcon from "../form-elements/CreditCardIcon";
@@ -12,6 +12,10 @@ export default function EditCreditCardForm() {
     const [creditCard, setCreditCard] = useState(null);
     const { id } = useParams();
     const [error, setError] = useState(false);
+
+    const location = useLocation();
+    let type = location.state ? location.state.type : creditCard ? creditCard.type : '';
+    const typeRef = useRef(type);
 
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
@@ -40,8 +44,9 @@ export default function EditCreditCardForm() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const updatedCreditCard = {...creditCard, type: typeRef.current};
         try {
-            await axios.put(`http://localhost:8000/spendwisepro/credit_cards/edit/${id}`, creditCard, { headers });
+            await axios.put(`http://localhost:8000/spendwisepro/credit_cards/edit/${id}`, updatedCreditCard, { headers });
             navigate("/credit_cards", {state: {updateSuccess: true}});
         } catch (err) {
             setError(true);
@@ -62,8 +67,12 @@ export default function EditCreditCardForm() {
         navigate("/credit_cards");
     }
 
-    return creditCard ? (
+    useEffect(() => {
+        typeRef.current = type;
+    }, [type]);
 
+
+    return creditCard ? (
         <Card className="w-full shadow-lg mt-8">
             <CardBody>
                 <form onSubmit={handleSubmit}>
@@ -71,7 +80,7 @@ export default function EditCreditCardForm() {
                         <ul className="divide-y divide-gray-200">
                             <CreditCardAmount setAmount={handleAmountChange} initialValue={creditCard.amount} />
 
-                            <CreditCardType setType={handleTypeChange} initialValue={creditCard.type} />
+                            <CreditCardType setType={(value) => { type = value; handleTypeChange(value); }} initialValue={type} formType="edit" id={id} />
 
                             <CreditCardIcon setIcon={handleIconChange} initialValue={creditCard.icon} />
 

@@ -3,12 +3,12 @@ import { Button, Typography } from "@material-tailwind/react";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from 'react-router-dom';
 
-const PageHeader = ({ title }) => {
+const PageHeaderForCreditCardForm = ({ title }) => {
 
     const navigate = useNavigate();
 
     const handleGoBack = () => {
-        navigate(-1);
+        navigate("/credit_cards");
     };
 
     useEffect(() => {
@@ -40,4 +40,4 @@ const PageHeader = ({ title }) => {
     );
 };
 
-export default PageHeader;
+export default PageHeaderForCreditCardForm;

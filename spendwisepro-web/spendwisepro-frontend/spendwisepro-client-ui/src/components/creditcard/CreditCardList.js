@@ -60,13 +60,13 @@ export default function CreditCardList() {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <p className="text-md font-medium text-gray-900 truncate dark:text-white">
-                                                {creditCard.type}
+                                                {creditCard.type.length > 20 ? creditCard.type.substring(0, 17) + "..." : creditCard.type}
                                             </p>
                                             <p className="text-sm text-gray-500 truncate">
-                                                {creditCard.bank}
+                                                {creditCard.bank.length > 20 ? creditCard.bank.substring(0, 17) + "..." : creditCard.bank}
                                             </p>
                                             <p className="text-sm text-gray-500 truncate">
-                                                {creditCard.note}
+                                                {creditCard.note.length > 20 ? creditCard.note.substring(0, 17) + "..." : creditCard.note}
                                             </p>
                                         </div>
                                         <div className="text-right">

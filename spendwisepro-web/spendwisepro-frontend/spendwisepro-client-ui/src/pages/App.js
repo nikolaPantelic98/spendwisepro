@@ -28,6 +28,7 @@ import EditCategoryPage from "./category/EditCategoryPage";
 import EditCreditCardPage from "./credit-card/EditCreditCardPage";
 import AddRecordPage from "./record/AddRecordPage";
 import EditRecordPage from "./record/EditRecordPage";
+import CreditCardTypePage from "./credit-card/CreditCardTypePage";
 
 function App() {
 
@@ -55,6 +56,8 @@ function App() {
                     <Route path="/credit_cards" element={<PrivateRoute element={<CreditCardPage />} />} />
                     <Route path="/add_credit_card" element={<PrivateRoute element={<AddCreditCardPage />} />} />
                     <Route path="/edit_credit_card/:id" element={<PrivateRoute element={<EditCreditCardPage />} />} />
+
+                    <Route path="/credit_cards/type" element={<PrivateRoute element={<CreditCardTypePage />} />} />
 
                     <Route path="/budgets" element={<PrivateRoute element={<BudgetPage />} />} />
                     <Route path="/budgets/weekly/*" element={<PrivateRoute element={<BudgetWeeklyPage />} />} />
