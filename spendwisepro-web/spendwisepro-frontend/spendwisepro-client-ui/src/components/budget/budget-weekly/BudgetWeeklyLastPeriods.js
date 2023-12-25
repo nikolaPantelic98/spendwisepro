@@ -78,7 +78,7 @@ export default function BudgetWeeklyLastPeriods({ id }) {
                 for (const record of records) {
                     const recordDate = new Date(record.dateAndTime);
                     if (recordDate >= startDate && recordDate <= endDate) {
-                        if (foundBudget.categories.some(budgetCategory => budgetCategory.name === record.category.name)) {
+                        if (record.category && foundBudget.categories.some(budgetCategory => budgetCategory.name === record.category.name)) {
                             spentInPeriod += record.amount;
                         }
                     }
