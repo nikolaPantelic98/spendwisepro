@@ -1,49 +1,26 @@
 import {
-    Button,
-    Dialog,
-    DialogBody,
-    DialogFooter,
-    DialogHeader,
-    Input,
     ListItem
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 
-export default function CreditCardNote({ setNote, initialValue = "" }) {
+export default function CreditCardNote({ setNote, initialValue = "", formType, id }) {
 
-    const [openNote, setOpenNote] = React.useState(false);
+    const navigate = useNavigate();
+    const navigateTo = formType === 'add' ? '/add_credit_card' : `/edit_credit_card/${id}`;
+
     const [contentNote, setContentNote] = React.useState(initialValue);
-    const [isNoteTyped, setIsNoteTyped] = React.useState(false);
-    const [tempNoteContent, setTempNoteContent] = React.useState("");
 
-    const handleOpenNote = () => {
-        setTempNoteContent(contentNote);
-        setOpenNote(true);
-    };
-    const handleCloseNote = () => {
-        if (isNoteTyped) {
-            setContentNote(tempNoteContent);
-        }
-        setOpenNote(false);
-    };
-    const handleConfirmNote = () => {
-        if (!isNoteTyped) {
-            setTempNoteContent("");
-            setIsNoteTyped(false);
-        }
-        setNote(contentNote);
-        setOpenNote(false);
-    };
-    const handleNoteChange = (event) => {
-        setContentNote(event.target.value);
-        setIsNoteTyped(event.target.value !== "");
-    }
+    useEffect(() => {
+        setNote(initialValue);
+    }, [initialValue]);
 
     return (
         <li className="py-3 sm:py-4">
-            <div onClick={handleOpenNote}>
-                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+            <div>
+                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
+                          onClick={() => navigate('/credit_cards/note', { state: { note: contentNote, from: navigateTo } })}>
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/190/190703.png" alt="Note" />
                     </div>
@@ -54,8 +31,8 @@ export default function CreditCardNote({ setNote, initialValue = "" }) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isNoteTyped || initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
-                            {contentNote ? contentNote : "Type"}
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
+                            {contentNote ? (contentNote.length > 20 ? contentNote.substring(0, 17) + "..." : contentNote) : "Type"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -64,32 +41,6 @@ export default function CreditCardNote({ setNote, initialValue = "" }) {
                     </div>
                 </ListItem>
             </div>
-            <Dialog
-                open={openNote}
-                handler={handleOpenNote}
-                animate={{
-                    mount: { scale: 1, y: 0 },
-                    unmount: { scale: 0.9, y: -100 },
-                }}
-            >
-                <DialogHeader>Note</DialogHeader>
-                <DialogBody>
-                    <Input label="Note" color="green" value={contentNote} onChange={handleNoteChange} />
-                </DialogBody>
-                <DialogFooter>
-                    <Button
-                        variant="text"
-                        color="red"
-                        onClick={handleCloseNote}
-                        className="mr-1"
-                    >
-                        <span>Cancel</span>
-                    </Button>
-                    <Button variant="gradient" color="green" onClick={handleConfirmNote}>
-                        <span>Confirm</span>
-                    </Button>
-                </DialogFooter>
-            </Dialog>
         </li>
     );
 }

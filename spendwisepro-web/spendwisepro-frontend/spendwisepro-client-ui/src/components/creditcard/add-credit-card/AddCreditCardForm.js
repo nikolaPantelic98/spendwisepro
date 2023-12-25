@@ -25,6 +25,7 @@ export default function AddCreditCardForm() {
 
     const location = useLocation();
     const type = location.state?.type || '';
+    const note = location.state?.note || '';
 
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
@@ -60,7 +61,7 @@ export default function AddCreditCardForm() {
 
                             <CreditCardBank setBank={handleBankChange} />
 
-                            <CreditCardNote setNote={handleNoteChange} />
+                            <CreditCardNote setNote={handleNoteChange} initialValue={note} formType="add" />
                         </ul>
                         <hr className="my-2 border-blue-gray-50" />
                         <div className="flex justify-center items-center">

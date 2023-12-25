@@ -5,7 +5,7 @@ import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React, {useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 
-export default function CreditCardType({ setType, initialValue = "", formType, id}) {
+export default function CreditCardType({ setType, initialValue = "", formType, id }) {
 
     const navigate = useNavigate();
     const navigateTo = formType === 'add' ? '/add_credit_card' : `/edit_credit_card/${id}`;
@@ -18,7 +18,7 @@ export default function CreditCardType({ setType, initialValue = "", formType, i
 
     return (
         <li className="py-3 sm:py-4">
-            <div >
+            <div>
                 <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
                           onClick={() => navigate('/credit_cards/type', { state: { type: contentType, from: navigateTo } })}>
                     <div className="flex-shrink-0">
