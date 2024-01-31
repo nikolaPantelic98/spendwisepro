@@ -4,6 +4,8 @@ import PageHeader from "../../../components/common/PageHeader";
 import {Button, Typography} from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import {useLocation, useNavigate} from 'react-router-dom';
+import {useDispatch} from "react-redux";
+import {setBank, setNote} from "../../../redux/creditCardSlice";
 
 function CreditCardNotePage() {
 
@@ -13,10 +15,10 @@ function CreditCardNotePage() {
         setSidebarOpen(isOpen);
     };
 
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const initialType = location.state?.note || '';
-    const [textAreaValueNote, setTextAreaValueNote] = useState(initialType);
+    const [textAreaValueNote, setTextAreaValueNote] = useState("");
     const textAreaRefNote = useRef(null);
     const from = location.state?.from || '/add_credit_card';
 
@@ -32,10 +34,11 @@ function CreditCardNotePage() {
         textAreaNote.selectionStart = textAreaNote.selectionEnd = textAreaNote.value.length;
     }, [textAreaValueNote]);
 
-    const handleKeyDown = (event) => {
+    const handleKeyDown = async (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            navigate(from, { state: { note: textAreaValueNote } });
+            await dispatch(setNote(textAreaValueNote));
+            navigate(from);
         }
     };
 
@@ -47,7 +50,7 @@ function CreditCardNotePage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <PageHeader title="Note" />
+                    <PageHeader title="Note" resetRedux={false} />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
@@ -71,7 +74,10 @@ function CreditCardNotePage() {
                         <div className="mt-8 mx-6">
                             <div className="flex justify-center items-center">
                                 <Button className="mt-2 w-full" variant="gradient" color="green"
-                                        onClick={() => { navigate(from, { state: { note: textAreaValueNote } }); }}>
+                                        onClick={async () => {
+                                            await dispatch(setNote(textAreaValueNote));
+                                            navigate(from, { state: { note: textAreaValueNote } });
+                                        }}>
                                     <span>Confirm</span>
                                 </Button>
                             </div>

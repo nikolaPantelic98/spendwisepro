@@ -2,9 +2,11 @@ import React, {useEffect} from 'react';
 import { Button, Typography } from "@material-tailwind/react";
 import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from 'react-router-dom';
+import {useReduxReset} from "../../redux/useReduxReset";
 
-const PageHeader = ({ title }) => {
+const PageHeader = ({ title, resetRedux = true }) => {
 
+    const reduxReset = useReduxReset();
     const navigate = useNavigate();
 
     const handleGoBack = () => {
@@ -15,9 +17,15 @@ const PageHeader = ({ title }) => {
         const scrollPosition = sessionStorage.getItem('scrollPosition');
         if (scrollPosition) {
             window.scrollTo(0, parseInt(scrollPosition));
+            if (resetRedux) {
+                reduxReset();
+            }
             sessionStorage.removeItem('scrollPosition');
         } else {
             window.scrollTo(0, 0);
+            if (resetRedux) {
+                reduxReset();
+            }
         }
     }, []);
 

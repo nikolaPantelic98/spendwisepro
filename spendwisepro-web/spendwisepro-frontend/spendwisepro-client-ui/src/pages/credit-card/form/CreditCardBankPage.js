@@ -5,9 +5,9 @@ import {Button, Typography} from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch} from "react-redux";
-import {setBank, setType} from "../../../redux/creditCardSlice";
+import {setBank} from "../../../redux/creditCardSlice";
 
-function CreditCardTypePage() {
+function CreditCardBankPage() {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -18,26 +18,26 @@ function CreditCardTypePage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const [textAreaValueType, setTextAreaValueType] = useState("");
-    const textAreaRefType = useRef(null);
+    const [textAreaValueBank, setTextAreaValueBank] = useState("");
+    const textAreaRefBank = useRef(null);
     const from = location.state?.from || '/add_credit_card';
 
     useEffect(() => {
-        const textAreaType = document.getElementById('textAreaType');
-        textAreaType.style.height = 'auto';
-        textAreaType.style.height = textAreaType.scrollHeight + 'px';
-    }, [textAreaValueType]);
+        const textAreaBank = document.getElementById('textAreaBank');
+        textAreaBank.style.height = 'auto';
+        textAreaBank.style.height = textAreaBank.scrollHeight + 'px';
+    }, [textAreaValueBank]);
 
     useEffect(() => {
-        const textAreaType = textAreaRefType.current;
-        textAreaType.focus();
-        textAreaType.selectionStart = textAreaType.selectionEnd = textAreaType.value.length;
-    }, [textAreaValueType]);
+        const textAreaBank = textAreaRefBank.current;
+        textAreaBank.focus();
+        textAreaBank.selectionStart = textAreaBank.selectionEnd = textAreaBank.value.length;
+    }, [textAreaValueBank]);
 
     const handleKeyDown = async (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            await dispatch(setType(textAreaValueType));
+            await dispatch(setBank(textAreaValueBank));
             navigate(from);
         }
     };
@@ -50,7 +50,7 @@ function CreditCardTypePage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <PageHeader title="Type" resetRedux={false} />
+                    <PageHeader title="Bank" resetRedux={false} />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
@@ -60,13 +60,13 @@ function CreditCardTypePage() {
                         <div className="mx-6">
                             <div className="mt-8 text-center">
                                 <Typography variant="h6">
-                                    Add Type
+                                    Add Bank
                                 </Typography>
                                 <div className="h-4"></div>
-                                <textarea id="textAreaType" ref={textAreaRefType}
+                                <textarea id="textAreaBank" ref={textAreaRefBank}
                                           className="resize-none bg-green-50 focus:outline-none mx-auto text-center"
-                                          value={textAreaValueType}
-                                          onChange={(e) => setTextAreaValueType(e.target.value)}
+                                          value={textAreaValueBank}
+                                          onChange={(e) => setTextAreaValueBank(e.target.value)}
                                           onKeyDown={handleKeyDown} />
                             </div>
                         </div>
@@ -75,10 +75,10 @@ function CreditCardTypePage() {
                             <div className="flex justify-center items-center">
                                 <Button className="mt-2 w-full" variant="gradient" color="green"
                                         onClick={async () => {
-                                            await dispatch(setType(textAreaValueType));
-                                            navigate(from, { state: { type: textAreaValueType } });
+                                            await dispatch(setBank(textAreaValueBank));
+                                            navigate(from, { state: { bank: textAreaValueBank } });
                                         }}>
-                                    <span>Save</span>
+                                    <span>Confirm</span>
                                 </Button>
                             </div>
                         </div>
@@ -93,4 +93,4 @@ function CreditCardTypePage() {
     );
 }
 
-export default CreditCardTypePage;
+export default CreditCardBankPage;

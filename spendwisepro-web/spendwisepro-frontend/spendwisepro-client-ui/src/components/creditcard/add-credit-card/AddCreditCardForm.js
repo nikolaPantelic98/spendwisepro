@@ -3,29 +3,24 @@ import {
     CardBody,
     Button,
 } from "@material-tailwind/react";
-import React, {useState} from "react";
+import React, {useEffect} from "react";
 import CreditCardType from "../form-elements/CreditCardType";
 import CreditCardBank from "../form-elements/CreditCardBank";
 import CreditCardNote from "../form-elements/CreditCardNote";
 import CreditCardIcon from "../form-elements/CreditCardIcon";
 import {useNavigate} from "react-router-dom";
-import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
+import {setBank, setIcon, setNote, setType} from "../../../redux/creditCardSlice";
+import {useReduxReset} from "../../../redux/useReduxReset";
 
 export default function AddCreditCardForm() {
 
-    const [creditCard, setCreditCard] = useState({
-        type: "",
-        icon: null,
-        bank: "",
-        note: ""
-    });
+    const reduxReset = useReduxReset();
 
-    const [error, setError] = useState(false);
-
-    const location = useLocation();
-    const type = location.state?.type || '';
-    const note = location.state?.note || '';
+    const dispatch = useDispatch();
+    const creditCard = useSelector((state) => state.creditCard);
+    const { type, bank, note, icon } = creditCard;
 
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
@@ -34,20 +29,49 @@ export default function AddCreditCardForm() {
         'Authorization': `Bearer ${token}`
     };
 
-    const handleTypeChange = (type) => setCreditCard({...creditCard, type});
-    const handleIconChange = (icon) => setCreditCard({...creditCard, icon});
-    const handleBankChange = (bank) => setCreditCard({...creditCard, bank});
-    const handleNoteChange = (note) => setCreditCard({...creditCard, note});
+    const handleTypeChange = (type) => {
+        dispatch(setType(type));
+    };
+
+    const handleIconChange = (icon) => {
+        dispatch(setIcon(icon));
+    };
+
+    const handleBankChange = (bank) => {
+        dispatch(setBank(bank));
+    };
+
+    const handleNoteChange = (note) => {
+        dispatch(setNote(note));
+    };
 
     const handleSubmit = async (e) => { e.preventDefault();
         try {
             await axios.post("http://localhost:8000/spendwisepro/credit_cards/save", creditCard, { headers });
+            reduxReset();
             navigate("/credit_cards", {state: {addSuccess: true}});
         } catch (err) {
-            setError(true);
             console.log("error");
         }
     }
+
+    const updatedBank = useSelector((state) => state.creditCard.bank);
+    const updatedType = useSelector((state) => state.creditCard.type);
+    const updatedNote = useSelector((state) => state.creditCard.note);
+    const updatedIcon = useSelector((state) => state.creditCard.icon);
+
+    useEffect(() => {
+        if (updatedBank) {
+            handleBankChange(updatedBank);
+        } else if (updatedType) {
+            handleTypeChange(updatedType);
+        } else if (updatedNote) {
+            handleNoteChange(updatedNote);
+        } else if (updatedIcon) {
+            handleIconChange(updatedIcon);
+        }
+    }, [updatedBank, updatedType, updatedNote, updatedIcon]);
+
 
     return (
         <Card className="w-full shadow-lg mt-8">
@@ -57,9 +81,9 @@ export default function AddCreditCardForm() {
                         <ul role="list" className="divide-y divide-gray-200">
                             <CreditCardType setType={handleTypeChange} initialValue={type} formType="add" />
 
-                            <CreditCardIcon setIcon={handleIconChange} />
+                            <CreditCardIcon setIcon={handleIconChange} initialValue={icon} formType="add" />
 
-                            <CreditCardBank setBank={handleBankChange} />
+                            <CreditCardBank setBank={handleBankChange} initialValue={bank} formType="add" />
 
                             <CreditCardNote setNote={handleNoteChange} initialValue={note} formType="add" />
                         </ul>

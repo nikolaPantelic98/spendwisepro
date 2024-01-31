@@ -30,55 +30,63 @@ import AddRecordPage from "./record/AddRecordPage";
 import EditRecordPage from "./record/EditRecordPage";
 import CreditCardTypePage from "./credit-card/form/CreditCardTypePage";
 import CreditCardNotePage from "./credit-card/form/CreditCardNotePage";
+import CreditCardBankPage from "./credit-card/form/CreditCardBankPage";
+import {Provider} from "react-redux";
+import store from '../redux/store';
+import CreditCardIconPage from "./credit-card/form/CreditCardIconPage";
 
 function App() {
 
     return (
         <>
-            <BrowserRouter>
-                <Routes>
-                    <Route index element={<LandingPage />} />
-                    <Route path="/" element={<LandingPage />}></Route>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route index element={<LandingPage />} />
+                        <Route path="/" element={<LandingPage />}></Route>
 
-                    <Route path="/login" element={<LoginPage />}></Route>
+                        <Route path="/login" element={<LoginPage />}></Route>
 
-                    <Route path="/home" element={<PrivateRoute element={<HomePage />} />} />
+                        <Route path="/home" element={<PrivateRoute element={<HomePage />} />} />
 
-                    <Route path="/add_category" element={<PrivateRoute element={<AddCategoryPage />} />} />
-                    <Route path="/categories" element={<PrivateRoute element={<CategoriesPage />} />} />
-                    <Route path="/edit_category/:id" element={<PrivateRoute element={<EditCategoryPage />} />} />
+                        <Route path="/add_category" element={<PrivateRoute element={<AddCategoryPage />} />} />
+                        <Route path="/categories" element={<PrivateRoute element={<CategoriesPage />} />} />
+                        <Route path="/edit_category/:id" element={<PrivateRoute element={<EditCategoryPage />} />} />
 
-                    <Route path="/records" element={<PrivateRoute element={<RecordsPage />} />} />
-                    <Route path="/add_record" element={<PrivateRoute element={<AddRecordPage />} />} />
-                    <Route path="/edit_record/:id" element={<PrivateRoute element={<EditRecordPage />} />} />
+                        <Route path="/records" element={<PrivateRoute element={<RecordsPage />} />} />
+                        <Route path="/add_record" element={<PrivateRoute element={<AddRecordPage />} />} />
+                        <Route path="/edit_record/:id" element={<PrivateRoute element={<EditRecordPage />} />} />
 
-                    <Route path="/balance" element={<PrivateRoute element={<BalancePage />} />} />
-                    <Route path="/cash" element={<PrivateRoute element={<CashPage />} />} />
-                    <Route path="/credit_cards" element={<PrivateRoute element={<CreditCardPage />} />} />
-                    <Route path="/add_credit_card" element={<PrivateRoute element={<AddCreditCardPage />} />} />
-                    <Route path="/edit_credit_card/:id" element={<PrivateRoute element={<EditCreditCardPage />} />} />
+                        <Route path="/balance" element={<PrivateRoute element={<BalancePage />} />} />
+                        <Route path="/cash" element={<PrivateRoute element={<CashPage />} />} />
+                        <Route path="/credit_cards" element={<PrivateRoute element={<CreditCardPage />} />} />
+                        <Route path="/add_credit_card" element={<PrivateRoute element={<AddCreditCardPage />} />} />
+                        <Route path="/edit_credit_card/:id" element={<PrivateRoute element={<EditCreditCardPage />} />} />
 
-                    <Route path="/credit_cards/type" element={<PrivateRoute element={<CreditCardTypePage />} />} />
-                    <Route path="/credit_cards/note" element={<PrivateRoute element={<CreditCardNotePage />} />} />
+                        <Route path="/credit_cards/type" element={<PrivateRoute element={<CreditCardTypePage />} />} />
+                        <Route path="/credit_cards/note" element={<PrivateRoute element={<CreditCardNotePage />} />} />
+                        <Route path="/credit_cards/bank" element={<PrivateRoute element={<CreditCardBankPage />} />} />
+                        <Route path="/credit_cards/icon" element={<PrivateRoute element={<CreditCardIconPage />} />} />
 
-                    <Route path="/budgets" element={<PrivateRoute element={<BudgetPage />} />} />
-                    <Route path="/budgets/weekly/*" element={<PrivateRoute element={<BudgetWeeklyPage />} />} />
-                    <Route path="/budgets/monthly/*" element={<PrivateRoute element={<BudgetMonthlyPage />} />} />
-                    <Route path="/add_budget" element={<PrivateRoute element={<AddBudgetPage />} />} />
+                        <Route path="/budgets" element={<PrivateRoute element={<BudgetPage />} />} />
+                        <Route path="/budgets/weekly/*" element={<PrivateRoute element={<BudgetWeeklyPage />} />} />
+                        <Route path="/budgets/monthly/*" element={<PrivateRoute element={<BudgetMonthlyPage />} />} />
+                        <Route path="/add_budget" element={<PrivateRoute element={<AddBudgetPage />} />} />
 
-                    <Route path="/goals" element={<PrivateRoute element={<GoalsPage />} />} />
-                    <Route path="/goals/weekly/*" element={<PrivateRoute element={<GoalWeeklyPage />} />} />
-                    <Route path="/goals/monthly/*" element={<PrivateRoute element={<GoalMonthlyPage />} />} />
-                    <Route path="/add_goal" element={<PrivateRoute element={<AddGoalPage />} />} />
+                        <Route path="/goals" element={<PrivateRoute element={<GoalsPage />} />} />
+                        <Route path="/goals/weekly/*" element={<PrivateRoute element={<GoalWeeklyPage />} />} />
+                        <Route path="/goals/monthly/*" element={<PrivateRoute element={<GoalMonthlyPage />} />} />
+                        <Route path="/add_goal" element={<PrivateRoute element={<AddGoalPage />} />} />
 
-                    <Route path="/expenses" element={<PrivateRoute element={<ExpensesPage />} />} />
-                    <Route path="/expenses/month/*" element={<PrivateRoute element={<ExpensesRecordsMonthlyPage />} />} />
-                    <Route path="/expenses/week/*" element={<PrivateRoute element={<ExpensesRecordsWeeklyPage />} />} />
+                        <Route path="/expenses" element={<PrivateRoute element={<ExpensesPage />} />} />
+                        <Route path="/expenses/month/*" element={<PrivateRoute element={<ExpensesRecordsMonthlyPage />} />} />
+                        <Route path="/expenses/week/*" element={<PrivateRoute element={<ExpensesRecordsWeeklyPage />} />} />
 
-                    <Route path="/planned_payments" element={<PrivateRoute element={<PlannedPaymentsPage />} />} />
-                    <Route path="/add_planned_payment" element={<PrivateRoute element={<AddPlannedPaymentPage />} />} />
-                </Routes>
-            </BrowserRouter>
+                        <Route path="/planned_payments" element={<PrivateRoute element={<PlannedPaymentsPage />} />} />
+                        <Route path="/add_planned_payment" element={<PrivateRoute element={<AddPlannedPaymentPage />} />} />
+                    </Routes>
+                </BrowserRouter>
+            </Provider>
         </>
     );
 }
