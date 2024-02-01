@@ -10,51 +10,36 @@ import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React, {useEffect, useState} from "react";
 import {InformationCircleIcon} from "@heroicons/react/20/solid";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setCategoryIcon, setCategoryParent} from "../../../redux/categorySlice";
 
-export default function CategoryParentCategory({ setParent, initialValue = "" }) {
-    const [openParentCategory, setOpenParentCategory] = useState(false);
-    const [selectedParentCategory, setSelectedParentCategory] = useState(initialValue);
-    const [tempSelectedParentCategory, setTempSelectedParentCategory] = useState("");
-    const [parents, setParents] = useState([]);
+export default function CategoryParentCategory({ initialValue = "", formType, id }) {
 
-    const handleOpenParentCategory = () => {
-        setTempSelectedParentCategory(selectedParentCategory);
-        setOpenParentCategory(true);
-    };
-    const handleCloseParentCategory = () => {
-        setSelectedParentCategory(null);
-        setParent(null);
-        setOpenParentCategory(false);
-    };
+    const navigate = useNavigate();
+    const navigateTo = formType === 'add' ? '/add_category' : `/edit_category/${id}`;
 
-    const handleConfirmParentCategory = () => {
-        setParent(selectedParentCategory);
-        setOpenParentCategory(false);
-        setTempSelectedParentCategory("");
-    };
-
-    const handleParentCategoryChange = (value) => {
-        setSelectedParentCategory(value);
-    }
-
-    const token = localStorage.getItem("token");
-
-    const headers = {
-        'Authorization': `Bearer ${token}`
-    };
+    const dispatch = useDispatch();
+    const parent = useSelector((state) => state.category.parent);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/categories/all_root', { headers })
-            .then(response => {
-                setParents(response.data);
-            })
-            .catch(error => console.error('Error fetching parent categories:', error));
-    }, []);
+        dispatch(setCategoryParent(initialValue));
+    }, [initialValue]);
+
+    function findParentImage(icon) {
+        return parent.icon.iconPath;
+    }
+
+    const handleParentClick = () => {
+        navigate('/categories/parent', { state: { parent: parent, from: navigateTo, selectedParent: parent } });
+    };
+
 
     return (
         <li className="py-3 sm:py-4">
-            <div onClick={handleOpenParentCategory}>
-                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+            <div>
+                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
+                          onClick={handleParentClick}>
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://icon-library.com/images/icon-categories/icon-categories-0.jpg" alt="Parent category" />
                     </div>
@@ -65,8 +50,8 @@ export default function CategoryParentCategory({ setParent, initialValue = "" })
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm truncate dark:text-gray-400 ${selectedParentCategory ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
-                            {selectedParentCategory ? (selectedParentCategory.name.length > 14 ? selectedParentCategory.name.substring(0, 11) + "..." : selectedParentCategory.name) : "Select"}
+                        <div className={`text-sm truncate dark:text-gray-400 ${parent ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
+                            {parent ? (parent.name.length > 14 ? parent.name.substring(0, 11) + "..." : parent.name) : "Select"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -75,64 +60,6 @@ export default function CategoryParentCategory({ setParent, initialValue = "" })
                     </div>
                 </ListItem>
             </div>
-            <Dialog
-                open={openParentCategory}
-                handler={handleOpenParentCategory}
-                animate={{
-                    mount: { scale: 1, y: 0 },
-                    unmount: { scale: 0.9, y: -100 },
-                }}
-            >
-                <DialogHeader>Parent Category</DialogHeader>
-                <DialogBody>
-                    <Select
-                        label="Parent Category"
-                        menuProps={{ className: "h-48" }}
-                        color="green"
-                        size="lg"
-                        value={tempSelectedParentCategory}
-                        onChange={handleParentCategoryChange}
-                        className="relative"
-                    >
-                        {parents.map((parentCategory) => (
-                            <Option value={parentCategory} key={parentCategory.id}>
-                                <div className="flex items-center">
-                                    <img
-                                        className="w-8 h-8 rounded-full"
-                                        src={parentCategory.icon.iconPath}
-                                        alt={parentCategory.icon.image}
-                                    />
-                                    <span className="ml-3">{parentCategory.name}</span>
-                                </div>
-                            </Option>
-                        ))}
-                    </Select>
-                    <Typography variant="small" color="gray" className="flex items-center gap-1 font-normal mt-4 ml-1">
-                        <InformationCircleIcon className="w-4 h-4 -mt-px" />
-                        Press 'Clean' if this is parent category.
-                    </Typography>
-                    <Typography variant="small" color="gray" className="flex items-center gap-1 font-normal mt-2 ml-1">
-                        <InformationCircleIcon className="w-4 h-4 -mt-px" />
-                        Parent categories are used to group
-                    </Typography>
-                    <Typography variant="small" color="gray" className="flex items-center gap-1 font-normal ml-6">
-                        categories and its their only purpose.
-                    </Typography>
-                </DialogBody>
-                <DialogFooter>
-                    <Button
-                        variant="text"
-                        color="red"
-                        onClick={handleCloseParentCategory}
-                        className="mr-1"
-                    >
-                        <span>Clean</span>
-                    </Button>
-                    <Button variant="gradient" color="green" onClick={handleConfirmParentCategory}>
-                        <span>Confirm</span>
-                    </Button>
-                </DialogFooter>
-            </Dialog>
         </li>
     );
 }

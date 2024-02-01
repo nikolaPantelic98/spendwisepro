@@ -17,6 +17,7 @@ import {setCategoryColor, setCategoryIcon, setCategoryName, setCategoryParent} f
 export default function AddCategoryForm() {
 
     const reduxReset = useReduxReset();
+
     const dispatch = useDispatch();
     const category = useSelector((state) => state.category);
     const { name, color, icon, parent } = category;
@@ -50,7 +51,7 @@ export default function AddCategoryForm() {
             reduxReset();
             navigate("/categories", {state: {addSuccess: true}});
         } catch (err) {
-            console.log("error");
+            console.log(err);
         }
     }
 

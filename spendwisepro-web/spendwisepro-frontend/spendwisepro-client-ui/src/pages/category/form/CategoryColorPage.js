@@ -154,8 +154,8 @@ function CategoryColorPage() {
                                         {colorOptions.map(color => (
                                             <li className="flex-0 w-1/4">
                                                 <ListItem
-                                                    className={`flex items-center justify-center ${selectedColor.id === color.id ? 'border-3 border-green-500' : ''}`}
-                                                    onClick={() => setSelectedColor(color)}
+                                                    className={`flex items-center justify-center ${selectedColor === color.value ? 'border-3 border-green-500' : ''}`}
+                                                    onClick={() => setSelectedColor(color.value)}
                                                     onKeyDown={handleKeyDown}
                                                     tabIndex={0}
                                                 >

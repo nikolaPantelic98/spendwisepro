@@ -37,6 +37,8 @@ import CreditCardIconPage from "./credit-card/form/CreditCardIconPage";
 import ScrollToTop from "../components/common/ScrollToTop";
 import CategoryNamePage from "./category/form/CategoryNamePage";
 import CategoryColorPage from "./category/form/CategoryColorPage";
+import CategoryIconPage from "./category/form/CategoryIconPage";
+import CategoryParentPage from "./category/form/CategoryParentPage";
 
 function App() {
 
@@ -58,6 +60,8 @@ function App() {
 
                         <Route path="/categories/name" element={<PrivateRoute element={<CategoryNamePage />} />} />
                         <Route path="/categories/color" element={<PrivateRoute element={<CategoryColorPage />} />} />
+                        <Route path="/categories/icon" element={<PrivateRoute element={<CategoryIconPage />} />} />
+                        <Route path="/categories/parent" element={<PrivateRoute element={<CategoryParentPage />} />} />
 
                         <Route path="/records" element={<PrivateRoute element={<RecordsPage />} />} />
                         <Route path="/add_record" element={<PrivateRoute element={<AddRecordPage />} />} />
