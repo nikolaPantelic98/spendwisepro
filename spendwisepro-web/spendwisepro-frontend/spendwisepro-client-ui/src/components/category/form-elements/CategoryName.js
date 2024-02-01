@@ -1,49 +1,34 @@
 import {
-    Button,
-    Dialog,
-    DialogBody,
-    DialogFooter,
-    DialogHeader,
-    Input,
     ListItem
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setCategoryName} from "../../../redux/categorySlice";
 
-export default function CategoryName({ setName, initialValue = "" }) {
+export default function CategoryName({ initialValue = "", formType, id }) {
 
-    const [openName, setOpenName] = React.useState(false);
-    const [contentName, setContentName] = React.useState(initialValue);
-    const [isNameTyped, setIsNameTyped] = React.useState(false);
-    const [tempNameContent, setTempNameContent] = React.useState("");
+    const navigate = useNavigate();
+    const navigateTo = formType === 'add' ? '/add_category' : `/edit_category/${id}`;
 
-    const handleOpenName = () => {
-        setTempNameContent(contentName);
-        setOpenName(true);
+    const dispatch = useDispatch();
+    const name = useSelector((state) => state.category.name);
+
+    useEffect(() => {
+        dispatch(setCategoryName(initialValue));
+    }, [initialValue]);
+
+    const handleNameClick = () => {
+        navigate('/categories/name', { state: { name: name, from: navigateTo } });
     };
-    const handleCloseName = () => {
-        if (isNameTyped) {
-            setContentName(tempNameContent);
-        }
-        setOpenName(false);
-    };
-    const handleConfirmName = () => {
-        if (!isNameTyped) {
-            setTempNameContent("");
-            setIsNameTyped(false);
-        }
-        setName(contentName);
-        setOpenName(false);
-    };
-    const handleNameChange = (event) => {
-        setContentName(event.target.value);
-        setIsNameTyped(event.target.value !== "");
-    }
+
 
     return (
         <li className="py-3 sm:py-4">
-            <div onClick={handleOpenName}>
-                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+            <div>
+                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
+                          onClick={handleNameClick}>
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://www.iconbunny.com/icons/media/catalog/product/4/0/4039.9-documents-and-pen-icon-iconbunny.jpg" alt="Name" />
                     </div>
@@ -54,8 +39,8 @@ export default function CategoryName({ setName, initialValue = "" }) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isNameTyped || initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
-                            {contentName ? contentName : "Type"}
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
+                            {name ? (name.length > 20 ? name.substring(0, 17) + "..." : name) : "Type"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -64,32 +49,6 @@ export default function CategoryName({ setName, initialValue = "" }) {
                     </div>
                 </ListItem>
             </div>
-            <Dialog
-                open={openName}
-                handler={handleOpenName}
-                animate={{
-                    mount: { scale: 1, y: 0 },
-                    unmount: { scale: 0.9, y: -100 },
-                }}
-            >
-                <DialogHeader>Name</DialogHeader>
-                <DialogBody>
-                    <Input label="Name" color="green" value={contentName} onChange={handleNameChange} />
-                </DialogBody>
-                <DialogFooter>
-                    <Button
-                        variant="text"
-                        color="red"
-                        onClick={handleCloseName}
-                        className="mr-1"
-                    >
-                        <span>Cancel</span>
-                    </Button>
-                    <Button variant="gradient" color="green" onClick={handleConfirmName}>
-                        <span>Confirm</span>
-                    </Button>
-                </DialogFooter>
-            </Dialog>
         </li>
     );
 }
