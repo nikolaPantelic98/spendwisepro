@@ -19,11 +19,16 @@ export default function CreditCardBank({ initialValue = "", formType, id }) {
         dispatch(setBank(initialValue));
     }, [initialValue]);
 
+    const handleBankClick = () => {
+        navigate('/credit_cards/bank', { state: { bank: bank, from: navigateTo } });
+    };
+
+
     return (
         <li className="py-3 sm:py-4">
             <div>
                 <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
-                          onClick={() => navigate('/credit_cards/bank', { state: { bank: bank, from: navigateTo } })}>
+                          onClick={handleBankClick}>
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://www.iconbunny.com/icons/media/catalog/product/9/4/948.9-local-banks-icon-iconbunny.jpg" alt="Bank" />
                     </div>

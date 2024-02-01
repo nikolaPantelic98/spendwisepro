@@ -23,11 +23,16 @@ export default function CreditCardIcon({ initialValue = "", formType, id }) {
         return icon.iconPath;
     }
 
+    const handleIconClick = () => {
+        navigate('/credit_cards/icon', { state: { icon: icon, from: navigateTo, selectedIcon: icon } });
+    };
+
+
     return (
         <li className="py-3 sm:py-4">
             <div>
                 <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
-                          onClick={() => navigate('/credit_cards/icon', { state: { icon: icon, from: navigateTo, selectedIcon: icon } })}>
+                          onClick={handleIconClick}>
                     <div className="flex-shrink-0">
                         <img
                             className="w-8 h-8 rounded-full"

@@ -19,11 +19,16 @@ export default function CreditCardNote({ initialValue = "", formType, id }) {
         dispatch(setNote(initialValue));
     }, [initialValue]);
 
+    const handleNoteClick = () => {
+        navigate('/credit_cards/note', { state: { note: note, from: navigateTo } });
+    };
+
+
     return (
         <li className="py-3 sm:py-4">
             <div>
                 <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
-                          onClick={() => navigate('/credit_cards/note', { state: { note: note, from: navigateTo } })}>
+                          onClick={handleNoteClick}>
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/190/190703.png" alt="Note" />
                     </div>

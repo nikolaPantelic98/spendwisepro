@@ -82,13 +82,17 @@ export default function EditCreditCardForm() {
     useEffect(() => {
         if (updatedBank) {
             handleBankChange(updatedBank);
-        } else if (updatedType) {
+        }
+        if (updatedType) {
             handleTypeChange(updatedType);
-        } else if (updatedNote) {
+        }
+        if (updatedNote) {
             handleNoteChange(updatedNote);
-        } else if (updatedIcon) {
+        }
+        if (updatedIcon) {
             handleIconChange(updatedIcon);
-        } else if (updatedAmount){
+        }
+        if (updatedAmount) {
             handleAmountChange(updatedAmount);
         }
     }, [updatedBank, updatedType, updatedNote, updatedIcon, updatedAmount]);

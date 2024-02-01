@@ -5,7 +5,7 @@ import {Button, Typography} from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch} from "react-redux";
-import {setBank, setType} from "../../../redux/creditCardSlice";
+import {setType} from "../../../redux/creditCardSlice";
 
 function CreditCardTypePage() {
 
@@ -78,7 +78,7 @@ function CreditCardTypePage() {
                                             await dispatch(setType(textAreaValueType));
                                             navigate(from, { state: { type: textAreaValueType } });
                                         }}>
-                                    <span>Save</span>
+                                    <span>Confirm</span>
                                 </Button>
                             </div>
                         </div>

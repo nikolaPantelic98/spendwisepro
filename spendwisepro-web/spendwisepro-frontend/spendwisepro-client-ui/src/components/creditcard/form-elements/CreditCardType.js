@@ -19,11 +19,16 @@ export default function CreditCardType({ initialValue = "", formType, id }) {
         dispatch(setType(initialValue));
     }, [initialValue]);
 
+    const handleTypeClick = () => {
+        navigate('/credit_cards/type', { state: { type: initialValue, from: navigateTo } });
+    };
+
+
     return (
         <li className="py-3 sm:py-4">
             <div>
                 <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
-                          onClick={() => navigate('/credit_cards/type', { state: { type: type, from: navigateTo } })}>
+                          onClick={handleTypeClick}>
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://www.pngitem.com/pimgs/m/544-5444157_credit-card-icons-png-credit-card-icon-green.png" alt="Type" />
                     </div>
