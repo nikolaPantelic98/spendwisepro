@@ -34,6 +34,7 @@ import CreditCardBankPage from "./credit-card/form/CreditCardBankPage";
 import {Provider} from "react-redux";
 import store from '../redux/store';
 import CreditCardIconPage from "./credit-card/form/CreditCardIconPage";
+import ScrollToTop from "../components/common/ScrollToTop";
 
 function App() {
 
@@ -85,6 +86,7 @@ function App() {
                         <Route path="/planned_payments" element={<PrivateRoute element={<PlannedPaymentsPage />} />} />
                         <Route path="/add_planned_payment" element={<PrivateRoute element={<AddPlannedPaymentPage />} />} />
                     </Routes>
+                    <ScrollToTop />
                 </BrowserRouter>
             </Provider>
         </>
