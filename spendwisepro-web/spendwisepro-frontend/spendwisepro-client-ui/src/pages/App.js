@@ -36,6 +36,7 @@ import store from '../redux/store';
 import CreditCardIconPage from "./credit-card/form/CreditCardIconPage";
 import ScrollToTop from "../components/common/ScrollToTop";
 import CategoryNamePage from "./category/form/CategoryNamePage";
+import CategoryColorPage from "./category/form/CategoryColorPage";
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
                         <Route path="/edit_category/:id" element={<PrivateRoute element={<EditCategoryPage />} />} />
 
                         <Route path="/categories/name" element={<PrivateRoute element={<CategoryNamePage />} />} />
+                        <Route path="/categories/color" element={<PrivateRoute element={<CategoryColorPage />} />} />
 
                         <Route path="/records" element={<PrivateRoute element={<RecordsPage />} />} />
                         <Route path="/add_record" element={<PrivateRoute element={<AddRecordPage />} />} />

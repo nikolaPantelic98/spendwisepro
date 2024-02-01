@@ -2,7 +2,7 @@ import {
     ListItem
 } from "@material-tailwind/react";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {setIcon} from "../../../redux/creditCardSlice";

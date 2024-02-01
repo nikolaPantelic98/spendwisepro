@@ -3,7 +3,7 @@ import {
     CardBody,
     Button
 } from "@material-tailwind/react";
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import CategoryName from "../form-elements/CategoryName";
 import CategoryParentCategory from "../form-elements/CategoryParentCategory";
 import CategoryIcon from "../form-elements/CategoryIcon";
