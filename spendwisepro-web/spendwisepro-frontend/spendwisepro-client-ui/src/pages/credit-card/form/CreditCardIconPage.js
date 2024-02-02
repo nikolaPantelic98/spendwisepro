@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
-import {setIcon} from "../../../redux/creditCardSlice";
+import {setCreditCardIcon} from "../../../redux/creditCardSlice";
 import Menu from "../../../components/common/Menu";
 import PageHeader from "../../../components/common/PageHeader";
 import {Avatar, Button, ListItem, Typography} from "@material-tailwind/react";
@@ -40,7 +40,7 @@ function CreditCardIconPage() {
     const handleKeyDown = async (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            await dispatch(setIcon(selectedIcon));
+            await dispatch(setCreditCardIcon(selectedIcon));
             navigate(from);
         }
     };
@@ -92,7 +92,7 @@ function CreditCardIconPage() {
                             <div className="flex justify-center items-center">
                                 <Button className="mt-2 w-full" variant="gradient" color="green"
                                         onClick={async () => {
-                                            await dispatch(setIcon(selectedIcon));
+                                            await dispatch(setCreditCardIcon(selectedIcon));
                                             navigate(from, { state: { icon: selectedIcon } });
                                         }}>
                                     <span>Confirm</span>

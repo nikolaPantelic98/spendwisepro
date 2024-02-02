@@ -123,7 +123,10 @@ export default function EditCategoryForm() {
                             <Button onClick={handleOpenDeleteConfirmationDialog} className="mt-2 w-full" variant="outlined" color="red">
                                 <span>Delete</span>
                             </Button>
-                            <Button onClick={navigateToCategories} className="mt-2 w-full" variant="outlined" color="green">
+                            <Button className="mt-2 w-full" variant="outlined" color="green" oonClick={() => {
+                                navigateToCategories();
+                                reduxReset();
+                            }}>
                                 <span>Cancel</span>
                             </Button>
                         </div>

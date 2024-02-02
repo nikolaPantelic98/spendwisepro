@@ -7,7 +7,10 @@ import CreditCardType from "../form-elements/CreditCardType";
 import CreditCardIcon from "../form-elements/CreditCardIcon";
 import CreditCardBank from "../form-elements/CreditCardBank";
 import CreditCardNote from "../form-elements/CreditCardNote";
-import {setAmount, setBank, setIcon, setNote, setType} from "../../../redux/creditCardSlice";
+import {
+    setCreditCardAmount, setCreditCardBank, setCreditCardIcon, setCreditCardNote,
+    setCreditCardType,
+} from "../../../redux/creditCardSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useReduxReset} from "../../../redux/useReduxReset";
 
@@ -30,23 +33,23 @@ export default function EditCreditCardForm() {
     };
 
     const handleAmountChange = (amount) => {
-        dispatch(setAmount(amount));
+        dispatch(setCreditCardAmount(amount));
     };
 
     const handleTypeChange = (type) => {
-        dispatch(setType(type));
+        dispatch(setCreditCardType(type));
     };
 
     const handleIconChange = (icon) => {
-        dispatch(setIcon(icon));
+        dispatch(setCreditCardIcon(icon));
     };
 
     const handleBankChange = (bank) => {
-        dispatch(setBank(bank));
+        dispatch(setCreditCardBank(bank));
     };
 
     const handleNoteChange = (note) => {
-        dispatch(setNote(note));
+        dispatch(setCreditCardNote(note));
     };
 
     const [openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog] = useState(false);

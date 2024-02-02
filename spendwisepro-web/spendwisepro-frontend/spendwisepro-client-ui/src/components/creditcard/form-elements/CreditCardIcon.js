@@ -5,7 +5,7 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setIcon} from "../../../redux/creditCardSlice";
+import {setCreditCardIcon} from "../../../redux/creditCardSlice";
 
 export default function CreditCardIcon({ initialValue = "", formType, id }) {
 
@@ -16,7 +16,7 @@ export default function CreditCardIcon({ initialValue = "", formType, id }) {
     const icon = useSelector((state) => state.creditCard.icon);
 
     useEffect(() => {
-        dispatch(setIcon(initialValue));
+        dispatch(setCreditCardIcon(initialValue));
     }, [initialValue]);
 
     function findIconImage(icon) {

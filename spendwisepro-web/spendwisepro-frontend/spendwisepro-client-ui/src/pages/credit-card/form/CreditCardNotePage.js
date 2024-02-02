@@ -5,7 +5,7 @@ import {Button, Typography} from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch} from "react-redux";
-import {setBank, setNote} from "../../../redux/creditCardSlice";
+import {setCreditCardNote} from "../../../redux/creditCardSlice";
 
 function CreditCardNotePage() {
 
@@ -37,7 +37,7 @@ function CreditCardNotePage() {
     const handleKeyDown = async (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            await dispatch(setNote(textAreaValueNote));
+            await dispatch(setCreditCardNote(textAreaValueNote));
             navigate(from);
         }
     };
@@ -75,7 +75,7 @@ function CreditCardNotePage() {
                             <div className="flex justify-center items-center">
                                 <Button className="mt-2 w-full" variant="gradient" color="green"
                                         onClick={async () => {
-                                            await dispatch(setNote(textAreaValueNote));
+                                            await dispatch(setCreditCardNote(textAreaValueNote));
                                             navigate(from, { state: { note: textAreaValueNote } });
                                         }}>
                                     <span>Confirm</span>

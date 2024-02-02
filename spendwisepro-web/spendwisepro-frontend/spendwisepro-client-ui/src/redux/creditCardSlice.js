@@ -10,19 +10,19 @@ const creditCardSlice = createSlice({
         note: ""
     },
     reducers: {
-        setAmount: (state, action) => {
+        setCreditCardAmount: (state, action) => {
             state.amount = action.payload;
         },
-        setType: (state, action) => {
+        setCreditCardType: (state, action) => {
             state.type = action.payload;
         },
-        setIcon: (state, action) => {
+        setCreditCardIcon: (state, action) => {
             state.icon = action.payload;
         },
-        setBank: (state, action) => {
+        setCreditCardBank: (state, action) => {
             state.bank = action.payload;
         },
-        setNote: (state, action) => {
+        setCreditCardNote: (state, action) => {
             state.note = action.payload;
         },
         resetCreditCard: state => {
@@ -35,6 +35,6 @@ const creditCardSlice = createSlice({
     },
 });
 
-export const { setAmount, setType, setIcon, setBank, setNote, resetCreditCard } = creditCardSlice.actions;
+export const { setCreditCardAmount, setCreditCardType, setCreditCardIcon, setCreditCardBank, setCreditCardNote, resetCreditCard } = creditCardSlice.actions;
 
 export default creditCardSlice.reducer;

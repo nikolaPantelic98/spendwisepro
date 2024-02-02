@@ -5,7 +5,7 @@ import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React, {useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import {setType} from "../../../redux/creditCardSlice";
+import {setCreditCardType} from "../../../redux/creditCardSlice";
 
 export default function CreditCardType({ initialValue = "", formType, id }) {
 
@@ -16,7 +16,7 @@ export default function CreditCardType({ initialValue = "", formType, id }) {
     const type = useSelector((state) => state.creditCard.type);
 
     useEffect(() => {
-        dispatch(setType(initialValue));
+        dispatch(setCreditCardType(initialValue));
     }, [initialValue]);
 
     const handleTypeClick = () => {

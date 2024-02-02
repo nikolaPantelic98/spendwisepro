@@ -5,7 +5,7 @@ import {Button, Typography} from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch} from "react-redux";
-import {setBank} from "../../../redux/creditCardSlice";
+import {setCreditCardBank} from "../../../redux/creditCardSlice";
 
 function CreditCardBankPage() {
 
@@ -37,7 +37,7 @@ function CreditCardBankPage() {
     const handleKeyDown = async (event) => {
         if (event.key === 'Enter') {
             event.preventDefault();
-            await dispatch(setBank(textAreaValueBank));
+            await dispatch(setCreditCardBank(textAreaValueBank));
             navigate(from);
         }
     };
@@ -75,7 +75,7 @@ function CreditCardBankPage() {
                             <div className="flex justify-center items-center">
                                 <Button className="mt-2 w-full" variant="gradient" color="green"
                                         onClick={async () => {
-                                            await dispatch(setBank(textAreaValueBank));
+                                            await dispatch(setCreditCardBank(textAreaValueBank));
                                             navigate(from, { state: { bank: textAreaValueBank } });
                                         }}>
                                     <span>Confirm</span>

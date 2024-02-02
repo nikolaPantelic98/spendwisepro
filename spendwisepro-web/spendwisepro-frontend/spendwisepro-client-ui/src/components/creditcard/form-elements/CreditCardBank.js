@@ -5,7 +5,7 @@ import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setBank} from "../../../redux/creditCardSlice";
+import {setCreditCardBank} from "../../../redux/creditCardSlice";
 
 export default function CreditCardBank({ initialValue = "", formType, id }) {
 
@@ -16,7 +16,7 @@ export default function CreditCardBank({ initialValue = "", formType, id }) {
     const bank = useSelector((state) => state.creditCard.bank);
 
     useEffect(() => {
-        dispatch(setBank(initialValue));
+        dispatch(setCreditCardBank(initialValue));
     }, [initialValue]);
 
     const handleBankClick = () => {

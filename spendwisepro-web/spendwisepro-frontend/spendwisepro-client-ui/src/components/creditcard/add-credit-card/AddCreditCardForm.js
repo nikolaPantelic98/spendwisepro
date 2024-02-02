@@ -11,7 +11,11 @@ import CreditCardIcon from "../form-elements/CreditCardIcon";
 import {useNavigate} from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
-import {setBank, setIcon, setNote, setType} from "../../../redux/creditCardSlice";
+import {
+    setCreditCardBank,
+    setCreditCardIcon, setCreditCardNote,
+    setCreditCardType
+} from "../../../redux/creditCardSlice";
 import {useReduxReset} from "../../../redux/useReduxReset";
 
 export default function AddCreditCardForm() {
@@ -30,19 +34,19 @@ export default function AddCreditCardForm() {
     };
 
     const handleTypeChange = (type) => {
-        dispatch(setType(type));
+        dispatch(setCreditCardType(type));
     };
 
     const handleIconChange = (icon) => {
-        dispatch(setIcon(icon));
+        dispatch(setCreditCardIcon(icon));
     };
 
     const handleBankChange = (bank) => {
-        dispatch(setBank(bank));
+        dispatch(setCreditCardBank(bank));
     };
 
     const handleNoteChange = (note) => {
-        dispatch(setNote(note));
+        dispatch(setCreditCardNote(note));
     };
 
     const handleSubmit = async (e) => { e.preventDefault();

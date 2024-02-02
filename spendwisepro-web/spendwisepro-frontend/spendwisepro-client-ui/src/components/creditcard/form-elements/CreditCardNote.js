@@ -5,7 +5,7 @@ import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setNote} from "../../../redux/creditCardSlice";
+import {setCreditCardNote} from "../../../redux/creditCardSlice";
 
 export default function CreditCardNote({ initialValue = "", formType, id }) {
 
@@ -16,7 +16,7 @@ export default function CreditCardNote({ initialValue = "", formType, id }) {
     const note = useSelector((state) => state.creditCard.note);
 
     useEffect(() => {
-        dispatch(setNote(initialValue));
+        dispatch(setCreditCardNote(initialValue));
     }, [initialValue]);
 
     const handleNoteClick = () => {
