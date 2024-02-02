@@ -4,7 +4,7 @@ import PageHeader from "../../../components/common/PageHeader";
 import {Button, Typography} from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import {useLocation, useNavigate} from 'react-router-dom';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setCategoryName} from "../../../redux/categorySlice";
 
 function CategoryNamePage() {
@@ -18,7 +18,8 @@ function CategoryNamePage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const [textAreaValueName, setTextAreaValueName] = useState("");
+    const name = useSelector((state) => state.category.name);
+    const [textAreaValueName, setTextAreaValueName] = useState(name);
     const textAreaRefName = useRef(null);
     const from = location.state?.from || '/add_category';
 

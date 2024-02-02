@@ -4,7 +4,7 @@ import PageHeader from "../../../components/common/PageHeader";
 import {Button, Typography} from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import {useLocation, useNavigate} from 'react-router-dom';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setCreditCardBank} from "../../../redux/creditCardSlice";
 
 function CreditCardBankPage() {
@@ -18,7 +18,8 @@ function CreditCardBankPage() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const [textAreaValueBank, setTextAreaValueBank] = useState("");
+    const bank = useSelector((state) => state.creditCard.bank);
+    const [textAreaValueBank, setTextAreaValueBank] = useState(bank);
     const textAreaRefBank = useRef(null);
     const from = location.state?.from || '/add_credit_card';
 
