@@ -6,11 +6,20 @@ import CategoryIcon from "../form-elements/CategoryIcon";
 import CategoryParentCategory from "../form-elements/CategoryParentCategory";
 import {Button, Card, CardBody, Dialog, DialogBody, DialogFooter, DialogHeader} from "@material-tailwind/react";
 import {useNavigate, useParams} from "react-router-dom";
+import {useReduxReset} from "../../../redux/useReduxReset";
+import {useDispatch, useSelector} from "react-redux";
+import {setCategoryColor, setCategoryIcon, setCategoryName, setCategoryParent} from "../../../redux/categorySlice";
 
 export default function EditCategoryForm() {
-    const [category, setCategory] = useState(null);
+
+    const [categoryDB, setCategoryDB] = useState(null);
     const { id } = useParams();
     const [error, setError] = useState(false);
+    const reduxReset = useReduxReset();
+
+    const dispatch = useDispatch();
+    const category = useSelector((state) => state.category);
+    const { name, color, icon, parent } = category;
 
     const navigate = useNavigate();
     const token = localStorage.getItem("token");
@@ -19,10 +28,21 @@ export default function EditCategoryForm() {
         'Authorization': `Bearer ${token}`
     };
 
-    const handleNameChange = (name) => setCategory({...category, name});
-    const handleColorChange = (color) => setCategory({...category, color});
-    const handleIconChange = (icon) => setCategory({...category, icon});
-    const handleParentChange = (parent) => setCategory({...category, parent});
+    const handleNameChange = (name) => {
+        dispatch(setCategoryName(name));
+    };
+
+    const handleColorChange = (color) => {
+        dispatch(setCategoryColor(color));
+    };
+
+    const handleIconChange = (icon) => {
+        dispatch(setCategoryIcon(icon));
+    };
+
+    const handleParentChange = (parent) => {
+        dispatch(setCategoryParent(parent));
+    };
 
     const [openDeleteConfirmationDialog, setOpenDeleteConfirmationDialog] = useState(false);
     const handleOpenDeleteConfirmationDialog = () => setOpenDeleteConfirmationDialog(true);
@@ -31,7 +51,7 @@ export default function EditCategoryForm() {
     useEffect(() => {
         axios.get(`http://localhost:8000/spendwisepro/categories/${id}`, { headers })
             .then(response => {
-                setCategory(response.data);
+                setCategoryDB(response.data);
             })
             .catch(error => console.error('Error fetching category:', error));
     }, [id]);
@@ -40,12 +60,33 @@ export default function EditCategoryForm() {
         e.preventDefault();
         try {
             await axios.put(`http://localhost:8000/spendwisepro/categories/edit/${id}`, category, { headers });
+            reduxReset();
             navigate("/categories", {state: {updateSuccess: true}});
         } catch (err) {
             setError(true);
             console.log("error");
         }
     }
+
+    const updatedName = useSelector((state) => state.category.name);
+    const updatedColor = useSelector((state) => state.category.color);
+    const updatedIcon = useSelector((state) => state.category.icon);
+    const updatedParent = useSelector((state) => state.category.parent);
+
+    useEffect(() => {
+        if (updatedName) {
+            handleNameChange(updatedName);
+        }
+        if (updatedColor) {
+            handleColorChange(updatedColor);
+        }
+        if (updatedIcon) {
+            handleIconChange(updatedIcon);
+        }
+        if (updatedParent) {
+            handleParentChange(updatedParent);
+        }
+    }, [updatedName, updatedColor, updatedIcon, updatedParent]);
 
     const deleteCategory = () => {
         axios.delete(`http://localhost:8000/spendwisepro/categories/delete/${id}`, { headers })
@@ -60,20 +101,20 @@ export default function EditCategoryForm() {
         navigate("/categories");
     }
 
-    return category ? (
+    return categoryDB ? (
 
         <Card className="w-full shadow-lg mt-8">
             <CardBody>
                 <form onSubmit={handleSubmit}>
                     <div className="flow-root">
                         <ul className="divide-y divide-gray-200">
-                            <CategoryName setName={handleNameChange} initialValue={category.name} />
+                            <CategoryName setName={handleNameChange} initialValue={name !== "" ? name : categoryDB.name} formType="edit" id={id} />
 
-                            <CategoryParentCategory setParent={handleParentChange} initialValue={category.parent} />
+                            <CategoryParentCategory setParent={handleParentChange} initialValue={parent !== null ? parent : categoryDB.parent} formType="edit" id={id} />
 
-                            <CategoryIcon setIcon={handleIconChange} initialValue={category.icon} />
+                            <CategoryIcon setIcon={handleIconChange} initialValue={icon !== null ? icon : categoryDB.icon} formType="edit" id={id} />
 
-                            <CategoryColor setColor={handleColorChange} initialValue={category.color} />
+                            <CategoryColor setColor={handleColorChange} initialValue={color !== "" ? color : categoryDB.color} formType="edit" id={id} />
                         </ul>
 
                         <hr className="my-2 border-blue-gray-50" />
