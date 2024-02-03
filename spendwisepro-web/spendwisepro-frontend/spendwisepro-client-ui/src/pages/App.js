@@ -39,6 +39,7 @@ import CategoryNamePage from "./category/form/CategoryNamePage";
 import CategoryColorPage from "./category/form/CategoryColorPage";
 import CategoryIconPage from "./category/form/CategoryIconPage";
 import CategoryParentPage from "./category/form/CategoryParentPage";
+import CreditCardAmountPage from "./credit-card/form/CreditCardAmountPage";
 
 function App() {
 
@@ -77,6 +78,7 @@ function App() {
                         <Route path="/credit_cards/note" element={<PrivateRoute element={<CreditCardNotePage />} />} />
                         <Route path="/credit_cards/bank" element={<PrivateRoute element={<CreditCardBankPage />} />} />
                         <Route path="/credit_cards/icon" element={<PrivateRoute element={<CreditCardIconPage />} />} />
+                        <Route path="/credit_cards/amount" element={<PrivateRoute element={<CreditCardAmountPage />} />} />
 
                         <Route path="/budgets" element={<PrivateRoute element={<BudgetPage />} />} />
                         <Route path="/budgets/weekly/*" element={<PrivateRoute element={<BudgetWeeklyPage />} />} />
