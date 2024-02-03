@@ -73,7 +73,7 @@ function CategoryNamePage() {
                                                   onKeyDown={handleKeyDown} />
                                     </CardBody>
 
-                                    <div className=" mb-6 mx-6">
+                                    <div className="mb-6 mx-6">
                                         <div className="flex justify-center items-center">
                                             <Button className="w-full" variant="gradient" color="green"
                                                     onClick={async () => {
