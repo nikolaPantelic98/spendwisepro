@@ -88,8 +88,6 @@ function CategoryNamePage() {
                             </div>
                         </div>
 
-
-
                         <div><PageWidthLayout/></div>
                     </div>
                 </div>
