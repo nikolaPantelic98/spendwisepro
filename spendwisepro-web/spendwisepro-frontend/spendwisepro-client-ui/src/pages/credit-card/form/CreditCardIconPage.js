@@ -4,7 +4,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {setCreditCardIcon} from "../../../redux/creditCardSlice";
 import Menu from "../../../components/common/Menu";
 import PageHeader from "../../../components/common/PageHeader";
-import {Avatar, Button, ListItem, Typography} from "@material-tailwind/react";
+import {Avatar, Card, CardBody, ListItem, Typography} from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import axios from "axios";
 
@@ -37,12 +37,9 @@ function CreditCardIconPage() {
             .catch(error => console.error('Error fetching icons:', error));
     }, []);
 
-    const handleKeyDown = async (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            await dispatch(setCreditCardIcon(selectedIcon));
-            navigate(from);
-        }
+    const handleSelectIcon = async (icon) => {
+        await dispatch(setCreditCardIcon(icon));
+        navigate(from, { state: { icon: icon } });
     };
 
     return (
@@ -62,41 +59,31 @@ function CreditCardIconPage() {
 
                         <div className="mx-6">
                             <div className="mt-8 text-center">
-                                <Typography variant="h6">
-                                    Add Icon
-                                </Typography>
-                                <div className="h-4"></div>
-                                <div>
-                                    <ul role="list" className="divide-y divide-gray-200 flex flex-wrap gap-4 justify-center">
+                                <Card className="w-full shadow-lg">
+                                    <CardBody>
+                                        <Typography variant="h6" className="text-gray-800">
+                                            Add Icon
+                                        </Typography>
+                                        <div className="h-4"></div>
+                                        <div>
+                                            <ul role="list" className="flex flex-wrap gap-4 justify-center">
 
-                                        {icons.map(icon => (
-                                            <li className="flex-0 w-1/4">
-                                                <ListItem
-                                                    className={`flex items-center justify-center ${selectedIcon.id === icon.id ? 'border-3 border-green-500' : ''}`}
-                                                    onClick={() => setSelectedIcon(icon)}
-                                                    onKeyDown={handleKeyDown}
-                                                    tabIndex={0}
-                                                >
-                                                    <div>
-                                                        <Avatar className="w-13 h-13 rounded-full" src={icon.iconPath} alt={icon.image} />
-                                                    </div>
-                                                </ListItem>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-8 mx-6">
-                            <div className="flex justify-center items-center">
-                                <Button className="mt-2 w-full" variant="gradient" color="green"
-                                        onClick={async () => {
-                                            await dispatch(setCreditCardIcon(selectedIcon));
-                                            navigate(from, { state: { icon: selectedIcon } });
-                                        }}>
-                                    <span>Confirm</span>
-                                </Button>
+                                                {icons.map(icon => (
+                                                    <li className="flex-0 w-1/4">
+                                                        <ListItem
+                                                            className={`flex items-center justify-center ${selectedIcon.id === icon.id ? 'border-3 border-green-500' : ''}`}
+                                                            onClick={() => handleSelectIcon(icon)}
+                                                        >
+                                                            <div>
+                                                                <Avatar className="w-13 h-13 rounded-full" src={icon.iconPath} alt={icon.image} />
+                                                            </div>
+                                                        </ListItem>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </CardBody>
+                                </Card>
                             </div>
                         </div>
 
