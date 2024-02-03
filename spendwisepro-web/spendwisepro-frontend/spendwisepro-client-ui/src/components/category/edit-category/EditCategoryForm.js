@@ -101,6 +101,7 @@ export default function EditCategoryForm() {
         navigate("/categories");
     }
 
+
     return categoryDB ? (
 
         <Card className="w-full shadow-lg mt-8">
@@ -123,7 +124,7 @@ export default function EditCategoryForm() {
                             <Button onClick={handleOpenDeleteConfirmationDialog} className="mt-2 w-full" variant="outlined" color="red">
                                 <span>Delete</span>
                             </Button>
-                            <Button className="mt-2 w-full" variant="outlined" color="green" oonClick={() => {
+                            <Button className="mt-2 w-full" variant="outlined" color="green" onClick={() => {
                                 navigateToCategories();
                                 reduxReset();
                             }}>
