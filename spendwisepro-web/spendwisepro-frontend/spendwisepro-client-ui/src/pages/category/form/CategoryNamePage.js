@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Menu from "../../../components/common/Menu";
 import PageHeader from "../../../components/common/PageHeader";
-import {Button, Typography} from "@material-tailwind/react";
+import {Button, Card, CardBody, Typography} from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import {useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
@@ -51,7 +51,7 @@ function CategoryNamePage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <PageHeader title="Name" resetRedux={false} />
+                    <PageHeader title={from === '/add_category' ? "Add category" : "Edit category"} resetRedux={false} />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
@@ -60,29 +60,35 @@ function CategoryNamePage() {
 
                         <div className="mx-6">
                             <div className="mt-8 text-center">
-                                <Typography variant="h6">
-                                    Add Name
-                                </Typography>
-                                <div className="h-4"></div>
-                                <textarea id="textAreaName" ref={textAreaRefName}
-                                          className="resize-none bg-green-50 focus:outline-none mx-auto text-center"
-                                          value={textAreaValueName}
-                                          onChange={(e) => setTextAreaValueName(e.target.value)}
-                                          onKeyDown={handleKeyDown} />
+                                <Card className="w-full shadow-lg">
+                                    <CardBody>
+                                        <Typography variant="h6">
+                                            Add Name
+                                        </Typography>
+                                        <div className="h-4"></div>
+                                        <textarea id="textAreaName" ref={textAreaRefName}
+                                                  className="resize-none focus:outline-none mx-auto text-center"
+                                                  value={textAreaValueName}
+                                                  onChange={(e) => setTextAreaValueName(e.target.value)}
+                                                  onKeyDown={handleKeyDown} />
+                                    </CardBody>
+
+                                    <div className=" mb-6 mx-6">
+                                        <div className="flex justify-center items-center">
+                                            <Button className="w-full" variant="gradient" color="green"
+                                                    onClick={async () => {
+                                                        await dispatch(setCategoryName(textAreaValueName));
+                                                        navigate(from, { state: { name: textAreaValueName } });
+                                                    }}>
+                                                <span>Confirm</span>
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </Card>
                             </div>
                         </div>
 
-                        <div className="mt-8 mx-6">
-                            <div className="flex justify-center items-center">
-                                <Button className="mt-2 w-full" variant="gradient" color="green"
-                                        onClick={async () => {
-                                            await dispatch(setCategoryName(textAreaValueName));
-                                            navigate(from, { state: { name: textAreaValueName } });
-                                        }}>
-                                    <span>Confirm</span>
-                                </Button>
-                            </div>
-                        </div>
+
 
                         <div><PageWidthLayout/></div>
                     </div>
