@@ -135,7 +135,7 @@ function CategoryColorPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <PageHeader title="Color" resetRedux={false} />
+                    <PageHeader title={from === '/add_category' ? "Add category" : "Edit category"} resetRedux={false} />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
