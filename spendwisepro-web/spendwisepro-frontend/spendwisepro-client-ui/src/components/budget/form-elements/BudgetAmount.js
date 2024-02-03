@@ -1,48 +1,34 @@
 import {
-    Button,
-    Dialog,
-    DialogBody,
-    DialogFooter,
-    DialogHeader,
-    Input,
     ListItem
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setBudgetAmount} from "../../../redux/budgetSlice";
 
-export default function BudgetAmount({ setAmount }) {
+export default function BudgetAmount({ initialValue = "", formType, id }) {
 
-    const [openAmount, setOpenAmount] = React.useState(false);
-    const [amountValue, setAmountValue] = React.useState("");
-    const [isAmountTyped, setIsAmountTyped] = React.useState(false);
-    const [tempAmountValue, setTempAmountValue] = React.useState("");
-    const handleOpenAmount = () => {
-        setTempAmountValue(amountValue);
-        setOpenAmount(true);
+    const navigate = useNavigate();
+    const navigateTo = formType === 'add' ? '/add_budget' : `/edit_budget/${id}`;
+
+    const dispatch = useDispatch();
+    const amount = useSelector((state) => state.budget.amount);
+
+    useEffect(() => {
+        dispatch(setBudgetAmount(initialValue));
+    }, [initialValue]);
+
+    const handleAmountClick = () => {
+        navigate('/budgets/amount', { state: { amount: amount, from: navigateTo } });
     };
-    const handleCloseAmount = () => {
-        if (isAmountTyped) {
-            setAmountValue(tempAmountValue);
-        }
-        setOpenAmount(false);
-    };
-    const handleConfirmAmount = () => {
-        if (!isAmountTyped) {
-            setTempAmountValue("");
-            setIsAmountTyped(false);
-        }
-        setAmount(amountValue);
-        setOpenAmount(false);
-    };
-    const handleAmountChange = (event) => {
-        setAmountValue(event.target.value);
-        setIsAmountTyped(event.target.value !== "");
-    }
+
 
     return (
         <li className="py-3 sm:py-4">
-            <div onClick={handleOpenAmount}>
-                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+            <div>
+                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
+                          onClick={handleAmountClick}>
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/189/189715.png" alt="Amount" />
                     </div>
@@ -53,8 +39,8 @@ export default function BudgetAmount({ setAmount }) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isAmountTyped ? 'font-bold text-gray-700' : ''}`}>
-                            {amountValue ? `$${parseFloat(amountValue).toFixed(2)}` : "Type"}
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${initialValue !== "" ? 'font-bold text-gray-600 truncate' : ''}`}>
+                            {amount !== undefined && amount !== "" ? `$${parseFloat(amount).toFixed(2)}` : "Type"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -63,32 +49,6 @@ export default function BudgetAmount({ setAmount }) {
                     </div>
                 </ListItem>
             </div>
-            <Dialog
-                open={openAmount}
-                handler={handleOpenAmount}
-                animate={{
-                    mount: { scale: 1, y: 0 },
-                    unmount: { scale: 0.9, y: -100 },
-                }}
-            >
-                <DialogHeader>Amount</DialogHeader>
-                <DialogBody>
-                    <Input label="Amount" color="green" type="number" step="0.01" inputMode="decimal" pattern="[0-9]*" value={amountValue} onChange={handleAmountChange} />
-                </DialogBody>
-                <DialogFooter>
-                    <Button
-                        variant="text"
-                        color="red"
-                        onClick={handleCloseAmount}
-                        className="mr-1"
-                    >
-                        <span>Cancel</span>
-                    </Button>
-                    <Button variant="gradient" color="green" onClick={handleConfirmAmount}>
-                        <span>Confirm</span>
-                    </Button>
-                </DialogFooter>
-            </Dialog>
         </li>
     );
 }

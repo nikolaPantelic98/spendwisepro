@@ -40,6 +40,7 @@ import CategoryColorPage from "./category/form/CategoryColorPage";
 import CategoryIconPage from "./category/form/CategoryIconPage";
 import CategoryParentPage from "./category/form/CategoryParentPage";
 import CreditCardAmountPage from "./credit-card/form/CreditCardAmountPage";
+import BudgetAmountPage from "./budget/form/BudgetAmountPage";
 
 function App() {
 
@@ -84,6 +85,8 @@ function App() {
                         <Route path="/budgets/weekly/*" element={<PrivateRoute element={<BudgetWeeklyPage />} />} />
                         <Route path="/budgets/monthly/*" element={<PrivateRoute element={<BudgetMonthlyPage />} />} />
                         <Route path="/add_budget" element={<PrivateRoute element={<AddBudgetPage />} />} />
+
+                        <Route path="/budgets/amount" element={<PrivateRoute element={<BudgetAmountPage />} />} />
 
                         <Route path="/goals" element={<PrivateRoute element={<GoalsPage />} />} />
                         <Route path="/goals/weekly/*" element={<PrivateRoute element={<GoalWeeklyPage />} />} />
