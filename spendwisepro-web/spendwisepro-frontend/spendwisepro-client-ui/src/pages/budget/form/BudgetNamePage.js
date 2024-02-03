@@ -1,0 +1,101 @@
+import React, {useEffect, useRef, useState} from 'react';
+import Menu from "../../../components/common/Menu";
+import PageHeader from "../../../components/common/PageHeader";
+import {Button, Card, CardBody, Typography} from "@material-tailwind/react";
+import PageWidthLayout from "../../../components/common/PageWidthLayout";
+import {useLocation, useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from "react-redux";
+import {setBudgetName} from "../../../redux/budgetSlice";
+
+function BudgetNamePage() {
+
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
+    const toggleSidebar = (isOpen) => {
+        setSidebarOpen(isOpen);
+    };
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const name = useSelector((state) => state.budget.name);
+    const [textAreaValueName, setTextAreaValueName] = useState(name);
+    const textAreaRefName = useRef(null);
+    const from = location.state?.from || '/add_budget';
+
+    useEffect(() => {
+        const textAreaName = document.getElementById('textAreaName');
+        textAreaName.style.height = 'auto';
+        textAreaName.style.height = textAreaName.scrollHeight + 'px';
+    }, [textAreaValueName]);
+
+    useEffect(() => {
+        const textAreaName = textAreaRefName.current;
+        textAreaName.focus();
+        textAreaName.selectionStart = textAreaName.selectionEnd = textAreaName.value.length;
+    }, [textAreaValueName]);
+
+    const handleKeyDown = async (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            await dispatch(setBudgetName(textAreaValueName));
+            navigate(from);
+        }
+    };
+
+    return (
+        <>
+            <div className="overflow-hidden">
+                <Menu sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
+
+                <div className="h-6 bg-green-50"></div>
+
+                <div>
+                    <PageHeader title={from === '/add_budget' ? "Add budget" : "Edit budget"} resetRedux={false} />
+                </div>
+
+                <div className="flex justify-center min-h-screen bg-green-50">
+
+                    <div className="mt-2">
+
+                        <div className="mx-6">
+                            <div className="mt-8 text-center">
+                                <Card className="w-full shadow-lg">
+                                    <CardBody>
+                                        <Typography variant="h6" className="text-gray-800">
+                                            Add Name
+                                        </Typography>
+                                        <div className="h-4"></div>
+                                        <textarea id="textAreaName" ref={textAreaRefName}
+                                                  className="resize-none focus:outline-none mx-auto text-center"
+                                                  value={textAreaValueName}
+                                                  onChange={(e) => setTextAreaValueName(e.target.value)}
+                                                  onKeyDown={handleKeyDown} />
+                                    </CardBody>
+
+                                    <div className="mb-6 mx-6">
+                                        <div className="flex justify-center items-center">
+                                            <Button className="w-full" variant="gradient" color="green"
+                                                    onClick={async () => {
+                                                        await dispatch(setBudgetName(textAreaValueName));
+                                                        navigate(from, { state: { name: textAreaValueName } });
+                                                    }}>
+                                                <span>Confirm</span>
+                                            </Button>
+                                        </div>
+                                    </div>
+                                </Card>
+                            </div>
+                        </div>
+
+                        <div><PageWidthLayout/></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </>
+    );
+}
+
+export default BudgetNamePage;

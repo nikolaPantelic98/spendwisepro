@@ -41,6 +41,7 @@ import CategoryIconPage from "./category/form/CategoryIconPage";
 import CategoryParentPage from "./category/form/CategoryParentPage";
 import CreditCardAmountPage from "./credit-card/form/CreditCardAmountPage";
 import BudgetAmountPage from "./budget/form/BudgetAmountPage";
+import BudgetNamePage from "./budget/form/BudgetNamePage";
 
 function App() {
 
@@ -87,6 +88,7 @@ function App() {
                         <Route path="/add_budget" element={<PrivateRoute element={<AddBudgetPage />} />} />
 
                         <Route path="/budgets/amount" element={<PrivateRoute element={<BudgetAmountPage />} />} />
+                        <Route path="/budgets/name" element={<PrivateRoute element={<BudgetNamePage />} />} />
 
                         <Route path="/goals" element={<PrivateRoute element={<GoalsPage />} />} />
                         <Route path="/goals/weekly/*" element={<PrivateRoute element={<GoalWeeklyPage />} />} />
