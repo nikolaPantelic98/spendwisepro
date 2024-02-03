@@ -62,7 +62,7 @@ function CategoryNamePage() {
                             <div className="mt-8 text-center">
                                 <Card className="w-full shadow-lg">
                                     <CardBody>
-                                        <Typography variant="h6">
+                                        <Typography variant="h6" className="text-gray-800">
                                             Add Name
                                         </Typography>
                                         <div className="h-4"></div>

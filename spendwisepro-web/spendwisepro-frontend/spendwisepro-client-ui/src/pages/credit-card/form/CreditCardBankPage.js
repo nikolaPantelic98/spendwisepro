@@ -51,7 +51,7 @@ function CreditCardBankPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <PageHeader title="Bank" resetRedux={false} />
+                    <PageHeader title={from === '/add_credit_card' ? "Add credit card" : "Edit credit card"} resetRedux={false} />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
