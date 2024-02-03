@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import {useLocation, useNavigate} from "react-router-dom";
 import Menu from "../../../components/common/Menu";
 import PageHeader from "../../../components/common/PageHeader";
-import {Avatar, Button, ListItem, Typography} from "@material-tailwind/react";
+import {Avatar, Card, CardBody, ListItem, Typography} from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import {setCategoryColor} from "../../../redux/categorySlice";
 
@@ -119,13 +119,11 @@ function CategoryColorPage() {
 
     const [selectedColor, setSelectedColor] = React.useState(location.state?.selectedColor || "");
 
-    const handleKeyDown = async (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            await dispatch(setCategoryColor(selectedColor));
-            navigate(from);
-        }
+    const handleSelectColor = async (color) => {
+        await dispatch(setCategoryColor(color));
+        navigate(from, { state: { color: color } });
     };
+
 
     return (
         <>
@@ -144,50 +142,38 @@ function CategoryColorPage() {
 
                         <div className="mx-6">
                             <div className="mt-8 text-center">
-                                <Typography variant="h6">
-                                    Add Color
-                                </Typography>
-                                <div className="h-4"></div>
-                                <div>
-                                    <ul role="list" className="divide-y divide-gray-200 flex flex-wrap gap-4 justify-center">
+                                <Card className="w-full shadow-lg">
+                                    <CardBody>
+                                        <Typography variant="h6" className="text-gray-800">
+                                            Add Color
+                                        </Typography>
+                                        <div className="h-4"></div>
+                                        <div>
+                                            <ul role="list" className="flex flex-wrap gap-4 justify-center">
 
-                                        {colorOptions.map(color => (
-                                            <li className="flex-0 w-1/4">
-                                                <ListItem
-                                                    className={`flex items-center justify-center ${selectedColor === color.value ? 'border-3 border-green-500' : ''}`}
-                                                    onClick={() => setSelectedColor(color.value)}
-                                                    onKeyDown={handleKeyDown}
-                                                    tabIndex={0}
-                                                >
-                                                    <div>
-                                                        <Avatar className="w-13 h-13 rounded-full" src={color.image} alt={color.image} />
-                                                    </div>
-                                                </ListItem>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="mt-8 mx-6">
-                            <div className="flex justify-center items-center">
-                                <Button className="mt-2 w-full" variant="gradient" color="green"
-                                        onClick={async () => {
-                                            await dispatch(setCategoryColor(selectedColor));
-                                            navigate(from, { state: { color: selectedColor } });
-                                        }}>
-                                    <span>Confirm</span>
-                                </Button>
+                                                {colorOptions.map(color => (
+                                                    <li className="flex-0 w-1/4">
+                                                        <ListItem
+                                                            className={`flex items-center justify-center ${selectedColor === color.value ? 'border-3 border-green-500' : ''}`}
+                                                            onClick={() => handleSelectColor(color.value)}
+                                                        >
+                                                            <div>
+                                                                <Avatar className="w-13 h-13 rounded-full" src={color.image} alt={color.image} />
+                                                            </div>
+                                                        </ListItem>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </CardBody>
+                                </Card>
                             </div>
                         </div>
 
                         <div><PageWidthLayout/></div>
                     </div>
                 </div>
-
             </div>
-
         </>
     );
 }
