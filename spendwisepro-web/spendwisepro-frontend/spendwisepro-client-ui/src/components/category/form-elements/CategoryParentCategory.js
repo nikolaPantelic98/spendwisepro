@@ -1,18 +1,11 @@
 import {
-    Button,
-    Dialog,
-    DialogBody,
-    DialogFooter,
-    DialogHeader,
-    ListItem, Option, Select, Typography
+    ListItem
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React, {useEffect, useState} from "react";
-import {InformationCircleIcon} from "@heroicons/react/20/solid";
-import axios from "axios";
+import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setCategoryIcon, setCategoryParent} from "../../../redux/categorySlice";
+import {setCategoryParent} from "../../../redux/categorySlice";
 
 export default function CategoryParentCategory({ initialValue = "", formType, id }) {
 
@@ -25,10 +18,6 @@ export default function CategoryParentCategory({ initialValue = "", formType, id
     useEffect(() => {
         dispatch(setCategoryParent(initialValue));
     }, [initialValue]);
-
-    function findParentImage(icon) {
-        return parent.icon.iconPath;
-    }
 
     const handleParentClick = () => {
         navigate('/categories/parent', { state: { parent: parent, from: navigateTo, selectedParent: parent } });

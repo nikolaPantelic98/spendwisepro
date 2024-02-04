@@ -21,15 +21,19 @@ const budgetSlice = createSlice({
         setBudgetCategories: (state, action) => {
             state.categories = action.payload;
         },
+        saveSelectedCategories: (state, action) => {
+            state.selectedCategories = action.payload;
+        },
         resetBudget: state => {
             state.amount = "";
             state.name = "";
             state.period = "";
             state.categories = null;
+            state.selectedCategories = null;
         },
     },
 });
 
-export const { setBudgetAmount, setBudgetName, setBudgetPeriod, setBudgetCategories, resetBudget } = budgetSlice.actions;
+export const { setBudgetAmount, setBudgetName, setBudgetPeriod, setBudgetCategories, saveSelectedCategories, resetBudget } = budgetSlice.actions;
 
 export default budgetSlice.reducer;
