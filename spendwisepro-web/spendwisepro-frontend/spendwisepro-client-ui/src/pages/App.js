@@ -43,6 +43,7 @@ import CreditCardAmountPage from "./credit-card/form/CreditCardAmountPage";
 import BudgetAmountPage from "./budget/form/BudgetAmountPage";
 import BudgetNamePage from "./budget/form/BudgetNamePage";
 import BudgetCategoriesPage from "./budget/form/BudgetCategoriesPage";
+import BudgetPeriodPage from "./budget/form/BudgetPeriodPage";
 
 function App() {
 
@@ -91,6 +92,7 @@ function App() {
                         <Route path="/budgets/amount" element={<PrivateRoute element={<BudgetAmountPage />} />} />
                         <Route path="/budgets/name" element={<PrivateRoute element={<BudgetNamePage />} />} />
                         <Route path="/budgets/categories" element={<PrivateRoute element={<BudgetCategoriesPage />} />} />
+                        <Route path="/budgets/period" element={<PrivateRoute element={<BudgetPeriodPage />} />} />
 
                         <Route path="/goals" element={<PrivateRoute element={<GoalsPage />} />} />
                         <Route path="/goals/weekly/*" element={<PrivateRoute element={<GoalWeeklyPage />} />} />

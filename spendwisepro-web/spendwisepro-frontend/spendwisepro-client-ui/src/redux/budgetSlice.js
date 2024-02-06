@@ -29,7 +29,7 @@ const budgetSlice = createSlice({
             state.name = "";
             state.period = "";
             state.categories = null;
-            state.selectedCategories = null;
+            // state.selectedCategories = null;
         },
     },
 });

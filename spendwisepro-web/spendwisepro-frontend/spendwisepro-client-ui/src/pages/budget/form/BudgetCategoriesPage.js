@@ -50,6 +50,17 @@ function BudgetCategoriesPage() {
             .catch(error => console.error('Error fetching categories:', error));
     }, []);
 
+    const parentCategories = allCategories.filter(category => category.parent === null);
+    const subCategories = allCategories.filter(category => category.parent !== null);
+
+    const fullCategories = parentCategories.map(superCategory => {
+        const subCats = subCategories.filter(subCategory => subCategory.parent.name === superCategory.name);
+        return {
+            ...superCategory,
+            subCategories: subCats,
+        };
+    });
+
     const handleSelectCategories = async (category) => {
         let newCategories;
         if (categories.includes(category)) {
@@ -67,17 +78,6 @@ function BudgetCategoriesPage() {
         }
     }, []);
 
-    const parentCategories = allCategories.filter(category => category.parent === null);
-    const subCategories = allCategories.filter(category => category.parent !== null);
-
-    const fullCategories = parentCategories.map(superCategory => {
-        const subCats = subCategories.filter(subCategory => subCategory.parent.name === superCategory.name);
-        return {
-            ...superCategory,
-            subCategories: subCats,
-        };
-    });
-
     const [open, setOpen] = React.useState(0);
     const handleOpen = (value) => {
         setOpen(open === value ? 0 : value);
@@ -86,6 +86,7 @@ function BudgetCategoriesPage() {
     function storeScrollPosition() {
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
+
 
     return (
         <>

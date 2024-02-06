@@ -1,37 +1,27 @@
 import {
-    Button,
-    Dialog,
-    DialogBody,
-    DialogFooter,
-    DialogHeader,
-    ListItem, Option, Select
+    ListItem
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React from "react";
+import React, {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setBudgetPeriod} from "../../../redux/budgetSlice";
 
-export default function BudgetPeriod({ setPeriod }) {
+export default function BudgetPeriod({ initialValue = "", formType, id }) {
 
-    const [openPeriod, setOpenPeriod] = React.useState(false);
-    const [selectedPeriod, setSelectedPeriod] = React.useState("");
-    const [tempSelectedPeriod, setTempSelectedPeriod] = React.useState("");
-    const handleOpenPeriod = () => {
-        setTempSelectedPeriod(selectedPeriod);
-        setOpenPeriod(true);
-    };
-    const handleClosePeriod = () => {
-        setSelectedPeriod(null);
-        setPeriod(null);
-        setOpenPeriod(false);
-    };
+    const navigate = useNavigate();
+    const navigateTo = formType === 'add' ? '/add_budget' : `/edit_budget/${id}`;
 
-    const handleConfirmPeriod = () => {
-        setPeriod(selectedPeriod);
-        setOpenPeriod(false);
-        setTempSelectedPeriod("");
+    const dispatch = useDispatch();
+    const period = useSelector((state) => state.budget.period);
+
+    useEffect(() => {
+        dispatch(setBudgetPeriod(initialValue));
+    }, [initialValue]);
+
+    const handlePeriodClick = () => {
+        navigate('/budgets/period', { state: { period: period, from: navigateTo } });
     };
-    const handlePeriodChange = (value) => {
-        setSelectedPeriod(value);
-    }
 
     function getPeriod(period) {
         if (period === "WEEKLY") {
@@ -43,8 +33,9 @@ export default function BudgetPeriod({ setPeriod }) {
 
     return (
         <li className="py-3 sm:py-4">
-            <div onClick={handleOpenPeriod}>
-                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+            <div>
+                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
+                          onClick={handlePeriodClick}>
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/327/327857.png" alt="Interval" />
                     </div>
@@ -55,8 +46,8 @@ export default function BudgetPeriod({ setPeriod }) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm truncate dark:text-gray-400 ${selectedPeriod ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
-                            {getPeriod(selectedPeriod) || "Select"}
+                        <div className={`text-sm truncate dark:text-gray-400 ${period ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
+                            {getPeriod(period) || "Select"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -65,52 +56,6 @@ export default function BudgetPeriod({ setPeriod }) {
                     </div>
                 </ListItem>
             </div>
-            <Dialog
-                open={openPeriod}
-                handler={handleOpenPeriod}
-                animate={{
-                    mount: { scale: 1, y: 0 },
-                    unmount: { scale: 0.9, y: -100 },
-                }}
-            >
-                <DialogHeader>Period</DialogHeader>
-                <DialogBody>
-                    <Select
-                        label="Period"
-                        color="green"
-                        size="lg"
-                        value={tempSelectedPeriod}
-                        onChange={handlePeriodChange}
-                        className="relative"
-                    >
-                        <Option value="WEEKLY">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/327/327857.png" alt="Week" />
-                                <span className="ml-3">Weekly</span>
-                            </div>
-                        </Option>
-                        <Option value="MONTHLY">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/327/327857.png" alt="Month" />
-                                <span className="ml-3">Monthly</span>
-                            </div>
-                        </Option>
-                    </Select>
-                </DialogBody>
-                <DialogFooter>
-                    <Button
-                        variant="text"
-                        color="red"
-                        onClick={handleClosePeriod}
-                        className="mr-1"
-                    >
-                        <span>Cancel</span>
-                    </Button>
-                    <Button variant="gradient" color="green" onClick={handleConfirmPeriod}>
-                        <span>Confirm</span>
-                    </Button>
-                </DialogFooter>
-            </Dialog>
         </li>
     );
 }
