@@ -14,6 +14,8 @@ export default function BudgetWeeklyRecords({ id }) {
 
     const [recordsThisWeek, setRecordsThisWeek] = useState([]);
     const [weeklyBudgets, setWeeklyBudgets] = useState([]);
+    const [matchingRecords, setMatchingRecords] = useState([]);
+    const [sortedUniqueRecordDates, setSortedUniqueRecordDates] = useState([]);
 
     const token = localStorage.getItem("token");
 
@@ -37,26 +39,32 @@ export default function BudgetWeeklyRecords({ id }) {
             .catch(error => console.error('Error fetching expense records this week:', error));
     }, []);
 
+    useEffect(() => {
+        const foundBudget = weeklyBudgets.find(budget => budget.id == id);
 
-    const foundBudget = weeklyBudgets.find(budget => budget.id == id);
+        if (foundBudget) {
+            let matching = recordsThisWeek.filter(record => {
+                let date = new Date(record.dateAndTime);
+                return date && foundBudget.categories.some(budgetCategory => budgetCategory.name === record.category.name);
+            });
 
-    let matchingRecords = recordsThisWeek.filter(record => {
-        let date = new Date(record.dateAndTime);
-        return date && foundBudget.categories.some(budgetCategory => budgetCategory.name === record.category.name);
-    });
+            // Extracts dates without hours and minutes
+            const datesWithoutTime = matching.map(record => {
+                const dateWithoutTime = new Date(record.dateAndTime);
+                dateWithoutTime.setHours(0, 0, 0, 0);
+                return dateWithoutTime;
+            });
 
-    // Extracts dates without hours and minutes
-    const datesWithoutTime = matchingRecords.map(record => {
-        const dateWithoutTime = new Date(record.dateAndTime);
-        dateWithoutTime.setHours(0, 0, 0, 0);
-        return dateWithoutTime;
-    });
+            // Extracts unique dates records with the specific category
+            const uniqueRecordDates = [...new Set(datesWithoutTime.flatMap(date => date.getTime()))];
 
-    // Extracts unique dates records with the specific category
-    const uniqueRecordDates = [...new Set(datesWithoutTime.flatMap(date => date.getTime()))];
+            // Sorts unique dates in descending order
+            const sortedUniqueDates = uniqueRecordDates.sort((a, b) => b - a);
 
-    // Sorts unique dates in descending order
-    const sortedUniqueRecordDates = uniqueRecordDates.sort((a, b) => b - a);
+            setMatchingRecords(matching);
+            setSortedUniqueRecordDates(sortedUniqueDates);
+        }
+    }, [weeklyBudgets, recordsThisWeek]);
 
     // Formats a given date to a readable string
     function getFormattedDate(date) {
