@@ -5,7 +5,7 @@ import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import React, {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setBudgetCategories} from "../../../redux/budgetSlice";
+import {saveSelectedCategories, setBudgetCategories} from "../../../redux/budgetSlice";
 
 export default function BudgetCategory({ initialValue = "", formType, id }) {
 
@@ -14,9 +14,11 @@ export default function BudgetCategory({ initialValue = "", formType, id }) {
 
     const dispatch = useDispatch();
     const categories = useSelector((state) => state.budget.categories);
+    const selectedCategories = useSelector((state) => state.budget.selectedCategories);
 
     useEffect(() => {
         dispatch(setBudgetCategories(initialValue));
+        dispatch(saveSelectedCategories(initialValue));
     }, [initialValue]);
 
     const handleCategoriesClick = () => {
@@ -38,7 +40,7 @@ export default function BudgetCategory({ initialValue = "", formType, id }) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm truncate dark:text-gray-400 ${categories ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
+                        <div className={`text-sm truncate dark:text-gray-400 ${categories && categories.length > 0 ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
                             {categories && categories.length > 0 ? categories.length : "Select"}
                         </div>
                         <div className="h-4"></div>

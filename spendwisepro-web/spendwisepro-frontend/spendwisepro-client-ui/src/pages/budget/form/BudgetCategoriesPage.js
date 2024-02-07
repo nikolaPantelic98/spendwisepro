@@ -34,7 +34,7 @@ function BudgetCategoriesPage() {
     const savedCategories = useSelector((state) => state.budget.selectedCategories);
 
     const [allCategories, setAllCategories] = useState([]);
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState(savedCategories || []);
 
     const token = localStorage.getItem("token");
 
@@ -63,13 +63,12 @@ function BudgetCategoriesPage() {
 
     const handleSelectCategories = async (category) => {
         let newCategories;
-        if (categories.includes(category)) {
-            newCategories = categories.filter(cat => cat !== category);
+        if (categories.some(cat => cat.id === category.id)) {
+            newCategories = categories.filter(cat => cat.id !== category.id);
         } else {
             newCategories = [...categories, category];
         }
         setCategories(newCategories);
-        dispatch(saveSelectedCategories(newCategories));
     };
 
     useEffect(() => {
@@ -87,6 +86,18 @@ function BudgetCategoriesPage() {
         sessionStorage.setItem('scrollPosition', window.scrollY.toString());
     }
 
+    const handleConfirmCategories = async () => {
+        await dispatch(saveSelectedCategories(categories));
+        await dispatch(setBudgetCategories(categories));
+        navigate(from, { state: { categories: categories } });
+    };
+
+    const handleGoBack = () => {
+        setCategories(savedCategories || []);
+    };
+
+    console.log(savedCategories);
+
 
     return (
         <>
@@ -96,7 +107,7 @@ function BudgetCategoriesPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <PageHeader title={from === '/add_budget' ? "Add budget" : "Edit budget"} resetRedux={false} />
+                    <PageHeader title={from === '/add_budget' ? "Add budget" : "Edit budget"} resetRedux={false} onGoBack={handleGoBack} />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">
@@ -232,10 +243,7 @@ function BudgetCategoriesPage() {
                                     <div className="mb-6 mx-6">
                                         <div className="flex justify-center items-center">
                                             <Button className="w-full" variant="gradient" color="green"
-                                                    onClick={async () => {
-                                                        await dispatch(setBudgetCategories(categories));
-                                                        navigate(from, { state: { categories: categories } });
-                                                    }}>
+                                                    onClick={handleConfirmCategories}>
                                                 <span>Confirm</span>
                                             </Button>
                                         </div>

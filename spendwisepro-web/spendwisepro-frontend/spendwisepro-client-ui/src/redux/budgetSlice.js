@@ -6,7 +6,8 @@ const budgetSlice = createSlice({
         amount: "",
         name: "",
         period: "",
-        categories: null
+        categories: null,
+        selectedCategories: null
     },
     reducers: {
         setBudgetAmount: (state, action) => {
@@ -29,7 +30,7 @@ const budgetSlice = createSlice({
             state.name = "";
             state.period = "";
             state.categories = null;
-            // state.selectedCategories = null;
+            state.selectedCategories = null;
         },
     },
 });

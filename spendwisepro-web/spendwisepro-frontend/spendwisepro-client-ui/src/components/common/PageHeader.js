@@ -4,13 +4,16 @@ import { ArrowLeftIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from 'react-router-dom';
 import {useReduxReset} from "../../redux/useReduxReset";
 
-const PageHeader = ({ title, resetRedux = true }) => {
+const PageHeader = ({ title, resetRedux = true, onGoBack }) => {
 
     const reduxReset = useReduxReset();
     const navigate = useNavigate();
 
     const handleGoBack = () => {
         navigate(-1);
+        if (onGoBack) {
+            onGoBack();
+        }
     };
 
     useEffect(() => {
