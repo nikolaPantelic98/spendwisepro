@@ -1,11 +1,13 @@
 import {
     TabsHeader, Tab, TabsBody, TabPanel, Tabs
 } from "@material-tailwind/react";
-import React, {useState} from "react";
+import React from "react";
 import PageWidthLayout from "../../common/PageWidthLayout";
 import {ArrowTrendingDownIcon, ArrowTrendingUpIcon} from "@heroicons/react/24/solid";
 import AddRecordExpense from "./AddRecordExpense";
 import AddRecordIncome from "./AddRecordIncome";
+import {useDispatch, useSelector} from "react-redux";
+import {setSelectedTab} from "../../../redux/recordSlice";
 
 export const RecordContext = React.createContext();
 
@@ -16,27 +18,27 @@ export default function AddRecordTabs() {
         {label: "Income", value: "income", icon: ArrowTrendingUpIcon}
     ];
 
-    const [selectedTab, setSelectedTab] = useState("expense");
+    const dispatch = useDispatch();
 
-    const [record, setRecord] = useState({
-        amount: "",
-        category: null,
-        paymentType: "",
-        creditCard: null,
-        dateAndTime: null,
-        note: ""
-    });
+    const selectedTab = useSelector((state) => state.record.selectedTab);
+    const record = useSelector((state) => state.record);
+
+    const handleTabChange = (value) => {
+        if (selectedTab !== value) {
+            dispatch(setSelectedTab(value));
+        }
+    };
 
     return (
-        <RecordContext.Provider value={{ record, setRecord }}>
+        <RecordContext.Provider value={{ record }}>
             <div className="relative">
 
-                <Tabs className="mt-8" value={selectedTab} onChange={(value) => setSelectedTab(value)}>
+                <Tabs className="mt-8" value={selectedTab}>
 
                     <TabsHeader className="bg-green-100 ml-3 mr-3">
                         {type.map(({ label, value, icon }) => (
                             <Tab key={value} value={value}>
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2" onClick={() => handleTabChange(value)}>
                                     {React.createElement(icon, { className: "w-5 h-5" })}
                                     {label}
                                 </div>

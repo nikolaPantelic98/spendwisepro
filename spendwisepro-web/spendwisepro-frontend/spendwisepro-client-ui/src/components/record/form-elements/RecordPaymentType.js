@@ -1,42 +1,28 @@
 import {
-    Button,
-    Dialog,
-    DialogBody,
-    DialogFooter,
-    DialogHeader,
-    ListItem, Option, Select
+    ListItem
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React, {useContext, useEffect, useState} from "react";
-import {RecordContext} from "../add-record/AddRecordTabs";
+import React, {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setRecordPaymentType} from "../../../redux/recordSlice";
 
-export default function RecordPaymentType({ onChange, setPaymentType }) {
+export default function RecordPaymentType({ initialValue = "", formType, id }) {
 
-    const { record } = useContext(RecordContext);
+    const navigate = useNavigate();
+    const navigateTo = formType === 'add' ? '/add_record' : `/edit_record/${id}`;
 
-    const [openPaymentType, setOpenPaymentType] = useState(false);
-    const [selectedPaymentType, setSelectedPaymentType] = React.useState(record.paymentType);
-    const [tempSelectedPaymentType, setTempSelectedPaymentType] = useState("");
+    const dispatch = useDispatch();
+    const paymentType = useSelector((state) => state.record.paymentType);
+    const selectedTab = useSelector((state) => state.record.selectedTab);
 
-    const handleOpenPaymentType = () => {
-        setTempSelectedPaymentType(selectedPaymentType);
-        setOpenPaymentType(true);
+    useEffect(() => {
+        dispatch(setRecordPaymentType(initialValue));
+    }, [initialValue]);
+
+    const handlePaymentTypeClick = () => {
+        navigate('/records/payment_type', { state: { paymentType: paymentType, from: navigateTo, selectedTab: selectedTab } });
     };
-    const handleClosePaymentType = () => {
-        setSelectedPaymentType(null);
-        setPaymentType(null);
-        setOpenPaymentType(false);
-    };
-
-    const handleConfirmPaymentType = () => {
-        setPaymentType(selectedPaymentType);
-        setOpenPaymentType(false);
-        setTempSelectedPaymentType("");
-        onChange(selectedPaymentType);
-    };
-    const handlePaymentTypeChange = (value) => {
-        setSelectedPaymentType(value);
-    }
 
     function getPaymentType(paymentType) {
         if (paymentType === "CREDIT_CARD") {
@@ -46,14 +32,11 @@ export default function RecordPaymentType({ onChange, setPaymentType }) {
         }
     }
 
-    useEffect(() => {
-        setSelectedPaymentType(record.paymentType);
-    }, [record.paymentType]);
-
     return (
         <li className="py-3 sm:py-4">
-            <div onClick={handleOpenPaymentType}>
-                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+            <div>
+                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
+                          onClick={handlePaymentTypeClick}>
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/314/314420.png" alt="Payment type" />
                     </div>
@@ -64,8 +47,8 @@ export default function RecordPaymentType({ onChange, setPaymentType }) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm truncate dark:text-gray-400 ${selectedPaymentType ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
-                            {getPaymentType(selectedPaymentType) || "Select"}
+                        <div className={`text-sm truncate dark:text-gray-400 ${paymentType ? 'font-bold text-gray-500' : 'text-gray-500'}`}>
+                            {getPaymentType(paymentType) || "Select"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -74,52 +57,6 @@ export default function RecordPaymentType({ onChange, setPaymentType }) {
                     </div>
                 </ListItem>
             </div>
-            <Dialog
-                open={openPaymentType}
-                handler={handleOpenPaymentType}
-                animate={{
-                    mount: { scale: 1, y: 0 },
-                    unmount: { scale: 0.9, y: -100 },
-                }}
-            >
-                <DialogHeader>Payment type</DialogHeader>
-                <DialogBody>
-                    <Select
-                        label="Payment type"
-                        color="green"
-                        size="lg"
-                        value={tempSelectedPaymentType}
-                        onChange={handlePaymentTypeChange}
-                        className="relative"
-                    >
-                        <Option value="CASH">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/1028/1028137.png" alt="Cash" />
-                                <span className="ml-3">Cash</span>
-                            </div>
-                        </Option>
-                        <Option value="CREDIT_CARD">
-                            <div className="flex items-center">
-                                <img className="w-8 h-8 rounded-full" src="https://www.pngitem.com/pimgs/m/544-5444157_credit-card-icons-png-credit-card-icon-green.png" alt="Credit Card" />
-                                <span className="ml-3">Credit Card</span>
-                            </div>
-                        </Option>
-                    </Select>
-                </DialogBody>
-                <DialogFooter>
-                    <Button
-                        variant="text"
-                        color="red"
-                        onClick={handleClosePaymentType}
-                        className="mr-1"
-                    >
-                        <span>Cancel</span>
-                    </Button>
-                    <Button variant="gradient" color="green" onClick={handleConfirmPaymentType}>
-                        <span>Confirm</span>
-                    </Button>
-                </DialogFooter>
-            </Dialog>
         </li>
     );
 }

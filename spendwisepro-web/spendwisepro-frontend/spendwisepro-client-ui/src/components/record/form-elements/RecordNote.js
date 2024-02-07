@@ -1,56 +1,35 @@
 import {
-    Button,
-    Dialog,
-    DialogBody,
-    DialogFooter,
-    DialogHeader,
-    Input,
     ListItem
 } from "@material-tailwind/react";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
-import React, {useContext, useEffect} from "react";
-import {RecordContext} from "../add-record/AddRecordTabs";
+import React, {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {setRecordNote} from "../../../redux/recordSlice";
 
-export default function RecordNote({ setNote }) {
+export default function RecordNote({ initialValue = "", formType, id }) {
 
-    const { record } = useContext(RecordContext);
+    const navigate = useNavigate();
+    const navigateTo = formType === 'add' ? '/add_record' : `/edit_record/${id}`;
 
-    const [openNote, setOpenNote] = React.useState(false);
-    const [contentNote, setContentNote] = React.useState(record.note);
-    const [isNoteTyped, setIsNoteTyped] = React.useState(false);
-    const [tempNoteContent, setTempANoteContent] = React.useState("");
-
-    const handleOpenNote = () => {
-        setTempANoteContent(contentNote);
-        setOpenNote(true);
-    };
-    const handleCloseNote = () => {
-        if (isNoteTyped) {
-            setContentNote(tempNoteContent);
-        }
-        setOpenNote(false);
-    };
-    const handleConfirmNote = () => {
-        if (!isNoteTyped) {
-            setTempANoteContent("");
-            setIsNoteTyped(false);
-        }
-        setNote(contentNote);
-        setOpenNote(false);
-    };
-    const handleNoteChange = (event) => {
-        setContentNote(event.target.value);
-        setIsNoteTyped(event.target.value !== "");
-    }
+    const dispatch = useDispatch();
+    const note = useSelector((state) => state.record.note);
+    const selectedTab = useSelector((state) => state.record.selectedTab);
 
     useEffect(() => {
-        setContentNote(record.note);
-    }, [record.note]);
+        dispatch(setRecordNote(initialValue));
+    }, [initialValue]);
+
+    const handleNoteClick = () => {
+        navigate('/records/note', { state: { note: note, from: navigateTo, selectedTab: selectedTab } });
+    };
+
 
     return (
         <li className="py-3 sm:py-4">
-            <div onClick={handleOpenNote}>
-                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50">
+            <div>
+                <ListItem className="flex items-center space-x-4 text-left p-0 focus:bg-green-50 hover:bg-green-50"
+                          onClick={handleNoteClick}>
                     <div className="flex-shrink-0">
                         <img className="w-8 h-8 rounded-full" src="https://cdn-icons-png.flaticon.com/512/190/190703.png" alt="Note" />
                     </div>
@@ -61,8 +40,8 @@ export default function RecordNote({ setNote }) {
                     </div>
                     <div className="text-right">
                         <div className="h-4"></div>
-                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${isNoteTyped || record.note !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
-                            {contentNote ? contentNote : "Type"}
+                        <div className={`text-sm text-gray-500 truncate dark:text-gray-400 ${initialValue !== "" ? 'font-bold text-gray-500 truncate' : ''}`}>
+                            {note ? (note.length > 20 ? note.substring(0, 17) + "..." : note) : "Type"}
                         </div>
                         <div className="h-4"></div>
                     </div>
@@ -71,32 +50,6 @@ export default function RecordNote({ setNote }) {
                     </div>
                 </ListItem>
             </div>
-            <Dialog
-                open={openNote}
-                handler={handleOpenNote}
-                animate={{
-                    mount: { scale: 1, y: 0 },
-                    unmount: { scale: 0.9, y: -100 },
-                }}
-            >
-                <DialogHeader>Note</DialogHeader>
-                <DialogBody>
-                    <Input label="Note" color="green" value={contentNote} onChange={handleNoteChange} />
-                </DialogBody>
-                <DialogFooter>
-                    <Button
-                        variant="text"
-                        color="red"
-                        onClick={handleCloseNote}
-                        className="mr-1"
-                    >
-                        <span>Cancel</span>
-                    </Button>
-                    <Button variant="gradient" color="green" onClick={handleConfirmNote}>
-                        <span>Confirm</span>
-                    </Button>
-                </DialogFooter>
-            </Dialog>
         </li>
     );
 }

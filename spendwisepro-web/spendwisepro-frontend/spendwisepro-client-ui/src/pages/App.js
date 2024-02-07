@@ -44,6 +44,12 @@ import BudgetAmountPage from "./budget/form/BudgetAmountPage";
 import BudgetNamePage from "./budget/form/BudgetNamePage";
 import BudgetCategoriesPage from "./budget/form/BudgetCategoriesPage";
 import BudgetPeriodPage from "./budget/form/BudgetPeriodPage";
+import RecordAmountPage from "./record/form/RecordAmountPage";
+import RecordCategoryPage from "./record/form/RecordCategoryPage";
+import RecordPaymentTypePage from "./record/form/RecordPaymentTypePage";
+import RecordCreditCardPage from "./record/form/RecordCreditCardPage";
+import RecordNotePage from "./record/form/RecordNotePage";
+import RecordDateAndTimePage from "./record/form/RecordDateAndTimePage";
 
 function App() {
 
@@ -71,6 +77,13 @@ function App() {
                         <Route path="/records" element={<PrivateRoute element={<RecordsPage />} />} />
                         <Route path="/add_record" element={<PrivateRoute element={<AddRecordPage />} />} />
                         <Route path="/edit_record/:id" element={<PrivateRoute element={<EditRecordPage />} />} />
+
+                        <Route path="/records/amount" element={<PrivateRoute element={<RecordAmountPage />} />} />
+                        <Route path="/records/category" element={<PrivateRoute element={<RecordCategoryPage />} />} />
+                        <Route path="/records/payment_type" element={<PrivateRoute element={<RecordPaymentTypePage />} />} />
+                        <Route path="/records/credit_card" element={<PrivateRoute element={<RecordCreditCardPage />} />} />
+                        <Route path="/records/note" element={<PrivateRoute element={<RecordNotePage />} />} />
+                        <Route path="/records/date_and_time" element={<PrivateRoute element={<RecordDateAndTimePage />} />} />
 
                         <Route path="/balance" element={<PrivateRoute element={<BalancePage />} />} />
                         <Route path="/cash" element={<PrivateRoute element={<CashPage />} />} />
