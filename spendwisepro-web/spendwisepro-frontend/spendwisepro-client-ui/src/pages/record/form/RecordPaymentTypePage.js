@@ -8,6 +8,8 @@ import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import {ChevronRightIcon} from "@heroicons/react/24/outline";
 import {setRecordPaymentType} from "../../../redux/recordSlice";
 
+import { motion } from "framer-motion";
+
 function RecordPaymentTypePage() {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -43,7 +45,7 @@ function RecordPaymentTypePage() {
 
                 <div className="flex justify-center min-h-screen bg-green-50">
 
-                    <div className="mt-2">
+                    <motion.div initial={{width: 0}} animate={{width: "100%"}} exit={{x: window.innerWidth, transition: {duration: 0.3}}} className="mt-2">
 
                         <div className="mx-6">
                             <div className="mt-6 text-center">
@@ -102,7 +104,7 @@ function RecordPaymentTypePage() {
                         </div>
 
                         <div><PageWidthLayout/></div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </>

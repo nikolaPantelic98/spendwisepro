@@ -7,6 +7,8 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
 import {setRecordAmount} from "../../../redux/recordSlice";
 
+import { motion } from "framer-motion";
+
 function RecordAmountPage() {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -48,7 +50,7 @@ function RecordAmountPage() {
 
                 <div className="flex justify-center min-h-screen bg-green-50">
 
-                    <div className="mt-2">
+                    <motion.div initial={{width: 0}} animate={{width: "100%"}} exit={{x: window.innerWidth, transition: {duration: 0.3}}} className="mt-2">
 
                         <div className="mx-6">
                             <div className="mt-8 text-center">
@@ -84,7 +86,7 @@ function RecordAmountPage() {
                         </div>
 
                         <div><PageWidthLayout/></div>
-                    </div>
+                    </motion.div>
                 </div>
 
             </div>

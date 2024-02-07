@@ -8,6 +8,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {setRecordDateAndTime} from "../../../redux/recordSlice";
 import moment from "moment-timezone";
 
+import { motion } from "framer-motion";
+
 function RecordDateAndTimePage() {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -62,7 +64,7 @@ function RecordDateAndTimePage() {
 
                 <div className="flex justify-center min-h-screen bg-green-50">
 
-                    <div className="mt-2">
+                    <motion.div initial={{width: 0}} animate={{width: "100%"}} exit={{x: window.innerWidth, transition: {duration: 0.3}}} className="mt-2">
 
                         <div className="mx-6">
                             <div className="mt-8 text-center">
@@ -98,7 +100,7 @@ function RecordDateAndTimePage() {
                         </div>
 
                         <div><PageWidthLayout/></div>
-                    </div>
+                    </motion.div>
                 </div>
 
             </div>

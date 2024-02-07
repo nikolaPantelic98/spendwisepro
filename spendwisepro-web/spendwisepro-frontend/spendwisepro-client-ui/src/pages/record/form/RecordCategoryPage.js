@@ -14,8 +14,10 @@ import {
 } from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import axios from "axios";
-import {ChevronDownIcon, ChevronRightIcon, DocumentIcon, RectangleGroupIcon} from "@heroicons/react/24/outline";
+import {ChevronDownIcon, ChevronRightIcon, RectangleGroupIcon} from "@heroicons/react/24/outline";
 import {setRecordCategory} from "../../../redux/recordSlice";
+
+import { motion } from "framer-motion";
 
 function RecordCategoryPage() {
 
@@ -84,7 +86,7 @@ function RecordCategoryPage() {
 
                 <div className="flex justify-center min-h-screen bg-green-50">
 
-                    <div className="mt-2">
+                    <motion.div initial={{width: 0}} animate={{width: "100%"}} exit={{x: window.innerWidth, transition: {duration: 0.3}}} className="mt-2">
 
                         <div className="mx-6">
                             <div className="mt-6 text-center">
@@ -210,7 +212,7 @@ function RecordCategoryPage() {
                         </div>
 
                         <div><PageWidthLayout/></div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </>

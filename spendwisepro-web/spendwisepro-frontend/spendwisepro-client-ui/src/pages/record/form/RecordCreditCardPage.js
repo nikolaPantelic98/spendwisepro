@@ -9,6 +9,8 @@ import axios from "axios";
 import {ChevronRightIcon, CreditCardIcon} from "@heroicons/react/24/outline";
 import {setRecordCreditCard} from "../../../redux/recordSlice";
 
+import { motion } from "framer-motion";
+
 function RecordCreditCardPage() {
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -60,7 +62,7 @@ function RecordCreditCardPage() {
 
                 <div className="flex justify-center min-h-screen bg-green-50">
 
-                    <div className="mt-2">
+                    <motion.div initial={{width: 0}} animate={{width: "100%"}} exit={{x: window.innerWidth, transition: {duration: 0.3}}} className="mt-2">
 
                         <div className="mx-6">
                             <div className="mt-6 text-center">
@@ -129,7 +131,7 @@ function RecordCreditCardPage() {
                         </div>
 
                         <div><PageWidthLayout/></div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </>
