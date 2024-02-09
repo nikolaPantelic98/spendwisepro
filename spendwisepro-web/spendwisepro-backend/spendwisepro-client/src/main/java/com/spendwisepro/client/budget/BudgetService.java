@@ -9,4 +9,5 @@ public interface BudgetService {
     List<Budget> getMonthlyBudgets(String token);
     Budget saveBudget(Budget budget, String token);
     Budget getBudgetById(Long budgetId, String token);
+    void updateBudget(Long budgetId, Budget budget, String token);
 }

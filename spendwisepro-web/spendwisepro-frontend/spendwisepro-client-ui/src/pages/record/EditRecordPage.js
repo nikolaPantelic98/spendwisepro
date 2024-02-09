@@ -18,7 +18,7 @@ function EditRecordPage() {
                 <div className="h-6 bg-green-50"></div>
 
                 <div>
-                    <PageHeader title="Add record" />
+                    <PageHeader title="Edit record" />
                 </div>
 
                 <div className="flex justify-center min-h-screen bg-green-50">

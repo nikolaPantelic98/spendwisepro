@@ -36,4 +36,10 @@ public class BudgetRestController {
     public Budget getBudgetById(@PathVariable Long budgetId, @RequestHeader("Authorization") String token) {
         return budgetService.getBudgetById(budgetId, token);
     }
+
+    @PutMapping("/edit/{budgetId}")
+    public ResponseEntity<String> updateBudget(@PathVariable Long budgetId, @RequestBody Budget budget, @RequestHeader("Authorization") String token) {
+        budgetService.updateBudget(budgetId, budget, token);
+        return ResponseEntity.ok("Budget updated successfully.");
+    }
 }
