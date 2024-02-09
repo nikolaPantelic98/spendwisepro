@@ -37,4 +37,7 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
     void deleteRecordById(Long recordId, Long userId);
 
     Long countById(Long id);
+
+    @Query("SELECT r FROM Record r WHERE r.creditCard.id = ?1 AND r.user.id = ?2")
+    List<Record> findAllRecordsByCreditCard(Long creditCardId, Long userId);
 }

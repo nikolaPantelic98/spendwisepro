@@ -110,6 +110,12 @@ public class CreditCardServiceImpl implements CreditCardService{
             throw new CreditCardNotFoundException("Could not find any credit card with id " + creditCardId);
         }
 
+        List<Record> records = recordRepository.findAllRecordsByCreditCard(creditCardId, authenticatedUser.getId());
+
+        for (Record record : records) {
+            recordRepository.deleteById(record.getId());
+        }
+
         creditCardRepository.deleteCreditCardById(creditCardId, authenticatedUser.getId());
     }
 }

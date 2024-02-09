@@ -13,7 +13,6 @@ import axios from "axios";
 import {useReduxReset} from "../../../redux/useReduxReset";
 import {useDispatch, useSelector} from "react-redux";
 import {setBudgetAmount, setBudgetCategories, setBudgetName, setBudgetPeriod} from "../../../redux/budgetSlice";
-import {setRecordCreditCard, setRecordPaymentType} from "../../../redux/recordSlice";
 
 export default function EditBudgetForm() {
 
@@ -68,7 +67,6 @@ export default function EditBudgetForm() {
             return "monthly";
         }
     }
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
