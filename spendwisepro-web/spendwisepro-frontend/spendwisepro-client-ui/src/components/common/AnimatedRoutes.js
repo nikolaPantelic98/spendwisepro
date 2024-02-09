@@ -50,6 +50,7 @@ import PlannedPaymentsPage from "../../pages/planned-payments/PlannedPaymentsPag
 import AddPlannedPaymentPage from "../../pages/planned-payments/AddPlannedPaymentPage";
 
 import {AnimatePresence} from "framer-motion";
+import EditBudgetPage from "../../pages/budget/EditBudgetPage";
 
 function AnimatedRoutes() {
 
@@ -102,6 +103,7 @@ function AnimatedRoutes() {
                     <Route path="/budgets/weekly/*" element={<PrivateRoute element={<BudgetWeeklyPage />} />} />
                     <Route path="/budgets/monthly/*" element={<PrivateRoute element={<BudgetMonthlyPage />} />} />
                     <Route path="/add_budget" element={<PrivateRoute element={<AddBudgetPage />} />} />
+                    <Route path="/edit_budget/:id" element={<PrivateRoute element={<EditBudgetPage />} />} />
 
                     <Route path="/budgets/amount" element={<PrivateRoute element={<BudgetAmountPage />} />} />
                     <Route path="/budgets/name" element={<PrivateRoute element={<BudgetNamePage />} />} />

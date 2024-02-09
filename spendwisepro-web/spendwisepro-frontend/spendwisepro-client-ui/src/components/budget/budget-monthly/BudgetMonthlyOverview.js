@@ -8,6 +8,7 @@ import React, {useEffect, useState} from "react";
 import { Progress } from "@material-tailwind/react";
 import {PencilSquareIcon} from "@heroicons/react/24/outline";
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 export default function BudgetMonthlyOverview({ id }) {
 
@@ -112,9 +113,11 @@ export default function BudgetMonthlyOverview({ id }) {
                                         <Typography variant="h4" className="text-gray-900 font-bold mt-2 truncate">
                                             {budget.amount.toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                         </Typography>
-                                        <Button size="sm" variant="text" className="mt-1">
-                                            <PencilSquareIcon strokeWidth={2} className="w-6 h-6" />
-                                        </Button>
+                                        <Link to={`/edit_budget/${budget.id}`}>
+                                            <Button size="sm" variant="text" className="mt-1">
+                                                <PencilSquareIcon strokeWidth={2} className="w-6 h-6" />
+                                            </Button>
+                                        </Link>
                                     </div>
                                     <div className="flex gap-4 items-center">
                                         <Chip size="md" value={`${generatePercentageLeft(budget.amount, budget.spent)}%`} variant="ghost" className="bg-gray-200 text-gray-900 font-semibold mt-2 text-sm" />
