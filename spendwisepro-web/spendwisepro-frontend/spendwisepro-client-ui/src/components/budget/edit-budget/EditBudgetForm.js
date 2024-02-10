@@ -100,6 +100,19 @@ export default function EditBudgetForm() {
         }
     }, [updatedAmount, updatedName, updatedPeriod, updatedCategories]);
 
+    const deleteBudget = () => {
+        axios.delete(`http://localhost:8000/spendwisepro/budgets/delete/${id}`, { headers })
+            .then(() => {
+                navigate('/budgets', {state: {deleteSuccess: true}});
+            })
+            .catch(error => console.error('Error deleting budget:', error));
+        handleCloseDeleteConfirmationDialog();
+    }
+
+    function navigateToBudget() {
+        navigate('/budgets/' + getPeriod(budget.period) + `/${id}`);
+    }
+
 
     return budgetDB ? (
 
@@ -116,10 +129,23 @@ export default function EditBudgetForm() {
 
                             <BudgetCategory setAllCategories={handleCategoriesChange} initialValue={categories !== null ? categories : budgetDB.categories} formType="edit" id={id} />
                         </ul>
+
                         <hr className="my-2 border-blue-gray-50" />
+
+                        <div className="flex justify-center items-center space-x-2">
+                            <Button onClick={handleOpenDeleteConfirmationDialog} className="mt-2 w-full" variant="outlined" color="red">
+                                <span>Delete</span>
+                            </Button>
+                            <Button className="mt-2 w-full" variant="outlined" color="green" onClick={() => {
+                                navigateToBudget();
+                                reduxReset();
+                            }}>
+                                <span>Cancel</span>
+                            </Button>
+                        </div>
                         <div className="flex justify-center items-center">
                             <Button type="submit" className="mt-2 w-full" variant="gradient" color="green">
-                                <span>Add</span>
+                                <span>Save</span>
                             </Button>
                         </div>
                     </div>
@@ -143,7 +169,7 @@ export default function EditBudgetForm() {
                     <Button
                         variant="text"
                         color="red"
-                        // onClick={deleteBudget}
+                        onClick={deleteBudget}
                         className="mr-1"
                     >
                         <span>Delete</span>
