@@ -6,6 +6,7 @@ import com.spendwisepro.common.entity.Budget;
 import com.spendwisepro.common.entity.BudgetPeriod;
 import com.spendwisepro.common.entity.Category;
 import com.spendwisepro.common.entity.User;
+import com.spendwisepro.common.exception.BudgetNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -85,5 +86,18 @@ public class BudgetServiceImpl implements BudgetService {
         }
 
         budgetRepository.save(existingBudget);
+    }
+
+    @Override
+    public void deleteBudget(Long budgetId, String token) throws BudgetNotFoundException {
+        User authenticatedUser = getAuthenticatedUser(token);
+
+        Long countById = budgetRepository.countById(budgetId);
+
+        if (countById == null || countById == 0) {
+            throw new BudgetNotFoundException("Could not find any budget with id " + budgetId);
+        }
+
+        budgetRepository.deleteBudgetById(budgetId, authenticatedUser.getId());
     }
 }

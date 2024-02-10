@@ -38,7 +38,10 @@ public class Budget {
     )
     private BudgetPeriod period;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(
+            fetch = FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH}
+    )
     @JoinTable(
             name = "budgets_categories",
             joinColumns = @JoinColumn(
