@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const recordSlice = createSlice({
     name: 'record',
     initialState: {
-        amount: "",
+        transactionType: "",
+        amount: 0,
         category: null,
         paymentType: "",
         creditCard: null,
@@ -12,6 +13,9 @@ const recordSlice = createSlice({
         selectedTab: "expense"
     },
     reducers: {
+        setRecordTransactionType: (state, action) => {
+            state.transactionType = action.payload;
+        },
         setRecordAmount: (state, action) => {
             state.amount = action.payload;
         },
@@ -34,7 +38,8 @@ const recordSlice = createSlice({
             state.selectedTab = action.payload;
         },
         resetRecord: state => {
-            state.amount = "";
+            state.transactionType = "";
+            state.amount = 0;
             state.category = null;
             state.paymentType = "";
             state.creditCard = null;
@@ -45,6 +50,6 @@ const recordSlice = createSlice({
     },
 });
 
-export const { setRecordAmount, setRecordCategory, setRecordPaymentType, setRecordCreditCard, setRecordDateAndTime, setRecordNote, setSelectedTab, resetRecord } = recordSlice.actions;
+export const { setRecordTransactionType, setRecordAmount, setRecordCategory, setRecordPaymentType, setRecordCreditCard, setRecordDateAndTime, setRecordNote, setSelectedTab, resetRecord } = recordSlice.actions;
 
 export default recordSlice.reducer;

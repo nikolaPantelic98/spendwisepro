@@ -51,6 +51,7 @@ import ExpensesRecordsMonthlyPage from "./expenses/ExpensesRecordsMonthlyPage";
 import ExpensesRecordsWeeklyPage from "./expenses/ExpensesRecordsWeeklyPage";
 import PlannedPaymentsPage from "./planned-payments/PlannedPaymentsPage";
 import AddPlannedPaymentPage from "./planned-payments/AddPlannedPaymentPage";
+import RecordTransactionTypePage from "./record/form/RecordTransactionTypePage";
 
 function App() {
 
@@ -85,6 +86,7 @@ function App() {
                         <Route path="/records/credit_card" element={<PrivateRoute element={<RecordCreditCardPage />} />} />
                         <Route path="/records/note" element={<PrivateRoute element={<RecordNotePage />} />} />
                         <Route path="/records/date_and_time" element={<PrivateRoute element={<RecordDateAndTimePage />} />} />
+                        <Route path="/records/transaction_type" element={<PrivateRoute element={<RecordTransactionTypePage />} />} />
 
                         <Route path="/balance" element={<PrivateRoute element={<BalancePage />} />} />
                         <Route path="/cash" element={<PrivateRoute element={<CashPage />} />} />

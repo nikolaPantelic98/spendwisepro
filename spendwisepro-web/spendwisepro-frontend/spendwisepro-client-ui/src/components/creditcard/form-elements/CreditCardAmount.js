@@ -19,6 +19,10 @@ export default function CreditCardAmount({ initialValue = "", formType, id }) {
         dispatch(setCreditCardAmount(initialValue));
     }, [initialValue]);
 
+    useEffect(() => {
+        console.log(": " + initialValue);
+    })
+
     const handleAmountClick = () => {
         navigate('/credit_cards/amount', { state: { amount: amount, from: navigateTo } });
     };

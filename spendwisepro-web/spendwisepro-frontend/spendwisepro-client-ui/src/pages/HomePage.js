@@ -9,8 +9,12 @@ import PlannedPaymentsCard from "../components/home/PlannedPaymentsCard";
 import TopExpensesCard from "../components/home/TopExpensesCard";
 
 import { motion } from "framer-motion";
+import {useReduxReset} from "../redux/useReduxReset";
 
 function HomePage() {
+
+    const reduxReset = useReduxReset();
+
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = (isOpen) => {
@@ -22,8 +26,10 @@ function HomePage() {
         if (scrollPosition) {
             window.scrollTo(0, parseInt(scrollPosition));
             sessionStorage.removeItem('scrollPosition');
+            reduxReset();
         } else {
             window.scrollTo(0, 0);
+            reduxReset();
         }
     }, []);
 
@@ -54,13 +60,13 @@ function HomePage() {
                                     <BudgetCard/>
                                 </div>
 
-                                <div className="mt-8 mx-6">
-                                    <GoalCard/>
-                                </div>
+                                {/*<div className="mt-8 mx-6">*/}
+                                {/*    <GoalCard/>*/}
+                                {/*</div>*/}
 
-                                <div className="mt-8 mx-6">
-                                    <PlannedPaymentsCard/>
-                                </div>
+                                {/*<div className="mt-8 mx-6">*/}
+                                {/*    <PlannedPaymentsCard/>*/}
+                                {/*</div>*/}
 
                                 <div><PageWidthLayout/></div>
                             </motion.div>
