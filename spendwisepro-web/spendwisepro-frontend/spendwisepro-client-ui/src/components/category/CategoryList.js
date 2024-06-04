@@ -14,6 +14,7 @@ import {
 } from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import getData from "../../api/axiosInstance";
 
 export default function CategoryList() {
 
@@ -31,11 +32,12 @@ export default function CategoryList() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/categories/all', { headers })
-            .then(response => {
-                setCategories(response.data);
-            })
-            .catch(error => console.error('Error fetching parent categories:', error));
+        getData(
+            "/categories/all",
+            headers,
+            setCategories,
+            "Error fetching parent categories"
+        )
     }, []);
 
     // Filter parent categories from the 'categories' array.

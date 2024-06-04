@@ -2,6 +2,7 @@ import {Card, CardBody, Progress, Typography} from "@material-tailwind/react";
 import React, {useEffect, useState} from "react";
 import {DocumentIcon} from "@heroicons/react/24/outline";
 import axios from "axios";
+import getData from "../../../api/axiosInstance";
 
 export default function BudgetWeeklyTopExpenses({ id }) {
 
@@ -17,27 +18,30 @@ export default function BudgetWeeklyTopExpenses({ id }) {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/budgets/weekly', { headers })
-            .then(response => {
-                setWeeklyBudgets(response.data);
-            })
-            .catch(error => console.error('Error fetching weekly budgets:', error));
+        getData(
+            "/budgets/weekly",
+            headers,
+            setWeeklyBudgets,
+            "Error fetching weekly budgets"
+        )
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/expense_records_this_week', { headers })
-            .then(response => {
-                setRecordsThisWeek(response.data);
-            })
-            .catch(error => console.error('Error fetching expense records this week:', error));
+        getData(
+            "/records/expense_records_this_week",
+            headers,
+            setRecordsThisWeek,
+            "Error fetching expense records this week"
+        )
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/categories/all', { headers })
-            .then(response => {
-                setCategories(response.data);
-            })
-            .catch(error => console.error('Error fetching categories:', error));
+        getData(
+            "/categories/all",
+            headers,
+            setCategories,
+            "Error fetching categories"
+        )
     }, []);
 
 

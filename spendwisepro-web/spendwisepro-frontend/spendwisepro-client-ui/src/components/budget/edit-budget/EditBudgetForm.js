@@ -13,6 +13,7 @@ import axios from "axios";
 import {useReduxReset} from "../../../redux/useReduxReset";
 import {useDispatch, useSelector} from "react-redux";
 import {setBudgetAmount, setBudgetCategories, setBudgetName, setBudgetPeriod} from "../../../redux/budgetSlice";
+import getData from "../../../api/axiosInstance";
 
 export default function EditBudgetForm() {
 
@@ -53,11 +54,12 @@ export default function EditBudgetForm() {
     const handleCloseDeleteConfirmationDialog = () => setOpenDeleteConfirmationDialog(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/spendwisepro/budgets/${id}`, { headers })
-            .then(response => {
-                setBudgetDB(response.data);
-            })
-            .catch(error => console.error('Error fetching budget:', error));
+        getData(
+            `/budgets/${id}`,
+            headers,
+            setBudgetDB,
+            "Error fetching budget"
+        )
     }, [id]);
 
     function getPeriod(period) {

@@ -16,6 +16,7 @@ import {
 import React, {useEffect, useState} from "react";
 import {ChartBarIcon} from "@heroicons/react/24/solid";
 import axios from "axios";
+import getData from "../../../api/axiosInstance";
 
 export default function ExpensesOverviewWeek() {
 
@@ -28,11 +29,12 @@ export default function ExpensesOverviewWeek() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/expense_records_this_week', { headers })
-            .then(response => {
-                setExpenseRecordsThisWeek(response.data);
-            })
-            .catch(error => console.error('Error fetching expense records this week:', error));
+        getData(
+            "/records/expense_records_this_week",
+            headers,
+            setExpenseRecordsThisWeek,
+            "Error fetching expense records this week"
+        )
     }, []);
 
     const currentDate = new Date();

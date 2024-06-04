@@ -7,6 +7,7 @@ import PageHeader from "../../../components/common/PageHeader";
 import {Avatar, Card, CardBody, ListItem, Typography} from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import axios from "axios";
+import getData from "../../../api/axiosInstance";
 
 function CreditCardIconPage() {
 
@@ -30,11 +31,12 @@ function CreditCardIconPage() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/credit_card_icons/all', { headers })
-            .then(response => {
-                setIcons(response.data);
-            })
-            .catch(error => console.error('Error fetching icons:', error));
+        getData(
+            "/credit_card_icons/all",
+            headers,
+            setIcons,
+            "Error fetching icons"
+        )
     }, []);
 
     const handleSelectIcon = async (icon) => {

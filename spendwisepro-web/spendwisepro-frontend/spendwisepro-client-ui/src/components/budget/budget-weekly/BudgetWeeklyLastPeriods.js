@@ -13,6 +13,7 @@ import {
     YAxis
 } from "recharts";
 import axios from "axios";
+import getData from "../../../api/axiosInstance";
 
 export default function BudgetWeeklyLastPeriods({ id }) {
 
@@ -30,27 +31,30 @@ export default function BudgetWeeklyLastPeriods({ id }) {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/budgets/weekly', { headers })
-            .then(response => {
-                setWeeklyBudgets(response.data);
-            })
-            .catch(error => console.error('Error fetching weekly budgets:', error));
+        getData(
+            "/budgets/weekly",
+            headers,
+            setWeeklyBudgets,
+            "Error fetching weekly budgets"
+        )
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/all_expense_records', { headers })
-            .then(response => {
-                setRecords(response.data);
-            })
-            .catch(error => console.error('Error fetching expense records:', error));
+        getData(
+            "/records/all_expense_records",
+            headers,
+            setRecords,
+            "Error fetching expense records"
+        )
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/categories/all', { headers })
-            .then(response => {
-                setCategories(response.data);
-            })
-            .catch(error => console.error('Error fetching categories:', error));
+        getData(
+            "/categories/all",
+            headers,
+            setCategories,
+            "Error fetching categories"
+        )
     }, []);
 
     useEffect(() => {

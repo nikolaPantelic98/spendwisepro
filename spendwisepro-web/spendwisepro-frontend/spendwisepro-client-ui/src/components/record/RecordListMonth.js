@@ -9,6 +9,7 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import moment from "moment-timezone";
+import getData from "../../api/axiosInstance";
 
 export default function RecordListMonth() {
 
@@ -19,11 +20,12 @@ export default function RecordListMonth() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/last_30_days', { headers })
-            .then(response => {
-                setRecords(response.data);
-            })
-            .catch(error => console.error('Error fetching records:', error));
+        getData(
+            "/records/last_30_days",
+            headers,
+            setRecords,
+            "Error fetching records"
+        )
     }, []);
 
     // Extracts dates without hours and minutes

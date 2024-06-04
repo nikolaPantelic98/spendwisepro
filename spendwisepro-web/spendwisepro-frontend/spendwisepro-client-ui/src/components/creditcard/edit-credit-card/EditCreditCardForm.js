@@ -13,6 +13,7 @@ import {
 } from "../../../redux/creditCardSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useReduxReset} from "../../../redux/useReduxReset";
+import getData from "../../../api/axiosInstance";
 
 export default function EditCreditCardForm() {
 
@@ -57,11 +58,12 @@ export default function EditCreditCardForm() {
     const handleCloseDeleteConfirmationDialog = () => setOpenDeleteConfirmationDialog(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/spendwisepro/credit_cards/${id}`, { headers })
-            .then(response => {
-                setCreditCardDB(response.data);
-            })
-            .catch(error => console.error('Error fetching credit card:', error));
+        getData(
+            `/credit_cards/${id}`,
+            headers,
+            setCreditCardDB,
+            "Error fetching credit card"
+        )
     }, [id]);
 
     const handleSubmit = async (e) => {

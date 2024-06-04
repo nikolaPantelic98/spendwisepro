@@ -16,6 +16,7 @@ import {
 import React, {useEffect, useState} from "react";
 import {ChartBarIcon} from "@heroicons/react/24/solid";
 import axios from "axios";
+import getData from "../../../api/axiosInstance";
 
 export default function ExpensesOverviewMonth() {
 
@@ -28,11 +29,12 @@ export default function ExpensesOverviewMonth() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/expense_records_this_month', { headers })
-            .then(response => {
-                setExpenseRecordsThisMonth(response.data);
-            })
-            .catch(error => console.error('Error fetching expense records this month:', error));
+        getData(
+            "/records/expense_records_this_month",
+            headers,
+            setExpenseRecordsThisMonth,
+            "Error fetching expense records this month"
+        )
     }, []);
 
     const currentDate = new Date();

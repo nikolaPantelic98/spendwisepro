@@ -10,6 +10,7 @@ import {ChevronRightIcon, CreditCardIcon} from "@heroicons/react/24/outline";
 import {setRecordCreditCard} from "../../../redux/recordSlice";
 
 import { motion } from "framer-motion";
+import getData from "../../../api/axiosInstance";
 
 function RecordCreditCardPage() {
 
@@ -32,11 +33,12 @@ function RecordCreditCardPage() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/credit_cards/all', { headers })
-            .then(response => {
-                setCreditCards(response.data);
-            })
-            .catch(error => console.error('Error fetching credit cards:', error));
+        getData(
+            "/credit_cards/all",
+            headers,
+            setCreditCards,
+            "Error fetching credit cards"
+        )
     }, []);
 
     const handleSelectCreditCard = async (creditCard) => {

@@ -7,6 +7,7 @@ import {Avatar, Card, CardBody, ListItem, Typography} from "@material-tailwind/r
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import axios from "axios";
 import {setCategoryIcon} from "../../../redux/categorySlice";
+import getData from "../../../api/axiosInstance";
 
 function CategoryIconPage() {
 
@@ -30,11 +31,12 @@ function CategoryIconPage() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/category_icons/all', { headers })
-            .then(response => {
-                setIcons(response.data);
-            })
-            .catch(error => console.error('Error fetching icons:', error));
+        getData(
+            "/category_icons/all",
+            headers,
+            setIcons,
+            "Error fetching icons"
+        )
     }, []);
 
     const handleSelectIcon = async (icon) => {

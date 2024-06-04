@@ -4,6 +4,7 @@ import PageHeader from "../../components/common/PageHeader";
 import BudgetMonthlyTabs from "../../components/budget/BudgetMonthlyTabs";
 import {useParams} from "react-router-dom";
 import axios from "axios";
+import getData from "../../api/axiosInstance";
 
 function BudgetMonthlyPage() {
     const { '*': id } = useParams();
@@ -16,11 +17,12 @@ function BudgetMonthlyPage() {
     };
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/spendwisepro/budgets/${id}`, { headers })
-            .then(response => {
-                setBudget(response.data);
-            })
-            .catch(error => console.error(`Error fetching budget with id ${id}:`, error));
+        getData(
+            `/budgets/${id}`,
+            headers,
+            setBudget,
+            `Error fetching budget with id ${id}`
+        )
     }, [id]);
 
     const [sidebarOpen, setSidebarOpen] = useState(false);

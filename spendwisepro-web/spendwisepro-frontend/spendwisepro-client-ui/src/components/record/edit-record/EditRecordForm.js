@@ -19,6 +19,7 @@ import RecordDateAndTime from "../form-elements/RecordDateAndTime";
 import RecordNote from "../form-elements/RecordNote";
 import RecordCreditCard from "../form-elements/RecordCreditCard";
 import RecordTransactionType from "../form-elements/RecordTransactionType";
+import getData from "../../../api/axiosInstance";
 
 export default function EditRecordForm() {
 
@@ -76,11 +77,12 @@ export default function EditRecordForm() {
     const handleCloseDeleteConfirmationDialog = () => setOpenDeleteConfirmationDialog(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/spendwisepro/records/${id}`, { headers })
-            .then(response => {
-                setRecordDB(response.data);
-            })
-            .catch(error => console.error('Error fetching record:', error));
+        getData(
+            `/records/${id}`,
+            headers,
+            setRecordDB,
+            "Error fetching record"
+        )
     }, [id]);
 
     const handleSubmitIncome = async (e) => {

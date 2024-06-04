@@ -16,6 +16,7 @@ import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAx
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import getData from "../../api/axiosInstance";
 
 export default function TrendCard() {
 
@@ -36,11 +37,12 @@ export default function TrendCard() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/all', { headers })
-            .then(response => {
-                setRecords(response.data);
-            })
-            .catch(error => console.error('Error fetching records:', error));
+        getData(
+            "/records/all",
+            headers,
+            setRecords,
+            "Error fetching records"
+        )
     }, []);
 
     const currentDate = new Date();

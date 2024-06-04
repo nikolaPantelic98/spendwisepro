@@ -7,7 +7,7 @@ import {
 import {ArrowTrendingUpIcon, CurrencyDollarIcon} from "@heroicons/react/24/solid";
 import {Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import React, {useEffect, useState} from "react";
-import axios from "axios";
+import getData from "../../api/axiosInstance";
 
 export default function BalanceChart() {
 
@@ -27,11 +27,12 @@ export default function BalanceChart() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/all', { headers })
-            .then(response => {
-                setRecords(response.data);
-            })
-            .catch(error => console.error('Error fetching records:', error));
+        getData(
+            '/records/all',
+            headers,
+            setRecords,
+            'Error fetching records'
+        );
     }, []);
 
     const currentDate = new Date();

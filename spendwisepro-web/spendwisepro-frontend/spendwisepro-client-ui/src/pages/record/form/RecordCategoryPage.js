@@ -18,6 +18,7 @@ import {ChevronDownIcon, ChevronRightIcon, RectangleGroupIcon} from "@heroicons/
 import {setRecordCategory} from "../../../redux/recordSlice";
 
 import { motion } from "framer-motion";
+import getData from "../../../api/axiosInstance";
 
 function RecordCategoryPage() {
 
@@ -40,11 +41,12 @@ function RecordCategoryPage() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/categories/all', { headers })
-            .then(response => {
-                setCategories(response.data);
-            })
-            .catch(error => console.error('Error fetching categories:', error));
+        getData(
+            "/categories/all",
+            headers,
+            setCategories,
+            "Error fetching categories"
+        )
     }, []);
 
     const parentCategories = categories.filter(category => category.parent === null);

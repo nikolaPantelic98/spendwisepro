@@ -8,6 +8,7 @@ import {ArrowLongRightIcon, ChevronRightIcon, DocumentIcon} from "@heroicons/rea
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import getData from "../../api/axiosInstance";
 
 export default function LastRecordsCard() {
 
@@ -20,11 +21,12 @@ export default function LastRecordsCard() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/last_records', { headers })
-            .then(response => {
-                setLastRecords(response.data);
-            })
-            .catch(error => console.error('Error fetching last records:', error));
+        getData(
+            "/records/last_records",
+            headers,
+            setLastRecords,
+            "Error fetching last records"
+        )
     }, []);
 
     function storeScrollPosition() {

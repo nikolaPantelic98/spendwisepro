@@ -8,6 +8,7 @@ import PageWidthLayout from "../../../components/common/PageWidthLayout";
 import axios from "axios";
 import {setCategoryParent} from "../../../redux/categorySlice";
 import {ChevronRightIcon, DocumentIcon} from "@heroicons/react/24/outline";
+import getData from "../../../api/axiosInstance";
 
 function CategoryParentPage() {
 
@@ -30,11 +31,12 @@ function CategoryParentPage() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/categories/all_root', { headers })
-            .then(response => {
-                setParents(response.data);
-            })
-            .catch(error => console.error('Error fetching parents:', error));
+        getData(
+            "/categories/all_root",
+            headers,
+            setParents,
+            "Error fetching parents"
+        )
     }, []);
 
     const handleSelectParent = async (parent) => {

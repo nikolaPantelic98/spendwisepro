@@ -8,6 +8,7 @@ import {ArrowLongRightIcon, ChevronRightIcon, CreditCardIcon} from "@heroicons/r
 import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import getData from "../../api/axiosInstance";
 
 export default function CreditCardList() {
 
@@ -20,11 +21,12 @@ export default function CreditCardList() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/credit_cards/all', { headers })
-            .then(response => {
-                setCreditCards(response.data);
-            })
-            .catch(error => console.error('Error fetching credit cards:', error));
+        getData(
+            "/credit_cards/all",
+            headers,
+            setCreditCards,
+            "Error fetching credit cards"
+        )
     }, []);
 
     function storeScrollPosition() {

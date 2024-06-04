@@ -9,6 +9,7 @@ import { Progress } from "@material-tailwind/react";
 import {PencilSquareIcon} from "@heroicons/react/24/outline";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import getData from "../../../api/axiosInstance";
 
 export default function BudgetWeeklyOverview({ id }) {
 
@@ -24,27 +25,30 @@ export default function BudgetWeeklyOverview({ id }) {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/budgets/weekly', { headers })
-            .then(response => {
-                setWeeklyBudgets(response.data);
-            })
-            .catch(error => console.error('Error fetching budgets:', error));
+        getData(
+            "/budgets/weekly",
+            headers,
+            setWeeklyBudgets,
+            "Error fetching weekly budgets"
+        )
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/expense_records_this_week', { headers })
-            .then(response => {
-                setRecordsThisWeek(response.data);
-            })
-            .catch(error => console.error('Error fetching expense records this week:', error));
+        getData(
+            "/records/expense_records_this_week",
+            headers,
+            setRecordsThisWeek,
+            "Error fetching expense records this week"
+        )
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/categories/all', { headers })
-            .then(response => {
-                setCategories(response.data);
-            })
-            .catch(error => console.error('Error fetching categories:', error));
+        getData(
+            "/categories/all",
+            headers,
+            setCategories,
+            "Error fetching categories"
+        )
     }, []);
 
     // Create a new object of weekly budgets based on the budget period and budget name

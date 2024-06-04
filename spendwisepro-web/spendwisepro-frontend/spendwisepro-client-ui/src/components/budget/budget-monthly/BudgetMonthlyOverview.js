@@ -9,6 +9,7 @@ import { Progress } from "@material-tailwind/react";
 import {PencilSquareIcon} from "@heroicons/react/24/outline";
 import axios from "axios";
 import {Link} from "react-router-dom";
+import getData from "../../../api/axiosInstance";
 
 export default function BudgetMonthlyOverview({ id }) {
 
@@ -24,27 +25,30 @@ export default function BudgetMonthlyOverview({ id }) {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/budgets/monthly', { headers })
-            .then(response => {
-                setMonthlyBudgets(response.data);
-            })
-            .catch(error => console.error('Error fetching budgets:', error));
+        getData(
+            "/budgets/monthly",
+            headers,
+            setMonthlyBudgets,
+            "Error fetching budgets"
+        )
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/expense_records_this_month', { headers })
-            .then(response => {
-                setRecordsThisMonth(response.data);
-            })
-            .catch(error => console.error('Error fetching expense records this month:', error));
+        getData(
+            "/records/expense_records_this_month",
+            headers,
+            setRecordsThisMonth,
+            "Error fetching expense records this month"
+        )
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/categories/all', { headers })
-            .then(response => {
-                setCategories(response.data);
-            })
-            .catch(error => console.error('Error fetching categories:', error));
+        getData(
+            "/categories/all",
+            headers,
+            setCategories,
+            "Error fetching categories"
+        )
     }, []);
 
     // Create a new object of monthly budgets based on the budget period and budget name

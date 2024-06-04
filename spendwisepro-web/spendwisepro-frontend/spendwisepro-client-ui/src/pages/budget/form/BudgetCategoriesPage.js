@@ -15,9 +15,9 @@ import {
     Checkbox
 } from "@material-tailwind/react";
 import PageWidthLayout from "../../../components/common/PageWidthLayout";
-import axios from "axios";
 import {ChevronDownIcon, ChevronRightIcon, RectangleGroupIcon} from "@heroicons/react/24/outline";
 import {saveSelectedCategories, setBudgetCategories} from "../../../redux/budgetSlice";
+import getData from "../../../api/axiosInstance";
 
 function BudgetCategoriesPage() {
 
@@ -43,11 +43,12 @@ function BudgetCategoriesPage() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/categories/all', { headers })
-            .then(response => {
-                setAllCategories(response.data);
-            })
-            .catch(error => console.error('Error fetching categories:', error));
+        getData(
+            "/categories/all",
+            headers,
+            setAllCategories,
+            "Error fetching categories"
+        )
     }, []);
 
     const parentCategories = allCategories.filter(category => category.parent === null);

@@ -11,6 +11,7 @@ import {ChartBarIcon} from "@heroicons/react/24/solid";
 import {Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
 import axios from "axios";
 import moment from "moment-timezone";
+import getData from "../../../api/axiosInstance";
 
 export default function ExpensesRecordsListMonthly() {
 
@@ -25,11 +26,12 @@ export default function ExpensesRecordsListMonthly() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/expense_records_this_week', { headers })
-            .then(response => {
-                setExpenseRecordsThisWeek(response.data);
-            })
-            .catch(error => console.error('Error fetching expense records this week:', error));
+        getData(
+            "/records/expense_records_this_week",
+            headers,
+            setExpenseRecordsThisWeek,
+            "Error fetching expense records this week"
+        )
     }, []);
 
     const currentDate = new Date();

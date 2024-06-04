@@ -46,7 +46,8 @@ export default function AddBudgetForm() {
     };
 
 
-    const handleSubmit = async (e) => { e.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         try {
             await axios.post("http://localhost:8000/spendwisepro/budgets/save", budget, { headers });
             reduxReset();

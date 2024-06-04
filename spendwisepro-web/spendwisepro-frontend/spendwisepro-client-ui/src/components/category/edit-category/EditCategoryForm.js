@@ -9,6 +9,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useReduxReset} from "../../../redux/useReduxReset";
 import {useDispatch, useSelector} from "react-redux";
 import {setCategoryColor, setCategoryIcon, setCategoryName, setCategoryParent} from "../../../redux/categorySlice";
+import getData from "../../../api/axiosInstance";
 
 export default function EditCategoryForm() {
 
@@ -49,11 +50,12 @@ export default function EditCategoryForm() {
     const handleCloseDeleteConfirmationDialog = () => setOpenDeleteConfirmationDialog(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/spendwisepro/categories/${id}`, { headers })
-            .then(response => {
-                setCategoryDB(response.data);
-            })
-            .catch(error => console.error('Error fetching category:', error));
+        getData(
+            `/categories/${id}`,
+            headers,
+            setCategoryDB,
+            "Error fetching category"
+        )
     }, [id]);
 
     const handleSubmit = async (e) => {

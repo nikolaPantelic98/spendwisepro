@@ -9,6 +9,7 @@ import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import moment from "moment-timezone";
+import getData from "../../../api/axiosInstance";
 
 export default function BudgetWeeklyRecords({ id }) {
 
@@ -24,19 +25,21 @@ export default function BudgetWeeklyRecords({ id }) {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/budgets/weekly', { headers })
-            .then(response => {
-                setWeeklyBudgets(response.data);
-            })
-            .catch(error => console.error('Error fetching budgets:', error));
+        getData(
+            "/budgets/weekly",
+            headers,
+            setWeeklyBudgets,
+            "Error fetching weekly budgets"
+        )
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/expense_records_this_week', { headers })
-            .then(response => {
-                setRecordsThisWeek(response.data);
-            })
-            .catch(error => console.error('Error fetching expense records this week:', error));
+        getData(
+            "/records/expense_records_this_week",
+            headers,
+            setRecordsThisWeek,
+            "Error fetching expense records this week"
+        )
     }, []);
 
     useEffect(() => {

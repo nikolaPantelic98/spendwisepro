@@ -9,6 +9,7 @@ import React, {useEffect, useState} from "react";
 import { Progress } from "@material-tailwind/react";
 import {Link} from "react-router-dom";
 import axios from "axios";
+import getData from "../../../api/axiosInstance";
 
 export default function ExpensesListWeek() {
 
@@ -21,11 +22,12 @@ export default function ExpensesListWeek() {
     };
 
     useEffect(() => {
-        axios.get('http://localhost:8000/spendwisepro/records/expense_records_this_week', { headers })
-            .then(response => {
-                setExpenseRecordsThisWeek(response.data);
-            })
-            .catch(error => console.error('Error fetching expense records this week:', error));
+        getData(
+            "/records/expense_records_this_week",
+            headers,
+            setExpenseRecordsThisWeek,
+            "Error fetching expense records this week"
+        )
     }, []);
 
     // Create a new array to hold unique expenses
